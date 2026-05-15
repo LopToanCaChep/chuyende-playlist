@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên đề 1 - Đại số tổ hợp</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Unbounded:wght@400;700;900&display=swap&subset=vietnamese,latin" rel="stylesheet">
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        :root {
+            --primary-blue: #0040BE;
+            --dark-blue: #003B99;
+            --light-blue: #1E85EB;
+            --cyan-blue: #3C9EEF;
+            --yellow: #F7C800;
+            --orange: #FF7800;
+            --dark-orange: #E24500;
+            --bg: #0f172a;
+            --card-bg: #FFFFFF;
+            --text-main: #0F172A;
+            --text-dim: #64748B;
+            --correct: #16a34a;
+            --incorrect: #ef4444;
+            --radius: 24px;
+            --shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden !important; /* Chặn cuộn ngang tuyệt đối */
+            width: 100% !important;
+            background-image: radial-gradient(rgba(30, 133, 235, 0.15) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        
+        .slide {
+            position: fixed;
+            inset: 0 0 70px 0; /* Chừa 70px cho bottom nav */
+            display: flex;
+            align-items: flex-start; /* Fix lỗi cắt content khi dùng flex center */
+            justify-content: center;
+            overflow-y: auto; /* Cho cuộn ở cấp độ slide */
+            padding: 40px 0;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.3s ease, visibility 0.3s;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            z-index: 10;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .question-card {
+            background: #fff;
+            padding: 52px 24px 24px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+            max-width: 800px;
+            width: 95%;
+            margin: 0 auto;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            transition: box-shadow 0.3s ease;
+        }
+        .question-card::after {
+            content: ''; display: block; height: 4px;
+        }
+        .q-number { z-index: 11; }
+        
+        .q-number {
+            position: absolute;
+            top: 0;
+            transform: translateY(-50%);
+            left: 24px;
+            background: #F7C800;
+            color: #003B99;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-family: 'Manrope';
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border: 2px solid #003B99;
+            box-shadow: 0 4px 12px rgba(0,64,190,0.15);
+            z-index: 10;
+        }
+
+        /* Level Badges */
+        .question-card::before {
+            content: attr(data-level-name);
+            position: absolute;
+            top: 14px;
+            right: 24px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 3px 12px;
+            border-radius: 6px;
+            background: #f1f5f9;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+        }
+        .question-card[data-level="tb"]::before { background: #3C9EEF; color: #fff; content: "Cơ bản"; }
+        .question-card[data-level="kg"]::before { background: #F7C800; color: #003B99; content: "Nâng cao"; }
+        .question-card[data-level="tb"] .q-number { background: #3C9EEF; color: #fff; border-color: #003B99; }
+        .question-card[data-level="kg"] .q-number { background: #F7C800; color: #003B99; border-color: #003B99; }
+
+        .q-content {
+            font-size: 19px;
+            font-weight: 700;
+            color: #003B99;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            padding: 0 4px;
+            text-align: justify;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .question-card { 
+                height: auto !important; 
+                max-height: none !important; /* Xóa bỏ giới hạn để không bị tràn lời giải */
+                min-height: auto;
+                padding-top: 38px; 
+                margin-bottom: 20px;
+                margin-top: 24px;
+            }
+            .q-content { font-size: 17px; }
+        }
+
+        /* Quy tắc: Công thức toán phải đi cùng nhau, không được bẻ giữa chừng */
+        .katex {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 13px 16px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all .2s ease;
+            cursor: pointer;
+            position: relative;
+            text-align: left;
+        }
+
+        .option:hover:not(.answered) {
+            background: #dbeafe;
+            border-color: var(--primary-blue);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.08);
+        }
+
+        .option.correct {
+            background: #dcfce7 !important;
+            border-color: var(--correct) !important;
+            color: #166534;
+        }
+        .option.correct::after {
+            content: '✓';
+            position: absolute;
+            top: 50%; right: 14px; transform: translateY(-50%);
+            width: 24px; height: 24px; border-radius: 50%;
+            background: var(--correct); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 800;
+        }
+
+        .option.incorrect {
+            background: #fef2f2 !important;
+            border-color: var(--incorrect) !important;
+            color: #991b1b;
+            opacity: 0.8;
+        }
+        .option.incorrect::after {
+            content: '✕';
+            position: absolute;
+            top: 50%; right: 14px; transform: translateY(-50%);
+            width: 24px; height: 24px; border-radius: 50%;
+            background: var(--incorrect); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800;
+        }
+        .option:focus-visible {
+            outline: 3px solid var(--cyan-blue);
+            outline-offset: 3px;
+        }
+        .option.answered { cursor: default; }
+        .option.correct, .option.incorrect { padding-right: 50px; }
+
+        .opt-label {
+            color: var(--primary-blue);
+            font-size: 17px;
+            font-weight: 800;
+            margin-right: 8px;
+            min-width: auto;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .option.correct .opt-label { color: #065f46; }
+        .option.incorrect .opt-label { color: #9f1239; }
+
+        .solution {
+            display: none;
+            margin-top: 16px;
+            padding: 18px 20px;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 4px 12px 12px 4px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #475569;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .solution.show { display: block; }
+
+        .solution-title {
+            font-family: 'Manrope';
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ans-circle {
+            display: inline-flex;
+            width: 26px;
+            height: 26px;
+            background: var(--primary-blue);
+            color: #fff;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin-left: 6px;
+            font-size: 13px;
+        }
+
+        .sol-final {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e2e8f0;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Tiêu đề phân mức */
+        .level-header {
+            background: var(--yellow);
+            color: var(--dark-blue);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 40px auto 20px;
+            border: 3px solid var(--dark-blue);
+            box-shadow: 4px 4px 0 var(--dark-blue);
+            max-width: fit-content;
+            display: none; /* Mặc định ẩn — JS sẽ bật khi cần */
+        }
+        .level-header.visible { display: block; }
+
+        /* Modal Lý thuyết - Modern Flat Style */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(15,23,42,0.8); backdrop-filter: blur(8px);
+            display: none; align-items: center; justify-content: center; z-index: 1000;
+        }
+
+        .modal-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+
+                .modal-content {
+            background: #fff; width: 92%; max-width: 800px; max-height: 85vh;
+            border-radius: 20px; overflow-y: auto; position: relative;
+            padding: 40px 32px; border: none;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .modal-close {
+            position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 24px; 
+            color: var(--text-dim); display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover { background: var(--incorrect); color: #fff; }
+
+
+        /* Floating Buttons */
+        .fab-container {
+            position: fixed; bottom: 25px; right: 20px; z-index: 200;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .fab {
+            width: 56px; height: 56px; border-radius: 50%; background: var(--orange);
+            border: 3px solid var(--dark-blue); color: #fff; font-size: 24px;
+            cursor: pointer; box-shadow: 4px 4px 0 var(--dark-blue);
+            display: flex; align-items: center; justify-content: center; transition: all .15s;
+        }
+        .fab:hover { transform: translateY(-4px); box-shadow: 4px 8px 0 var(--dark-blue); }
+        .fab:active { transform: translateY(2px); box-shadow: 2px 2px 0 var(--dark-blue); }
+        .fab.theory { background: var(--primary-blue); }
+
+        /* Nav Bar */
+        .nav {
+            position: fixed; bottom: 0; left: 0; right: 0; height: 70px;
+            z-index: 100; background: #fff; border-top: 3px solid var(--dark-blue);
+            display: flex; align-items: center; justify-content: center; gap: 20px;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+        }
+        .nb {
+            font-family: 'Manrope'; font-weight: 800; background: var(--dark-blue); color: #fff;
+            border: none; border-radius: 12px; padding: 8px 24px;
+            font-size: 16px; cursor: pointer; transition: all .1s;
+        }
+        .nb:hover:not(:disabled) { background: var(--light-blue); }
+        .nb:disabled { opacity: .35; filter: grayscale(0.6); cursor: default; }
+        .sc { font-family: 'Manrope'; font-weight: 800; color: var(--dark-blue); font-size: 18px; min-width: 90px; text-align: center; }
+        .prog { position: fixed; top: 0; left: 0; height: 6px; background: linear-gradient(90deg, var(--cyan-blue), var(--yellow)); z-index: 200; transition: width .3s; }
+        
+        .img-wrap { margin: 16px 0; text-align: center; }
+        .img-wrap img { max-width: 100%; border-radius: 12px; border: 2px solid #3B82F6; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- Cover Slide Styles --- */
+        .cover-card {
+            background: var(--primary-blue) !important;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px) !important;
+            background-size: 24px 24px !important;
+            color: #fff !important;
+            border: none !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            padding: 60px 40px 40px !important;
+            min-height: auto;
+            overflow: hidden !important;
+            position: relative !important;
+        }
+
+        .cover-eyebrow {
+            font-family: 'Unbounded';
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #FFD84D;
+            opacity: 1;
+            margin-top: 10px;
+        }
+
+        .cover-title {
+            font-family: 'Unbounded';
+            font-weight: 800;
+            font-size: clamp(28px, 8vw, 54px);
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin: 24px 0;
+            color: #fff;
+        }
+        .cover-subject {
+            display: block;
+            color: var(--yellow);
+            font-size: 0.6em;
+            margin-top: 8px;
+        }
+
+        .cover-subtitle {
+            font-family: 'Manrope';
+            font-size: 16px;
+            line-height: 1.5;
+            opacity: 0.9;
+            max-width: 420px;
+            margin-bottom: 30px;
+        }
+
+        .cover-badges {
+            display: flex;
+            gap: 12px;
+        }
+
+        .cover-badge {
+            background: var(--yellow);
+            color: var(--dark-blue);
+            font-family: 'Unbounded';
+            font-weight: 700;
+            font-size: 10px;
+            padding: 6px 16px;
+            border-radius: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .cover-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: none;
+            padding-top: 10px;
+            position: relative;
+            z-index: 2;
+            padding-bottom: 10px;
+        }
+
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 0 !important;
+                padding-bottom: 100px !important;
+            }
+            .slide:first-child .question-card {
+                height: auto !important;
+                border-radius: 18px !important;
+            }
+            .cover-card {
+                min-height: auto !important;
+                padding: 16px 16px 5px !important;
+                justify-content: flex-start !important;
+                gap: 16px;
+                overflow-y: auto !important;
+            }
+            .cover-title {
+                font-size: 38px !important;
+                margin: 16px 0 !important;
+            }
+            .cover-eyebrow { display: none !important; }
+            .cover-mascot { display: none !important; }
+            .cover-desc { margin: 0 !important; font-size: 14px !important; }
+            .cover-badges {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .cover-badge {
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                padding: 12px;
+            }
+            .cover-footer {
+                margin-top: 10px;
+                padding-top: 4px !important;
+                padding-bottom: 0 !important;
+            }
+        }
+
+        .cover-mascot {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 60%;
+            max-width: 300px;
+            opacity: 0.2;
+            pointer-events: none;
+            transform: rotate(-10deg);
+        }
+
+        /* Level Selector Styles */
+        .level-popup {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(12px);
+        }
+        .level-popup.show { display: flex; animation: fadeIn 0.3s ease; }
+        .level-box {
+            background: #fff; padding: 40px; border-radius: 32px;
+            border: 4px solid var(--dark-blue); text-align: center; width: 90%; max-width: 400px;
+            box-shadow: none;
+            position: relative;
+        }
+        .level-title { font-family: 'Manrope'; font-weight: 800; font-size: 24px; color: var(--dark-blue); margin-bottom: 30px; }
+        .level-btn {
+            display: block; width: 100%; padding: 20px; margin: 15px 0;
+            border-radius: 20px; border: 3px solid var(--dark-blue);
+            font-family: 'Manrope'; font-weight: 700; cursor: pointer;
+            transition: all 0.2s; font-size: 16px;
+        }
+        .level-btn:hover { transform: scale(1.03); }
+        .level-btn.basic { background: var(--yellow); color: var(--dark-blue); }
+        .level-btn.advanced { background: var(--orange); color: #fff; }
+        .level-btn.all { background: var(--light-blue); color: #fff; }
+
+        /* ═══ PROGRESS PANEL ═══ */
+        .progress-panel {
+            position: fixed;
+            bottom: 90px; left: 20px;
+            z-index: 500;
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+            width: 320px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+            display: none;
+        }
+        .progress-panel.open { display: block; animation: fadeIn 0.3s ease; }
+        .pp-header {
+            font-family: 'Manrope'; font-weight: 900;
+            font-size: 14px; color: var(--dark-blue);
+            text-align: center; margin-bottom: 14px;
+        }
+        .pp-filters {
+            display: flex; gap: 6px; margin-bottom: 14px;
+        }
+        .pp-filter {
+            flex: 1; padding: 8px 0;
+            border-radius: 8px; border: 1.5px solid #e2e8f0;
+            font-family: 'Manrope'; font-weight: 700;
+            font-size: 11px; text-align: center;
+            cursor: pointer; transition: all 0.2s;
+            background: #f8fafc; color: #64748b;
+        }
+        .pp-filter:hover { background: #dbeafe; border-color: var(--primary-blue); }
+        .pp-filter.active { background: var(--primary-blue); color: #fff; border-color: var(--primary-blue); }
+        .pp-filter.active-tb { background: #dbeafe; color: #2563eb; border-color: #2563eb; }
+        .pp-filter.active-kg { background: #fef3c7; color: #d97706; border-color: #d97706; }
+        .pg-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            padding-bottom: 45px;
+        }
+        .pg-cell {
+            width: 100%; aspect-ratio: 1;
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 13px;
+            color: #94a3b8;
+            cursor: pointer; transition: all .15s;
+            position: relative;
+        }
+        .pg-cell:hover { transform: scale(1.1); }
+        .pg-cell.current { box-shadow: 0 0 0 2px var(--primary-blue); }
+        .pg-cell.pg-correct {
+            background: #dcfce7; border-color: #16a34a; color: #16a34a;
+        }
+        .pg-cell.pg-correct::after {
+            content: '✓'; position: absolute; top: -4px; right: -4px;
+            font-size: 8px; background: #16a34a; color: #fff;
+            width: 14px; height: 14px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pg-cell.pg-wrong {
+            background: #fef2f2; border-color: #ef4444; color: #ef4444;
+        }
+        .pg-cell.pg-wrong::after {
+            content: '✗'; position: absolute; top: -4px; right: -4px;
+            font-size: 8px; background: #ef4444; color: #fff;
+            width: 14px; height: 14px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pg-legend {
+            display: flex; gap: 10px; margin-top: 10px;
+            justify-content: center;
+            font-size: 10px; font-weight: 700; color: #64748b;
+        }
+        .pg-legend span { display: flex; align-items: center; gap: 4px; }
+        .pg-legend .ldot { width: 10px; height: 10px; border-radius: 3px; }
+        .pp-score {
+            margin-top: 10px; padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .pp-score-label { font-family: 'Manrope'; font-weight: 800; font-size: 11px; color: var(--dark-blue); }
+        .pp-score-num { font-family: 'Manrope'; font-size: 20px; font-weight: 900; color: var(--primary-blue); }
+        /* Fix nền mobile */
+    @media (max-width: 768px) {
+        body {
+            background-color: #E8F4FF !important;
+            background-image: radial-gradient(#3C9EEF 1.5px, transparent 1.5px) !important;
+            background-size: 40px 40px !important;
+            min-height: 100vh;
+        }
+        .slide {
+            background-color: transparent !important;
+        }
+    }
+
+    
+    .theory-header { text-align: center; margin-bottom: 30px; position: relative; }
+
+    .theory-badge {
+        display: inline-block; background: var(--primary-soft, #dbeafe); color: var(--primary-blue, #2563eb);
+        padding: 6px 16px; border-radius: 99px; font-weight: 800; font-size: 11px;
+        letter-spacing: 1px; margin-bottom: 12px;
+    }
+
+    .theory-main-title {
+        font-family: 'Unbounded'; font-weight: 900; font-size: 28px;
+        color: var(--text-main, #0F172A); margin: 0;
+    }
+
+    .theory-line {
+        width: 60px; height: 4px; background: var(--primary-blue, #2563eb);
+        margin: 15px auto 0; border-radius: 2px;
+    }
+
+    .theory-h2 {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 18px;
+        color: var(--primary-blue, #2563eb); margin: 32px 0 16px;
+        display: flex; align-items: center; gap: 12px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    .theory-h2::before {
+        content: ""; width: 8px; height: 8px;
+        background: var(--orange, #FF7800); border-radius: 2px;
+        transform: rotate(45deg);
+    }
+
+    .theory-item {
+        display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
+    }
+
+    .theory-bullet {
+        width: 6px; height: 6px; background: var(--orange, #FF7800);
+        border-radius: 50%; margin-top: 10px; flex-shrink: 0;
+    }
+
+    .theory-box {
+        padding: 20px; border-radius: 16px; margin: 24px 0;
+        background: #f8fafc; border-left: 4px solid var(--primary-blue, #2563eb);
+    }
+
+    .theory-box-title {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 12px;
+        margin-bottom: 12px; color: var(--primary-blue, #2563eb);
+    }
+
+    .theory-note {
+        padding: 20px 24px; border-radius: 16px; margin: 24px 0;
+        background: #fffbeb; border: 2px solid #fde68a;
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+    }
+    
+    .theory-note-title {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 14px;
+        color: #d97706; margin-bottom: 12px;
+        display: flex; align-items: center; gap: 8px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    
+    .theory-note-title::before {
+        content: "💡"; font-size: 18px;
+    }
+    
+    .theory-note .theory-text, .theory-note .theory-item {
+        color: #92400e; margin-bottom: 10px;
+    }
+    
+    .theory-note .theory-bullet {
+        background: #d97706;
+    }
+
+    .theory-table {
+        width: 100%; border-collapse: separate; border-spacing: 0;
+        margin: 24px 0; border-radius: 12px; overflow: hidden;
+        border: 1px solid var(--border, #e2e8f0);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .theory-table th {
+        background: #f8fafc; color: var(--text-main, #1e293b); font-weight: 800;
+        padding: 16px; text-align: left; border-bottom: 2px solid var(--border, #e2e8f0);
+    }
+
+    .theory-table td {
+        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0);
+        background: #fff;
+    }
+
+    .theory-table tr:last-child td { border-bottom: none; }
+    
+    .theory-text { font-size: 16px; line-height: 1.8; color: #334155; }
+
+
+    /* Screen reader only */
+    .sr-only {
+        position: absolute !important;
+        width: 1px; height: 1px; padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0,0,0,0);
+        white-space: nowrap; border: 0;
+    }
+
+    /* Score chip — góc phải trên */
+    .score-chip {
+        position: fixed; top: 23px; right: 20px;
+        background: rgba(255,255,255,0.98); color: var(--dark-blue);
+        border: none;
+        border-radius: 12px; padding: 6px 14px;
+        font-family: 'Manrope', sans-serif; font-weight: 800;
+        text-align: center; z-index: 200;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        min-width: 70px;
+    }
+    @media (max-width: 768px) {
+        .score-chip { top: 60px; right: 12px; padding: 4px 10px; min-width: 56px; }
+        .score-chip span:last-child { font-size: 16px !important; }
+        .question-card::before {
+            right: 24px;
+            left: auto;
+            top: 10px;
+            display: block;
+            font-size: 9px;
+            padding: 2px 8px;
+        }
+    }
+
+
+
+    /* Final score modal */
+    .final-card {
+        background: #fff; border: 4px solid var(--dark-blue);
+        border-radius: 32px; padding: 40px;
+        text-align: center; max-width: 400px; width: 90%;
+        position: relative;
+    }
+    .final-card .big-score {
+        font-family: 'Manrope'; font-weight: 900; font-size: 72px;
+        color: var(--orange); line-height: 1;
+        margin: 16px 0;
+    }
+    .final-card .label {
+        font-family: 'Manrope'; font-weight: 800;
+        font-size: 14px; letter-spacing: 1px;
+        color: var(--dark-blue); text-transform: uppercase;
+    }
+    .final-card .verdict {
+        font-family: 'Manrope', sans-serif; font-weight: 700;
+        font-size: 16px; color: var(--text-main); margin: 16px 0 24px;
+    }
+
+    /* Quick Level Toggle Button (Menu) */
+    .quick-level-toggle {
+        position: fixed;
+        left: 20px;
+        bottom: 25px;
+        width: 56px;
+        height: 56px;
+        background: var(--primary-blue, #2563eb);
+        color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+        border: 2px solid white;
+        transition: all 0.2s;
+    }
+    .quick-level-toggle:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37,99,235,0.4);
+    }
+
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog" style="width:0%"></div>
+
+<!-- Live region cho screen reader -->
+<div id="ariaLive" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Nút mở Progress Panel (luôn hiển thị) -->
+<button class="quick-level-toggle" id="btnOpenLevel" aria-label="Tiến trình học" aria-expanded="false" aria-controls="progressPanel">
+    <span style="line-height:1; font-size: 18px;">📋</span>
+    <span style="font-size:8px; margin-top:2px;">MENU</span>
+</button>
+
+<!-- Bảng điểm số / score chip -->
+<div class="score-chip" id="scoreChip" aria-live="polite">
+    <span style="font-size:10px; opacity:0.8; display:block; line-height:1;">ĐIỂM</span>
+    <span id="scoreNum" style="font-family:'Manrope'; font-weight:800; font-size:20px;">0/0</span>
+</div>
+
+<div class="container">
+    <div id="content-container">
+        <div class="slide" data-i="0" id="slide-0">
+            <div class="question-card cover-card">
+                <div class="cover-top">
+                    <div style="font-family:'Unbounded'; font-weight:900; font-size:24px; letter-spacing:-1px; color:#fff;">TOÁN CÁ CHÉP</div>
+                    <div class="cover-eyebrow">Hệ thống Chuyên đề</div>
+                </div>
+
+                <div class="cover-middle">
+                    <h1 class="cover-title">
+                        Chuyên đề 1 - Đại số tổ hợp
+                        <span class="cover-subject">Đại số - Giải tích</span>
+                    </h1>
+                    <p class="cover-subtitle">
+                        Nắm vững lý thuyết, thành thạo bài tập phân mức Cơ bản và Nâng cao.
+                    </p>
+                    <div class="cover-badges">
+                        <span class="cover-badge" style="cursor:pointer;" onclick="document.getElementById('levelPopup').classList.add('show')">CƠ BẢN & NÂNG CAO ▼</span>
+                    </div>
+                </div>
+
+                <div class="cover-footer">
+                    <div style="font-size: 13px; opacity: 0.8; font-family:'Manrope';">Lớp Toán Cá Chép · 2026</div>
+                    <img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1778198273/chuyende_assets/f6ahieihwhupukjagl8x.png" alt="Mascot Cá Chép" style="height: 80px; object-fit: contain;">
+                </div>
+                
+                <div class="cover-mascot" style="font-size: 200px; color: rgba(255,255,255,0.05); line-height: 1;">🐟</div>
+            </div>
+        </div>
+<h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="1" id="slide-1">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 1</div>
+                <div class="q-content">Một công việc được hoàn thành bởi một trong hai hành động. Nếu hành động thứ nhất có $a$ cách thực hiện, hành động thứ hai có $b$ cách thực hiện (các cách thực hiện của cả hai hành động là khác nhau đôi một) thì số cách để hoàn thành công việc đó là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a b$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a+b$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a-b$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Công việc được hoàn thành bởi một trong hai hành động độc lập. Theo quy tắc cộng, ta có $a + b$ cách để hoàn thành.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="2" id="slide-2">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 2</div>
+                <div class="q-content">Một công việc được hoàn thành bởi hai hành động liên tiếp. Nếu hành động thứ nhất có $a$ cách thực hiện và ứng với mỗi cách thực hiện hành động thứ nhất có $b$ cách thực hiện hành động thứ hai thì số cách để hoàn thành công việc đó là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a b$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a+b$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$a b+1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a+b+1$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Công việc phải trải qua 2 hành động liên tiếp. Theo quy tắc nhân, ta có $a \cdot b$ cách để hoàn thành.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="3" id="slide-3">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 3</div>
+                <div class="q-content">Bạn An đến thư viện trường để mượn một quyển sách Toán học hoặc Vật lí để đọc. Tại đó có 100 quyển sách Toán học và 120 quyển sách Vật lí. Bạn An có số cách chọn sách là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">100 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">120 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">12000 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">220 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Vì bạn An chỉ mượn 1 quyển sách nên có thể mượn sách Toán hoặc Vật lí. Theo quy tắc cộng, An có $100 + 120 = 220$ cách chọn.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="4" id="slide-4">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 4</div>
+                <div class="q-content">Cho $k, n$ là các số nguyên dương thoả mãn $n \geq k$. Trong các phát biểu sau, phát biểu nào đúng?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$A_{n}^{k} = n(n-1) \ldots(n-k+1)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$A_{n}^{k}=n(n-1) \ldots k$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{n!}{(n-k)!k!}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{n!}{k!}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Theo công thức tính số chỉnh hợp chập $k$ của $n$ phần tử, ta có: $\displaystyle A_{n}^{k} = \frac{n!}{(n-k)!} = n(n-1) \ldots(n-k+1)$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="5" id="slide-5">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 5</div>
+                <div class="q-content">Cho tập hợp $A$ có $n$ phần tử ( $n \geq 1$ ) và số nguyên dương $k$ thoả mãn $k \leq n$. Một tổ hợp chập $k$ của $n$ phần tử là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Tất cả kết quả của việc lấy $k$ phần tử từ $n$ phần tử của tập hợp $A$ và sắp xếp chúng theo một thứ tự nào đó</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Tất cả tập con gồm $k$ phần tử được lấy ra từ $n$ phần tử của tập hợp $A$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Mỗi kết quả của việc lấy $k$ phần tử từ $n$ phần tử của tập hợp $A$ và sắp xếp chúng theo một thứ tự nào đó</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Mỗi tập con gồm $k$ phần tử được lấy ra từ $n$ phần tử của tập hợp $A$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Tổ hợp chập $k$ của $n$ phần tử là một tập con gồm $k$ phần tử được lấy ra từ $n$ phần tử của tập hợp $A$ (không phân biệt thứ tự).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="6" id="slide-6">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 6</div>
+                <div class="q-content">Cho $k, n$ là các số nguyên dương thoả mãn $n&gt;k$. Trong các mệnh đề sau, phát biểu nào sai?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{n}^{k}=C_{n}^{n-k}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle C_{n}^{k}=\frac{n!}{(n-k)!}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle C_{n}^{k}=\frac{n!}{(n-k)!k!}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{n}^{k}=C_{n-1}^{k-1}+C_{n-1}^{k}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Khẳng định sai là B. Công thức đúng của tổ hợp là $\displaystyle C_{n}^{k}=\frac{n!}{(n-k)!k!}$. Công thức ở đáp án B thực chất là của chỉnh hợp.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="7" id="slide-7">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 7</div>
+                <div class="q-content">Một đề thi trắc nghiệm có 10 câu hỏi, mỗi câu có 1 đáp án đúng trong 4 đáp án. Giả sử các đáp án được chọn ngẫu nhiên. Số khả năng làm đúng 4 câu trên 10 câu của đề thi đó là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{10}^{10}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{10}^{4}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$3^{6} C_{10}^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$3^{6} A_{10}^{4}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Mô̂i cách chọn 4 câu làm đúng trong 10 câu là một tổ hợp chập 4 của 10 phần tử nên số cách chọn là $C_{10}^{4}$.<br><br>Vì 6 câu còn lại làm sai mà có 3 đáp án sai mỗi câu nên số khả năng làm đúng 4 câu trên 10 câu của đề thi đó là $3 \cdot 3 \cdot 3 \cdot 3 \cdot 3 \cdot 3 \cdot C_{10}^{4}=3^{6} C_{10}^{4}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="8" id="slide-8">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 8</div>
+                <div class="q-content">Có 5 nhà xe vận chuyển hành khách giữa Hà Nội và Hải Phòng. Số cách để một người đi từ Hà Nội tới Hải Phòng rồi sau đó quay lại Hà Nội bằng hai nhà xe khác nhau là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">5 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">10 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">15 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">20 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phân tích: Từ Hà Nội tới Hải Phòng, một hành khác có 5 cách chọn nhà xe. Để quay lại Hà Nội bằng một nhà xe khác thì hành khách có $5-1=4$ cách chọn. Như vậy, theo quy tắc nhân thì số cách đi là $5 \cdot 4=20$ (cách).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="9" id="slide-9">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 9</div>
+                <div class="q-content">Số các số tự nhiên chẵn có ba chữ số, các chữ số đôi một khác nhau, được tạo thành từ các chữ số 1;2;3;4;5;6;7;8;9 là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">224 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">280 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">324 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Không số nào trong các số đó</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phân tích: Một số có ba chữ số như vậy có dạng $\overline{a b c}$, với $a, b, c$ khác nhau, được chọn từ các chữ số $1 ; 2 ; 3 ; 4 ; 5 ; 6 ; 7 ; 8 ; 9$ và $c$ chỉ nhận một trong các giá trị $2 ; 4 ; 6 ; 8$. Ta có thể xây dựng một<br>số như vậy bằng cách trước hết chọn $c$, sau đó chọn ra hai chữ số có sắp thứ tự $a, b$ từ các chữ số còn lại. Có 4 cách chọn $c$. Sau đó, có $A_{8}^{2}=8 \cdot 7=56$ cách chọn $a, b$. Vì thế, theo quy tắc nhân, số các số có tính chất của bài toán là: $4 \cdot 56=224$ (số)</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="10" id="slide-10">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 10</div>
+                <div class="q-content">Số các số tự nhiên trong khoảng từ 3000 đến 4000 , chia hết cho 5 , các chữ số đôi một khác nhau, được tạo thành từ các chữ số $1 ; 2 ; 3 ; 4 ; 5 ; 6$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{4}^{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$A_{4}^{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$A_{5}^{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{6}^{4}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phân tích: Một số tự nhiên nằm trong khoảng từ 3000 đến 4000 và chia hết cho 5 và có các chữ số được tạo thành từ các chữ số $1 ; 2 ; 3 ; 4 ; 5 ; 6$ phải có chữ số hàng đơn vị là 5 và chữ số hàng nghìn là 3 . Như vậy các số thoả mãn yêu cầu của bài toán có dạng $\overline{3 a b 5}$, trong đó $a, b$ là 2 chữ số khác nhau chọn trong các chữ số $1 ; 2 ; 4 ; 6$. Số các bộ hai số khác nhau, có sắp thứ tự, lấy ra từ 4 số đó là $A_{4}^{2}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="11" id="slide-11">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 11</div>
+                <div class="q-content">Cho số nguyên dương $n \geq 4$. Người ta đánh dấu $n$ điểm phân biệt trên một đường tròn. Biết rằng số các hình tam giác với các đỉnh là các điểm được đánh dấu thì bằng số các tứ giác với các đỉnh là các điểm được đánh dấu. Giá trị của $n$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">6 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">7 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">9 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phân tích: Mỗi tam giác cần đếm có 3 đỉnh là các điểm được đánh dấu. Đảo lại, mỗi bộ ba điểm được đánh dấu xác định một tam giác. Như vậy, số các tam giác với các điểm được đánh dấu bằng $C_{n}^{3}$.<br><br>Tương tự, số các tứ giác với các điểm được đánh dấu bằng $C_{n}^{4}$. Suy ra $C_{n}^{3}=C_{n}^{4}$, nghĩa là $\displaystyle \frac{n(n-1)(n-2)}{3 \cdot 2 \cdot 1}=\frac{n(n-1)(n-2)(n-3)}{4 \cdot 3 \cdot 2 \cdot 1}$. Điều này dẫn đến $n-3=4$, hay $n=7$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="12" id="slide-12">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 12</div>
+                <div class="q-content">Có 3 ứng viên cho 1 vị trí làm việc. Hội đồng tuyển dụng có 5 người, mỗi người bầu cho đúng 1 ứng viên. Số cách bầu của hội đồng là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{5}^{3}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$5^{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$3^{5}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Không số nào trong các số đó</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phân tích: Mỗi thành viên của hội đồng có 3 cách bầu khác nhau. Số thành viên của hội đồng là 5. Như vậy, theo quy tắc nhân thì số cách bầu là $3 \cdot 3 \cdot 3 \cdot 3 \cdot 3=3^{5}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="13" id="slide-13">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 13</div>
+                <div class="q-content">Các tỉnh $A, B, C, D$ được nối với nhau bởi các con đường như hình vẽ. Hỏi có bao nhiêu cách đi từ tỉnh $A$ đến $D$, mà chỉ qua $B$ và $C$ một lần?<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/616b3f3c-0299-400e-94a4-204f36f4a211-04.jpg?height=145&width=714&top_left_y=2531&top_left_x=358" alt="Math Image"></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">36 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">18 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">28 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Có 3 cách đi từ $A$ đến $B$.<br>Có 2 cách đi từ $B$ đến $C$.<br>Có 3 cách đi từ $C$ đến $D$.<br>Áp dụng quy tắc nhân ta có số cách đi từ tỉnh $A$ đến $D$, mà chỉ qua $B$ và $C$ một lần là 3.2.3 $=18$ (cách).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="14" id="slide-14">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 14</div>
+                <div class="q-content">Có 3 kiểu đồng hồ đeo tay (vuông, tròn, elip) và 4 kiểu dây (kim loại, da, vải, nhựa). Hỏi có bao nhiêu cách chọn một chiếc đồng hồ gồm một mặt và một dây?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">12 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">16 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Áp dụng quy tắc nhân ta có số chọn một chiếc đồng hồ gồm một mặt và một dây là:<br>$3.4=12$ (cách).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="15" id="slide-15">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 15</div>
+                <div class="q-content">Trên bàn có 8 cây bút chì khác nhau, 6 cây bút bi khác nhau và 10 cuốn tập khác nhau. Một học sinh muốn chọn một đồ vật duy nhất hoặc một cây bút chì hoặc một cây bút bi hoặc một cuốn tập thì số cách chọn khác nhau là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">480 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">24 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">48 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">60 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Áp dụng quy tắc cộng, số cách chọn một đồ vật duy nhất hoặc một cây bút chì hoặc một cây bút bi hoặc một cuốn tập thì số cách chọn khác nhau là: $8+6+10=24$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="16" id="slide-16">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 16</div>
+                <div class="q-content">Một người vào cửa hàng ăn, người đó chọn thực đơn gồm một món ăn trong năm món, một loại quả tráng miệng trong năm loại quả tráng miệng và một nước uống trong ba loại nước uống. Có bao nhiêu cách chọn thực đơn.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">25 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">75 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">100 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">15 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Bhọn B<br><br><br><br>Theo quy tắc nhân ta có: 5.5.3 = 75 cách chọn thực đơn.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="17" id="slide-17">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 17</div>
+                <div class="q-content">Cửa hàng tiện lợi có bán combo bánh ngọt và đồ uống. Các loại bánh ngọt và đồ uống được mô tả bằng sơ đồ hình cây sau:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/616b3f3c-0299-400e-94a4-204f36f4a211-06.jpg?height=679&width=1066&top_left_y=114&top_left_x=408" alt="Math Image"></div><br><br>Hãy cho biết có bao nhiêu cách để khách hàng có thể lựa chọn được combo gồm một bánh ngọt và một loại đồ uống?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">20 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">12 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Số cách chọn 1 loại đồ ngọt và một loại đồ uống là: $C_{5}^{1} \cdot C_{4}^{1}=20$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="18" id="slide-18">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 18</div>
+                <div class="q-content">Một Ban chấp hành Đoàn trường có 12 người. Hỏi có bao nhiêu cách chọn 3 người vào ba chức vụ bí thư, phó bí thư và ủy viên từ ban chấp hành đó?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1320 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">220 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">36 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">15 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Số cách chọn 3 người vào ba chức vụ bí thư, phó bí thư và ủy viên từ 12 người là $A_{12}^{3}=1320$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="19" id="slide-19">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 19</div>
+                <div class="q-content">Cho tập hợp $A=\{1 ; 2 ; 3 ; 4 ; 5\}$. Hỏi có bao nhiêu cách lập được số tự nhiên có năm chữ số khác nhau từ các chữ số thuộc tập hợp $A$ ?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">12 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">120 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">102 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">210 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Mỗi cách lập số tự nhiên có 5 chữ số khác nhau lấy từ $A$ là một hoán vị của 5 .<br>Vậy có $5!=120$ số tự nhiên.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="20" id="slide-20">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 20</div>
+                <div class="q-content">Cho hai đường thẳng song song $a$ và $b$. Trên đường thẳng $a$ có 5 điểm phân biệt, trên đường thẳng $b$ có 7 điểm phân biệt. Tính số tam giác có 3 đỉnh lấy từ các điểm trên hai đường thẳng $a$ và $b$.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">220 tam giác</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">45 tam giác</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">350 tam giác</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">175 tam giác</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Mỗi tam giác được lâp từ 3 điểm không thẳng hàng. Vì vậy số tam giác được lập là $C_{5}^{2} . C_{7}^{1}+C_{5}^{1} . C_{7}^{2}=175$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="21" id="slide-21">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 21</div>
+                <div class="q-content">Cho hai số tự nhiên $k, n$ thỏa $1 \leq k \leq n$. Mệnh đề nào sau đây đúng?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{k!(n-k)!}{n!}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{n!}{k!(n-k)!}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{(n-k)!}{n!}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{n!}{(n-k)!}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Theo định nghĩa, số chỉnh hợp chập $k$ của $n$ phần tử được tính bằng công thức: $\displaystyle A_{n}^{k}=\frac{n!}{(n-k)!}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="22" id="slide-22">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 22</div>
+                <div class="q-content">Trường THPT Pleiku được cử một học sinh đi đại hội đoàn. Nhà trường quyết định chọn một đoàn viên 10 A 1 , hoặc lớp 11 A 1 . Hỏi nhà trường có bao nhiêu cách chọn, nếu biết rằng lớp 10 A 1 có 15 đoàn viên, $11 A 1$ có 23 đoàn viên?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">345 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">31 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">38 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">70 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có số các chọn 1 đoàn viên đi dự đại hội Đoàn là $15+23=38$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="23" id="slide-23">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 23</div>
+                <div class="q-content">Một bộ cờ vua có 32 quân cờ. Bạn Nam lấy tất cả các quân cờ đen và tất cả các quân tốt. Số quân cờ Nam lấy ra là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">16 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">34 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">14 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">24 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có Nam lấy cờ đen và tất cả các quân tốt là $16+8=24$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="24" id="slide-24">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 24</div>
+                <div class="q-content">Có 10 cây bút khác nhau và 8 quyển sách giáo khoa khác nhau. Một bạn học sinh cần chọn 1 cây bút và 1 quyển sách. Số cách chọn bạn học sinh đó là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">90 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">80 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">60 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">70 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Bài toán có 2 bước:<br>Bước 1: Chọn 1 cây bút: $C_{10}^{1}$ cách.<br>Bước 2: Chọn 1 quyển sách: $C_{8}^{1}$ cách.<br>Vậy $C_{10}^{1} C_{8}^{1}=80$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="25" id="slide-25">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 25</div>
+                <div class="q-content">Lớp 10 A có 20 nam và 18 nữ. Giáo viên cần chọn ra 9 bạn gồm 5 bạn nam và 4 bạn nữ để lao động. Số cách chọn của giáo viên là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{38}^{9}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$A_{20}^{5} \cdot A_{18}^{4}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$A_{38}^{9}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{20}^{5} \cdot C_{18}^{4}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Dhọn D<br><br>Bài toán có 2 bước:<br>Bước 1: Chọn bạn nam có $C_{20}^{5}$ cách.<br>Bước 2: Chọn bạn nữ có $C_{18}^{4}$ cách.<br>Từ đó suy ra có $C_{20}^{5} \cdot C_{18}^{4}$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="26" id="slide-26">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 26</div>
+                <div class="q-content">Một hộp chứa 3 quả cầu trắng và 5 quả đầu đen. Có bao nhiêu cách chọn ra 2 quả cầu sao cho có đủ hai màu?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">15 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">45 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">20 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">56</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Vì chọn ra 2 quả cầu sao cho có đủ hai màu nên mỗi màu chọn 1 quả.<br><br>Số cách chọn 1 quả cầu màu trắng trong 3 quả cầu trắng là $C_{3}^{1}$.<br>Số cách chọn 1 quả cầu màu đen trong 5 quả cầu đen là $C_{5}^{1}$.<br>Vậy có $C_{3}^{1} \cdot C_{5}^{1}=15$ cách chọn.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="27" id="slide-27">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 27</div>
+                <div class="q-content">Từ một lớp gồm 16 học sinh nam và 18 học sinh nữ. Có bao nhiêu cách chọn ra 5 học sinh tham gia đội Thanh niên xung kích, trong đó có 2 học sinh nam và 3 học sinh nữ?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{16}^{2} \cdot C_{18}^{3}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$A_{16}^{2} \cdot A_{18}^{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{16}^{3} \cdot C_{18}^{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$A_{16}^{3} \cdot A_{18}^{2}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body"></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="28" id="slide-28">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 28</div>
+                <div class="q-content">Số cách chia 10 học sinh thành ba nhóm lần lượt có $2,3,5$ học sinh là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{10}^{2} \cdot C_{8}^{3} \cdot C_{5}^{5}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{10}^{2}+C_{10}^{3}+C_{10}^{5}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{10}^{5}+C_{5}^{3}+C_{2}^{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{10}^{2}+C_{8}^{3}+C_{5}^{5}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Số cách chọn 2 học sinh từ nhóm có 10 học sinh là $C_{10}^{2}$; số cách chọn 3 bạn từ nhóm gồm 8 bạn còn lại là $C_{8}^{3}$ và có $C_{5}^{5}$ cách chọn 5 bạn từ 5 bạn còn lại.<br><br>Số cách chia 10 học sinh thành ba nhóm lần lượt có $2,3,5$ học sinh là: $C_{10}^{2} \cdot C_{8}^{3} \cdot C_{5}^{5}$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="29" id="slide-29">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 29</div>
+                <div class="q-content">Từ bảy chữ số $1,2,3,4,5,6,7$ có thể lập được bao nhiêu số tự nhiên có bốn chữ số khác nhau:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$7!.6!.5!.4!$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7 ! </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$7^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">7.6.5.4</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Mô̂i số tự nhiên có bốn chữ số khác nhau lấy từ bảy chữ số trên là một chỉnh hợp chập 4 của bảy phần tử đó.<br><br>Số các số tự nhiên có bốn chữ số khác nhau là $A_{7}^{4}=7.6 .5$.4.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="30" id="slide-30">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 30</div>
+                <div class="q-content">Một tổ có 6 học sinh nam và 9 học sinh nữ. Số cách chọn 6 học sinh đi lao động, trong đó có đúng 2 học sinh nam là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{6}^{2} \cdot C_{9}^{4}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{6}^{2}+C_{9}^{4}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$A_{6}^{2} \cdot A_{9}^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{9}^{2} \cdot C_{6}^{4}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Số cách chọn 2 học sinh nam từ 6 học sinh nam là $C_{6}^{2}$.<br>Ta cần chọn thêm 4 học sinh nữa và 4 học sinh này đều phải là các học sinh nữ nên số cách chọn là $C_{9}^{4}$.<br><br>Vậy số cách chọn 6 học sinh đi lao động, trong đó có đúng 2 học sinh nam là $C_{6}^{2} \cdot C_{9}^{4}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="31" id="slide-31">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 31</div>
+                <div class="q-content">Số cách sắp xếp 9 học sinh ngồi vào một dãy gồm 9 ghế là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">9 !</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">9 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$9^{9}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Số cách sắp xếp 9 học sinh ngồi vào một dãy gồm 9 ghế là 9 !.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="32" id="slide-32">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 32</div>
+                <div class="q-content">Từ các chữ số $1,2,3,4,5,6$ lập được bao nhiêu số tự nhiên có 4 chữ số đôi một khác nhau và chia hết cho 5 ?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$A_{6}^{4}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$A_{5}^{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{6}^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{5}^{3}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta lập ra số chia hết cho 5 nên chữ số hàng đơn vị có 1 cách chọn là chữ số 5 .<br>Để chọn chữ số hàng chục, hàng trăm, hàng nghìn trong 5 chữ số còn lại có $A_{5}^{3}$ cách chọn.<br>Số cách lập ra số thỏa mãn yêu cầu bài toán là: $1 . A_{5}^{3}=A_{5}^{3}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="33" id="slide-33">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 33</div>
+                <div class="q-content">Từ một lớp gồm 16 học sinh nam và 18 học sinh nữ. Có bao nhiêu cách chọn ra 5 học sinh tham gia đội Thanh niên xung kích, trong đó có 2 học sinh nam và 3 học sinh nữ</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$A_{16}^{2} \cdot A_{18}^{3}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{16}^{2} \cdot C_{18}^{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{16}^{2}+C_{18}^{3}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$A_{16}^{2}+A_{18}^{3}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Bhọn B<br><br>Công đoạn 1: Chọn 2 học sinh nam có $C_{16}^{2}$ cách.<br>Công đoạn 2: Chọn 3 học sinh nữ có $C_{18}^{3}$ cách.<br>Theo quy tắc nhân có $C_{16}^{2} \cdot C_{18}^{3}$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="34" id="slide-34">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 34</div>
+                <div class="q-content">Một lớp có 30 học sinh gồm 20 nam và 10 nữ. Hỏi có bao nhiêu cách chọn ra một nhóm 3 học sinh sao cho nhóm đó có ít nhất một học sinh nữ?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1140 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2920 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1900 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">900 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Bhọn B<br><br>Số cách chọn 3 học sinh tùy ý là: $C_{30}^{3}$<br>Số cách chọn 3 học sinh không có nữ là: $C_{20}^{3}$<br>Suy ra số cách chọn 3 học sinh có ít nhất 1 nữ là: $C_{30}^{3}-C_{20}^{3}=2920$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="35" id="slide-35">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 35</div>
+                <div class="q-content">Có 4 cuốn sách Toán khác nhau và 3 cuốn sách Văn khác nhau. Cần xếp các cuốn sách lên kệ thành một dãy sao cho các cuốn sách cùng loại thì đặt gần nhau. Hỏi có bao nhiêu cách xếp?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$4!3!$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$5!3!+4!4!$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$2!4!3!$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">7!</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta xếp 4 cuôn sách toán khác nhau có 4 !.<br>Ta xếp 3 cuốn sách Văn khác nhau có 3 !<br>Ta xếp sách cùng loại thì đặt gần nhau có 2 !<br>Vậy có $2!4!3$ ! cách sắp xếp.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="36" id="slide-36">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 36</div>
+                <div class="q-content">Một đội văn nghệ có 15 người gồm 7 nam, 8 nữ. Cần chọn ra 3 bạn nam và 3 bạn nữ để tập một tiết mục văn nghệ. Hỏi có bao nhiêu cách chọn?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$A_{7}^{3} \cdot A_{8}^{3}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{7}^{3} \cdot C_{8}^{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{7}^{3}+C_{8}^{3}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{15}^{6}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Bhọn B<br><br>Cần chọn ra 3 bạn nam trong 7 bạn nam và 3 bạn nữ trong 8 bạn nữ,<br>Vậy số cách chọn $C_{7}^{3} \cdot C_{8}^{3}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="37" id="slide-37">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 37</div>
+                <div class="q-content">Từ các chữ số $1,2,3$ có thể lập được bao nhiêu số tự nhiên có các chữ số khác nhau?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">12 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">15 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">27 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Trường hợp 1: số tự nhiên có 1 chữ số khác nhau có 3 cách chọn<br>Trưởng hợp 2: số tự nhiên có 2 chữ số khac nhau có $A_{3}^{2}=6$ cách chọn<br>Trưởng hợp 3: số tự nhiên có 3 chữ số khac nhau có $P=3!=6$ cách chọn<br>Vậy có tất cả: $3+6+6=15$ cách chọn.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="38" id="slide-38">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 38</div>
+                <div class="q-content">Một lớp học 20 học sinh. Có bao nhiêu cách chọn ra một ban cán sự gồm 1 lớp trưởng, 1 lớp phó và 4 tổ trưởng biết rằng tất cả các học sinh đều có khả năng như nhau và mỗi bạn học sinh chỉ làm một nhiệm vụ.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$6 C_{20}^{6}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{20}^{6}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$380 C_{20}^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$A_{20}^{6}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Dhọn D<br><br>Số cách chọn ra một ban cán sự gồm 1 lớp trưởng, 1 lớp phó và 4 tổ trưởng biết rằng tất cả các học sinh đều có khả năng như nhau và mỗi bạn học sinh chỉ làm một nhiệm vụ là $A_{20}^{6}$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="39" id="slide-39">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 39</div>
+                <div class="q-content">Một nhóm có 10 học sinh gồm 4 nam và 6 nữ. Hỏi có bao nhiêu cách chọn ra 3 học sinh trong đó có cả nam và nữ.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">10 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">56 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">336 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">96</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Dhọn D<br><br>TH1: 2 nam, 1 nữ có $C_{4}^{2} \cdot C_{6}^{1}=36$ ( cách)<br>TH2: 1 nam, 2 nữ có $C_{4}^{1} \cdot C_{6}^{2}=60$ ( cách)<br>Vậy có: $30+60=96$ (cách).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
+            <div class="slide" data-i="40" id="slide-40">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 40</div>
+                <div class="q-content">Tại một cuộc họp của học sinh các lớp $10 A, 10 B, 10 C, 10 D$ và $10 E$, ban tổ chức đề nghị đại diện của mỗi lớp trình bày một báo cáo. Bạn đại diện của lớp 10 A đề nghị được trình bày báo cáo ngay trước đại diện của lớp $10 B$ và được ban tổ chức đồng ý. Số cách xếp chương trình là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">36 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">48 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">30 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phân tích: Kí hiệu thứ tự các bài báo cáo là $1,2,3,4,5$. Có 4 phương án xếp báo cáo của đại diện của lớp $10 ~ B$ ngay sau báo cáo đại diện của $10 ~ A$ là:<br><br>- Phương án $1: 10 \mathrm{~A}$ báo cáo $1,10 B$ báo cáo 2 ;<br>- Phương án 2: 10A báo cáo $2,10 B$ báo cáo 3 ;<br>- Phương án 3: 10A báo cáo $3,10 B$ báo cáo 4 ;<br>- Phương án 4: $10 ~ A$ báo cáo $4,10 ~ B$ báo cáo 5 .<br><br>Đối với mỗi phương án, ban tổ chức có thể xếp đại diện của các lớp $10 \mathrm{C}, 10 D$ và $10 E$ theo thứ tự bất kì vào vị trí các báo cáo còn lại. Do đó, với mỗi phương án thì số cách xếp là: $P_{3}=3!=3 \cdot 2 \cdot 1=6($ cách $)$<br><br>Như vậy, theo quy tắc cộng thì số cách xếp chương trình là: $6+6+6+6=24$ (cách)</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="41" id="slide-41">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 41</div>
+                <div class="q-content">Người ta muốn thành lập một uỷ ban gồm 6 thành viên, trong đó có ít nhất 3 thành viên nữ từ một nhóm đại biểu gồm 6 nam và 4 nữ. Số các cách thành lập uỷ ban như vậy là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">100 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">210 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">60 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">95 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phân tích: Do chỉ có 4 đại biểu nữ nên có 2 phương án:<br><br>- Phương án 1: uỷ ban gồm 3 nữ và 3 nam;<br>- Phương án 2: uỷ ban gồm 4 nữ và 2 nam.<br><br>Đối với phướng án 1: số cách chọn ra 3 người từ 4 đại biểu nữ là: $\displaystyle C_{4}^{3}=\frac{4 \cdot 3 \cdot 2}{3 \cdot 2 \cdot 1}=4$ (cách)<br>Số cách chọn ra 3 người từ 6 đại biểu nam là: $\displaystyle C_{6}^{3}=\frac{6 \cdot 5 \cdot 4}{3 \cdot 2 \cdot 1}=20$ (cách)<br>Như vậy, theo quy tắc nhân thì số cách chọn theo phương án 1 là: $4 \cdot 20=80$ (cách)<br>Đối với phương án 2: chỉ có duy nhất 1 cách chọn ra 4 người từ 4 đại biểu nữ (nghĩa là cả 4 đại biểu nữ sẽ nằm trong uỷ ban cần lập). Ngoài ra, số cách chọn ra 2 người từ 6 đại biểu nam là:<br>$\displaystyle C_{6}^{2}=\frac{6 \cdot 5}{2 \cdot 1}=15($ cách $)$<br>Do đó, có đúng 15 cách chọn theo phương án 2 .<br>Từ đó, theo quy tắc cộng thì số các cách thành lập uỷ ban là: $80+15=95$ (cách)</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="42" id="slide-42">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 42</div>
+                <div class="q-content">Có 3 cặp vợ chồng mua 6 vé xem phim với các chỗ ngồi liên tiếp nhau trên cùng một hàng ghế. Số cách xếp chỗ ngồi sao cho mỗi cặp vợ chồng đều ngồi cạnh nhau là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">36 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">48 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">120 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phân tích: Trước hết, xét mỗi cặp vợ chồng như là một khối. Số cách xếp 3 khối vào 3 vị trí là $P_{3}=3!=3 \cdot 2 \cdot 1=6$. Bây giờ', với mỗi cách xếp như vậy, mỗi cặp vợ chồng (của một khối) có thể đổi chỗ cho nhau để có một cách xếp mới. Như vậy, tổng số cách xếp chỗ cho 6 người với yêu cầu của bài toán là: $6 \cdot 2 \cdot 2 \cdot 2=48$ (cách)</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="43" id="slide-43">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 43</div>
+                <div class="q-content">Từ các chữ số $0,1,2,3,4,5,6$ lập các số tự nhiên chia hết cho 5 trong đó mỗi số có 4 chữ số đôi một khác nhau.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">120 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">100 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">220</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">200 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Gọi số tự nhiên có 4 chữ số là $\overline{a b c d},(a \neq 0)$.<br>Tổng quát:<br>+) $d$ có 2 cách chọn.<br>+) a có 6 cách chọn.<br>+) $b$ có 5 cách chọn.<br>+) $c$ có 4 cách chọn.<br>Quy tắc nhân: 2.6.5.4 = 240 số.<br>Vi phạm:<br>+) $a=0$ có 1 cách chọn.<br>+) $d=5$ có 1 cách chọn.<br>+) $b$ có 5 cách chọn.<br>+) $c$ có 4 cách chọn.<br>Quy tắc nhân: 1.1.5.4 = 20 số.<br>Số các số cần tìm: $240-20=220$ số.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="44" id="slide-44">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 44</div>
+                <div class="q-content">Một lớp học có 30 học sinh gồm 20 nam và 10 nữ. Hỏi có bao nhiêu cách chọn ra một nhóm 3 học sinh sao cho trong nhóm đó có ít nhất một học sinh nam?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4060 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">23640 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">22920 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">3940</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Dhọn D<br><br><br>Vậy để chọn ra một nhóm 3 học sinh sao cho trong nhóm đó có ít nhất một học sinh nam có $C_{30}^{3}-C_{10}^{3}=3940$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="45" id="slide-45">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 45</div>
+                <div class="q-content">Lớp 10 C có 40 học sinh trong đó có 18 nam và 22 nữ. Giáo viên chủ nhiệm cần chọn 3 học sinh để trực an toàn giao thông gồm 2 nam và 1 nữ. Hỏi giáo viên chủ nhiệm có bao nhiêu cách chọn?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">175 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">9880 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3366 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4158 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Công đoạn 1: Chọn 2 học sinh nam từ 18 học sinh nam: có $C_{18}^{2}$ cách.<br>Công đoạn 2: Chọn 1 học sinh nam từ 22 học sinh nam: có $C_{22}^{1}$ cách.<br>Theo quy tắc nhân ta có: $C_{18}^{2} \cdot C_{22}^{1}=3366$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="46" id="slide-46">
+            <div class="question-card" data-correct="B" data-level="kg">
+                <div class="q-number">Câu 46</div>
+                <div class="q-content">Cho tập hợp $A=\{1 ; 2 ; 3 ; 4 ; 5 ; 6 ; 7\}$. Hỏi từ tập $A$ có thể lập được bao nhiêu số tự nhiên có 6 chữ số khác nhau và phải có mặt các chữ số $1,2,3$ sao cho chúng không đứng cạnh nhau?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">567 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">576 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5040 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">840 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Lấy ra 3 chữ số khác $1,2,3$ từ tập A có $C_{4}^{3}$ cách.<br>Xếp 3 chữ số này có 3 ! cách, coi 3 số trên là 3 vách ngăn sẽ tạo ra 4 vị trí xếp 3 chữ số 1, 2, 3 vào 3 trong 4 vị trí đó có $A_{4}^{3}$ cách.<br><br>Vậy số các số lập được là: $C_{4}^{3} \cdot 3!\cdot A_{4}^{3}=576$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="47" id="slide-47">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 47</div>
+                <div class="q-content">Một nhóm học sinh gồm 12 nam và 6 nữ. Người ta muốn chọn từ nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và có ít nhất 1 nữ. Hỏi có bao nhiêu cách lập đội cờ đỏ.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">572 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1028160 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">8568 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">58080 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Số cách chọn nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và 3 người bất kỳ trong 16 người còn lại là $A_{12}^{2} \cdot C_{16}^{3}$ (cách)<br><br>Số cách chọn nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và 3 người còn lai không có nữ là $A_{12}^{2} \cdot C_{10}^{3}$ (cách)<br><br>Số cách chọn thỏa mãn yêu cầu đầu bài là $A_{12}^{2} \cdot C_{16}^{3}-A_{12}^{2} \cdot C_{10}^{3}=58080$ (cách)</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="48" id="slide-48">
+            <div class="question-card" data-correct="B" data-level="kg">
+                <div class="q-number">Câu 48</div>
+                <div class="q-content">Có 3 cặp vợ chồng mua 6 vé xem phim với các chỗ ngồi liên tiếp nhau trên cùng một hàng ghế. Số cách xếp chỗ ngồi sao cho mỗi cặp vợ chồng đều ngồi cạnh nhau là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">48 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">36 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">120 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta coi mỗi cặp vợ chồng là 1 người. Khi đó số cách xếp 3 cặp vợ chồng là 3 ! cách.<br>Số hoán vị vị trí của mỗi cặp vợ chồng là 2 ! cách.<br>Số cách xếp thỏa mãn là: $3!\cdot(2!)^{3}=48$ (cách).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="49" id="slide-49">
+            <div class="question-card" data-correct="B" data-level="kg">
+                <div class="q-number">Câu 49</div>
+                <div class="q-content">Trong một giỏ hoa có 6 bông hồng vàng, 5 bông hồng trắng (các bông hoa coi như đôi một khác nhau). Người ta muốn làm một bó hoa gồm 5 bông được lấy từ giỏ hoa đó. Hỏi có bao nhiêu cách chọn hoa biết bó hoa có đủ 2 loại hoa hồng vàng và hoa hồng trắng?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">455 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">456 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">462 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Ahọn A<br><br><br><br><br><br>Vây có $30+150+200+75=455$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="50" id="slide-50">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 50</div>
+                <div class="q-content">Số cách xếp 4 nam sinh và 4 nữ sinh vào một dãy ghế hàng ngang có 8 chỗ ngồi sao cho nam nữ ngồi xen kẽ nhau là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$4!+4!$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$8!$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$4!.4!$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$2.4!.4!$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Trường hợp 1: Xếp 4 nam sinh ngồi vào các ghế mang số lẻ và xếp 4 nữ sinh ngồi vào các ghế mang số chẵn có $4!\cdot 4$ ! cách.<br>Trường hợp 2: Xếp 4 nam sinh ngồi vào các ghế mang số chẵn và xếp 4 nữ sinh ngồi vào các ghế mang số lẻ có 4!.4! cách.<br><br>Vậy có tất cả $4!.4!+4!.4!=2.4!\cdot 4$ ! cách</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="51" id="slide-51">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 51</div>
+                <div class="q-content">Từ 20 bông hoa gồm có 8 bông màu đỏ, 7 bông màu vàng, 5 bông màu trắng; chọn ngẫu nhiên 4 bông để tạo thành một bó. Có bao nhiêu cách chọn để bó hoa có đủ cả ba màu?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">14280 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4760 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2381 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2380 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Dhọn <br> D.<br><br>Để lấy được 4 bông hoa có đủ ba màu,<br>Xét các trường hợp:<br>Trường hợp 1: 2 bông màu đỏ, 1 bông màu vàng, 1 bông màu trắng ⇒ Có $C_{8}^{2} \cdot 7 \cdot 5$ cách.<br>Trường hợp 2: 1 bông màu đỏ, 2 bông màu vàng, 1 bông màu trắng $\Rightarrow$ Có $8 . C_{7}^{2} .5$ cách.<br>Trường hợp 3: 1 bông màu đỏ, 1 bông màu vàng, 2 bông màu trắng $\Rightarrow$ Có 8.7. $C_{5}^{2}$ cách.<br>Vậy số cách chọn được 1 bó hoa có đủ 3 màu là: $C_{8}^{2} \cdot 7 \cdot 5+8 \cdot C_{7}^{2} \cdot 5+8 \cdot 7 \cdot C_{5}^{2}=2380$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="52" id="slide-52">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 52</div>
+                <div class="q-content">Nếu một đa giác lồi có 44 đường chéo thì đa giác đó có bao nhiêu cạnh?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">8 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">10 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">9 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">11 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Mỗi đoạn thẳng nối hai đỉnh của 1 đa giác lồi $n$ cạnh hoặc là một cạnh hoặc là 1 đường chéo của đa giác đó.<br>Số đoạn thẳng được tạo thành là $C_{n}^{2}$.<br>Số cạnh của đa giác là $n$.<br>Số đường chéo của đa giác đó là $C_{n}^{2}-n$.<br>Theo bài ra, số đường chéo là 44 nên ta có phương trình $C_{n}^{2}-n=44$.<br>Giải phương trình $C_{n}^{2}-n=44$<br>Điều kiện $n \geq 2 ; n \in \mathbb{N}$.<br>Khi đó $\displaystyle C_{n}^{2}-n=44 \Leftrightarrow \frac{n(n-1)}{2}-n=44 \Leftrightarrow n^{2}-3 n-88=0 \Leftrightarrow\left[\begin{array}{l}n=11 \\ n=-8\end{array}\right.$.<br><br>Vậy số cạnh của đa giác bằng 11 .</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="53" id="slide-53">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 53</div>
+                <div class="q-content">Để ước tính số tôm chưa biết trong một hồ nuôi tôm, người ta đánh bắt 2500 con, đánh dấu chúng rồi thả lại xuống hồ. Đánh bắt lần thứ hai được 3100 con, thấy trong đó có 450 con có đánh dấu. Khi đó ước tính số tôm trong hồ gần nhất với đáp án nào sau đây.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">25370 con</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">19450 con</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">17223 con</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">14780 con</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Gọi $n$ là số lượng tôm ước tính có trong hồ.<br>Khi đó ta có $\displaystyle \frac{2500}{n}=\frac{450}{3100} \Leftrightarrow n=\frac{2500.3100}{450} \approx 17223$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="54" id="slide-54">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 54</div>
+                <div class="q-content">Có bao nhiêu số tự nhiên có 5 chữ số đôi một khác nhau mà các chữ số đó thuộc tập hợp $$\{1 ; 2 ; 3 ; 4 ; 5\}$$ ?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">5!</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$5^{5}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{5}^{5}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$A_{6}^{5}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Số cách lập ra số tự nhiên có 5 chữ số đôi một khác nhau mà các chữ số đó thuộc tập hợp \{1;2;3;4;5\} là số hoán vị của 5 phần tử<br><br>Vậy có $P 5=5$ ! số tự nhiên có 5 chữ số đôi một khác nhau mà các chữ số đó thuộc tập hợp $$\{1 ; 2 ; 3 ; 4 ; 5\}$$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="55" id="slide-55">
+            <div class="question-card" data-correct="B" data-level="kg">
+                <div class="q-number">Câu 55</div>
+                <div class="q-content">Từ các chữ số $0,1,2,3,4,5$ có thể lập được bao nhiêu số tự nhiên chẵn và có 4 chữ số khác nhau?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">752 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">156 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">240 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">160 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">TH1: Số cần tìm có dạng $\overline{a b c 0}$ với $a, b, c, 0$ đôi một phân biệt được chọn từ $0,1,2,3,4,5$<br>Lúc này số cách chọn $\overline{a b c}$ bằng $A_{5}^{3}=60$.<br>TH2: Số cần tìm có dạng $\overline{a b c d}$ với $a, b, c, d$ đôi một phân biệt được chọn từ $0,1,2,3,4,5$ và $d=2$ hoặc $d=4$ đồng thời $a \neq 0$.<br><br>Số cách chọn $d$ là 2<br>Số cách chọn $a$ là 4<br>Lúc này số cách chọn $b c$ bằng $A_{4}^{2}=12$<br>Trường hợp này có $2 \cdot 4 \cdot 12=96$.<br>Vậy có tất cả là $60+96=156$ (số).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="56" id="slide-56">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 56</div>
+                <div class="q-content">Cho hai đường thẳng song song $d_{1}$ và $d_{2}$. Trên $d_{1}$ lấy 17 điểm phân biệt, trên $d_{2}$ lấy 20 điểm phân biệt. Tính số tam giác mà có các đỉnh được chọn từ 37 điểm này.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">11900. </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7770.</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5950.</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">5590 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Với 1 điểm thuộc $d_{1}$ kết hợp với 2 điểm thuộc $d_{2}$ hoặc 1 điểm thuộc $d_{2}$ với 2 điểm thuộc $d_{1}$ thì ta có được 1 tam giác.<br><br>Vậy số tam giác được lập từ các điểm đã cho là: $C_{17}^{1} \cdot C_{20}^{2}+C_{17}^{2} \cdot C_{20}^{1}=5950$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="57" id="slide-57">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 57</div>
+                <div class="q-content">Số các số tự nhiên có bẩy chữ số trong đó có hai chữ số 0 , sao cho hai chữ số 0 không đứng cạnh nhau và các chữ số khác chỉ xuất hiện nhiều nhất một lần là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">151200</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">786240 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">846000 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">907200 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Để lập các số tự nhiên có bẩy chữ số trong đó có hai chữ số 0 , sao cho hai chữ số 0 không đứng cạnh nhau và các chữ số khác chỉ xuất hiện nhiều nhất một lần ta làm như sau:<br><br>+ Chọn 5 số trong 9 số và sắp xếp có $A_{9}^{5}$ cách.<br>+ 5 số vừa chọn sẽ tạo ra 6 khoảng trống, để xếp hai chữ số 0 sao cho chúng không đứng cạnh nhau ta có 6 vị trí để chọn. Tuy nhiên do chữ số 0 không được đứng đầu nên còn 5 vị trí. Vậy chọn 2 trong 5 vị trí đó để xếp số 0 nên có $C_{5}^{2}$ cách.<br><br>Vậy có tất cả: $A_{9}^{5} \cdot C_{5}^{2}=151200$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="58" id="slide-58">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 58</div>
+                <div class="q-content">Trong buổi dã ngoại, tổ có 12 học sinh tham gia gồm 4 bạn nữ trong đó có An và có 8 bạn nam trong đó có Bình. Thầy giáo chia tổ thành 3 nhóm sao cho các nhóm đều có nữ và hai bạn An , Bình cùng một nhóm. Số cách chia nhóm của thầy giáo là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">630 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">840 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1050 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2100 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Thầy giáo chia tổ thành 3 nhóm sao cho các nhóm đều có nữ và hai bạn An, Bình cùng một nhóm thì thầy có các cách chia như sau:<br><br>- TH1: An và Bình cùng với một bạn nam và một bạn nữ thành một nhóm nên có $C_{7}^{1} \cdot C_{3}^{1}$ cách. Nhóm thứ hai có ba nam và 1 nữ có $C_{6}^{3} \cdot C_{2}^{1}$. Cuối cùng còn ba bạn nam và một bạn nữ có duy nhất một cách cho nhóm thứ ba. Do đó trường hợp này có: $C_{7}^{1} \cdot C_{3}^{1} \cdot C_{6}^{3} \cdot C_{2}^{1}$ cách.<br>- TH2: An và Bình cùng với hai bạn nam vào một nhóm có $C_{7}^{2}$ cách. Nhóm thứ hai có hai bạn nam và 2 bạn nữ có $C_{5}^{2} \cdot C_{3}^{2}$. Cuối cùng còn ba bạn nam và một bạn nữ nên có duy nhất một cách cho nhóm ba. Do đó trường hợp này có: $C_{7}^{2} \cdot C_{5}^{2} \cdot C_{3}^{2}$ cách.<br><br>Vậy có tất cả: $C_{7}^{1} \cdot C_{3}^{1} \cdot C_{6}^{3} \cdot C_{2}^{1}+C_{7}^{2} \cdot C_{5}^{2} \cdot C_{3}^{2}=1470$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="59" id="slide-59">
+            <div class="question-card" data-correct="B" data-level="kg">
+                <div class="q-number">Câu 59</div>
+                <div class="q-content">Từ các số $A=\{1 ; 2 ; 3 ; 4 ; 5 ; 6 ; 7 ; 8 ; 9\}$, người ta lập các số tự nhiên có sáu chữ số khác nhau đôi một sao cho tổng các chữ số ở hàng chục, hàng trăm và hàng ngàn bằng 8 . Số các số thỏa mãn là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1300 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1440 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1500 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4320 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Gọi số cần lập có sáu chữ số có dạng $\overline{a_{1} a_{2} a_{3} a_{4} a_{5} a_{6}}$ với $a_{5}+a_{4}+a_{3}=8$.<br>Ta có $1+2+5=1+3+4=8$. Do đó có 2 cách chọn nhóm 3 số để làm các chữ số hàng chục, hàng trăm, hàng ngàn.<br><br>Bài toán chọn số thỏa mãn yêu cầu bài toán được tiến hành theo các bước sau:<br><br>Bước 1: Chọn ra bộ 3 số trong 8 số để có $a_{5}+a_{4}+a_{3}=8$ : có 2 cách chọn bộ $\left(a_{5} ; a_{4} ; a_{3}\right)$.<br>Bước 2: Với mỗi bộ 3 số đã chọn ở bước 1 có $3!=6$ cách lập ra các số $a_{3} a_{4} a_{5}$.<br>Bước 3: Chọn 3 số từ tập 6 số trong tập $A \backslash\left\{a_{3} ; a_{4} ; a_{5}\right\}$ để xếp vào các vị trí của $a_{1} ; a_{2} ; a_{6}$ : có $A_{6}^{3}=120$ cách.<br><br>Theo quy tắc nhân ta có số các số thỏa mãn yêu cầu bài toán là: 2.6.120=1440 số.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="60" id="slide-60">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 60</div>
+                <div class="q-content">Một nhóm học sinh gồm 12 nam và 6 nữ. Người ta muốn chọn từ nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và có ít nhất 1 nữ. Hỏi có bao nhiêu cách lập đội cờ đỏ.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1028160 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">572 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">8568 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">58080 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">TH1: 1 đội trưởng nam, 1 đội phó nam, 2 nam, 1 nữ có $A_{12}^{2} \cdot C_{10}^{2} \cdot C_{6}^{1}=35640$ ( cách)<br>TH2: 1 đội trưởng nam, 1 đội phó nam, 1 nam, 2 nữ có $A_{12}^{2} \cdot C_{10}^{1} \cdot C_{6}^{2}=19800$ ( cách)<br>TH3: 1 đội trưởng nam, 1 đội phó nam, 3 nữ có $A_{12}^{2} \cdot C_{6}^{3}=2640$ ( cách)<br>Vậy có: $35640+19800+35640=58080$ (cách).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="61" id="slide-61">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 61</div>
+                <div class="q-content">Một tổ có 5 học sinh nữ và 6 học sinh nam. Số cách chọn ngẫu nhiên 5 học sinh của tổ trong đó có cả học sinh nam và học sinh nữ là?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">545 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">462 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">455 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">456 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">TH1: 1 nam, 4 nữ có $C_{6}^{1} \cdot C_{5}^{4}=30$ ( cách)<br>TH2: 2 nam, 3 nữ có $C_{6}^{2} \cdot C_{5}^{3}=150$ ( cách)<br>TH3: 3 nam, 2nữ có $C_{6}^{3} \cdot C_{5}^{2}=200$ ( cách)<br>TH4: 4 nam, 1 nữ có $C_{6}^{4} \cdot C_{5}^{1}=75$ ( cách)<br>Vậy có: $30+150+200+75=455$ (cách).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="62" id="slide-62">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 62</div>
+                <div class="q-content">Tìm số tự nhiên $n$ thỏa mãn thỏa mãn $C_{n}^{2}+5=A_{n-1}^{2}$.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$n=8$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$n=5$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$n=6$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$n=7$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">$$
+\begin{aligned}
+& C_{n}^{2}+5=A_{n-1}^{2} \\
+& \Leftrightarrow \frac{n!}{2!\cdot(n-2)!}+5=(n-1)(n-2) \\
+& \Leftrightarrow \frac{n(n-1)}{2}+5=(n-1)(n-2) \\
+& \Leftrightarrow n(n-1)+10=2(n-1)(n-2) \\
+& \Leftrightarrow n^{2}-5 n-6=0 \\
+& \Leftrightarrow\left[\begin{array}{l}
+n=-1(\text { Loai }) \\
+n=6
+\end{array}\right.
+\end{aligned}
+$$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+    </div>
+</div>
+
+<!-- Nav Bar -->
+<div class="nav" id="bottomNav">
+    <button class="nb" id="bp" onclick="go(-1)">◀ TRƯỚC</button>
+    <div class="sc" id="sc">1 / X</div>
+    <button class="nb" id="bn" onclick="go(1)">SAU ▶</button>
+</div>
+
+<!-- Floating Action Buttons -->
+<div class="fab-container">
+    <button class="fab theory" id="btnOpenTheory" title="Xem lý thuyết" aria-label="Mở modal lý thuyết" aria-expanded="false" aria-controls="theoryModal">📚</button>
+</div>
+
+<!-- Progress Panel -->
+<div class="progress-panel" id="progressPanel">
+    <div class="pp-header">📋 Tiến trình học</div>
+    <div class="pp-filters">
+        <div class="pp-filter active" data-filter="all" onclick="filterFromPanel('all', this)">Tất cả</div>
+        <div class="pp-filter" data-filter="tb" onclick="filterFromPanel('tb', this)">Cơ bản</div>
+        <div class="pp-filter" data-filter="kg" onclick="filterFromPanel('kg', this)">Nâng cao</div>
+    </div>
+    <div class="pg-grid" id="pgGrid"></div>
+    <div class="pg-legend">
+        <span><span class="ldot" style="background:#f8fafc;border:1.5px solid #e2e8f0"></span> Chưa</span>
+        <span><span class="ldot" style="background:#dcfce7;border:1.5px solid #16a34a"></span> Đúng</span>
+        <span><span class="ldot" style="background:#fef2f2;border:1.5px solid #ef4444"></span> Sai</span>
+    </div>
+    <div class="pp-score">
+        <div class="pp-score-label">ĐIỂM SỐ</div>
+        <div class="pp-score-num" id="ppScore">0/0</div>
+    </div>
+</div>
+
+<!-- Level Popup (giữ ẩn, dùng cho filterLevel logic) -->
+<div class="level-popup" id="levelPopup" role="dialog" aria-modal="true" aria-labelledby="levelPopupTitle" aria-hidden="true" style="display:none">
+    <div class="level-box">
+        <button class="modal-close" id="btnCloseLevel" aria-label="Đóng" style="position:absolute; top:16px; right:16px;">&times;</button>
+        <div class="level-title" id="levelPopupTitle">CHỌN MỨC ĐỘ HỌC</div>
+    </div>
+</div>
+
+<!-- Modal Lý Thuyết -->
+<div class="modal-overlay" id="theoryModal" role="dialog" aria-modal="true" aria-labelledby="theoryTitle" aria-hidden="true">
+    <div class="modal-content">
+        <button class="modal-close" id="btnCloseTheory" aria-label="Đóng modal lý thuyết">&times;</button>
+        
+        <!-- Header Sổ tay -->
+        <div class="theory-header">
+            <div class="theory-badge">KIẾN THỨC CỐT LÕI</div>
+            <h2 class="theory-main-title" id="theoryTitle">Chuyên đề 1 - Đại số tổ hợp</h2>
+            <div class="theory-line"></div>
+        </div>
+
+        <div class="theory-text" id="theory-content" style="font-size:16px; line-height:1.8; color:#334155; padding: 10px 0;">
+            <div class="theory-h2">1. Quy tắc cộng</div>
+<br>
+<p class="theory-text">Nếu một công việc nào đó có thể thực hiện theo $n$ hướng khác nhau, trong đó:</p>
+<p class="theory-text">Hướng thứ 1 có $m_{1}$ cách thực hiện;</p>
+<p class="theory-text">Hướng thứ 2 có $m_{2}$ cách thực hiện;</p>
+<p class="theory-text">$\_\_\_\_$</p>
+<p class="theory-text">Hướng thứ $n$ có $m_{n}$ cách thực hiện.</p>
+<p class="theory-text">Khi đó, ta có $m_{1}+m_{2}+\ldots+m_{n}$ cách để hoàn thành công việc đã cho.</p>
+<br>
+<div class="theory-h2">2. Quy tắc nhân</div>
+<br>
+<p class="theory-text">Nếu một công việc nào đó phải hoàn thành qua $n$ giai đoạn liên tiếp, trong đó:</p>
+<p class="theory-text">Giai đoạn 1 có $m_{1}$ cách thực hiện;</p>
+<p class="theory-text">Giai đoạn 2 có $m_{2}$ cách thực hiện;</p>
+<p class="theory-text">$\_\_\_\_$</p>
+<p class="theory-text">Giai đoạn $n$ có $m_{n}$ cách thực hiện.</p>
+<p class="theory-text">Khi đó, ta có $m_{1} \cdot m_{2} \cdot \cdots \cdot m_{n}$ cách để hoàn thành công việc đã cho.</p>
+<br>
+<div class="theory-h2">3. Hoán vị</div>
+<br>
+<p class="theory-text">Cho tập hợp $A$ gồm $n$ phần tử $\left(n \in \mathbb{N}^{*}\right)$.</p>
+<p class="theory-text">Mỗi kết quả của sự sắp xếp thứ tự $n$ phần tử của tập hợp $A$ được gọi là một hoán vị của n phần tủ đó.</p>
+<br>
+<p class="theory-text">Kí hiệu $P_{n}$ là số các hoán vị của $n$ phần tử. Ta có: $P_{n}=n(n-1) \ldots 2 \cdot 1=n$ !.</p>
+<br>
+<div class="theory-h2">4. Chỉnh họp</div>
+<br>
+<p class="theory-text">Cho tập hợp $A$ gồm $n$ phần tử và một số nguyên $k$ với $1 \leq k \leq n$.</p>
+<p class="theory-text">Mỗi kết quả của việc lấy $k$ phần tử từ $n$ phần tử của tập hợp $A$ và sắp xếp chúng theo một thứ tự nào đó được gọi là một chỉnh hợp chập $k$ của $n$ phần tử đã cho.</p>
+<br>
+<p class="theory-text">Kí hiệu $A_{n}^{k}$ là số các chỉnh hợp chập $k$ của $n$ phần tử.</p>
+<p class="theory-text">Ta có: $A_{n}^{k}=n(n-1) \ldots(n-k+1)$.</p>
+<br>
+<div class="theory-h2">5. Tổ hợp</div>
+<br>
+<p class="theory-text">Cho tập hợp $A$ gồm $n$ phần tử và một số nguyên $k$ với $1 \leq k \leq n$.</p>
+<p class="theory-text">Mỗi tập con gồm $k$ phần tử được lấy ra từ $n$ phần tử của $A$ được gọi là một tổ hợp chập $k$ của $n$ phần tử đó.</p>
+<br>
+<p class="theory-text">Kí hiệu $C_{n}^{k}$ là số tổ hợp chập $k$ của $n$ phần tử với $1 \leq k \leq n$. Ta có: $\displaystyle C_{n}^{k}=\frac{A_{n}^{k}}{k \text { ! }}$.</p>
+<br>
+<p class="theory-text">Quy ước: $0!=1 ; C_{n}^{0}=1$.</p>
+<p class="theory-text">Với những quy ước trên, ta có: $\displaystyle C_{n}^{k}=\frac{n!}{k!(n-k)!}$ với $0 \leq k \leq n$.</p>
+<p class="theory-text">Tính chất: $C_{n}^{k}=C_{n}^{n-k}(0 \leq k \leq n)$ và $C_{n-1}^{k-1}+C_{n-1}^{k}=C_{n}^{k}(1 \leq k&lt;n)$.</p>
+<br>
+<div class="theory-note">
+<div class="theory-note-title">Lưu ý</div>
+<br>
+<p class="theory-text">1. Hoán vị $\left(\mathrm{P}_{\mathrm{n}}=\mathrm{n}!\right)$ dùng khi đề bài yêu cầu "sắp xếp tất cả" các phần tử</p>
+<p class="theory-text">2. Chỉnh hợp $\left(A_{n}^{k}\right)$ dùng khi đề bài yêu cầu "chọn 1 phần nhỏ trong 1 tập hợp lớn" có quan trọng vai trò, thứ tự</p>
+<p class="theory-text">3. Tổ hợp ( $C_{n}^{k}$ ) dùng khi đề bài yêu cầu "chọn 1 phần nhỏ trong 1 tập hợp lớn"</p>
+</div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    let currentSlides = [];
+    let cur = 0;
+    const scoreState = {};
+    let totalQuestions = 0;
+    let lastFocusBeforeModal = null;
+    let isMobile = false;
+
+    const KATEX_OPTS = {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false
+    };
+
+    function renderMathIn(el) {
+        if (!el || el.dataset.mathRendered === '1') return;
+        if (typeof renderMathInElement !== 'function') return;
+        renderMathInElement(el, KATEX_OPTS);
+        el.dataset.mathRendered = '1';
+    }
+
+    function renderMathInitial() {
+        // Render slide 0 (cover) + modal lý thuyết ngay từ đầu
+        const cover = document.getElementById('slide-0');
+        if (cover) renderMathIn(cover);
+        const theory = document.getElementById('theoryModal');
+        if (theory) renderMathIn(theory);
+    }
+
+    function ensureKatexReady(cb) {
+        if (typeof renderMathInElement === 'function') { cb(); return; }
+        let tries = 0;
+        const t = setInterval(() => {
+            tries++;
+            if (typeof renderMathInElement === 'function') {
+                clearInterval(t); cb();
+            } else if (tries > 50) {
+                clearInterval(t);
+            }
+        }, 100);
+    }
+
+    function announceLive(text) {
+        const el = document.getElementById('ariaLive');
+        if (el) el.textContent = text;
+    }
+
+    function updateScore() {
+        const correct = Object.values(scoreState).filter(v => v === 'correct').length;
+        const num = document.getElementById('scoreNum');
+        if (num) num.textContent = `${correct}/${totalQuestions}`;
+        const ppScore = document.getElementById('ppScore');
+        if (ppScore) ppScore.textContent = `${correct}/${totalQuestions}`;
+    }
+
+    function filterLevel(lvl) {
+        const allSlides = Array.from(document.querySelectorAll('.slide'));
+
+        if (lvl === 'all') {
+            currentSlides = allSlides;
+        } else {
+            currentSlides = allSlides.filter(s => {
+                const card = s.querySelector('.question-card:not(.cover-card)');
+                return s.id === 'slide-0' || (card && card.getAttribute('data-level') === lvl);
+            });
+        }
+
+        allSlides.forEach(s => {
+            s.classList.remove('active');
+            s.style.display = 'none';
+        });
+        currentSlides.forEach(s => s.style.display = 'block');
+
+        document.querySelectorAll('.level-header').forEach(h => {
+            if (lvl === 'all' && isMobile) h.classList.add('visible');
+            else h.classList.remove('visible');
+        });
+
+        cur = currentSlides.length > 1 ? 1 : 0;
+        if (isMobile) applyMobileLayout();
+        else show(cur);
+        renderProgressGrid();
+    }
+    window.filterLevel = filterLevel;
+
+    /* Progress Panel */
+    function toggleProgress() {
+        const panel = document.getElementById('progressPanel');
+        panel.classList.toggle('open');
+        renderProgressGrid();
+    }
+
+    function renderProgressGrid() {
+        const grid = document.getElementById('pgGrid');
+        if (!grid) return;
+        const questionSlides = currentSlides.filter(s => s.id !== 'slide-0');
+        grid.innerHTML = questionSlides.map((s, i) => {
+            const realIdx = currentSlides.indexOf(s);
+            const id = s.id;
+            let cls = '';
+            if (realIdx === cur) cls += ' current';
+            if (scoreState[id] === 'correct') cls += ' pg-correct';
+            else if (scoreState[id] === 'incorrect') cls += ' pg-wrong';
+            return `<div class="pg-cell${cls}" onclick="jumpTo(${realIdx})">${i + 1}</div>`;
+        }).join('');
+    }
+
+    function jumpTo(i) {
+        document.getElementById('progressPanel')?.classList.remove('open');
+        if (isMobile) {
+            const target = currentSlides[i];
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            show(i);
+        }
+    }
+    window.jumpTo = jumpTo;
+
+    function filterFromPanel(lvl, btn) {
+        document.querySelectorAll('.pp-filter').forEach(f => {
+            f.classList.remove('active', 'active-tb', 'active-kg');
+        });
+        if (lvl === 'all') btn.classList.add('active');
+        else if (lvl === 'tb') btn.classList.add('active-tb');
+        else btn.classList.add('active-kg');
+        filterLevel(lvl);
+    }
+    window.filterFromPanel = filterFromPanel;
+
+    function show(i) {
+        if (i < 0 || i >= currentSlides.length) return;
+        if (currentSlides[cur]) currentSlides[cur].classList.remove('active');
+        cur = i;
+        if (currentSlides[cur]) {
+            currentSlides[cur].classList.add('active');
+            renderMathIn(currentSlides[cur]);
+            if (currentSlides[cur + 1]) renderMathIn(currentSlides[cur + 1]);
+            const card = currentSlides[cur].querySelector('.question-card');
+            if (card) card.scrollTop = 0;
+        }
+        updateNav();
+        renderProgressGrid();
+    }
+    window.go = function(d) { show(cur + d); };
+
+    function updateNav() {
+        const sc = document.getElementById('sc'),
+              prog = document.getElementById('prog'),
+              bp = document.getElementById('bp'),
+              bn = document.getElementById('bn');
+        if (sc) sc.textContent = `${cur + 1} / ${currentSlides.length}`;
+        if (prog) prog.style.width = `${((cur + 1) / currentSlides.length) * 100}%`;
+        if (bp) bp.disabled = (cur === 0);
+        if (bn) bn.disabled = (cur === currentSlides.length - 1);
+    }
+
+    /* Modal helpers */
+    const modalTriggerMap = {
+        'levelPopup': 'btnOpenLevel',
+        'theoryModal': 'btnOpenTheory'
+    };
+    let activeModalKeyHandler = null;
+
+    function trapFocusInModal(modal) {
+        const focusable = modal.querySelectorAll(
+            'button:not([disabled]), [tabindex]:not([tabindex="-1"]), a[href]'
+        );
+        if (!focusable.length) return null;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const handler = (e) => {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault(); last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault(); first.focus();
+            }
+        };
+        modal.addEventListener('keydown', handler);
+        return handler;
+    }
+
+    function openModal(modal, focusEl) {
+        if (!modal) return;
+        lastFocusBeforeModal = document.activeElement;
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+        const triggerId = modalTriggerMap[modal.id];
+        if (triggerId) {
+            const trigger = document.getElementById(triggerId);
+            if (trigger) trigger.setAttribute('aria-expanded', 'true');
+        }
+        if (focusEl && typeof focusEl.focus === 'function') {
+            setTimeout(() => focusEl.focus(), 50);
+        }
+        activeModalKeyHandler = trapFocusInModal(modal);
+        modal._focusHandler = activeModalKeyHandler;
+    }
+    function closeModal(modal) {
+        if (!modal) return;
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+        const triggerId = modalTriggerMap[modal.id];
+        if (triggerId) {
+            const trigger = document.getElementById(triggerId);
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
+        if (modal._focusHandler) {
+            modal.removeEventListener('keydown', modal._focusHandler);
+            modal._focusHandler = null;
+        }
+        if (lastFocusBeforeModal && typeof lastFocusBeforeModal.focus === 'function') {
+            lastFocusBeforeModal.focus();
+            lastFocusBeforeModal = null;
+        }
+    }
+    function openLevelPopup() { toggleProgress(); }
+    function closeLevelPopup() { document.getElementById('progressPanel')?.classList.remove('open'); }
+    function openTheory() {
+        const m = document.getElementById('theoryModal');
+        renderMathIn(m);
+        openModal(m, document.getElementById('btnCloseTheory'));
+    }
+    function closeTheory() { closeModal(document.getElementById('theoryModal')); }
+
+    /* Question logic */
+    function answerQuestion(card, opt) {
+        if (card.dataset.answered === '1') return;
+        const correctAns = card.getAttribute('data-correct');
+        const selected = opt.getAttribute('data-ans');
+        const options = card.querySelectorAll('.option');
+        options.forEach(o => {
+            o.classList.add('answered');
+            o.setAttribute('aria-disabled', 'true');
+            o.setAttribute('tabindex', '-1');
+        });
+
+        const isCorrect = selected === correctAns;
+        if (isCorrect) {
+            opt.classList.add('correct');
+            announceLive('Chính xác! Đáp án ' + correctAns + ' đúng.');
+        } else {
+            opt.classList.add('incorrect');
+            const correctOpt = card.querySelector(`.option[data-ans="${correctAns}"]`);
+            if (correctOpt) correctOpt.classList.add('correct');
+            announceLive('Chưa đúng. Đáp án đúng là ' + correctAns + '.');
+        }
+
+        const solution = card.querySelector('.solution');
+        if (solution) solution.classList.add('show');
+
+        card.dataset.answered = '1';
+        const qid = card.closest('.slide')?.id || '';
+        if (qid && !(qid in scoreState)) {
+            scoreState[qid] = isCorrect ? 'correct' : 'incorrect';
+            updateScore();
+        }
+
+        renderProgressGrid();
+
+        if (Object.keys(scoreState).length === totalQuestions) {
+            setTimeout(showFinalResult, 1500);
+        }
+    }
+
+
+
+    function showFinalResult() {
+        const correct = Object.values(scoreState).filter(v => v === 'correct').length;
+        const total = totalQuestions;
+        const pct = Math.round(correct / total * 100);
+        let verdict = 'Cố lên nhé! Hãy ôn lại lý thuyết.';
+        if (pct >= 90) verdict = '🏆 Xuất sắc! Cậu nắm chắc kiến thức.';
+        else if (pct >= 75) verdict = '🎉 Khá lắm! Còn vài chỗ nhỏ cần luyện.';
+        else if (pct >= 50) verdict = '👍 Tốt rồi, cần luyện thêm phần Nâng cao.';
+        const html = `
+          <div class="modal-overlay show" id="finalModal" role="dialog" aria-modal="true" aria-labelledby="finalLabel" style="z-index:3000;">
+            <div class="final-card">
+              <div class="label" id="finalLabel">Kết quả của cậu</div>
+              <div class="big-score">${correct}/${total}</div>
+              <div style="font-family:'Manrope'; font-weight:900; font-size:32px; color:var(--dark-blue);">${pct}%</div>
+              <div class="verdict">${verdict}</div>
+              <button class="btn-reset" onclick="document.getElementById('finalModal').remove();">Đóng</button>
+            </div>
+          </div>`;
+        document.body.insertAdjacentHTML('beforeend', html);
+    }
+
+    /* Mobile/desktop layout */
+    function applyMobileLayout() {
+        const allSlides = document.querySelectorAll('.slide');
+        document.body.style.overflow = 'auto';
+        currentSlides.forEach(s => {
+            s.style.position = 'relative'; s.style.opacity = '1'; s.style.visibility = 'visible';
+            s.style.pointerEvents = 'all'; s.style.height = 'auto'; s.style.minHeight = 'auto';
+            s.style.padding = '40px 0'; s.classList.add('active');
+        });
+        allSlides.forEach(s => {
+            if (!currentSlides.includes(s)) s.style.display = 'none';
+        });
+        const nav = document.getElementById('bottomNav');
+        if (nav) nav.style.display = 'none';
+    }
+    function applyDesktopLayout() {
+        const S = document.querySelectorAll('.slide');
+        document.body.style.overflow = 'hidden';
+        S.forEach(s => {
+            s.style.position = ''; s.style.opacity = ''; s.style.visibility = '';
+            s.style.pointerEvents = ''; s.style.height = ''; s.style.minHeight = '';
+            s.style.padding = '';
+        });
+        const nav = document.getElementById('bottomNav');
+        if (nav) nav.style.display = 'flex';
+        show(cur);
+    }
+    function checkMobile() {
+        isMobile = window.innerWidth <= 768;
+        if (isMobile) applyMobileLayout(); else applyDesktopLayout();
+    }
+
+    /* Bootstrap */
+    document.addEventListener("DOMContentLoaded", function() {
+        ensureKatexReady(renderMathInitial);
+
+        // Lazy render math khi slide gần vào viewport (đặc biệt hữu ích trên mobile scroll dài)
+        if ('IntersectionObserver' in window) {
+            const slideObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        renderMathIn(entry.target);
+                    }
+                });
+            }, { rootMargin: '300px' });
+            document.querySelectorAll('.slide').forEach(s => slideObserver.observe(s));
+        }
+
+        // Validation: cảnh báo console nếu có câu thiếu data
+        const cards = document.querySelectorAll('.question-card:not(.cover-card)');
+        cards.forEach((card, idx) => {
+            const correct = card.getAttribute('data-correct');
+            const circleEl = card.querySelector('.ans-circle');
+            if (!correct) {
+                console.warn(`[DATA] Câu ${idx + 1}: thiếu data-correct`);
+            }
+            if (circleEl && !circleEl.textContent.trim()) {
+                console.warn(`[DATA] Câu ${idx + 1}: thiếu nội dung trong .ans-circle`);
+            }
+        });
+
+        totalQuestions = cards.length;
+
+        cards.forEach(card => {
+            const options = card.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.addEventListener('click', () => answerQuestion(card, opt));
+                opt.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        answerQuestion(card, opt);
+                    }
+                });
+            });
+
+        });
+        updateScore();
+
+        const btnOpenTh = document.getElementById('btnOpenTheory');
+        const btnCloseTh = document.getElementById('btnCloseTheory');
+        if (btnOpenTh) btnOpenTh.onclick = openTheory;
+        if (btnCloseTh) btnCloseTh.onclick = closeTheory;
+
+        const btnOpenLv = document.getElementById('btnOpenLevel');
+        const btnCloseLv = document.getElementById('btnCloseLevel');
+        if (btnOpenLv) btnOpenLv.onclick = openLevelPopup;
+        if (btnCloseLv) btnCloseLv.onclick = closeLevelPopup;
+
+        ['theoryModal', 'levelPopup'].forEach(id => {
+            const m = document.getElementById(id);
+            if (m) m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); });
+        });
+
+        currentSlides = Array.from(document.querySelectorAll('.slide'));
+        show(0);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                ['theoryModal', 'levelPopup', 'finalModal'].forEach(id => {
+                    const m = document.getElementById(id);
+                    if (m && m.classList.contains('show')) { e.preventDefault(); closeModal(m); }
+                });
+                return;
+            }
+            const tag = (e.target && e.target.tagName) || '';
+            if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+            const anyModalOpen = ['theoryModal', 'levelPopup', 'finalModal'].some(id => {
+                const m = document.getElementById(id); return m && m.classList.contains('show');
+            });
+            if (anyModalOpen) return;
+
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); window.go(1); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); window.go(-1); }
+            else if (!isMobile) {
+                const map = { 'a':'A','b':'B','c':'C','d':'D','1':'A','2':'B','3':'C','4':'D' };
+                const ans = map[e.key.toLowerCase()];
+                if (ans && currentSlides[cur]) {
+                    const opt = currentSlides[cur].querySelector(`.option[data-ans="${ans}"]`);
+                    if (opt && !opt.classList.contains('answered')) { e.preventDefault(); opt.click(); }
+                }
+            }
+        });
+
+        window.addEventListener('resize', checkMobile);
+        checkMobile();
+    });
+</script>
+</body>
+</html>
