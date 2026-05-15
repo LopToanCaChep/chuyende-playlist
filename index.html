@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chuyên Đề Ôn Thi — Toán Cá Chép</title>
+<meta name="description" content="Hệ thống chuyên đề ôn thi Toán học — Luyện tập với Mode Chill.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* @CC_SHARED_START */
+/* ══════════════════════════════════════════════════════════
+   TOÁN CÁ CHÉP — Shared Base Styles
+   Source: 03_Automation/shared_assets/cachep-base.css
+   To push changes to all Distribution pages:
+       python 03_Automation/inject_shared.py
+   ══════════════════════════════════════════════════════════ */
+
+/* ========== RESET ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ========== DESIGN TOKENS ========== */
+:root{
+  --cc-blue:#0040BE;--cc-blue-deep:#003B99;--cc-blue-sky:#1E85EB;--cc-blue-ice:#3C9EEF;
+  --cc-yellow:#F7C800;--cc-orange:#E24500;--cc-orange-mid:#FF7800;
+  --cc-ink:#0A1B3D;--cc-ink-soft:#2A3A5E;--cc-line:#E6EAF2;
+  --cc-paper:#FFFFFF;--cc-paper-warm:#FFFBF0;--cc-cream:#FFF4D6;
+  --font-display:'Unbounded',system-ui,sans-serif;
+  --font-body:'Manrope',-apple-system,sans-serif;
+  --shadow-sm:0 1px 2px rgba(10,27,61,.08);
+  --shadow-md:0 6px 16px rgba(10,27,61,.10);
+  --r-sm:10px;--r-md:14px;--r-lg:20px;--r-pill:999px;
+}
+
+/* ========== BODY BASE ========== */
+body{
+  background:#FFFFFF;color:var(--cc-ink);
+  font-family:var(--font-body);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;min-height:100dvh;
+}
+
+/* ========== HUB LAYOUT ========== */
+.hub{max-width:720px;margin:0 auto;padding:16px 16px 100px}
+.hub-header{display:flex;align-items:center;justify-content:space-between;padding:12px 0 8px}
+.hub-logo{height:72px;object-fit:contain}
+.hub-mascot{width:88px;height:88px;object-fit:contain;
+  animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ========== SHARED ANIMATIONS ========== */
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@keyframes bounce{from{transform:translateY(0) rotate(-5deg)}to{transform:translateY(-12px) rotate(5deg)}}
+
+/* ========== PASSWORD MODAL ========== */
+.pwd-overlay{
+  position:fixed;inset:0;z-index:1005;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(10,27,61,.5);backdrop-filter:blur(4px);
+}
+.pwd-overlay.show{display:flex}
+.pwd-modal{
+  background:var(--cc-paper);border-radius:var(--r-lg);
+  padding:24px;width:90%;max-width:360px;
+  box-shadow:var(--shadow-md);text-align:center;
+  border:2px solid var(--cc-line);
+}
+.pwd-title{font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--cc-blue-deep);margin-bottom:8px}
+.pwd-desc{font-size:14px;color:var(--cc-ink-soft);margin-bottom:20px}
+.pwd-input{
+  width:100%;padding:12px 16px;border:2px solid var(--cc-line);
+  border-radius:var(--r-md);font-family:var(--font-body);font-size:16px;
+  outline:none;transition:border-color .2s;text-align:center;
+  margin-bottom:12px;
+}
+.pwd-input:focus{border-color:var(--cc-blue-sky)}
+.pwd-error{color:var(--cc-orange);font-size:13px;font-weight:600;margin-bottom:16px;display:none;animation:shake .3s}
+.pwd-submit{
+  width:100%;padding:12px;background:var(--cc-yellow);
+  color:var(--cc-blue-deep);border:none;border-radius:var(--r-md);
+  font-family:var(--font-display);font-weight:700;font-size:14px;
+  cursor:pointer;transition:transform .15s;
+}
+.pwd-submit:active{transform:scale(0.97)}
+.pwd-close{
+  background:none;border:none;color:var(--cc-ink-soft);
+  font-size:13px;font-weight:600;margin-top:16px;cursor:pointer;text-decoration:underline;
+}
+
+/* ========== LOADING OVERLAY ========== */
+.loader-overlay{
+  position:fixed;inset:0;z-index:1001;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(255,251,240,.92);backdrop-filter:blur(8px);
+}
+.loader-overlay.show{display:flex}
+.loader-content{text-align:center}
+.loader-fish{font-size:48px;animation:bounce .6s ease-in-out infinite alternate}
+.loader-text{font-family:var(--font-display);font-weight:600;font-size:14px;
+  color:var(--cc-blue-deep);margin-top:12px}
+
+/* ========== SHARED STATES ========== */
+.empty-state{text-align:center;padding:40px 20px;color:var(--cc-ink-soft)}
+.empty-state .icon{font-size:48px;margin-bottom:12px}
+.empty-state p{font-size:14px}
+.hub-footer{text-align:center;padding:24px 0 8px;font-size:12px;color:var(--cc-ink-soft);opacity:.6}
+/* @CC_SHARED_END */
+
+/* ========== CHUYENDE-SPECIFIC TOKEN OVERRIDES ========== */
+:root{
+  --cc-brand-blue:#0040BE;--cc-brand-dark:#002D72;
+  --cc-paper-warm:#F5FFF9;--cc-cream:#E6F9EE;
+  --shadow-md:0 12px 30px rgba(10,27,61,.12);
+  --r-sm:12px;--r-md:18px;--r-lg:24px;
+}
+
+/* ========== HERO ========== */
+.hub-hero{
+  background:var(--cc-blue-deep);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border:none;border-radius:var(--r-lg);
+  padding:36px 24px;margin:12px 0 24px;position:relative;overflow:hidden;
+  box-shadow: 0 15px 35px rgba(0, 64, 190, 0.2);
+}
+.hub-hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(24px,6vw,36px);
+  color:var(--cc-yellow);line-height:1.1;margin-bottom:8px}
+.hub-hero p{font-size:15px;color:rgba(255,255,255,.9);font-weight:500;letter-spacing: 0.02em;}
+
+/* ========== FILTER TABS ========== */
+.hub-filters{display:flex;gap:8px;padding:0 0 20px;overflow-x:auto;scrollbar-width:none}
+.hub-filters::-webkit-scrollbar{display:none}
+.filter-tab{
+  font-family:var(--font-body);font-weight:700;font-size:13px;
+  padding:8px 20px;border-radius:var(--r-pill);border:2px solid var(--cc-line);
+  background:var(--cc-paper);color:var(--cc-ink-soft);cursor:pointer;
+  transition:all .2s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;
+}
+.filter-tab:hover{border-color:var(--cc-blue);color:var(--cc-blue-deep)}
+.filter-tab.active{
+  background:var(--cc-yellow);color:var(--cc-blue-deep);
+  border-color:var(--cc-yellow);box-shadow:0 4px 12px rgba(247, 200, 0, 0.3);
+}
+.filter-tab[data-filter="12"].active{background:#fef08a;color:#ca8a04;border-color:#fef08a;box-shadow:0 4px 12px rgba(202,138,4,.25)}
+.filter-tab[data-filter="11"].active{background:#e0f2fe;color:#0284c7;border-color:#e0f2fe;box-shadow:0 4px 12px rgba(2,132,199,.25)}
+.filter-tab[data-filter="10"].active{background:#dcfce7;color:#16a34a;border-color:#dcfce7;box-shadow:0 4px 12px rgba(22,163,74,.25)}
+.filter-tab[data-filter="dsgt"].active{background:#f3e8ff;color:#7e22ce;border-color:#f3e8ff;box-shadow:0 4px 12px rgba(126,34,206,.2)}
+.filter-tab[data-filter="hinh"].active{background:#fee2e2;color:#dc2626;border-color:#fee2e2;box-shadow:0 4px 12px rgba(220,38,38,.2)}
+.filter-tab[data-filter="xstk"].active{background:#f1f5f9;color:#475569;border-color:#f1f5f9;box-shadow:0 4px 12px rgba(71,85,105,.2)}
+.hub-filters .divider{width:1px;height:28px;background:var(--cc-line);flex-shrink:0;align-self:center}
+
+/* ========== ITEM LIST ========== */
+.exam-list{display:flex;flex-direction:column;gap:12px}
+
+.exam-row{
+  display:flex;align-items:center;gap:16px;
+  padding:18px 20px;background:var(--cc-paper);
+  border:2px solid var(--cc-line);border-radius:var(--r-md);
+  cursor:pointer;transition:all .3s ease;position:relative;
+  text-decoration:none;color:inherit;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+}
+.exam-row:hover{
+  border-color:var(--cc-blue-deep);background:var(--cc-blue-deep);
+  transform:translateY(-4px);box-shadow:var(--shadow-md);
+}
+.exam-row:hover .exam-title{color:#fff}
+.exam-row:hover .exam-meta{color:rgba(255,255,255,.75)}
+.exam-row:hover .exam-icon{background:#F7C800;color:#003c9e;border-color:#F7C800}
+.exam-arrow img{width:36px;height:36px;object-fit:contain;transition:opacity .2s;border-radius:50%}
+.exam-arrow .arrow-hover{display:none}
+.exam-row:hover .arrow-default{display:none}
+.exam-row:hover .arrow-hover{display:block}
+.exam-row:hover .exam-arrow{background:none;transform:translateX(5px)}
+
+.exam-icon{
+  width:48px;height:48px;border-radius:var(--r-sm);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:800;font-family:var(--font-display);
+  background:#f1f5f9;color:var(--cc-blue-deep);
+  border: 1px solid var(--cc-line);
+  transition: all 0.3s;
+}
+
+.exam-info{flex:1;min-width:0}
+.exam-title{font-weight:800;font-size:16px;color:var(--cc-ink);line-height:1.4;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition: color 0.3s;}
+.exam-meta{font-size:13px;color:var(--cc-ink-soft);margin-top:4px;display:flex;flex-wrap:wrap;gap:4px 12px;transition: color 0.3s;}
+.exam-tag{font-size:11px;font-weight:700;padding:2px 10px;border-radius:var(--r-pill);display:inline-block;text-transform: uppercase;letter-spacing: 0.05em;}
+.exam-tag.t12{background:#fef08a;color:#ca8a04}
+.exam-tag.t11{background:#e0f2fe;color:#0284c7}
+.exam-tag.t10{background:#dcfce7;color:#16a34a}
+.exam-tag.subject-xstk { background: #f1f5f9; color: #475569; }
+.exam-tag.subject-dsgt { background: #f3e8ff; color: #7e22ce; }
+.exam-tag.subject-hinh { background: #fee2e2; color: #dc2626; }
+
+.exam-arrow{
+  width:36px;height:36px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:none;border:none;border-radius:0;
+  transition:all .3s ease;
+}
+
+
+.exam-row.coming-soon { opacity: 0.6; cursor: default; pointer-events: none; }
+.exam-row.coming-soon:hover { border-color: var(--cc-line); background: var(--cc-paper); transform: none; box-shadow: none; }
+.exam-row.coming-soon:hover .exam-title { color: var(--cc-ink); }
+.exam-row.coming-soon:hover .exam-meta { color: var(--cc-ink-soft); }
+.exam-row.coming-soon:hover .exam-icon { background: #f1f5f9; color: var(--cc-blue-deep); border-color: var(--cc-line); }
+.exam-row.coming-soon .exam-arrow { display: none; }
+
+.exam-tag.subject{background:#f8fafc;color:#475569;border:1px solid #e2e8f0}
+
+/* ========== RESPONSIVE ========== */
+@media(min-width:640px){
+  .hub{padding:32px 32px 80px}
+  .exam-list{gap:14px}
+  .exam-row{padding:20px 24px}
+  .hub-hero{padding:48px 40px}
+}
+@media(min-width:900px){
+  .hub{max-width:960px}
+  .exam-list{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  /* Cho phép title wrap trên desktop thay vì ellipsis */
+  .exam-title{white-space:normal;font-size:15px;line-height:1.35}
+  .exam-row{padding:18px 20px;gap:14px;border-left:4px solid var(--cc-line)}
+  .exam-row:hover{border-left-color:var(--cc-yellow)}
+  /* Accent viền trái theo lớp */
+  .exam-row[data-grade="12"]{border-left-color:#fbbf24}
+  .exam-row[data-grade="11"]{border-left-color:#38bdf8}
+  .exam-row[data-grade="10"]{border-left-color:#4ade80}
+  .exam-row[data-grade="12"]:hover{border-left-color:#f59e0b}
+  .exam-row[data-grade="11"]:hover{border-left-color:#0ea5e9}
+  .exam-row[data-grade="10"]:hover{border-left-color:#22c55e}
+  /* Icon nhỏ gọn hơn */
+  .exam-icon{width:44px;height:44px;font-size:18px}
+  /* Arrow gọn */
+  .exam-arrow{width:32px;height:32px}
+  .exam-arrow img{width:32px;height:32px}
+}
+@media(min-width:1100px){
+  .hub{max-width:1060px}
+  .exam-list{gap:18px}
+  .exam-row{padding:20px 24px}
+}
+
+.exam-row.coming-soon .exam-arrow { display: none; }
+
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#003B99">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="Pic/icon-192.png">
+</head>
+<body>
+
+<!-- ===== PASSWORD MODAL ===== -->
+<div class="pwd-overlay" id="pwdOverlay">
+  <div class="pwd-modal">
+    <div class="pwd-title">Nội dung có mật khẩu</div>
+    <div class="pwd-desc">Vui lòng nhập mật khẩu để xem chuyên đề</div>
+    <input type="password" class="pwd-input" id="pwdInput" placeholder="Nhập mật khẩu..." autocomplete="off">
+    <div class="pwd-error" id="pwdError">Sai mật khẩu! Vui lòng thử lại.</div>
+    <button class="pwd-submit" id="btnPwdSubmit">XEM CHUYÊN ĐỀ</button>
+    <button class="pwd-close" onclick="closePwdModal()">Hủy bỏ</button>
+  </div>
+</div>
+
+<!-- ===== LOADING OVERLAY ===== -->
+<div class="loader-overlay" id="loader">
+  <div class="loader-content">
+    <div class="loader-fish">🐟</div>
+    <div class="loader-text">Đang tải chuyên đề...</div>
+  </div>
+</div>
+
+<!-- ===== MAIN HUB ===== -->
+<div class="hub">
+
+  <!-- Header -->
+  <header class="hub-header">
+    <img class="hub-logo" src="Pic/logoleft.png" alt="Cá Chép" onerror="this.style.display='none'">
+    <img class="hub-mascot" src="Pic/logoright.png" alt="Cá Chép mascot" onerror="this.style.display='none'">
+  </header>
+
+  <!-- Hero -->
+  <section class="hub-hero">
+    <h1 id="heroTitle">42 Chuyên Đề<br>Ôn Thi THPTQG 2026</h1>
+    <p id="heroSub">Chép chăm, Chép đúng, Chép thành cao thủ</p>
+  </section>
+
+  <!-- Filters -->
+  <div class="hub-filters" id="filters">
+    <button class="filter-tab active" data-filter="all">Tất cả</button>
+    <button class="filter-tab" data-filter="12">Lớp 12</button>
+    <button class="filter-tab" data-filter="11">Lớp 11</button>
+    <button class="filter-tab" data-filter="10">Lớp 10</button>
+    <div class="divider"></div>
+    <button class="filter-tab" data-filter="dsgt">ĐS-GT</button>
+    <button class="filter-tab" data-filter="hinh">Hình</button>
+    <button class="filter-tab" data-filter="xstk">XS-TK</button>
+  </div>
+
+  <!-- Exam List -->
+  <div class="exam-list" id="examList"></div>
+
+  <!-- Footer -->
+  <footer class="hub-footer">Lớp Toán Cá Chép © 2026 · Chuyên đề trọng tâm & Mode Chill</footer>
+</div>
+
+<script>
+/* ========== DATA CONFIG ========== */
+// Mảng này sẽ được Robot ghi đè khi chạy lệnh push
+const CHUYENDE = [
+  {
+    id: 'chuyende_01',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 1 - Đại số tổ hợp',
+    subject: 'Thống kê - Xác suất',
+    grade: '10',
+    questions: 0,
+    icon: '01',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_02',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 2 - Xác suất cổ điển',
+    subject: 'Thống kê - Xác suất',
+    grade: '10',
+    questions: 76,
+    icon: '02',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_03',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 3 - Bài toán tối ưu hệ phương trình 2 ẩn',
+    subject: 'Đại số - Giải tích',
+    grade: '10',
+    questions: 0,
+    icon: '03',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_04',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 4 - Hàm số bậc 2 và dấu tam thức bậc 2',
+    subject: 'Đại số - Giải tích',
+    grade: '10',
+    questions: 0,
+    icon: '04',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_05',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 5 - Hàm số lượng giác',
+    subject: 'Đại số - Giải tích',
+    grade: '11',
+    questions: 0,
+    icon: '05',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_06',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 6 - Phương trình lượng giác',
+    subject: 'Đại số - Giải tích',
+    grade: '11',
+    questions: 0,
+    icon: '06',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_07',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 7 - Hàm số mũ, logarit và lũy thừa',
+    subject: 'Đại số - Giải tích',
+    grade: '11',
+    questions: 0,
+    icon: '07',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_08',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 8 - Phương trình, bất phương trình mũ, logarit',
+    subject: 'Đại số - Giải tích',
+    grade: '11',
+    questions: 0,
+    icon: '08',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_09',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 9 - Cấp số cộng - Cấp số nhân',
+    subject: 'Đại số - Giải tích',
+    grade: '11',
+    questions: 0,
+    icon: '09',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_10',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 10 - Giới hạn',
+    subject: 'Đại số - Giải tích',
+    grade: '11',
+    questions: 0,
+    icon: '10',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_11',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 11 - Hàm số liên tục',
+    subject: 'Đại số - Giải tích',
+    grade: '11',
+    questions: 0,
+    icon: '11',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_12',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 12 - Đạo hàm',
+    subject: 'Đại số - Giải tích',
+    grade: '11',
+    questions: 0,
+    icon: '12',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_13',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 13 - Phương trình tiếp tuyến',
+    subject: 'Đại số - Giải tích',
+    grade: '11',
+    questions: 0,
+    icon: '13',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_14',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 14 - Tính đơn điệu',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '14',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_15',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 15 - Cực trị',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '15',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_16',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 16 - Min-max',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '16',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_17',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 17 - Tiệm cận',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '17',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_18',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 18 - Nhận dạng đồ thị',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '18',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_19',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 19 - Tương giao ',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '19',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_20',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 20 - Nguyên hàm cơ bản',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '20',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_21',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 21 - Tích phân cơ bản',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '21',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_22',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 22 - Ứng dụng tích phân diện tích',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '22',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_23',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 23 - Ứng dụng tích phân thể tích ',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '23',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_24',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 24 - Ứng dụng khác của tích phân',
+    subject: 'Đại số - Giải tích',
+    grade: '12',
+    questions: 0,
+    icon: '24',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_25',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 25 - Thống kê',
+    subject: 'Thống kê - Xác suất',
+    grade: '12',
+    questions: 0,
+    icon: '25',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_26',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 26 - Xác suất điều kiện',
+    subject: 'Thống kê - Xác suất',
+    grade: '12',
+    questions: 0,
+    icon: '26',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_27',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 27 - HHCĐ - Góc giữa 2 đường thẳng',
+    subject: 'Hình học',
+    grade: '11',
+    questions: 0,
+    icon: '27',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_28',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 28 - HHCĐ - Góc giữa đường thẳng và mặt phẳng',
+    subject: 'Hình học',
+    grade: '11',
+    questions: 0,
+    icon: '28',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_29',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 29 - HHCĐ - Góc nhị diện',
+    subject: 'Hình học',
+    grade: '11',
+    questions: 0,
+    icon: '29',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_30',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 30 - HHCĐ - Khoảng cách từ điểm tới mặt phẳng',
+    subject: 'Hình học',
+    grade: '11',
+    questions: 0,
+    icon: '30',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_31',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 31 - HHCĐ - Khoảng cách giữa 2 đường thẳng chéo nhau',
+    subject: 'Hình học',
+    grade: '11',
+    questions: 0,
+    icon: '31',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_32',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 32 - HHCĐ - Thể tích',
+    subject: 'Hình học',
+    grade: '11',
+    questions: 0,
+    icon: '32',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_33',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 33 - Tọa độ Oxy',
+    subject: 'Hình học',
+    grade: '10',
+    questions: 0,
+    icon: '33',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_34',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 34 - Oxy - Phương trình đường thẳng à phương trình đường tròn',
+    subject: 'Hình học',
+    grade: '10',
+    questions: 0,
+    icon: '34',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_35',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 35 -  Oxy - 3 đường conic',
+    subject: 'Hình học',
+    grade: '12',
+    questions: 0,
+    icon: '35',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_36',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 36 - Tọa độ Oxyz',
+    subject: 'Hình học',
+    grade: '12',
+    questions: 0,
+    icon: '36',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_37',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 37 - Oxyz - Phương trình mặt phẳng',
+    subject: 'Hình học',
+    grade: '12',
+    questions: 0,
+    icon: '37',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_38',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 38 - Oxyz - Phương trình đường thẳng',
+    subject: 'Hình học',
+    grade: '12',
+    questions: 0,
+    icon: '38',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_39',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 39 - Oxyz - Phương trình mặt cầu',
+    subject: 'Hình học',
+    grade: '12',
+    questions: 0,
+    icon: '39',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_40',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 40 - Oxyz - Khoảng cách, góc và vị trí tương đối',
+    subject: 'Hình học',
+    grade: '12',
+    questions: 0,
+    icon: '40',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_41',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 41 - Oxyz - Hình chiếu, điểm đối xứng và bài toán tìm điểm',
+    subject: 'Hình học',
+    grade: '12',
+    questions: 0,
+    icon: '41',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_42',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 42 - Tọa độ hóa hình không gian Oxyz',
+    subject: 'Hình học',
+    grade: '12',
+    questions: 0,
+    icon: '42',
+    iconStyle: 'blue',
+    status: 'Hien'
+  },
+  {
+    id: 'chuyende_43',
+    file: null,
+    hasPassword: true,
+    title: 'Chuyên đề 43 - Cực trị hình học Oxyz',
+    subject: 'Hình học',
+    grade: '12',
+    questions: 0,
+    icon: '43',
+    iconStyle: 'blue',
+    status: 'Hien'
+  }
+];
+
+/* ========== RENDER LIST ========== */
+const listEl = document.getElementById('examList');
+const heroTitleEl = document.getElementById('heroTitle');
+const heroSubEl = document.getElementById('heroSub');
+const filtersEl = document.getElementById('filters');
+const loaderEl = document.getElementById('loader');
+
+const _subjectMap = {'dsgt':'Đại số - Giải tích','hinh':'Hình học','xstk':'Thống kê - Xác suất'};
+function renderList(filter = 'all') {
+  let filtered;
+  if (filter === 'all') filtered = CHUYENDE;
+  else if (_subjectMap[filter]) filtered = CHUYENDE.filter(e => e.subject === _subjectMap[filter]);
+  else filtered = CHUYENDE.filter(e => e.grade === filter);
+
+  if (!filtered.length) {
+    listEl.innerHTML = '<div class="empty-state"><div class="icon">🐟</div><p>Chưa có chuyên đề nào trong mục này</p></div>';
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(cd => {
+    let gradeTag = '';
+    if (cd.grade === '12') gradeTag = '<span class="exam-tag t12">Lớp 12</span>';
+    else if (cd.grade === '11') gradeTag = '<span class="exam-tag t11">Lớp 11</span>';
+    else if (cd.grade === '10') gradeTag = '<span class="exam-tag t10">Lớp 10</span>';
+    
+    let subjectTag = '';
+    if (cd.subject === 'Thống kê - Xác suất') subjectTag = '<span class="exam-tag subject-xstk">XS-TK</span>';
+    else if (cd.subject === 'Đại số - Giải tích') subjectTag = '<span class="exam-tag subject-dsgt">ĐS-GT</span>';
+    else if (cd.subject === 'Hình học') subjectTag = '<span class="exam-tag subject-hinh">Hình</span>';
+
+    const tag = 'div';
+    const hrefAttr = '';
+
+    return `
+      <${tag} class="exam-row" data-id="${cd.id}" data-grade="${cd.grade}" ${hrefAttr} role="button" tabindex="0">
+        <div class="exam-icon">${cd.icon}</div>
+        <div class="exam-info">
+          <div class="exam-title">${cd.title}</div>
+          <div class="exam-meta">
+            ${gradeTag}
+            ${subjectTag}
+          </div>
+        </div>
+        <div class="exam-arrow"><img class="arrow-default" src="Pic/arrow_1.png" alt=""><img class="arrow-hover" src="Pic/arrow.png" alt=""></div>
+      </${tag}>`;
+  }).join('');
+}
+
+/* ========== PASSWORD LOGIC ========== */
+let currentCdId = null;
+let _busy = false;
+const pwdOverlay = document.getElementById('pwdOverlay');
+const pwdInput = document.getElementById('pwdInput');
+const pwdError = document.getElementById('pwdError');
+
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+listEl.addEventListener('click', e => {
+  const row = e.target.closest('.exam-row');
+  if (!row) return;
+
+  e.preventDefault();
+  if (_busy) return;
+  _busy = true;
+  setTimeout(() => { _busy = false; }, 800);
+
+  const id = row.dataset.id;
+  const cd = CHUYENDE.find(c => c.id === id);
+  if (!cd) return;
+
+  currentCdId = id;
+  pwdInput.value = '';
+  pwdError.style.display = 'none';
+  pwdOverlay.classList.add('show');
+  setTimeout(() => pwdInput.focus(), 100);
+});
+
+function closePwdModal() {
+  pwdOverlay.classList.remove('show');
+  currentCdId = null;
+}
+
+pwdOverlay.addEventListener('click', e => {
+  if (e.target === pwdOverlay) closePwdModal();
+});
+
+document.getElementById('btnPwdSubmit').addEventListener('click', async () => {
+  const cd = CHUYENDE.find(c => c.id === currentCdId);
+  const pwd = pwdInput.value.trim();
+  if (!pwd || !cd) return;
+
+  const newTab = window.open('about:blank', '_blank');
+  const hash = await sha256(pwd);
+  const guessedFile = `chuyende/chuyende_${hash}.html`;
+  const fullUrl = new URL(guessedFile, window.location.href).href;
+
+  try {
+    const response = await fetch(guessedFile, { method: 'HEAD' });
+    if (response.ok) {
+      closePwdModal();
+      if (newTab) newTab.location.href = fullUrl;
+    } else {
+      if (newTab) newTab.close();
+      pwdError.style.display = 'block';
+      pwdInput.value = '';
+      pwdInput.focus();
+    }
+  } catch (err) {
+    closePwdModal();
+    if (newTab) newTab.location.href = fullUrl;
+  }
+});
+
+pwdInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('btnPwdSubmit').click();
+  if (e.key === 'Escape') closePwdModal();
+});
+
+/* ========== FILTER & URL PARAMS ========== */
+const urlParams = new URLSearchParams(window.location.search);
+const gradeParam = urlParams.get('grade');
+
+if (gradeParam) {
+    filtersEl.style.display = 'none';
+    if (gradeParam === '10') heroTitleEl.textContent = 'Chuyên đề Lớp 10';
+    else if (gradeParam === '11') heroTitleEl.textContent = 'Chuyên đề Lớp 11';
+    else if (gradeParam === '12') heroTitleEl.textContent = 'Chuyên đề Lớp 12';
+    
+    document.title = heroTitleEl.textContent + ' — Toán Cá Chép';
+    renderList(gradeParam);
+} else {
+    filtersEl.addEventListener('click', e => {
+        const tab = e.target.closest('.filter-tab');
+        if (!tab) return;
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderList(tab.dataset.filter);
+    });
+    renderList();
+}
+
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.log('SW failed:', err));
+  });
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
