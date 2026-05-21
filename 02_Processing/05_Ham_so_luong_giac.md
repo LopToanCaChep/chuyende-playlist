@@ -37,7 +37,7 @@ Từ đó, bằng cách tịnh tiến đồ thị hàm số $y=\sin x$ theo vect
 
 - Tập xác định $\mathrm{D}=\mathrm{R} \backslash\{\mathrm{k} \pi, \mathrm{k} \in \mathbb{Z}\}$
 - Tập giá trị $T=R$
-- Là hàm số tuần hoàn với chu kì $\pi$ tức là $\cot (\mathrm{x}+\mathrm{k} \pi)=\operatorname{cotx}$ với $\mathrm{k} \in Z$
+- Là hàm số tuần hoàn với chu kì $\pi$ tức là $\cot (\mathrm{x}+\mathrm{k} \pi)=\cot x$ với $\mathrm{k} \in Z$
 - Hàm số nghịch biến trên mỗi khoảng $(\mathrm{k} \pi ; \pi+\mathrm{k} \pi)$ với $\mathrm{k} \in \mathrm{Z}$
 - Là hàm số lẻ nên đồ thị hàm số nhận gốc tọa độ $O$ làm tâm đối xứng.
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361624/chuyende_05/wwa9y3hsg8gcqkseeudg.jpg)
@@ -89,14 +89,14 @@ Lúc đó ta chỉ câ̂n chỉ ra điểm $x_{0} \in \mathrm{D}$ thỏa mãn h�
 - Hàm số $y=\sin x$ là hàm số lẻ
 - Hàm số $y=\tan x$ là hàm số lẻ
 - Hàm số $y=\cos x$ là hàm số chẵn
-- Hàm số $y=\operatorname{cotx}$ là hàm số lẻ
+- Hàm số $y=\cot x$ là hàm số lẻ
 
 2. Nhắc lại kiến thức
 
 
 - $|-x|=x$
 - $(a-b)^{2 n+1}=-(b-a)^{2 n+1}$ với $\mathrm{n} \in \mathrm{N}^{*}$
-- $(a-b)^{2 n}=(b-a)^{2 n}$ với neN*
+- $(a-b)^{2 n}=(b-a)^{2 n}$ với n \in \mathbb{N}^*
 
 3. Sử dụng máy tính cầm tay
 
@@ -362,20 +362,20 @@ nghịch biến trên từ hàng 11 đến 20 tức là $x \in\left(\frac{\pi}{4
 ## Dành cho học sinh trung bình
 
 Câu 1. Tập xác định D của hàm số $y=2 \sin x$ là
-A. $D=-2 ; 2$.
-B. $\mathrm{D}=-1 ; 1$.
-C. $\mathrm{D}=0 ; 2$.
+A. $D=[-2 ; 2]$.
+B. $D=[-1 ; 1]$.
+C. $D=[0 ; 2]$.
 D. $D=\mathbb{R}$.
 
 ## Lời giải. Chọn D.
 
 Câu 2. Tập xác định D của hàm số $y=\cos \sqrt{x}$ là
-A. $\mathrm{D}=-1 ; 1$.
-B. $\mathrm{D}=0 ; 1$.
-C. $\mathrm{D}=0 ;+\infty$.
+A. $D=[-1 ; 1]$.
+B. $D=[0 ; 1]$.
+C. $D=[0 ;+\infty)$.
 D. $D=\mathbb{R}$.
 
-Lời giải. Điều kiện xác định $x \geq 0$. Do đó $\mathrm{D}=0 ;+\infty$. Chọn C.
+Lời giải. Điều kiện xác định $x \geq 0$. Do đó $D=[0 ;+\infty)$. Chọn C.
 
 Câu 3. Trên $0 ; 2 \pi$ có bao nhiêu điểm mà hàm số $y=\cos x+\frac{2021}{\sin x}$ không xác định?
 A. 2 .
@@ -519,8 +519,8 @@ Lời giải. Ta có $-1 \leq \sin 2 x \leq 1$ suy ra $0 \leq \sin 2 x+1 \leq 2,
 
 Câu 16. Tập xác định $D$ của hàm số $y=\sqrt{\sin x-2}$ là
 A. $\mathrm{D}=\varnothing$.
-B. $\mathrm{D}=-1 ; 1$.
-C. $\mathrm{D}=2 ; 3$.
+B. $D=[-1 ; 1]$.
+C. $D=[2 ; 3]$.
 D. $D=\mathbb{R}$.
 
 Lời giải. Ta có $-1 \leq \sin x \leq 1$ suy ra $-3 \leq \sin x-2 \leq-1, \forall x \in \mathbb{R}$. Do đó không tồn tại căn bậc hai của biểu thức $\sin x-2$. Chọn $\mathbf{A}$.
@@ -589,8 +589,8 @@ D. $\mathrm{D}=\mathbb{R} \backslash k \pi, k \in \mathbb{Z}$.
 Lời giải. Hàm số xác định $\Leftrightarrow \tan \left(\frac{\pi}{2} \cos x\right)$ xác định $\Leftrightarrow \frac{\pi}{2} \cdot \cos x \neq \frac{\pi}{2}+\ell \pi \Leftrightarrow \cos x \neq 1+2 \ell \xrightarrow[\ell \in \mathbb{Z}]{-1 \leq \cos x<1} \cos x \neq \pm 1 \Leftrightarrow \sin x \neq 0 \Leftrightarrow x \neq k \pi \quad k \in \mathbb{Z}$. Chọn D.
 
 Câu 23. Tập xác định D của hàm số $y=\sqrt{-\cos x}$ là
-A. $\mathrm{D}=-\pi+k 2 \pi ; k 2 \pi, k \in \mathbb{Z}$.
-B. $\mathrm{D}=\pi+k 2 \pi ; 2 \pi+k 2 \pi, k \in \mathbb{Z}$.
+A. $D=[-\pi+k 2 \pi ; k 2 \pi], k \in \mathbb{Z}$.
+B. $D=[\pi+k 2 \pi ; 2 \pi+k 2 \pi], k \in \mathbb{Z}$.
 C. $\mathrm{D}=\left[\frac{\pi}{2}+k 2 \pi ; \frac{3 \pi}{2}+k 2 \pi\right], k \in \mathbb{Z}$.
 C. $\mathrm{D}=\left[-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right], k \in \mathbb{Z}$.
 
@@ -607,12 +607,12 @@ D. $0<m<1$.
 Lời giải. Hàm số xác định trên $\mathbb{R}$ khi và chỉ khi $m \cos x+1>0, \forall x \in \mathbb{R} . \quad 1$
 
 - Khi $m=0$ thì 1 luôn đúng nên nhận giá trị $m=0$.
-- Khi $m>0$ thì $m \cos x+1$ có tập giá trị là đoạn $-m+1 ; m+1$. Do đó để 1 đúng khi và chỉ khi $-m+1>0 \Leftrightarrow m<1 \xrightarrow{m>0} 0<m<1$.
-- Khi $m<0$ thì $m \cos x+1$ có tập giá trị là đoạn $m+1 ;-m+1$ Do đó để 1 đúng khi và chỉ khi $m+1>0 \Leftrightarrow m>-1 \xrightarrow{m<0}-1<m<0$.
+- Khi $m>0$ thì $m \cos x+1$ có tập giá trị là đoạn $[-m+1 ; m+1]$. Do đó để 1 đúng khi và chỉ khi $-m+1>0 \Leftrightarrow m<1 \xrightarrow{m>0} 0<m<1$.
+- Khi $m<0$ thì $m \cos x+1$ có tập giá trị là đoạn $[m+1 ;-m+1]$ Do đó để 1 đúng khi và chỉ khi $m+1>0 \Leftrightarrow m>-1 \xrightarrow{m<0}-1<m<0$.
 
 Kết hợp ba trường hợp ta được: $-1<m<1$. Chọn B.
 
-Câu 25. Cho hàm số $y=\sqrt{2 m-3 \sin x}$. Có bao nhiêu giá trị nguyên của tham số $m$ thuộc $0 ; 2022$ để hàm số xác định trên $\mathbb{R}$ ?
+Câu 25. Cho hàm số $y=\sqrt{2 m-3 \sin x}$. Có bao nhiêu giá trị nguyên của tham số $m$ thuộc $[0 ; 2022]$ để hàm số xác định trên $\mathbb{R}$ ?
 A. 2018 .
 B. 2019 .
 C. 2020 .
@@ -620,7 +620,7 @@ D. 2021 .
 
 Lời giải. Hàm số xác định trên $\mathbb{R}$ khi và chỉ khi $2 m-3 \sin x \geq 0, \forall x \in \mathbb{R}$
 $\Leftrightarrow \quad 2 m \geq 3 \sin x, \forall x \in \mathbb{R} \quad \Leftrightarrow \quad 2 m \geq \max _{\mathbb{R}} 3 \sin x \quad \Leftrightarrow \quad 2 m \geq 3 \quad \Leftrightarrow \quad m \geq \frac{3}{2}$
-$\xrightarrow[m \in 0 ; 2022]{m \in \mathbb{Z}} m \in 2 ; 3 ; 4 ; \ldots ; 2021$. Chọn C.
+$\xrightarrow[m \in [0 ; 2022]]{m \in \mathbb{Z}} m \in \{2 ; 3 ; 4 ; \ldots ; 2021\}$. Chọn C.
 
 ### Dạng 2. Hàm số chẵn - Hàm số lẻ
 
@@ -641,13 +641,13 @@ B. $y=x \cos x$.
 C. $y=\cos x . \cot x$.
 D. $y=\frac{\tan x}{\sin x}$.
 
-Lời giải. • Xét hàm số $y=f x=\sin 2 x$. TXĐ: $\mathrm{D}=\mathbb{R}$. Do đó $\forall x \in \mathrm{D} \Rightarrow-x \in \mathrm{D}$.
-Ta có $f-x=\sin -2 x=-\sin 2 x=-f x$. Do đó $y=\sin 2 x$ là hàm số lẻ.
+Lời giải. • Xét hàm số $y=f(x)=\sin 2 x$. TXĐ: $\mathrm{D}=\mathbb{R}$. Do đó $\forall x \in \mathrm{D} \Rightarrow-x \in \mathrm{D}$.
+Ta có $f(-x)=\sin(-2x)=-\sin 2 x=-f(x)$. Do đó $y=\sin 2 x$ là hàm số lẻ.
 
 - Tương tự ta kiểm tra được $y=x \cos x$ và $y=\cos x \cdot \cot x$ là những hàm số lẻ.
-- Xét hàm số $y=f x=\frac{\tan x}{\sin x}$. TXĐ: $\mathrm{D}=\mathbb{R} \backslash\left\{k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$. Do đó $\forall x \in \mathrm{D} \Rightarrow-x \in \mathrm{D}$.
+- Xét hàm số $y=f(x)=\frac{\tan x}{\sin x}$. TXĐ: $\mathrm{D}=\mathbb{R} \backslash\left\{k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$. Do đó $\forall x \in \mathrm{D} \Rightarrow-x \in \mathrm{D}$.
 
-Ta có $f-x=\frac{\tan -x}{\sin -x}=\frac{-\tan x}{-\sin x}=\frac{\tan x}{\sin x}=f x$. Do đó $y=\frac{\tan x}{\sin x}$ là hàm số chẵn.
+Ta có $f(-x)=\frac{\tan(-x)}{\sin(-x)}=\frac{-\tan x}{-\sin x}=\frac{\tan x}{\sin x}=f(x)$. Do đó $y=\frac{\tan x}{\sin x}$ là hàm số chẵn.
 
 Đồ thị hàm số lẻ nhận gốc tọa độ $O$ làm tâm đối xứng. Đồ thị hàm số chẵn nhận trục tung là trục đối xứng. Chọn D.
 
@@ -684,7 +684,7 @@ C. $y=\cos x+\sin ^{2} x$.
 D. $y=\cos x \sin x$.
 
 Lời giải. Chọn C. Các đáp án $\mathrm{A}, \mathrm{D}$ là hàm số lẻ.
-Xét đáp án B, ta có $f-x=\cos -x-\sin -x=\cos x+\sin x \Rightarrow\left\{\begin{array}{l}f-x \neq-f x \\ f-x \neq f x\end{array}\right.$.
+Xét đáp án B, ta có $f(-x)=\cos(-x)-\sin(-x)=\cos x+\sin x \Rightarrow\left\{\begin{array}{l}f(-x) \neq -f(x) \\ f(-x) \neq f(x)\end{array}\right.$.
 Suy ra hàm số $y=\cos x-\sin x$ không chẵn, không lẻ.
 
 Câu 32. Trong các hàm số sau, hàm số nào là hàm số lẻ?
@@ -720,19 +720,19 @@ D. Đồ thị hàm số $y=\tan x$ đối xứng qua gốc tọa độ $O$.
 Lời giải. Chọn A. Vì $y=|\sin x|$ hàm số chẵn nên có đồ thị đối xứng qua trục $O y$.
 Các đáp án $B$, và $C$ là các hàm số chẵn; $D$ là hàm số lẻ.
 
-Câu 36. Cho hàm số $f x=\sin 2 x$ và $g x=\tan ^{2} x$. Mệnh đề nào sau đây đúng ?
-A. $f x$ lẻ và $g x$ chẵn.
-B. $f x$ chẵn, $g x$ lẻ.
-C. $f x$ và $g x$ cùng chẵn.
-D. $f x$ và $g x$ cùng lé.
+Câu 36. Cho hàm số $f(x)=\sin 2 x$ và $g(x)=\tan ^{2} x$. Mệnh đề nào sau đây đúng ?
+A. $f(x)$ lẻ và $g(x)$ chẵn.
+B. $f(x)$ chẵn, $g(x)$ lẻ.
+C. $f(x)$ và $g(x)$ cùng chẵn.
+D. $f(x)$ và $g(x)$ cùng lẻ.
 
 ## Lời giải. Chọn A.
 
-Câu 37. Cho $f x=\frac{\cos 2 x}{1+\sin ^{2} 3 x}$ và $g x=\frac{|\sin 2 x|-\cos 3 x}{2+\tan ^{2} x}$. Mệnh đề nào sau đây đúng?
-A. $f x$ lẻ và $g x$ chẵn.
-B. $f x$ chẵn, $g x$ lẻ.
-C. $f x$ và $g x$ cùng chẵn.
-D. $f x$ và $g x$ cùng lé.
+Câu 37. Cho $f(x)=\frac{\cos 2 x}{1+\sin ^{2} 3 x}$ và $g(x)=\frac{|\sin 2 x|-\cos 3 x}{2+\tan ^{2} x}$$. Mệnh đề nào sau đây đúng?
+A. $f(x)$ lẻ và $g(x)$ chẵn.
+B. $f(x)$ chẵn, $g(x)$ lẻ.
+C. $f(x)$ và $g(x)$ cùng chẵn.
+D. $f(x)$ và $g(x)$ cùng lẻ.
 
 ## Lời giải. Chọn C.
 
@@ -849,7 +849,7 @@ Hàm số $y=\sin ^{2} x+2=\frac{1}{2}-\frac{1}{2} \cos 2 x+4$ có chu kì là $
 
 Hàm số $y=\cos ^{2}\left(\frac{x}{2}+1\right)=\frac{1}{2}+\frac{1}{2} \cos x+2$ có chu kì là $2 \pi$.
 
-Câu 47. Cho hàm số $y=f x$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là
+Câu 47. Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361651/chuyende_05/wrqj2junlfbqk8n6ijcg.jpg)
 A. $T=\frac{\pi}{6}$.
 B. $T=\pi$.
@@ -858,7 +858,7 @@ D. $T=4 \pi$.
 
 ## Lời giải. Chọn C.
 
-Câu 48. Cho hàm số $y=f x$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là
+Câu 48. Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361653/chuyende_05/ftiahzbkjo2qjjkyuvpy.jpg)
 A. $T=\frac{3 \pi}{2}$.
 B. $T=2 \pi$.
@@ -867,12 +867,13 @@ D. $T=6 \pi$.
 
 ## Lời giải. Chọn C.
 
-Câu 49. Cho hàm số $y=f x$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là
+Câu 49. Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361655/chuyende_05/pi05twh2vl1bg0nno9q7.jpg)
 A. $T=\frac{\pi}{4}$.
 B. $T=\frac{\pi}{2}$.
 C. $T=\pi$.
 D. $T=2 \pi$.
-![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361655/chuyende_05/pi05twh2vl1bg0nno9q7.jpg)
+
 
 
 ## Lời giải. Chọn C.
@@ -890,17 +891,17 @@ Lời giải. Chọn A. Các hàm số $y=x+\sin x, y=x \cos x, y=\frac{\sin x}{
 Xét hàm số $y=x+\sin x$.
 
 - Tập xác định $\mathrm{D}=\mathbb{R}$.
-- Giả sử $f x+T=f x, \forall x \in \mathbf{D}$
+- Giả sử $f(x+T)=f(x), \forall x \in \mathbf{D}$
 
 $$
 \begin{aligned}
-& \Leftrightarrow x+T+\sin x+T=x+\sin x, \forall x \in \mathrm{D} \\
-& \Leftrightarrow T+\sin x+T=\sin x, \forall x \in \mathrm{D} .
+& \Leftrightarrow x+T+\sin(x+T)=x+\sin x, \forall x \in \mathrm{D} \\
+& \Leftrightarrow T+\sin(x+T)=\sin x, \forall x \in \mathrm{D} .
 \end{aligned}
 $$
 
-Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\sin 0=0 \\ T+\sin \pi+T=\sin \pi=0\end{array}\right.$.
-Suy ra $2 T+\sin T+\sin \pi+T=0 \Leftrightarrow T=0$. Điều này trái với định nghĩa là $T>0$.
+Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\sin 0=0 \\ T+\sin(\pi+T)=\sin \pi=0\end{array}\right.$.
+Suy ra $2 T+\sin T+\sin(\pi+T)=0 \Leftrightarrow T=0$. Điều này trái với định nghĩa là $T>0$.
 Vậy hàm số $y=x+\sin x$ không phải là hàm số tuần hoàn.
 Tương tự chứng minh cho các hàm số $y=x \cos x$ và $y=\frac{\sin x}{x}$ không tuần hoàn.
 
@@ -979,7 +980,7 @@ B. hàm số nghịch biến.
 C. hàm hằng.
 D. hàm số không đơn điệu.
 
-Lời giải. Ta có $y=\sin x-\cos x=\sqrt{2} \sin \left(x-\frac{\pi}{4}\right)$. Vì $x \in\left(0 ; \frac{\pi}{2}\right) \rightarrow x-\frac{\pi}{4} \in\left(-\frac{\pi}{4} ; \frac{\pi}{4}\right)$ thuộc góc phần tứ thứ I và thứ IV nên hàm số đã cho đồng biến. Chọn $\mathbf{A}$.
+Lời giải. Ta có $y=\sin x-\cos x=\sqrt{2} \sin \left(x-\frac{\pi}{4}\right)$. Vì $x \in\left(0 ; \frac{\pi}{2}\right) \rightarrow x-\frac{\pi}{4} \in\left(-\frac{\pi}{4} ; \frac{\pi}{4}\right)$ thuộc góc phần tư thứ I và thứ IV nên hàm số đã cho đồng biến. Chọn $\mathbf{A}$.
 
 
 Cách 2. Ta thấy trên khoảng ( $0 ; \frac{\pi}{2}$ ), hàm $y=\sin x$ đồng biến và hàm $y=-\cos x$ đồng biến. Do đó hàm $y=\sin x+-\cos x$ đồng biến.
@@ -1000,28 +1001,30 @@ $$
 Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến. Vậy đáp án $A$ đúng. Chọn $A$.
 
 Câu 59. Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có bảng biến thiên trên khoảng $\left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$ như sau:
+
+| $x$ | $-\frac{\pi}{2}$ | | $0$ | | $\frac{\pi}{2}$ |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| $y$ | $0$ | $\searrow$ | $-\infty$ \| $+\infty$ | $\searrow$ | $0$ |
+
 A. $y=\sin x$.
 B. $y=\cos x$.
 C. $y=\tan x$.
 D. $y=\cot x$.
 
-| $x$ | $-\frac{\pi}{2}$ | 0 |  | $\frac{\pi}{2}$ |
-| :--- | :--- | :--- | :---: | ---: |
-| $y$ | 0 |  |  |  |
 
 Lời giải. Dựa vào bảng biến thiên ta thấy hàm số nghịch biến trên từng khoảng xác định. Đối chiếu các đáp án chỉ có đáp án D thỏa mãn. Chọn D.
 
 
-Câu 60. Với mọi $x \in\left(0 ; \frac{\pi}{2}\right)$, so sánh $\cos \sin x$ với $\cos 1$ thì
-A. $\cos \sin x>\cos 1$.
-B. $\cos \sin x \geq \cos 1$.
+Câu 60. Với mọi $x \in\left(0 ; \frac{\pi}{2}\right)$, so sánh $\cos(\sin x)$ với $\cos 1$ thì
+A. $\cos(\sin x)>\cos 1$.
+B. $\cos(\sin x) \geq \cos 1$.
 C. không so sánh được.
-D. $\cos \sin x<\cos 1$.
+D. $\cos(\sin x)<\cos 1$.
 
 Lời giải. Vì $x \in\left(0 ; \frac{\pi}{2}\right)$ nên $0<\sin x<1$.
 
 Hàm số $y=\cos x$ nghịch biến trên $\left(0 ; \frac{\pi}{2}\right)$, suy ra $y=\cos x$ nghịch biến trên $0 ; 1$.
-Do đó, $\cos \sin x>\cos 1$. Chọn A.
+Do đó, $\cos(\sin x)>\cos 1$. Chọn A.
 
 ### Dạng 5. Nhận dạng đồ thị của hàm số
 
@@ -1151,22 +1154,22 @@ Vậy $-5 \leq y \leq 1 \longrightarrow\left\{\begin{array}{l}M=1 \\ m=-5\end{ar
 
 
 Câu 72. Tìm tập giá trị $T$ của hàm số $y=3 \cos 2 x+5$.
-A. $T=-1 ; 1$.
-B. $T=-1 ; 11$.
-C. $T=2 ; 8$.
-D. $T=5 ; 8$.
+A. $T=[-1 ; 1]$.
+B. $T=[-1 ; 11]$.
+C. $T=[2 ; 8]$.
+D. $T=[5 ; 8]$.
 
 Lời giải. Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow-3 \leq 3 \cos 2 x \leq 3 \longrightarrow 2 \leq 3 \cos 2 x+5 \leq 8$.
 Vậy $2 \leq y \leq 8 \longrightarrow T=2 ; 8$. Chọn C.
 
 Câu 73. Tìm tập giá trị $T$ của hàm số $y=5-3 \sin x$.
-A. $T=-1 ; 1$.
-B. $T=-3 ; 3$.
-C. $T=2 ; 8$.
-D. $T=5 ; 8$.
+A. $T=[-1 ; 1]$.
+B. $T=[-3 ; 3]$.
+C. $T=[2 ; 8]$.
+D. $T=[5 ; 8]$.
 
 Lời giải. Ta có $-1 \leq \sin x \leq 1 \longrightarrow 1 \geq-\sin x \geq-1 \longrightarrow 3 \geq-3 \sin x \geq-3$
-$\longrightarrow 8 \geq 5-3 \sin x \geq 2$. Vậy $2<y<8 \longrightarrow T=2 ; 8$. Chọn C.
+$\longrightarrow 8 \geq 5-3 \sin x \geq 2$. Vậy $2 \leq y \leq 8 \longrightarrow T=[2 ; 8]$. Chọn C.
 
 Câu 74. Tìm giá trị nhỏ nhất $m$ của hàm số $y=-\sqrt{2} \sin \left(2021 x+\frac{\pi}{3}\right)$.
 A. $m=-2017 \sqrt{2}$.
@@ -1197,17 +1200,16 @@ Lời giải. Ta có $-1 \leq \cos 3 x \leq 1 \longrightarrow 0 \leq|\cos 3 x| \
 $\longrightarrow 1 \geq 1-2|\cos 3 x| \geq-1$. Vậy $1 \geq y \geq-1 \longrightarrow\left\{\begin{array}{l}M=1 \\ m=-1\end{array}\right.$. Chọn B.
 
 Câu 77. Khi $x$ thay đổi trong đoạn $\left[-\frac{\pi}{2} ; \pi\right]$ thì $y=\sin x$ lấy mọi giá trị thuộc
-A. đoạn $-1 ; 0$.
-B. khoảng $-1 ; 0$.
-C. nửa khoảng $-1 ; 1$.
-D. đoạn $-1 ; 1$.
+A. đoạn $[-1 ; 0]$.
+B. khoảng $(-1 ; 0)$.
+C. nửa khoảng $[-1 ; 1)$.
+D. đoạn $[-1 ; 1]$.
 
-Lời giải. Dựa vào đường tròn lượng giác, dễ dàng xác định được $\sin x \in-1 ; 1$ khi $x \in\left[-\frac{\pi}{2} ; \pi\right]$. Chọn
-D.
+Lời giải. Dựa vào đường tròn lượng giác, dễ dàng xác định được $\sin x \in [-1 ; 1]$ khi $x \in\left[-\frac{\pi}{2} ; \pi\right]$. Chọn D.
 
-Sai lầm học sinh hay gặp là lấy giá trị sin của hai đầu mút, cụ thể $\sin \left(-\frac{\pi}{2}\right)=-1$ và $\sin \pi=0$ và chọn
+Sai lầm học sinh hay gặp là lấy giá trị sin của hai đầu mút, cụ thể $\sin \left(-\frac{\pi}{2}\right)=-1$ và $\sin \pi=0$ và chọn A.
+
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361674/chuyende_05/vbucu5m9zlluzv9xjlmr.jpg)
-A.
 
 Câu 78. Khi $x$ thay đổi trong nửa khoảng $\left(-\frac{\pi}{3} ; \frac{\pi}{6}\right)$ thì $y=\cos 2 x$ lấy mọi giá trị thuộc
 A. $\left(-\frac{1}{2} ; \frac{1}{2}\right)$.
@@ -1215,8 +1217,7 @@ B. $\left(\frac{1}{2} ; \frac{\sqrt{3}}{2}\right]$.
 C. $\left(-\frac{1}{2} ; 1\right]$.
 D. $\left(-\frac{\sqrt{3}}{2} ; \frac{\sqrt{3}}{2}\right]$.
 
-Lời giải. Với $x \in\left(-\frac{\pi}{3} ; \frac{\pi}{6}\right] \rightarrow 2 x \in\left(-\frac{2 \pi}{3} ; \frac{\pi}{3}\right]$. Dựa vào đường tròn lượng giác, dễ dàng xác định được $y=\cos 2 x$ nhận mọi giá trị từ $-\frac{1}{2}$ đến 1 (không lấy giá trị $-\frac{1}{2}$ ). Chọn C.
-![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361676/chuyende_05/ogiuhopp5jsosgwvcxy0.jpg)
+Lời giải. Với $x \in\left(-\frac{\pi}{3} ; \frac{\pi}{6}\right] \rightarrow 2 x \in\left(-\frac{2 \pi}{3} ; \frac{\pi}{3}\right]$. Dựa vào đường tròn lượng giác, dễ dàng xác định được $y=\cos 2 x$ nhận mọi giá trị thuộc $(-\frac{1}{2} ; 1]$. Chọn C.
 
 Cách 2. Ta có thể lập bảng giá trị như sau:
 
@@ -1226,18 +1227,20 @@ Cách 2. Ta có thể lập bảng giá trị như sau:
 | $2 x$ | $-\frac{2 \pi}{3} \quad-\frac{\pi}{2}$ | $-\frac{\pi}{3}$ | $-\frac{\pi}{6}$ | $\frac{\pi}{6}$ | $\frac{\pi}{3}$ |
 | $\cos 2 x$ |  |  |  |  | $-\frac{1}{2} \longrightarrow 0 \longrightarrow \frac{1}{2} \longrightarrow \frac{\sqrt{3}}{2} \longrightarrow \frac{\sqrt{3}}{2} \longrightarrow \frac{1}{2}$ |
 
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361676/chuyende_05/ogiuhopp5jsosgwvcxy0.jpg)
+
 Câu 79. Khi $x$ thay đổi trong đoạn $\left[-\frac{\pi}{4} ; \frac{\pi}{6}\right]$ thì $y=\sin ^{2} 2 x$ lấy mọi giá trị thuộc
 A. $\left[\frac{1}{4} ; \frac{1}{2}\right]$.
 B. $\left[0 ; \frac{1}{2}\right]$.
 C. $\left[\frac{3}{4} ; 1\right]$.
-D. $0 ; 1$.
+D. $[0 ; 1]$.
 
 Lời giải. Với $x \in\left[-\frac{\pi}{4} ; \frac{\pi}{6}\right] \rightarrow 2 x \in\left[-\frac{\pi}{2} ; \frac{\pi}{3}\right]$.
 Dựa vào đường tròn lượng giác, dễ dàng xác định được $y=\sin 2 x$ nhận mọi giá trị từ -1 đến $\frac{\sqrt{3}}{2}$.
 
-Ta có $-1 \leq \sin 2 x \leq \frac{\sqrt{3}}{2} \longrightarrow 0 \leq \sin ^{2} 2 x \leq 1$. Chọn
+Ta có $-1 \leq \sin 2 x \leq \frac{\sqrt{3}}{2} \longrightarrow 0 \leq \sin ^{2} 2 x \leq 1$. Chọn D.
+
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361677/chuyende_05/c7ska86xe1r8mbn55vnq.jpg)
-D.
 
 Câu 80. Hàm số $y=3-5 \sin x^{2022}$ có giá trị lớn nhất là $M$ và giá trị nhỏ nhất là $m$. Giá trị của $M+m$ bằng
 A. $2^{2022}$.
@@ -1324,7 +1327,7 @@ B. $y \leq \sqrt{2}, \forall x \in \mathbb{R}$.
 C. $y \leq 1, \forall x \in \mathbb{R}$.
 D. $y \leq \frac{1}{2}, \forall x \in \mathbb{R}$.
 
-Lời giải. Ta có $y=\cos ^{4} x+\sin ^{4} x=\sin ^{2} x+\cos ^{2} x{ }^{2}-2 \sin ^{2} x \cos ^{2} x$
+Lời giải. Ta có $y=\cos ^{4} x+\sin ^{4} x=(\sin ^{2} x+\cos ^{2} x)^{2}-2 \sin ^{2} x \cos ^{2} x$
 
 $$
 =1-\frac{1}{2} \sin ^{2} 2 x=1-\frac{1}{2} \cdot \frac{1-\cos 4 x}{2}=\frac{3}{4}+\frac{1}{4} \cos 4 x
@@ -1339,7 +1342,7 @@ B. $\left[\frac{1}{2} ; 1\right]$.
 C. $\left[\frac{1}{4} ; 1\right]$.
 D. $\left[0 ; \frac{1}{4}\right]$.
 
-Lời giải. Ta có $y=\sin ^{6} x+\cos ^{6} x=\sin ^{2} x+\cos ^{2} x{ }^{2}-3 \sin ^{2} x \cos ^{2} x \sin ^{2} x+\cos ^{2} x$
+Lời giải. Ta có $y=\sin ^{6} x+\cos ^{6} x=(\sin ^{2} x+\cos ^{2} x)^{3}-3 \sin ^{2} x \cos ^{2} x (\sin ^{2} x+\cos ^{2} x)$
 
 $$
 =1-3 \sin ^{2} x \cos ^{2} x=1-\frac{3}{4} \sin ^{2} 2 x=1-\frac{3}{4} \cdot \frac{1-\cos 4 x}{2}=\frac{5}{8}+\frac{3}{8} \cos 4 x .
@@ -1434,10 +1437,10 @@ B. $\sin x_{0}=-\frac{\sqrt{3}}{2}$.
 C. $\sin x_{0}=-\frac{1}{2}$.
 D. $\sin x_{0}=0$.
 
-Lời giải. Viết lại $y=1-\sin ^{2} x+2 \sin x+2=-\sin ^{2} x+2 \sin x+3=-\sin x-1^{2}+4$.
+Lời giải. Viết lại $y=1-\sin ^{2} x+2 \sin x+2=-\sin ^{2} x+2 \sin x+3=-(\sin x-1)^{2}+4$.
 
-Ta có $-1 \leq \sin x \leq 1 \longrightarrow-2 \leq \sin x-1 \leq 0 \longrightarrow 0 \leq \sin x-1^{2} \leq 4$
-$\longrightarrow 0 \geq-\sin x-1^{2} \geq-4 \longrightarrow 4 \geq-\sin x-1^{2}+4 \geq 0$.
+Ta có $-1 \leq \sin x \leq 1 \longrightarrow-2 \leq \sin x-1 \leq 0 \longrightarrow 0 \leq (\sin x-1)^{2} \leq 4$
+$\longrightarrow 0 \geq -(\sin x-1)^{2} \geq -4 \longrightarrow 4 \geq -(\sin x-1)^{2}+4 \geq 0$.
 Do đó giá trị nhỏ nhất của hàm số bằng 0 . Dấu " $=$ " xảy ra $\Leftrightarrow \sin x=-1$. Chọn $\mathbf{A}$.
 
 
@@ -1458,9 +1461,9 @@ B. $\cos 2 x_{1}-\cos 2 x_{2}=-1$.
 C. $\cos 2 x_{1}-\cos 2 x_{2}=0$.
 D. $\cos 2 x_{1}-\cos 2 x_{2}=2$.
 
-Lời giải. Viết lại $y=4 .\left(\frac{1-\cos 2 x}{2}\right)^{2}-2 \cos ^{2} 2 x-1-4 \cos 2 x-8=-\cos 2 x+3^{2}+3$.
-Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow 2 \leq \cos 2 x+3 \leq 4 \longrightarrow 4 \leq \cos 2 x+3^{2} \leq 16$
-$\longrightarrow-13 \leq-\cos 2 x+3^{2}+3 \leq-1$. Do đó
+Lời giải. Viết lại $y=4 .\left(\frac{1-\cos 2 x}{2}\right)^{2}-2 \cos ^{2} 2 x-1-4 \cos 2 x-8=-(\cos 2 x+3)^{2}+3$.
+Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow 2 \leq \cos 2 x+3 \leq 4 \longrightarrow 4 \leq (\cos 2 x+3)^{2} \leq 16$
+$\longrightarrow-13 \leq-(\cos 2 x+3)^{2}+3 \leq-1$. Do đó
 
 - $\max _{\mathbb{R}} y=-1$, đạt được khi $\cos 2 x=-1=\cos 2 x_{2}$.
 - $\min _{\mathbb{R}} y=-13$, đạt được khi $\cos 2 x=1=\cos 2 x_{1}$. Chọn D.

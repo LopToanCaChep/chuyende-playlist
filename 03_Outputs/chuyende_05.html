@@ -166,6 +166,16 @@
         .katex {
             display: inline-block;
             white-space: nowrap;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            vertical-align: middle;
+        }
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            padding: 8px 0;
         }
 
         .option {
@@ -859,10 +869,10 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 1</div>
                 <div class="q-content">Tập xác định D của hàm số $y=2 \sin x$ là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$D=-2 ; 2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=-1 ; 1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\mathrm{D}=0 ; 2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$D=\mathbb{R}$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$D=[-2 ; 2]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$D=[-1 ; 1]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$D=[0 ; 2]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$D=\mathbb{R}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn D.</div>
+                    <div class="sol-body">Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -872,10 +882,10 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 2</div>
                 <div class="q-content">Tập xác định D của hàm số $y=\cos \sqrt{x}$ là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=-1 ; 1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=0 ; 1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\mathrm{D}=0 ;+\infty$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$D=\mathbb{R}$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$D=[-1 ; 1]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$D=[0 ; 1]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$D=[0 ;+\infty)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$D=\mathbb{R}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Điều kiện xác định $x \geq 0$. Do đó $\mathrm{D}=0 ;+\infty$. Chọn C.</div>
+                    <div class="sol-body">Điều kiện xác định $x \geq 0$. Do đó $D=[0 ;+\infty)$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -885,10 +895,10 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 3</div>
                 <div class="q-content">Trên $0 ; 2 \pi$ có bao nhiêu điểm mà hàm số $\displaystyle y=\cos x+\frac{2021}{\sin x}$ không xác định?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">2 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">3 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Vô số</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">2</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">3</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Vô số</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\Leftrightarrow \sin x \neq 0 \Leftrightarrow x \neq k \pi \quad k \in \mathbb{Z}$.<br>Do đó trên đoạn $0 ; 2 \pi$ các điểm mà hàm số không xác định là $0, \pi$ và $2 \pi$. Chọn B.</div>
+                    <div class="sol-body">Hàm số xác định $\Leftrightarrow \sin x \neq 0 \Leftrightarrow x \neq k \pi \quad k \in \mathbb{Z}$.<br>Do đó trên đoạn $0 ; 2 \pi$ các điểm mà hàm số không xác định là $0, \pi$ và $2 \pi$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -901,7 +911,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{3}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{3}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k 2 \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k \pi, k \in \mathbb{Z}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\displaystyle \Leftrightarrow \sin \left(x-\frac{\pi}{3}\right) \neq 0 \Leftrightarrow x-\frac{\pi}{3} \neq k \pi \quad k \in \mathbb{Z}$. Chọn $\mathbf{A}$.</div>
+                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \sin \left(x-\frac{\pi}{3}\right) \neq 0 \Leftrightarrow x-\frac{\pi}{3} \neq k \pi \quad k \in \mathbb{Z}$. Chọn $\mathbf{A}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -914,7 +924,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k 2 \pi, k \in \mathbb{Z}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\Leftrightarrow \cos x-1 \neq 0 \Leftrightarrow \cos x \neq 1 \Leftrightarrow x \neq k 2 \pi \quad k \in \mathbb{Z}$. Chọn D.</div>
+                    <div class="sol-body">Hàm số xác định $\Leftrightarrow \cos x-1 \neq 0 \Leftrightarrow \cos x \neq 1 \Leftrightarrow x \neq k 2 \pi \quad k \in \mathbb{Z}$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -924,10 +934,10 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 6</div>
                 <div class="q-content">Trên $\displaystyle \left(-\frac{\pi}{2} ; \frac{3 \pi}{2}\right)$ có bao nhiêu điểm mà hàm số $\displaystyle y=\frac{2021}{\sin ^{2} x-1}$ không xác định?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">3 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">3</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\displaystyle \Leftrightarrow \sin ^{2} x \neq 1 \Leftrightarrow \sin x \neq \pm 1 \Leftrightarrow x \neq \frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$.<br>Do đó trên đoạn $\displaystyle \left(-\frac{\pi}{2} ; \frac{3 \pi}{2}\right)$ điểm mà hàm số không xác định là $\displaystyle \frac{\pi}{2}$. Chọn B.</div>
+                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \sin ^{2} x \neq 1 \Leftrightarrow \sin x \neq \pm 1 \Leftrightarrow x \neq \frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$.<br>Do đó trên đoạn $\displaystyle \left(-\frac{\pi}{2} ; \frac{3 \pi}{2}\right)$ điểm mà hàm số không xác định là $\displaystyle \frac{\pi}{2}$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -940,9 +950,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\varnothing$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{8}+k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\displaystyle \Leftrightarrow \cot \left(2 x-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \sin \left(2 x-\frac{\pi}{4}\right) \neq 0$<br><br>$$
-\Leftrightarrow 2 x-\frac{\pi}{4} \neq k \pi \Leftrightarrow x \neq \frac{\pi}{8}+\frac{k \pi}{2} \quad k \in \mathbb{Z} \text {. Chọn C. }
-$$</div>
+                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \cot \left(2 x-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \sin \left(2 x-\frac{\pi}{4}\right) \neq 0$<br>$$<br>\Leftrightarrow 2 x-\frac{\pi}{4} \neq k \pi \Leftrightarrow x \neq \frac{\pi}{8}+\frac{k \pi}{2} \quad k \in \mathbb{Z} \text {. Chọn C. }<br>$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -955,9 +963,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{3 \pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{3 \pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\displaystyle \Leftrightarrow \tan ^{2}\left(\frac{x}{2}-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \cos ^{2}\left(\frac{x}{2}-\frac{\pi}{4}\right) \neq 0$<br><br>$$
-\Leftrightarrow \frac{x}{2}-\frac{\pi}{4} \neq \frac{\pi}{2}+k \pi \Leftrightarrow x \neq \frac{3 \pi}{2}+k 2 \pi \quad k \in \mathbb{Z} \text {. Chọn A. }
-$$</div>
+                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \tan ^{2}\left(\frac{x}{2}-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \cos ^{2}\left(\frac{x}{2}-\frac{\pi}{4}\right) \neq 0$<br>$$<br>\Leftrightarrow \frac{x}{2}-\frac{\pi}{4} \neq \frac{\pi}{2}+k \pi \Leftrightarrow x \neq \frac{3 \pi}{2}+k 2 \pi \quad k \in \mathbb{Z} \text {. Chọn A. }<br>$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -970,9 +976,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$D=\mathbb{R}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\Leftrightarrow \tan ^{2021} 2 x$ xác định $\Leftrightarrow \cos ^{2021} 2 x \neq 0 \Leftrightarrow \cos 2 x \neq 0$<br><br>$$
-\Leftrightarrow 2 x \neq \frac{\pi}{2}+k \pi \Leftrightarrow x \neq \frac{\pi}{4}+k \frac{\pi}{2} \quad k \in \mathbb{Z} \text {. Chọn D. }
-$$</div>
+                    <div class="sol-body">Hàm số xác định $\Leftrightarrow \tan ^{2021} 2 x$ xác định $\Leftrightarrow \cos ^{2021} 2 x \neq 0 \Leftrightarrow \cos 2 x \neq 0$<br>$$<br>\Leftrightarrow 2 x \neq \frac{\pi}{2}+k \pi \Leftrightarrow x \neq \frac{\pi}{4}+k \frac{\pi}{2} \quad k \in \mathbb{Z} \text {. Chọn D. }<br>$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -985,7 +989,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{k \frac{\pi}{4}, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k 2 \pi, k \in \mathbb{Z}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn B. Hàm số xác định khi thỏa mãn đồng thời các điều kiện sau:<br><br>- $\tan x$ xác định $\Leftrightarrow \cos x \neq 0$.<br>- $\cot 2 x$ xác định $\Leftrightarrow \sin 2 x \neq 0 \Leftrightarrow 2 \sin x \cos x \neq 0$.<br><br>Từ 1 và 2 , suy ra hàm số xác định $\displaystyle \Leftrightarrow \sin 2 x \neq 0 \Leftrightarrow 2 x \neq k \pi \Leftrightarrow x \neq k \frac{\pi}{2} \quad k \in \mathbb{Z}$.</div>
+                    <div class="sol-body">Chọn B. Hàm số xác định khi thỏa mãn đồng thời các điều kiện sau:<br>- $\tan x$ xác định $\Leftrightarrow \cos x \neq 0$.<br>- $\cot 2 x$ xác định $\Leftrightarrow \sin 2 x \neq 0 \Leftrightarrow 2 \sin x \cos x \neq 0$.<br>Từ 1 và 2 , suy ra hàm số xác định $\displaystyle \Leftrightarrow \sin 2 x \neq 0 \Leftrightarrow 2 x \neq k \pi \Leftrightarrow x \neq k \frac{\pi}{2} \quad k \in \mathbb{Z}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -998,9 +1002,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{3 \pi}{4}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C. Hàm số xác định khi thỏa mãn đồng thời các điều kiện sau:<br><br>- $\displaystyle \tan \left(x-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \cos \left(x-\frac{\pi}{4}\right) \neq 0$.<br>- $\displaystyle \tan \left(x-\frac{\pi}{4}\right) \neq 0 \Leftrightarrow \sin \left(x-\frac{\pi}{4}\right) \neq 0$.<br><br>Từ 1 và 2 , suy ra hàm số xác định $\displaystyle \Leftrightarrow \sin \left(x-\frac{\pi}{4}\right) \cos \left(x-\frac{\pi}{4}\right) \neq 0 \Leftrightarrow \sin 2\left(x-\frac{\pi}{4}\right) \neq 0$<br><br>$$
-\Leftrightarrow 2\left(x-\frac{\pi}{4}\right) \neq k \pi \Leftrightarrow x \neq \frac{\pi}{4}+k \frac{\pi}{2} \quad k \in \mathbb{Z} .
-$$</div>
+                    <div class="sol-body">Chọn C. Hàm số xác định khi thỏa mãn đồng thời các điều kiện sau:<br>- $\displaystyle \tan \left(x-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \cos \left(x-\frac{\pi}{4}\right) \neq 0$.<br>- $\displaystyle \tan \left(x-\frac{\pi}{4}\right) \neq 0 \Leftrightarrow \sin \left(x-\frac{\pi}{4}\right) \neq 0$.<br>Từ 1 và 2 , suy ra hàm số xác định $\displaystyle \Leftrightarrow \sin \left(x-\frac{\pi}{4}\right) \cos \left(x-\frac{\pi}{4}\right) \neq 0 \Leftrightarrow \sin 2\left(x-\frac{\pi}{4}\right) \neq 0$<br>$$<br>\Leftrightarrow 2\left(x-\frac{\pi}{4}\right) \neq k \pi \Leftrightarrow x \neq \frac{\pi}{4}+k \frac{\pi}{2} \quad k \in \mathbb{Z} .<br>$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1013,7 +1015,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$D=\mathbb{R}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định khi thỏa mãn đồng thời các điều kiện sau:<br><br>- $1-\sin ^{2} x \neq 0 \Leftrightarrow \sin ^{2} x \neq 1$.<br>- $\tan x$ xác định $\Leftrightarrow \cos x \neq 0$.<br><br>Từ 1 và 2 , suy ra hàm số xác định $\displaystyle \Leftrightarrow \cos x \neq 0 \Leftrightarrow x \neq \frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$. Chọn B.</div>
+                    <div class="sol-body">Hàm số xác định khi thỏa mãn đồng thời các điều kiện sau:<br>- $1-\sin ^{2} x \neq 0 \Leftrightarrow \sin ^{2} x \neq 1$.<br>- $\tan x$ xác định $\Leftrightarrow \cos x \neq 0$.<br>Từ 1 và 2 , suy ra hàm số xác định $\displaystyle \Leftrightarrow \cos x \neq 0 \Leftrightarrow x \neq \frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1026,7 +1028,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \left(\frac{\pi}{2}+k 2 \pi ; \frac{3 \pi}{4}+k 2 \pi\right)$ với $k \in \mathbb{Z}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \left(-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right)$ với $k \in \mathbb{Z}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left(\frac{3 \pi}{4}+k 2 \pi ; \frac{3 \pi}{2}+k 2 \pi\right)$ với $k \in \mathbb{Z}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \left(\pi+k 2 \pi ; \frac{3 \pi}{2}+k 2 \pi\right)$ với $k \in \mathbb{Z}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn B. Vẽ đường tròn lượng giác và biểu diễn.</div>
+                    <div class="sol-body">Chọn B. Vẽ đường tròn lượng giác và biểu diễn.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1039,7 +1041,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{-\frac{\pi}{4}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\displaystyle \Leftrightarrow \sin x-\cos x \neq 0 \Leftrightarrow \tan x \neq 1 \Leftrightarrow x \neq \frac{\pi}{4}+k \pi k \in \mathbb{Z}$. Chọn D.</div>
+                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \sin x-\cos x \neq 0 \Leftrightarrow \tan x \neq 1 \Leftrightarrow x \neq \frac{\pi}{4}+k \pi k \in \mathbb{Z}$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1052,7 +1054,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$D=\mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \pi ; \frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \sin 2 x \leq 1$ suy ra $0 \leq \sin 2 x+1 \leq 2, \forall x \in \mathbb{R}$. Do đó tập xác định của hàm số là $\mathrm{D}=\mathbb{R}$. Chọn B.</div>
+                    <div class="sol-body">Ta có $-1 \leq \sin 2 x \leq 1$ suy ra $0 \leq \sin 2 x+1 \leq 2, \forall x \in \mathbb{R}$. Do đó tập xác định của hàm số là $\mathrm{D}=\mathbb{R}$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1062,10 +1064,10 @@ $$</div>
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 16</div>
                 <div class="q-content">Tập xác định $D$ của hàm số $y=\sqrt{\sin x-2}$ là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\varnothing$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=-1 ; 1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\mathrm{D}=2 ; 3$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$D=\mathbb{R}$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\varnothing$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$D=[-1 ; 1]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$D=[2 ; 3]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$D=\mathbb{R}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \sin x \leq 1$ suy ra $-3 \leq \sin x-2 \leq-1, \forall x \in \mathbb{R}$. Do đó không tồn tại căn bậc hai của biểu thức $\sin x-2$. Chọn $\mathbf{A}$.</div>
+                    <div class="sol-body">Ta có $-1 \leq \sin x \leq 1$ suy ra $-3 \leq \sin x-2 \leq-1, \forall x \in \mathbb{R}$. Do đó không tồn tại căn bậc hai của biểu thức $\sin x-2$. Chọn $\mathbf{A}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1078,7 +1080,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\varnothing$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\left[\frac{\pi}{6}+k 2 \pi ; \frac{5 \pi}{6}+k 2 \pi\right], k \in \mathbb{Z}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\left[\frac{5 \pi}{6}+k 2 \pi ; \frac{13 \pi}{6}+k 2 \pi\right], k \in \mathbb{Z}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \sin 2 x \leq 1$ suy ra $\left\{\begin{array}{l}1+\sin 2 x \geq 0 \\ 1-\sin 2 x \geq 0\end{array}, \forall x \in \mathbb{R}\right.$. Chọn B.</div>
+                    <div class="sol-body">Ta có $-1 \leq \sin 2 x \leq 1$ suy ra $\left\{\begin{array}{l}1+\sin 2 x \geq 0 \\ 1-\sin 2 x \geq 0\end{array}, \forall x \in \mathbb{R}\right.$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1091,7 +1093,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $1-\cos x \geq 0, \forall x \in \mathbb{R}$. Do đó hàm số đã cho xác định khi và chỉ khi $\displaystyle \cos ^{2} x \neq 0 \Leftrightarrow \cos x \neq 0 \Leftrightarrow x \neq \frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$. Chọn $\mathbf{C}$.</div>
+                    <div class="sol-body">Ta có $1-\cos x \geq 0, \forall x \in \mathbb{R}$. Do đó hàm số đã cho xác định khi và chỉ khi $\displaystyle \cos ^{2} x \neq 0 \Leftrightarrow \cos x \neq 0 \Leftrightarrow x \neq \frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$. Chọn $\mathbf{C}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1104,11 +1106,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\varnothing$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn D. Ta có $\cos x-4&lt;0, \forall x \in \mathbb{R}$.<br>Do đó hàm số xác định<br><br>$$
-\Leftrightarrow 1-\sin x \leq 0 \Leftrightarrow \sin x \geq 1
-$$<br><br>$$
-\Leftrightarrow \sin x=1 \quad \text { vì } \sin x \leq 1, \forall \mathbf{x} \in \mathbb{R} \quad \Leftrightarrow x=\frac{\pi}{2}+k 2 \pi \quad k \in \mathbb{Z} .
-$$</div>
+                    <div class="sol-body">Chọn D. Ta có $\cos x-4&lt;0, \forall x \in \mathbb{R}$.<br>Do đó hàm số xác định<br>$$<br>\Leftrightarrow 1-\sin x \leq 0 \Leftrightarrow \sin x \geq 1<br>$$<br>$$<br>\Leftrightarrow \sin x=1 \quad \text { vì } \sin x \leq 1, \forall \mathbf{x} \in \mathbb{R} \quad \Leftrightarrow x=\frac{\pi}{2}+k 2 \pi \quad k \in \mathbb{Z} .<br>$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1121,7 +1119,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Hàm số $\displaystyle y=\frac{2021}{1+\tan ^{2} x}$ có tập xác định là $\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Hàm số $\displaystyle y=\frac{\sin x}{3-\cos x}$ có tập xác định là $\mathrm{D}=\mathbb{R} \backslash 3$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Hàm số $y=\sqrt{\cos x+1}$ có tập xác định là $\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Hàm số $y=\tan ^{2} x+\cot ^{2} x$ có tập xác định là $\mathrm{D}=\mathbb{R}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C.</div>
+                    <div class="sol-body">Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1134,7 +1132,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\varnothing$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\Leftrightarrow 1-\sin x&gt;0 \Leftrightarrow \sin x&lt;1$.<br><br>Mà $-1 \leq \sin x \leq 1$ nên $\displaystyle 1 \Leftrightarrow \sin x \neq 1 \Leftrightarrow x \neq \frac{\pi}{2}+k 2 \pi \quad k \in \mathbb{Z}$. Chọn D.</div>
+                    <div class="sol-body">Hàm số xác định $\Leftrightarrow 1-\sin x&gt;0 \Leftrightarrow \sin x&lt;1$.<br>Mà $-1 \leq \sin x \leq 1$ nên $\displaystyle 1 \Leftrightarrow \sin x \neq 1 \Leftrightarrow x \neq \frac{\pi}{2}+k 2 \pi \quad k \in \mathbb{Z}$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1147,7 +1145,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$D=\mathbb{R}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\mathrm{D}=\mathbb{R} \backslash k \pi, k \in \mathbb{Z}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\displaystyle \Leftrightarrow \tan \left(\frac{\pi}{2} \cos x\right)$ xác định $\displaystyle \Leftrightarrow \frac{\pi}{2} \cdot \cos x \neq \frac{\pi}{2}+\ell \pi \Leftrightarrow \cos x \neq 1+2 \ell \xrightarrow[\ell \in \mathbb{Z}]{-1 \leq \cos x&lt;1} \cos x \neq \pm 1 \Leftrightarrow \sin x \neq 0 \Leftrightarrow x \neq k \pi \quad k \in \mathbb{Z}$. Chọn D.</div>
+                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \tan \left(\frac{\pi}{2} \cos x\right)$ xác định $\displaystyle \Leftrightarrow \frac{\pi}{2} \cdot \cos x \neq \frac{\pi}{2}+\ell \pi \Leftrightarrow \cos x \neq 1+2 \ell \xrightarrow[\ell \in \mathbb{Z}]{-1 \leq \cos x&lt;1} \cos x \neq \pm 1 \Leftrightarrow \sin x \neq 0 \Leftrightarrow x \neq k \pi \quad k \in \mathbb{Z}$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1157,10 +1155,10 @@ $$</div>
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 23</div>
                 <div class="q-content">Tập xác định D của hàm số $y=\sqrt{-\cos x}$ là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=-\pi+k 2 \pi ; k 2 \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=\pi+k 2 \pi ; 2 \pi+k 2 \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\left[-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right], k \in \mathbb{Z}$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$D=[-\pi+k 2 \pi ; k 2 \pi], k \in \mathbb{Z}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$D=[\pi+k 2 \pi ; 2 \pi+k 2 \pi], k \in \mathbb{Z}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\left[-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right], k \in \mathbb{Z}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định $\displaystyle \Leftrightarrow-\cos x \geq 0 \Leftrightarrow \cos x \leq 0 \Leftrightarrow \frac{\pi}{2}+k 2 \pi \leq x \leq \frac{3 \pi}{2}+k 2 \pi \quad k \in \mathbb{Z}$.<br>Vậy $\displaystyle \mathrm{D}=\left[\frac{\pi}{2}+k 2 \pi ; \frac{3 \pi}{2}+k 2 \pi\right], k \in \mathbb{Z}$. Chọn $\mathbf{C}$.</div>
+                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow-\cos x \geq 0 \Leftrightarrow \cos x \leq 0 \Leftrightarrow \frac{\pi}{2}+k 2 \pi \leq x \leq \frac{3 \pi}{2}+k 2 \pi \quad k \in \mathbb{Z}$.<br>Vậy $\displaystyle \mathrm{D}=\left[\frac{\pi}{2}+k 2 \pi ; \frac{3 \pi}{2}+k 2 \pi\right], k \in \mathbb{Z}$. Chọn $\mathbf{C}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1173,7 +1171,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$-1 \leq m \leq 1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$-1&lt;m&lt;1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m&gt;0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$0&lt;m&lt;1$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định trên $\mathbb{R}$ khi và chỉ khi $m \cos x+1&gt;0, \forall x \in \mathbb{R} . \quad 1$<br><br>- Khi $m=0$ thì 1 luôn đúng nên nhận giá trị $m=0$.<br>- Khi $m&gt;0$ thì $m \cos x+1$ có tập giá trị là đoạn $-m+1 ; m+1$. Do đó để 1 đúng khi và chỉ khi $-m+1&gt;0 \Leftrightarrow m&lt;1 \xrightarrow{m&gt;0} 0&lt;m&lt;1$.<br>- Khi $m&lt;0$ thì $m \cos x+1$ có tập giá trị là đoạn $m+1 ;-m+1$ Do đó để 1 đúng khi và chỉ khi $m+1&gt;0 \Leftrightarrow m&gt;-1 \xrightarrow{m&lt;0}-1&lt;m&lt;0$.<br><br>Kết hợp ba trường hợp ta được: $-1&lt;m&lt;1$. Chọn B.</div>
+                    <div class="sol-body">Hàm số xác định trên $\mathbb{R}$ khi và chỉ khi $m \cos x+1&gt;0, \forall x \in \mathbb{R} . \quad 1$<br>- Khi $m=0$ thì 1 luôn đúng nên nhận giá trị $m=0$.<br>- Khi $m&gt;0$ thì $m \cos x+1$ có tập giá trị là đoạn $[-m+1 ; m+1]$. Do đó để 1 đúng khi và chỉ khi $-m+1&gt;0 \Leftrightarrow m&lt;1 \xrightarrow{m&gt;0} 0&lt;m&lt;1$.<br>- Khi $m&lt;0$ thì $m \cos x+1$ có tập giá trị là đoạn $[m+1 ;-m+1]$ Do đó để 1 đúng khi và chỉ khi $m+1&gt;0 \Leftrightarrow m&gt;-1 \xrightarrow{m&lt;0}-1&lt;m&lt;0$.<br>Kết hợp ba trường hợp ta được: $-1&lt;m&lt;1$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1182,11 +1180,11 @@ $$</div>
             <div class="slide" data-i="25" id="slide-25">
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 25</div>
-                <div class="q-content">Cho hàm số $y=\sqrt{2 m-3 \sin x}$. Có bao nhiêu giá trị nguyên của tham số $m$ thuộc $0 ; 2022$ để hàm số xác định trên $\mathbb{R}$ ?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">2018 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2019 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2020 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2021 </div></div></div>
+                <div class="q-content">Cho hàm số $y=\sqrt{2 m-3 \sin x}$. Có bao nhiêu giá trị nguyên của tham số $m$ thuộc $[0 ; 2022]$ để hàm số xác định trên $\mathbb{R}$ ?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">2018</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2019</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2020</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2021</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số xác định trên $\mathbb{R}$ khi và chỉ khi $2 m-3 \sin x \geq 0, \forall x \in \mathbb{R}$<br>$\displaystyle \Leftrightarrow \quad 2 m \geq 3 \sin x, \forall x \in \mathbb{R} \quad \Leftrightarrow \quad 2 m \geq \max _{\mathbb{R}} 3 \sin x \quad \Leftrightarrow \quad 2 m \geq 3 \quad \Leftrightarrow \quad m \geq \frac{3}{2}$<br>$\xrightarrow[m \in 0 ; 2022]{m \in \mathbb{Z}} m \in 2 ; 3 ; 4 ; \ldots ; 2021$. Chọn C.<br><br>### Dạng 2. Hàm số chẵn - Hàm số lẻ</div>
+                    <div class="sol-body">Hàm số xác định trên $\mathbb{R}$ khi và chỉ khi $2 m-3 \sin x \geq 0, \forall x \in \mathbb{R}$<br>$\displaystyle \Leftrightarrow \quad 2 m \geq 3 \sin x, \forall x \in \mathbb{R} \quad \Leftrightarrow \quad 2 m \geq \max _{\mathbb{R}} 3 \sin x \quad \Leftrightarrow \quad 2 m \geq 3 \quad \Leftrightarrow \quad m \geq \frac{3}{2}$<br>$\xrightarrow[m \in [0 ; 2022]]{m \in \mathbb{Z}} m \in \{2 ; 3 ; 4 ; \ldots ; 2021\}$. Chọn C.<br>### Dạng 2. Hàm số chẵn - Hàm số lẻ</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1199,7 +1197,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\sin x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\tan x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\cot x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn B.</div>
+                    <div class="sol-body">Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1212,7 +1210,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\sin 2 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=x \cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\cos x . \cot x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y=\frac{\tan x}{\sin x}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. • Xét hàm số $y=f x=\sin 2 x$. TXĐ: $\mathrm{D}=\mathbb{R}$. Do đó $\forall x \in \mathrm{D} \Rightarrow-x \in \mathrm{D}$.<br>Ta có $f-x=\sin -2 x=-\sin 2 x=-f x$. Do đó $y=\sin 2 x$ là hàm số lẻ.<br><br>- Tương tự ta kiểm tra được $y=x \cos x$ và $y=\cos x \cdot \cot x$ là những hàm số lẻ.<br>- Xét hàm số $\displaystyle y=f x=\frac{\tan x}{\sin x}$. TXĐ: $\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$. Do đó $\forall x \in \mathrm{D} \Rightarrow-x \in \mathrm{D}$.<br><br>Ta có $\displaystyle f-x=\frac{\tan -x}{\sin -x}=\frac{-\tan x}{-\sin x}=\frac{\tan x}{\sin x}=f x$. Do đó $\displaystyle y=\frac{\tan x}{\sin x}$ là hàm số chẵn.<br><br>Đồ thị hàm số lẻ nhận gốc tọa độ $O$ làm tâm đối xứng. Đồ thị hàm số chẵn nhận trục tung là trục đối xứng. Chọn D.</div>
+                    <div class="sol-body">• Xét hàm số $y=f(x)=\sin 2 x$. TXĐ: $\mathrm{D}=\mathbb{R}$. Do đó $\forall x \in \mathrm{D} \Rightarrow-x \in \mathrm{D}$.<br>Ta có $f(-x)=\sin(-2x)=-\sin 2 x=-f(x)$. Do đó $y=\sin 2 x$ là hàm số lẻ.<br>- Tương tự ta kiểm tra được $y=x \cos x$ và $y=\cos x \cdot \cot x$ là những hàm số lẻ.<br>- Xét hàm số $\displaystyle y=f(x)=\frac{\tan x}{\sin x}$. TXĐ: $\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$. Do đó $\forall x \in \mathrm{D} \Rightarrow-x \in \mathrm{D}$.<br>Ta có $\displaystyle f(-x)=\frac{\tan(-x)}{\sin(-x)}=\frac{-\tan x}{-\sin x}=\frac{\tan x}{\sin x}=f(x)$. Do đó $\displaystyle y=\frac{\tan x}{\sin x}$ là hàm số chẵn.<br>Đồ thị hàm số lẻ nhận gốc tọa độ $O$ làm tâm đối xứng. Đồ thị hàm số chẵn nhận trục tung là trục đối xứng. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1225,7 +1223,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=|\sin x|$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=x^{2} \sin x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=|x| \sin x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=x+\sin x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn A. Các đáp án $B, C, D$ là hàm số lẻ.</div>
+                    <div class="sol-body">Chọn A. Các đáp án $B, C, D$ là hàm số lẻ.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1235,10 +1233,10 @@ $$</div>
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 29</div>
                 <div class="q-content">Cho các hàm số $y=x \sin x, y=x^{2} \cos x, y=2 x^{3} \tan x$ và $y=\cot 4 x$. Trong các hàm số đã cho có bao nhiêu hàm số là hàm số chẵn?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C. Các hàm số chẵn là $y=x \sin x, y=x^{2} \cos x, y=2 x^{3} \tan x$.</div>
+                    <div class="sol-body">Chọn C. Các hàm số chẵn là $y=x \sin x, y=x^{2} \cos x, y=2 x^{3} \tan x$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1251,7 +1249,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\sin x \cos 2 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=\sin ^{3} x \cdot \cos \left(x-\frac{\pi}{2}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\frac{\tan x}{\tan ^{2} x+1}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\cos x \sin ^{3} x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn B. Vì $\displaystyle y=\sin ^{3} x \cdot \cos \left(x-\frac{\pi}{2}\right)=\sin ^{3} x \cdot \sin x=\sin ^{4} x$ là hàm số chẵn.<br>Các đáp án $A, C, D$ là hàm số lẻ.</div>
+                    <div class="sol-body">Chọn B. Vì $\displaystyle y=\sin ^{3} x \cdot \cos \left(x-\frac{\pi}{2}\right)=\sin ^{3} x \cdot \sin x=\sin ^{4} x$ là hàm số chẵn.<br>Các đáp án $A, C, D$ là hàm số lẻ.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1264,7 +1262,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=-\sin x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cos x-\sin x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\cos x+\sin ^{2} x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\cos x \sin x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C. Các đáp án $\mathrm{A}, \mathrm{D}$ là hàm số lẻ.<br>Xét đáp án B, ta có $f-x=\cos -x-\sin -x=\cos x+\sin x \Rightarrow\left\{\begin{array}{l}f-x \neq-f x \\ f-x \neq f x\end{array}\right.$.<br>Suy ra hàm số $y=\cos x-\sin x$ không chẵn, không lẻ.</div>
+                    <div class="sol-body">Chọn C. Các đáp án $\mathrm{A}, \mathrm{D}$ là hàm số lẻ.<br>Xét đáp án B, ta có $f(-x)=\cos(-x)-\sin(-x)=\cos x+\sin x \Rightarrow\left\{\begin{array}{l}f(-x) \neq -f(x) \\ f(-x) \neq f(x)\end{array}\right.$.<br>Suy ra hàm số $y=\cos x-\sin x$ không chẵn, không lẻ.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1277,7 +1275,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\cos x+\sin ^{4} x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\sin x+\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=-\cos x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\sin x \cdot \cos 3 x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn D. Các đáp án $\mathrm{A}, \mathrm{C}$ là các hàm số chẵn; B không chẵn, không lẻ.</div>
+                    <div class="sol-body">Chọn D. Các đáp án $\mathrm{A}, \mathrm{C}$ là các hàm số chẵn; B không chẵn, không lẻ.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1290,7 +1288,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=1-\sin ^{2} x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=|\cot x| \cdot \sin ^{2} x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2} \tan 2 x-\cot x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=1+|\cot x+\tan x|$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C. Các đáp án $A, B$ và $D$ là các hàm số chẵn.</div>
+                    <div class="sol-body">Chọn C. Các đáp án $A, B$ và $D$ là các hàm số chẵn.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1300,10 +1298,10 @@ $$</div>
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 34</div>
                 <div class="q-content">Cho các hàm số $\displaystyle y=2022+\tan 4 x, y=\sin \left(x^{2}-\frac{\pi}{2}\right), y=\tan ^{2} x$ và $y=|\cot x|$. Trong các hàm số đã cho có bao nhiêu hàm số là hàm số chẵn?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C. Các hàm số chẵn là $\displaystyle y=\sin \left(x^{2}-\frac{\pi}{2}\right), y=\tan ^{2} x$ và $y=|\cot x|$.</div>
+                    <div class="sol-body">Chọn C. Các hàm số chẵn là $\displaystyle y=\sin \left(x^{2}-\frac{\pi}{2}\right), y=\tan ^{2} x$ và $y=|\cot x|$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1316,7 +1314,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Đồ thị hàm số $y=|\sin x|$ đối xứng qua gốc tọa độ $O$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Đồ thị hàm số $y=\cos x$ đối xứng qua trục $O y$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Đồ thị hàm số $y=|\tan x|$ đối xứng qua trục $O y$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Đồ thị hàm số $y=\tan x$ đối xứng qua gốc tọa độ $O$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn A. Vì $y=|\sin x|$ hàm số chẵn nên có đồ thị đối xứng qua trục $O y$.<br>Các đáp án $B$, và $C$ là các hàm số chẵn; $D$ là hàm số lẻ.</div>
+                    <div class="sol-body">Chọn A. Vì $y=|\sin x|$ hàm số chẵn nên có đồ thị đối xứng qua trục $O y$.<br>Các đáp án $B$, và $C$ là các hàm số chẵn; $D$ là hàm số lẻ.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1325,11 +1323,11 @@ $$</div>
             <div class="slide" data-i="36" id="slide-36">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 36</div>
-                <div class="q-content">Cho hàm số $f x=\sin 2 x$ và $g x=\tan ^{2} x$. Mệnh đề nào sau đây đúng ?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$f x$ lẻ và $g x$ chẵn</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$f x$ chẵn, $g x$ lẻ</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$f x$ và $g x$ cùng chẵn</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$f x$ và $g x$ cùng lé</div></div></div>
+                <div class="q-content">Cho hàm số $f(x)=\sin 2 x$ và $g(x)=\tan ^{2} x$. Mệnh đề nào sau đây đúng ?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$f(x)$ lẻ và $g(x)$ chẵn</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$f(x)$ chẵn, $g(x)$ lẻ</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$f(x)$ và $g(x)$ cùng chẵn</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$f(x)$ và $g(x)$ cùng lẻ</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn A.</div>
+                    <div class="sol-body">Chọn A.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1338,11 +1336,11 @@ $$</div>
             <div class="slide" data-i="37" id="slide-37">
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 37</div>
-                <div class="q-content">Cho $\displaystyle f x=\frac{\cos 2 x}{1+\sin ^{2} 3 x}$ và $\displaystyle g x=\frac{|\sin 2 x|-\cos 3 x}{2+\tan ^{2} x}$. Mệnh đề nào sau đây đúng?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$f x$ lẻ và $g x$ chẵn</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$f x$ chẵn, $g x$ lẻ</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$f x$ và $g x$ cùng chẵn</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$f x$ và $g x$ cùng lé</div></div></div>
+                <div class="q-content">Cho $\displaystyle f(x)=\frac{\cos 2 x}{1+\sin ^{2} 3 x}$ và $g(x)=\frac{|\sin 2 x|-\cos 3 x}{2+\tan ^{2} x}$$. Mệnh đề nào sau đây đúng?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$f(x)$ lẻ và $g(x)$ chẵn</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$f(x)$ chẵn, $g(x)$ lẻ</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$f(x)$ và $g(x)$ cùng chẵn</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$f(x)$ và $g(x)$ cùng lẻ</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C.</div>
+                    <div class="sol-body">Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1355,7 +1353,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\frac{1}{\sin ^{3} x}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=\sin \left(x+\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\sqrt{2} \cos \left(x-\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\sqrt{\sin 2 x}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Viết lại đáp án B là $\displaystyle y=\sin \left(x+\frac{\pi}{4}\right)=\frac{1}{\sqrt{2}} \sin x+\cos x$.<br>Viết lại đáp án C là $\displaystyle y=\sqrt{2} \cos \left(x-\frac{\pi}{4}\right)=\sin x+\cos x$.<br>Kiểm tra được đáp án $A$ là hàm số lẻ nên có đồ thị đối xứng qua gốc tọa độ. Chọn $A$.<br>Ta kiểm tra được đáp án $B$ và $C$ là các hàm số không chẵn, không lẻ.<br>Xét đáp án D.<br><br><br>- Hàm số xác định $\displaystyle \Leftrightarrow \sin 2 x \geq 0 \Leftrightarrow 2 x \in k 2 \pi ; \pi+k 2 \pi \Leftrightarrow x \in\left[k \pi ; \frac{\pi}{2}+k \pi\right]$<br><br>⟶ TXĐ: D $\displaystyle =\left[k \pi ; \frac{\pi}{2}+k \pi\right]$ với $k \in \mathbb{Z}$.<br><br>- Chọn $\displaystyle x=\frac{\pi}{4} \in \mathrm{D}$ nhưng $\displaystyle -x=-\frac{\pi}{4} \notin \mathrm{D}$. Vậy $y=\sqrt{\sin 2 x}$ không chẵn, không lẻ.</div>
+                    <div class="sol-body">Viết lại đáp án B là $\displaystyle y=\sin \left(x+\frac{\pi}{4}\right)=\frac{1}{\sqrt{2}} \sin x+\cos x$.<br>Viết lại đáp án C là $\displaystyle y=\sqrt{2} \cos \left(x-\frac{\pi}{4}\right)=\sin x+\cos x$.<br>Kiểm tra được đáp án $A$ là hàm số lẻ nên có đồ thị đối xứng qua gốc tọa độ. Chọn $A$.<br>Ta kiểm tra được đáp án $B$ và $C$ là các hàm số không chẵn, không lẻ.<br>Xét đáp án D.<br><br>- Hàm số xác định $\displaystyle \Leftrightarrow \sin 2 x \geq 0 \Leftrightarrow 2 x \in k 2 \pi ; \pi+k 2 \pi \Leftrightarrow x \in\left[k \pi ; \frac{\pi}{2}+k \pi\right]$<br>⟶ TXĐ: D $\displaystyle =\left[k \pi ; \frac{\pi}{2}+k \pi\right]$ với $k \in \mathbb{Z}$.<br>- Chọn $\displaystyle x=\frac{\pi}{4} \in \mathrm{D}$ nhưng $\displaystyle -x=-\frac{\pi}{4} \notin \mathrm{D}$. Vậy $y=\sqrt{\sin 2 x}$ không chẵn, không lẻ.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1368,7 +1366,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=2 \cos \left(x+\frac{\pi}{2}\right)+\sin \pi-2 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=\sin \left(x-\frac{\pi}{4}\right)+\sin \left(x+\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\sqrt{2} \sin \left(x+\frac{\pi}{4}\right)-\sin x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\sqrt{\sin x}+\sqrt{\cos x}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Viết lại đáp án A là $\displaystyle y=2 \cos \left(x+\frac{\pi}{2}\right)+\sin \pi-2 x=-2 \sin x+\sin 2 x$.<br>Viết lại đáp án B là $\displaystyle y=\sin \left(x-\frac{\pi}{4}\right)+\sin \left(x+\frac{\pi}{4}\right)=2 \sin x \cdot \cos \frac{\pi}{4}=\sqrt{2} \sin x$.<br>Viết lại đáp án C là $\displaystyle y=\sqrt{2} \sin \left(x+\frac{\pi}{4}\right)-\sin x=\sin x+\cos x-\sin x=\cos x$.<br>Ta kiểm tra được đáp án $A, B$ là các hàm số lẻ; $C$ là hàm số chẵn. Chọn $C$.<br>Xét đáp án D.<br><br>- Hàm số xác định ⇔ $\left\{\begin{array}{l}\sin x \geq 0 \\ \cos x \geq 0\end{array} \longrightarrow \mathrm{TX}\right.$ Đ: $\displaystyle \mathrm{D}=\left[k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right]$ với $k \in \mathbb{Z}$.<br>- Chọn $\displaystyle x=\frac{\pi}{4} \in \mathrm{D}$ nhưng $\displaystyle -x=-\frac{\pi}{4} \notin \mathrm{D}$. Vậy $y=\sqrt{\sin x}+\sqrt{\cos x}$ không chẵn, không lé.</div>
+                    <div class="sol-body">Viết lại đáp án A là $\displaystyle y=2 \cos \left(x+\frac{\pi}{2}\right)+\sin \pi-2 x=-2 \sin x+\sin 2 x$.<br>Viết lại đáp án B là $\displaystyle y=\sin \left(x-\frac{\pi}{4}\right)+\sin \left(x+\frac{\pi}{4}\right)=2 \sin x \cdot \cos \frac{\pi}{4}=\sqrt{2} \sin x$.<br>Viết lại đáp án C là $\displaystyle y=\sqrt{2} \sin \left(x+\frac{\pi}{4}\right)-\sin x=\sin x+\cos x-\sin x=\cos x$.<br>Ta kiểm tra được đáp án $A, B$ là các hàm số lẻ; $C$ là hàm số chẵn. Chọn $C$.<br>Xét đáp án D.<br>- Hàm số xác định ⇔ $\left\{\begin{array}{l}\sin x \geq 0 \\ \cos x \geq 0\end{array} \longrightarrow \mathrm{TX}\right.$ Đ: $\displaystyle \mathrm{D}=\left[k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right]$ với $k \in \mathbb{Z}$.<br>- Chọn $\displaystyle x=\frac{\pi}{4} \in \mathrm{D}$ nhưng $\displaystyle -x=-\frac{\pi}{4} \notin \mathrm{D}$. Vậy $y=\sqrt{\sin x}+\sqrt{\cos x}$ không chẵn, không lé.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1381,7 +1379,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=x^{4}+\cos \left(x-\frac{\pi}{3}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=x^{2021}+\cos \left(x-\frac{\pi}{2}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=2023+\cos x+\sin ^{2022} x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\tan ^{2021} x+\sin ^{2022} x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn B. Viết lại đáp án B là $\displaystyle y=x^{2021}+\cos \left(x-\frac{\pi}{2}\right)=y=x^{2021}+\sin x$.<br><br><br>Các đáp án $A, D$ là các hàm số không chẵn, không lẻ; $C$ là hàm số chẵn.<br><br>### Dạng 3. Tính tuần hoàn của hàm số</div>
+                    <div class="sol-body">Chọn B. Viết lại đáp án B là $\displaystyle y=x^{2021}+\cos \left(x-\frac{\pi}{2}\right)=y=x^{2021}+\sin x$.<br><br>Các đáp án $A, D$ là các hàm số không chẵn, không lẻ; $C$ là hàm số chẵn.<br>### Dạng 3. Tính tuần hoàn của hàm số</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1394,7 +1392,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Hàm số $y=\sin x$ tuần hoàn với chu kì $2 \pi$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Hàm số $y=\cos x$ tuần hoàn với chu kì $2 \pi$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Hàm số $y=\tan x$ tuần hoàn với chu kì $2 \pi$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Hàm số $y=\cot x$ tuần hoàn với chu kì $\pi$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C. Vì hàm số $y=\tan x$ tuần hoàn với chu kì $\pi$.</div>
+                    <div class="sol-body">Chọn C. Vì hàm số $y=\tan x$ tuần hoàn với chu kì $\pi$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1407,7 +1405,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$T=-2 \pi$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$T=\pi$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=2 \pi$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=4 \pi$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Các hàm số $y=\sin a x+b, y=\cos a x+b$ tuần hoàn với chu kì $\displaystyle T=\frac{2 \pi}{|a|}$.<br>Áp dụng: Hàm số $\displaystyle y=\cos \left(\frac{x}{2}+2021\right)$ tuần hoàn với chu kì $T=4 \pi$. Chọn D.</div>
+                    <div class="sol-body">Các hàm số $y=\sin a x+b, y=\cos a x+b$ tuần hoàn với chu kì $\displaystyle T=\frac{2 \pi}{|a|}$.<br>Áp dụng: Hàm số $\displaystyle y=\cos \left(\frac{x}{2}+2021\right)$ tuần hoàn với chu kì $T=4 \pi$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1420,7 +1418,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle T=\frac{1}{3}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle T=\frac{\pi}{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle T=\frac{4}{3}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle T=\frac{2 \pi}{3}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Các hàm số $y=\tan a x+b, y=\cot a x+b$ tuần hoàn với chu kì $\displaystyle T=\frac{\pi}{|a|}$.<br>Áp dụng: Hàm số $y=\tan 3 \pi x+2020$ tuần hoàn với chu kì $\displaystyle T=\frac{1}{3}$. Chọn A.</div>
+                    <div class="sol-body">Các hàm số $y=\tan a x+b, y=\cot a x+b$ tuần hoàn với chu kì $\displaystyle T=\frac{\pi}{|a|}$.<br>Áp dụng: Hàm số $y=\tan 3 \pi x+2020$ tuần hoàn với chu kì $\displaystyle T=\frac{1}{3}$. Chọn A.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1433,7 +1431,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\cos x$ và $\displaystyle y=\cot \frac{x}{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\sin x$ và $y=\tan 2 x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\sin \frac{x}{2}$ và $\displaystyle y=\cos \frac{x}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\tan 2 x$ và $y=\cot 2 x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hai hàm số $y=\cos x$ và $\displaystyle y=\cot \frac{x}{2}$ có cùng chu kì là $2 \pi$.<br>Hai hàm số $y=\sin x$ có chu kì là $2 \pi$, hàm số $y=\tan 2 x$ có chu kì là $\displaystyle \frac{\pi}{2}$. Chọn B.<br>Hai hàm số $\displaystyle y=\sin \frac{x}{2}$ và $\displaystyle y=\cos \frac{x}{2}$ có cùng chu kì là $4 \pi$.<br>Hai hàm số $y=\tan 2 x$ và $y=\cot 2 x$ có cùng chu kì là $\displaystyle \frac{\pi}{2}$.</div>
+                    <div class="sol-body">Hai hàm số $y=\cos x$ và $\displaystyle y=\cot \frac{x}{2}$ có cùng chu kì là $2 \pi$.<br>Hai hàm số $y=\sin x$ có chu kì là $2 \pi$, hàm số $y=\tan 2 x$ có chu kì là $\displaystyle \frac{\pi}{2}$. Chọn B.<br>Hai hàm số $\displaystyle y=\sin \frac{x}{2}$ và $\displaystyle y=\cos \frac{x}{2}$ có cùng chu kì là $4 \pi$.<br>Hai hàm số $y=\tan 2 x$ và $y=\cot 2 x$ có cùng chu kì là $\displaystyle \frac{\pi}{2}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1443,10 +1441,10 @@ $$</div>
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 45</div>
                 <div class="q-content">Trong các hàm số $y_{1}=\sin x, y_{2}=\sin 2 x, y_{3}=\tan x, y_{4}=\cot x$ có bao nhiêu hàm số thỏa mãn tính chất $f x+k \pi=f x$ với mọi $x \in \mathbb{R}$ và $k \in \mathbb{Z}$.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Xác định rõ yêu cầu bài toán là tìm hàm số cho chu kỳ là $T=\pi$.<br>Đó là các hàm số $y_{2}, y_{3}$ và $y_{4}$. Chọn C.</div>
+                    <div class="sol-body">Xác định rõ yêu cầu bài toán là tìm hàm số cho chu kỳ là $T=\pi$.<br>Đó là các hàm số $y_{2}, y_{3}$ và $y_{4}$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1459,7 +1457,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\cos ^{3} x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=\sin \frac{x}{2} \cos \frac{x}{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\sin ^{2} x+2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y=\cos ^{2}\left(\frac{x}{2}+1\right)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Hàm số $\displaystyle y=\cos ^{3} x=\frac{1}{4} \cos 3 x+3 \cos x$ có chu kì là $2 \pi$.<br>Hàm số $\displaystyle y=\sin \frac{x}{2} \cos \frac{x}{2}=\frac{1}{2} \sin x$ có chu kì là $2 \pi$.<br>Hàm số $\displaystyle y=\sin ^{2} x+2=\frac{1}{2}-\frac{1}{2} \cos 2 x+4$ có chu kì là $\pi$. Chọn $\mathbf{C}$.<br><br><br>Hàm số $\displaystyle y=\cos ^{2}\left(\frac{x}{2}+1\right)=\frac{1}{2}+\frac{1}{2} \cos x+2$ có chu kì là $2 \pi$.</div>
+                    <div class="sol-body">Hàm số $\displaystyle y=\cos ^{3} x=\frac{1}{4} \cos 3 x+3 \cos x$ có chu kì là $2 \pi$.<br>Hàm số $\displaystyle y=\sin \frac{x}{2} \cos \frac{x}{2}=\frac{1}{2} \sin x$ có chu kì là $2 \pi$.<br>Hàm số $\displaystyle y=\sin ^{2} x+2=\frac{1}{2}-\frac{1}{2} \cos 2 x+4$ có chu kì là $\pi$. Chọn $\mathbf{C}$.<br><br>Hàm số $\displaystyle y=\cos ^{2}\left(\frac{x}{2}+1\right)=\frac{1}{2}+\frac{1}{2} \cos x+2$ có chu kì là $2 \pi$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1468,11 +1466,11 @@ $$</div>
             <div class="slide" data-i="47" id="slide-47">
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 47</div>
-                <div class="q-content">Cho hàm số $y=f x$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361651/chuyende_05/wrqj2junlfbqk8n6ijcg.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361651/chuyende_05/wrqj2junlfbqk8n6ijcg.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle T=\frac{\pi}{6}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$T=\pi$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=2 \pi$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=4 \pi$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C.</div>
+                    <div class="sol-body">Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1481,11 +1479,11 @@ $$</div>
             <div class="slide" data-i="48" id="slide-48">
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 48</div>
-                <div class="q-content">Cho hàm số $y=f x$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361653/chuyende_05/ftiahzbkjo2qjjkyuvpy.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361653/chuyende_05/ftiahzbkjo2qjjkyuvpy.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle T=\frac{3 \pi}{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$T=2 \pi$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=3 \pi$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=6 \pi$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C.</div>
+                    <div class="sol-body">Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1494,11 +1492,11 @@ $$</div>
             <div class="slide" data-i="49" id="slide-49">
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 49</div>
-                <div class="q-content">Cho hàm số $y=f x$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle T=\frac{\pi}{4}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle T=\frac{\pi}{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=\pi$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=2 \pi$.<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361655/chuyende_05/pi05twh2vl1bg0nno9q7.jpg" alt="Math Image"></div></div></div></div>
+                <div class="q-content">Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Chu kỳ $T$ của hàm số là<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361655/chuyende_05/pi05twh2vl1bg0nno9q7.jpg" alt="Math Image"></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle T=\frac{\pi}{4}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle T=\frac{\pi}{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=\pi$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=2 \pi$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn C.</div>
+                    <div class="sol-body">Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1508,15 +1506,10 @@ $$</div>
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 50</div>
                 <div class="q-content">Cho các hàm số $y=\sin x, y=x+\sin x, y=x \cos x$ và $\displaystyle y=\frac{\sin x}{x}$. Trong các hàm số đã cho có bao nhiêu hàm số có tính tuần hoàn?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn A. Các hàm số $\displaystyle y=x+\sin x, y=x \cos x, y=\frac{\sin x}{x}$ không tuần hoàn.<br>Xét hàm số $y=x+\sin x$.<br><br>- Tập xác định $\mathrm{D}=\mathbb{R}$.<br>- Giả sử $f x+T=f x, \forall x \in \mathbf{D}$<br><br>$$
-\begin{aligned}
-& \Leftrightarrow x+T+\sin x+T=x+\sin x, \forall x \in \mathrm{D} \\
-& \Leftrightarrow T+\sin x+T=\sin x, \forall x \in \mathrm{D} .
-\end{aligned}
-$$<br><br>Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\sin 0=0 \\ T+\sin \pi+T=\sin \pi=0\end{array}\right.$.<br>Suy ra $2 T+\sin T+\sin \pi+T=0 \Leftrightarrow T=0$. Điều này trái với định nghĩa là $T&gt;0$.<br>Vậy hàm số $y=x+\sin x$ không phải là hàm số tuần hoàn.<br>Tương tự chứng minh cho các hàm số $y=x \cos x$ và $\displaystyle y=\frac{\sin x}{x}$ không tuần hoàn.<br><br>### Dạng 4. Sự đồng biến - nghịch biến của hàm số</div>
+                    <div class="sol-body">Chọn A. Các hàm số $\displaystyle y=x+\sin x, y=x \cos x, y=\frac{\sin x}{x}$ không tuần hoàn.<br>Xét hàm số $y=x+\sin x$.<br>- Tập xác định $\mathrm{D}=\mathbb{R}$.<br>- Giả sử $f(x+T)=f(x), \forall x \in \mathbf{D}$<br>$$<br>\begin{aligned}<br>& \Leftrightarrow x+T+\sin(x+T)=x+\sin x, \forall x \in \mathrm{D} \\<br>& \Leftrightarrow T+\sin(x+T)=\sin x, \forall x \in \mathrm{D} .<br>\end{aligned}<br>$$<br>Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\sin 0=0 \\ T+\sin(\pi+T)=\sin \pi=0\end{array}\right.$.<br>Suy ra $2 T+\sin T+\sin(\pi+T)=0 \Leftrightarrow T=0$. Điều này trái với định nghĩa là $T&gt;0$.<br>Vậy hàm số $y=x+\sin x$ không phải là hàm số tuần hoàn.<br>Tương tự chứng minh cho các hàm số $y=x \cos x$ và $\displaystyle y=\frac{\sin x}{x}$ không tuần hoàn.<br>### Dạng 4. Sự đồng biến - nghịch biến của hàm số</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1529,7 +1522,7 @@ $$<br><br>Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\s
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Hàm số đồng biến trên khoảng $\displaystyle \left(\frac{\pi}{2} ; \pi\right)$, nghịch biến trên khoảng $\displaystyle \left(\pi ; \frac{3 \pi}{2}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Hàm số đồng biến trên khoảng $\displaystyle \left(-\frac{3 \pi}{2} ;-\frac{\pi}{2}\right)$, nghịch biến trên khoảng $\displaystyle \left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Hàm số đồng biến trên khoảng $\displaystyle \left(0 ; \frac{\pi}{2}\right)$, nghịch biến trên khoảng $\displaystyle \left(-\frac{\pi}{2} ; 0\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Hàm số đồng biến trên khoảng $\displaystyle \left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$, nghịch biến trên khoảng $\displaystyle \left(\frac{\pi}{2} ; \frac{3 \pi}{2}\right)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Dựa vào lý thuyết " Hàm số $y=\sin x$ đồng biến khi $x$ thuộc góc phần tư thứ I và thứ IV; nghịch biến khi $x$ thuộc góc phần tư thứ II và thứ III ". Chọn D.</div>
+                    <div class="sol-body">Dựa vào lý thuyết " Hàm số $y=\sin x$ đồng biến khi $x$ thuộc góc phần tư thứ I và thứ IV; nghịch biến khi $x$ thuộc góc phần tư thứ II và thứ III ". Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1542,7 +1535,7 @@ $$<br><br>Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\s
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\sin x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\tan x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-\cot x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn B. Trên khoảng ( $\displaystyle 0 ; \frac{\pi}{2}$ ) thì<br><br>- $y=\cos x$ nghịch biến.<br>- Các hàm số $y=\sin x, y=\tan x, y=-\cot x$ đồng biến.</div>
+                    <div class="sol-body">Chọn B. Trên khoảng ( $\displaystyle 0 ; \frac{\pi}{2}$ ) thì<br>- $y=\cos x$ nghịch biến.<br>- Các hàm số $y=\sin x, y=\tan x, y=-\cot x$ đồng biến.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1555,7 +1548,7 @@ $$<br><br>Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\s
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Hàm số $y=\sin x$ đồng biến</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Hàm số $y=\cos x$ nghịch biến</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Hàm số $y=\cot x$ nghịch biến</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Hàm số $y=\tan x$ nghịch biến</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $\displaystyle \left(\frac{31 \pi}{4} ; \frac{33 \pi}{4}\right)=\left(-\frac{\pi}{4}+8 \pi ; \frac{\pi}{4}+8 \pi\right)$ thuộc góc phần tư thứ I và IV. Chọn $\mathbf{A}$.</div>
+                    <div class="sol-body">Ta có $\displaystyle \left(\frac{31 \pi}{4} ; \frac{33 \pi}{4}\right)=\left(-\frac{\pi}{4}+8 \pi ; \frac{\pi}{4}+8 \pi\right)$ thuộc góc phần tư thứ I và IV. Chọn $\mathbf{A}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1568,7 +1561,7 @@ $$<br><br>Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\s
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\tan x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cot x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\sin 2 x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\cos 4 x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Tại $\displaystyle x=\frac{\pi}{2}$ hàm $y=\tan x$ không xác định. Loại A.<br>Hàm $y=\cot x$ nghịch biến trên từng khoảng xác định. Loại B.<br>Với $\displaystyle x \in\left(\frac{\pi}{4} ; \frac{\pi}{2}\right] \rightarrow 2 x \in\left(\frac{\pi}{2} ; \pi\right]$ : góc phần tư thứ II nên hàm sin giảm. Loại C.<br>Với $\displaystyle x \in\left[\frac{\pi}{4} ; \frac{\pi}{2}\right] \rightarrow 4 x \in \pi ; 2 \pi$ : góc phần tư thứ III và IV nên hàm $\cos$ tăng. Chọn D.</div>
+                    <div class="sol-body">Tại $\displaystyle x=\frac{\pi}{2}$ hàm $y=\tan x$ không xác định. Loại A.<br>Hàm $y=\cot x$ nghịch biến trên từng khoảng xác định. Loại B.<br>Với $\displaystyle x \in\left(\frac{\pi}{4} ; \frac{\pi}{2}\right] \rightarrow 2 x \in\left(\frac{\pi}{2} ; \pi\right]$ : góc phần tư thứ II nên hàm sin giảm. Loại C.<br>Với $\displaystyle x \in\left[\frac{\pi}{4} ; \frac{\pi}{2}\right] \rightarrow 4 x \in \pi ; 2 \pi$ : góc phần tư thứ III và IV nên hàm $\cos$ tăng. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1577,13 +1570,11 @@ $$<br><br>Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\s
             <div class="slide" data-i="55" id="slide-55">
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 55</div>
-                <div class="q-content">Trong các hàm số sau, có bao nhiêu hàm số đồng biến trên $\displaystyle \left(-\frac{\pi}{3} ; \frac{\pi}{6}\right)$ ?<br><br>$$
-y=\sin \left(2 x+\frac{\pi}{6}\right), y=\cos \left(2 x+\frac{\pi}{6}\right), y=\tan \left(2 x+\frac{\pi}{6}\right) \text { và } y=\cot \left(2 x+\frac{\pi}{6}\right)
-$$</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4 </div></div></div>
+                <div class="q-content">Trong các hàm số sau, có bao nhiêu hàm số đồng biến trên $\displaystyle \left(-\frac{\pi}{3} ; \frac{\pi}{6}\right)$ ?<br>$$<br>y=\sin \left(2 x+\frac{\pi}{6}\right), y=\cos \left(2 x+\frac{\pi}{6}\right), y=\tan \left(2 x+\frac{\pi}{6}\right) \text { và } y=\cot \left(2 x+\frac{\pi}{6}\right)<br>$$</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Với $\displaystyle x \in\left(-\frac{\pi}{3} ; \frac{\pi}{6}\right) \rightarrow 2 x \in\left(-\frac{2 \pi}{3} ; \frac{\pi}{3}\right) \rightarrow 2 x+\frac{\pi}{6} \in\left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$ thuộc góc phần tư thứ I và thứ IV nên các hàm số $\displaystyle y=\sin \left(2 x+\frac{\pi}{6}\right)$ và $\displaystyle y=\tan \left(2 x+\frac{\pi}{6}\right)$ đồng biến. Chọn B.</div>
+                    <div class="sol-body">Với $\displaystyle x \in\left(-\frac{\pi}{3} ; \frac{\pi}{6}\right) \rightarrow 2 x \in\left(-\frac{2 \pi}{3} ; \frac{\pi}{3}\right) \rightarrow 2 x+\frac{\pi}{6} \in\left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$ thuộc góc phần tư thứ I và thứ IV nên các hàm số $\displaystyle y=\sin \left(2 x+\frac{\pi}{6}\right)$ và $\displaystyle y=\tan \left(2 x+\frac{\pi}{6}\right)$ đồng biến. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1596,9 +1587,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \left(-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\pi+k 2 \pi ; 2 \pi+k 2 \pi$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left(-\frac{3 \pi}{4}+k \pi ; \frac{\pi}{4}+k \pi\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \left(-\frac{3 \pi}{4}+k 2 \pi ; \frac{\pi}{4}+k 2 \pi\right)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn D. Hàm $y=\sin x$ đồng biến khi $x$ thuộc góc phần tư thứ I và thứ IV.<br>Do đó để hàm số $\displaystyle y=\sin \left(x+\frac{\pi}{4}\right)$ đồng biến khi $\displaystyle x+\frac{\pi}{4} \in\left(-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right)$<br><br>$$
-\Leftrightarrow x \in\left(-\frac{3 \pi}{4}+k 2 \pi ; \frac{\pi}{4}+k 2 \pi\right) \text { với } k \in \mathbb{Z} \text {. }
-$$</div>
+                    <div class="sol-body">Chọn D. Hàm $y=\sin x$ đồng biến khi $x$ thuộc góc phần tư thứ I và thứ IV.<br>Do đó để hàm số $\displaystyle y=\sin \left(x+\frac{\pi}{4}\right)$ đồng biến khi $\displaystyle x+\frac{\pi}{4} \in\left(-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right)$<br>$$<br>\Leftrightarrow x \in\left(-\frac{3 \pi}{4}+k 2 \pi ; \frac{\pi}{4}+k 2 \pi\right) \text { với } k \in \mathbb{Z} \text {. }<br>$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1611,7 +1600,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">hàm số đồng biến</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">hàm số nghịch biến</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">hàm hằng</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">hàm số không đơn điệu</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $\displaystyle y=\sin x-\cos x=\sqrt{2} \sin \left(x-\frac{\pi}{4}\right)$. Vì $\displaystyle x \in\left(0 ; \frac{\pi}{2}\right) \rightarrow x-\frac{\pi}{4} \in\left(-\frac{\pi}{4} ; \frac{\pi}{4}\right)$ thuộc góc phần tứ thứ I và thứ IV nên hàm số đã cho đồng biến. Chọn $\mathbf{A}$.<br><br><br>Cách 2. Ta thấy trên khoảng ( $\displaystyle 0 ; \frac{\pi}{2}$ ), hàm $y=\sin x$ đồng biến và hàm $y=-\cos x$ đồng biến. Do đó hàm $y=\sin x+-\cos x$ đồng biến.</div>
+                    <div class="sol-body">Ta có $\displaystyle y=\sin x-\cos x=\sqrt{2} \sin \left(x-\frac{\pi}{4}\right)$. Vì $\displaystyle x \in\left(0 ; \frac{\pi}{2}\right) \rightarrow x-\frac{\pi}{4} \in\left(-\frac{\pi}{4} ; \frac{\pi}{4}\right)$ thuộc góc phần tư thứ I và thứ IV nên hàm số đã cho đồng biến. Chọn $\mathbf{A}$.<br><br>Cách 2. Ta thấy trên khoảng ( $\displaystyle 0 ; \frac{\pi}{2}$ ), hàm $y=\sin x$ đồng biến và hàm $y=-\cos x$ đồng biến. Do đó hàm $y=\sin x+-\cos x$ đồng biến.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1624,9 +1613,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Hàm số đã cho đồng biến trên các khoảng $\displaystyle \left(0 ; \frac{\pi}{4}\right)$ và $\displaystyle \left(\frac{3 \pi}{4} ; \pi\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Hàm số đã cho đồng biến trên $0 ; \pi$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Hàm số đã cho nghịch biến trên $\displaystyle \left(0 ; \frac{3 \pi}{4}\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Hàm số đã cho đồng biến trên ( $\displaystyle 0 ; \frac{\pi}{4}$ ) và nghịch biến trên ( $\displaystyle \frac{\pi}{4} ; \pi$ )</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Có $\displaystyle y=4 \sin \left(x+\frac{\pi}{6}\right) \cos \left(x-\frac{\pi}{6}\right)-\sin 2 x=2\left(\sin 2 x+\sin \frac{\pi}{3}\right)-\sin 2 x=\sqrt{3}+\sin 2 x$.<br>Xét mệnh đề A: Với $\displaystyle x \in\left(0 ; \frac{\pi}{4}\right) \rightarrow 2 x \in\left(0 ; \frac{\pi}{2}\right)$ : góc phần tư thứ I;<br><br>$$
-x \in\left(\frac{3 \pi}{4} ; \pi\right) \rightarrow 2 x \in\left(\frac{3 \pi}{2} ; 2 \pi\right) \text { : góc phần tư thứ IV. }
-$$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến. Vậy đáp án $A$ đúng. Chọn $A$.</div>
+                    <div class="sol-body">Có $\displaystyle y=4 \sin \left(x+\frac{\pi}{6}\right) \cos \left(x-\frac{\pi}{6}\right)-\sin 2 x=2\left(\sin 2 x+\sin \frac{\pi}{3}\right)-\sin 2 x=\sqrt{3}+\sin 2 x$.<br>Xét mệnh đề A: Với $\displaystyle x \in\left(0 ; \frac{\pi}{4}\right) \rightarrow 2 x \in\left(0 ; \frac{\pi}{2}\right)$ : góc phần tư thứ I;<br>$$<br>x \in\left(\frac{3 \pi}{4} ; \pi\right) \rightarrow 2 x \in\left(\frac{3 \pi}{2} ; 2 \pi\right) \text { : góc phần tư thứ IV. }<br>$$<br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến. Vậy đáp án $A$ đúng. Chọn $A$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1635,11 +1622,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="59" id="slide-59">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 59</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có bảng biến thiên trên khoảng $\displaystyle \left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$ như sau:</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\sin x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\tan x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\cot x$.<br><br>| $x$ | $\displaystyle -\frac{\pi}{2}$ | 0 |  | $\displaystyle \frac{\pi}{2}$ |<br>| :--- | :--- | :--- | :---: | ---: |<br>| $y$ | 0 |  |  |  |</div></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có bảng biến thiên trên khoảng $\displaystyle \left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$ như sau:<br><div style="overflow-x: auto; width: 100%; margin: 15px 0;"><table class="theory-table" style="text-align: center; width: 100%;"><tr><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$x$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{\pi}{2}$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;"></th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$0$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;"></th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle \frac{\pi}{2}$</th></tr><tr><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$y$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$0$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\searrow$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$-\infty$ | $+\infty$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\searrow$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$0$</td></tr></table></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\sin x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\tan x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\cot x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Dựa vào bảng biến thiên ta thấy hàm số nghịch biến trên từng khoảng xác định. Đối chiếu các đáp án chỉ có đáp án D thỏa mãn. Chọn D.</div>
+                    <div class="sol-body">Dựa vào bảng biến thiên ta thấy hàm số nghịch biến trên từng khoảng xác định. Đối chiếu các đáp án chỉ có đáp án D thỏa mãn. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1648,11 +1635,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="60" id="slide-60">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 60</div>
-                <div class="q-content">Với mọi $\displaystyle x \in\left(0 ; \frac{\pi}{2}\right)$, so sánh $\cos \sin x$ với $\cos 1$ thì</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\cos \sin x&gt;\cos 1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\cos \sin x \geq \cos 1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">không so sánh được</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\cos \sin x&lt;\cos 1$</div></div></div>
+                <div class="q-content">Với mọi $\displaystyle x \in\left(0 ; \frac{\pi}{2}\right)$, so sánh $\cos(\sin x)$ với $\cos 1$ thì</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\cos(\sin x)&gt;\cos 1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\cos(\sin x) \geq \cos 1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">không so sánh được</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\cos(\sin x)&lt;\cos 1$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Vì $\displaystyle x \in\left(0 ; \frac{\pi}{2}\right)$ nên $0&lt;\sin x&lt;1$.<br><br>Hàm số $y=\cos x$ nghịch biến trên $\displaystyle \left(0 ; \frac{\pi}{2}\right)$, suy ra $y=\cos x$ nghịch biến trên $0 ; 1$.<br>Do đó, $\cos \sin x&gt;\cos 1$. Chọn A.<br><br>### Dạng 5. Nhận dạng đồ thị của hàm số</div>
+                    <div class="sol-body">Vì $\displaystyle x \in\left(0 ; \frac{\pi}{2}\right)$ nên $0&lt;\sin x&lt;1$.<br>Hàm số $y=\cos x$ nghịch biến trên $\displaystyle \left(0 ; \frac{\pi}{2}\right)$, suy ra $y=\cos x$ nghịch biến trên $0 ; 1$.<br>Do đó, $\cos(\sin x)&gt;\cos 1$. Chọn A.<br>### Dạng 5. Nhận dạng đồ thị của hàm số</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1661,11 +1648,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="61" id="slide-61">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 61</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361656/chuyende_05/wrgmmumwhyqxs5fiu3zr.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361656/chuyende_05/wrgmmumwhyqxs5fiu3zr.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=1+\sin 2 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=-\sin x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-\cos x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta thấy tại $x=0$ thì $y=1$. Do đó loại đáp án C và D .<br><br>Tại $\displaystyle x=\frac{\pi}{2}$ thì $y=0$. Do đó chỉ có đáp án B thỏa mãn. Chọn B.</div>
+                    <div class="sol-body">Ta thấy tại $x=0$ thì $y=1$. Do đó loại đáp án C và D .<br>Tại $\displaystyle x=\frac{\pi}{2}$ thì $y=0$. Do đó chỉ có đáp án B thỏa mãn. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1674,11 +1661,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="62" id="slide-62">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 62</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361659/chuyende_05/tkrjp8xn8keu1jopt4wk.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361659/chuyende_05/tkrjp8xn8keu1jopt4wk.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\sin x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=|\sin x|$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\sin |x|$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-\sin x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta thấy tại $x=0$ thì $y=0$. Cả 4 đáp án đều thỏa.<br><br>Tại $\displaystyle x=\frac{\pi}{2}$ thì $y=-1$. Do đó chỉ có đáp án D thỏa mãn. Chọn D.</div>
+                    <div class="sol-body">Ta thấy tại $x=0$ thì $y=0$. Cả 4 đáp án đều thỏa.<br>Tại $\displaystyle x=\frac{\pi}{2}$ thì $y=-1$. Do đó chỉ có đáp án D thỏa mãn. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1687,11 +1674,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="63" id="slide-63">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 63</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361660/chuyende_05/lrxjcrjdst8dv7vffkuc.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361660/chuyende_05/lrxjcrjdst8dv7vffkuc.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\cos \frac{2 x}{3}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=\sin \frac{2 x}{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\cos \frac{3 x}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y=\sin \frac{3 x}{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta thấy tại $x=0$ thì $y=1$. Do đó ta loại đáp án B và D .<br>Tại $x=3 \pi$ thì $y=1$. Thay vào hai đáp án A và C thì chỉ có A thỏa mãn. Chọn $\mathbf{A}$.</div>
+                    <div class="sol-body">Ta thấy tại $x=0$ thì $y=1$. Do đó ta loại đáp án B và D .<br>Tại $x=3 \pi$ thì $y=1$. Thay vào hai đáp án A và C thì chỉ có A thỏa mãn. Chọn $\mathbf{A}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1700,11 +1687,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="64" id="slide-64">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 64</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361662/chuyende_05/lmzzudyc2oksuo3xhqjw.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361662/chuyende_05/lmzzudyc2oksuo3xhqjw.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\cos x-4$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=-2-\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=-3 \cos x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=2+|\cos x|$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta thấy tại $x=0$ thì $y=-3$. Do đó ta loại đáp án D.<br>Tại $x=\pi$ thì $y=3$. Thay vào chỉ có đáp án C thỏa mãn. Chọn C.</div>
+                    <div class="sol-body">Ta thấy tại $x=0$ thì $y=-3$. Do đó ta loại đáp án D.<br>Tại $x=\pi$ thì $y=3$. Thay vào chỉ có đáp án C thỏa mãn. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1713,11 +1700,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="65" id="slide-65">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 65</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361664/chuyende_05/sqesjjvbdb4dvtcqiss0.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361664/chuyende_05/sqesjjvbdb4dvtcqiss0.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\sin \left(x+\frac{\pi}{3}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=-\sin \left(x+\frac{\pi}{3}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\sin \left|x+\frac{\pi}{3}\right|$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y=\left|\sin \left(x+\frac{\pi}{3}\right)\right|$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta thấy $\displaystyle x=\frac{\pi}{6}$ thì $y=-1$. Do đó chỉ có đáp án B thỏa mãn. Chọn B.</div>
+                    <div class="sol-body">Ta thấy $\displaystyle x=\frac{\pi}{6}$ thì $y=-1$. Do đó chỉ có đáp án B thỏa mãn. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1726,11 +1713,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="66" id="slide-66">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 66</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361666/chuyende_05/bicqerx3gd9yrebkxcqx.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361666/chuyende_05/bicqerx3gd9yrebkxcqx.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\sin \left(x-\frac{\pi}{2}\right)-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=2 \sin \left(x-\frac{\pi}{2}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=-\sin \left(x-\frac{\pi}{2}\right)-1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y=\sin \left(x+\frac{\pi}{2}\right)+1$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Dựa vào đồ thị ta thấy hàm số có GTLN bằng $0, \mathrm{GTNN}$ bằng -2 . Do đó ta loại đáp án B.<br><br>Tại $x=0$ thì $y=-2$. Thử vào các đáp án còn lại chỉ có A thỏa mãn. Chọn A.</div>
+                    <div class="sol-body">Dựa vào đồ thị ta thấy hàm số có GTLN bằng $0, \mathrm{GTNN}$ bằng -2 . Do đó ta loại đáp án B.<br>Tại $x=0$ thì $y=-2$. Thử vào các đáp án còn lại chỉ có A thỏa mãn. Chọn A.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1739,11 +1726,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="67" id="slide-67">
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 67</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361668/chuyende_05/n8hfp4u43rmu6re2urn3.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361668/chuyende_05/n8hfp4u43rmu6re2urn3.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\sin \left(x-\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=\cos \left(x-\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\sqrt{2} \sin \left(x+\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y=\sqrt{2} \cos \left(x+\frac{\pi}{4}\right)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Dựa vào đồ thị ta thấy hàm số có GTLN bằng $\sqrt{2}$ và GTNN bằng $-\sqrt{2}$. Do đó các đáp án A và B không thỏa mãn.<br><br>Tại $\displaystyle x=\frac{3 \pi}{4}$ thì $y=-\sqrt{2}$. Thay vào hai đáp án C và D thỉ chỉ có D thỏa mãn. Chọn D.</div>
+                    <div class="sol-body">Dựa vào đồ thị ta thấy hàm số có GTLN bằng $\sqrt{2}$ và GTNN bằng $-\sqrt{2}$. Do đó các đáp án A và B không thỏa mãn.<br>Tại $\displaystyle x=\frac{3 \pi}{4}$ thì $y=-\sqrt{2}$. Thay vào hai đáp án C và D thỉ chỉ có D thỏa mãn. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1752,11 +1739,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="68" id="slide-68">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 68</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361669/chuyende_05/aawxx2rqc8pw3wjc15l4.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361669/chuyende_05/aawxx2rqc8pw3wjc15l4.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=|\sin x|$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\sin |x|$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\cos |x|$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=|\cos x|$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Dựa vào đồ thị ta thấy hàm số có GTNN bằng 0 . Do đó chỉ có A hoặc D thỏa.<br>Tại $x=0$ thì $y=0$. Thay vào hai đáp án còn lại chỉ có A thỏa mãn. Chọn A.</div>
+                    <div class="sol-body">Dựa vào đồ thị ta thấy hàm số có GTNN bằng 0 . Do đó chỉ có A hoặc D thỏa.<br>Tại $x=0$ thì $y=0$. Thay vào hai đáp án còn lại chỉ có A thỏa mãn. Chọn A.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1765,11 +1752,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="69" id="slide-69">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 69</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361671/chuyende_05/nxfkcrvt8phnrwjbwmbl.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361671/chuyende_05/nxfkcrvt8phnrwjbwmbl.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=1+\sin |x|$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=|\sin x|$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=1+|\cos x|$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=1+|\sin x|$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Dựa vào đồ thị ta thấy hàm số có GTNN bằng 0 . Mà $y=1+|\cos x| \geq 1$ và $y=1+|\sin x| \geq 1$ nên loại các đáp án C và D .<br><br>Ta thấy tại $x=0$ thì $y=1$. Thay vào hai đáp án A và B thì chỉ có A thỏa. Chọn A .</div>
+                    <div class="sol-body">Dựa vào đồ thị ta thấy hàm số có GTNN bằng 0 . Mà $y=1+|\cos x| \geq 1$ và $y=1+|\sin x| \geq 1$ nên loại các đáp án C và D .<br>Ta thấy tại $x=0$ thì $y=1$. Thay vào hai đáp án A và B thì chỉ có A thỏa. Chọn A .</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1778,11 +1765,11 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="slide" data-i="70" id="slide-70">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 70</div>
-                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361673/chuyende_05/uuxt1b9zxlhrew15xycq.jpg" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361673/chuyende_05/uuxt1b9zxlhrew15xycq.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\tan x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cot x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=|\tan x|$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=|\cot x|$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Dựa vào đồ thị ta thấy hàm số có GTNN bằng 0 . Do đó loại đáp án $A$ và $B$.<br>Hàm số xác định tại $x=0$ và tại $x=0$ thì $y=0$. Do đó chỉ có C thỏa mãn. Chọn C.<br><br>### Dạng 6. Giá trị lớn nhất - Giá trị nhỏ nhất</div>
+                    <div class="sol-body">Dựa vào đồ thị ta thấy hàm số có GTNN bằng 0 . Do đó loại đáp án $A$ và $B$.<br>Hàm số xác định tại $x=0$ và tại $x=0$ thì $y=0$. Do đó chỉ có C thỏa mãn. Chọn C.<br>### Dạng 6. Giá trị lớn nhất - Giá trị nhỏ nhất</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1795,7 +1782,7 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$M=1, m=-5$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$M=-3, m=-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$M=2, m=-2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$M=0, m=-2$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \sin x \leq 1 \longrightarrow-3 \leq 3 \sin x \leq 3 \longrightarrow-5 \leq 3 \sin x-2 \leq 1$.<br>Vậy $-5 \leq y \leq 1 \longrightarrow\left\{\begin{array}{l}M=1 \\ m=-5\end{array}\right.$. Chọn A.</div>
+                    <div class="sol-body">Ta có $-1 \leq \sin x \leq 1 \longrightarrow-3 \leq 3 \sin x \leq 3 \longrightarrow-5 \leq 3 \sin x-2 \leq 1$.<br>Vậy $-5 \leq y \leq 1 \longrightarrow\left\{\begin{array}{l}M=1 \\ m=-5\end{array}\right.$. Chọn A.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1805,10 +1792,10 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 72</div>
                 <div class="q-content">Tìm tập giá trị $T$ của hàm số $y=3 \cos 2 x+5$.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$T=-1 ; 1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$T=-1 ; 11$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=2 ; 8$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=5 ; 8$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$T=[-1 ; 1]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$T=[-1 ; 11]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=[2 ; 8]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=[5 ; 8]$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow-3 \leq 3 \cos 2 x \leq 3 \longrightarrow 2 \leq 3 \cos 2 x+5 \leq 8$.<br>Vậy $2 \leq y \leq 8 \longrightarrow T=2 ; 8$. Chọn C.</div>
+                    <div class="sol-body">Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow-3 \leq 3 \cos 2 x \leq 3 \longrightarrow 2 \leq 3 \cos 2 x+5 \leq 8$.<br>Vậy $2 \leq y \leq 8 \longrightarrow T=2 ; 8$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1818,10 +1805,10 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 73</div>
                 <div class="q-content">Tìm tập giá trị $T$ của hàm số $y=5-3 \sin x$.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$T=-1 ; 1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$T=-3 ; 3$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=2 ; 8$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=5 ; 8$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$T=[-1 ; 1]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$T=[-3 ; 3]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=[2 ; 8]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=[5 ; 8]$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \sin x \leq 1 \longrightarrow 1 \geq-\sin x \geq-1 \longrightarrow 3 \geq-3 \sin x \geq-3$<br>$\longrightarrow 8 \geq 5-3 \sin x \geq 2$. Vậy $2&lt;y&lt;8 \longrightarrow T=2 ; 8$. Chọn C.</div>
+                    <div class="sol-body">Ta có $-1 \leq \sin x \leq 1 \longrightarrow 1 \geq-\sin x \geq-1 \longrightarrow 3 \geq-3 \sin x \geq-3$<br>$\longrightarrow 8 \geq 5-3 \sin x \geq 2$. Vậy $2 \leq y \leq 8 \longrightarrow T=[2 ; 8]$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1834,7 +1821,7 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m=-2017 \sqrt{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m=-2016 \sqrt{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m=-\sqrt{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m=-1$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $\displaystyle -1 \leq \sin \left(2021 x+\frac{\pi}{3}\right) \leq 1 \longrightarrow \sqrt{2} \geq-\sqrt{2} \sin \left(2021 x+\frac{\pi}{3}\right) \geq-\sqrt{2}$.<br>Vậy giá trị nhỏ nhất của hàm số là $-\sqrt{2}$. Chọn C.</div>
+                    <div class="sol-body">Ta có $\displaystyle -1 \leq \sin \left(2021 x+\frac{\pi}{3}\right) \leq 1 \longrightarrow \sqrt{2} \geq-\sqrt{2} \sin \left(2021 x+\frac{\pi}{3}\right) \geq-\sqrt{2}$.<br>Vậy giá trị nhỏ nhất của hàm số là $-\sqrt{2}$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1844,10 +1831,10 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 75</div>
                 <div class="q-content">Hàm số $y=\cos |3 x-5|$ có giá trị nhỏ nhất bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">-1 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-2 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">-1</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-2</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \cos |3 x-5| \leq 1, \forall x \in \mathbb{R}$.<br>Do đó $\min _{\mathbb{R}} y=-1$, đạt được khi $\displaystyle |3 x-5|=\pi+k 2 \pi \Leftrightarrow\left[\begin{array}{l}x=\frac{\pi+5}{3}+k \frac{2 \pi}{3} \\ x=\frac{5-\pi}{3}-k \frac{2 \pi}{3}\end{array} \quad k \in \mathbb{Z}\right.$. Chọn B.</div>
+                    <div class="sol-body">Ta có $-1 \leq \cos |3 x-5| \leq 1, \forall x \in \mathbb{R}$.<br>Do đó $\min _{\mathbb{R}} y=-1$, đạt được khi $\displaystyle |3 x-5|=\pi+k 2 \pi \Leftrightarrow\left[\begin{array}{l}x=\frac{\pi+5}{3}+k \frac{2 \pi}{3} \\ x=\frac{5-\pi}{3}-k \frac{2 \pi}{3}\end{array} \quad k \in \mathbb{Z}\right.$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1860,7 +1847,7 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$M=3, m=-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$M=1, m=-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$M=2, m=-2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$M=0, m=-2$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \cos 3 x \leq 1 \longrightarrow 0 \leq|\cos 3 x| \leq 1 \longrightarrow 0 \geq-2|\cos 3 x| \geq-2$<br>$\longrightarrow 1 \geq 1-2|\cos 3 x| \geq-1$. Vậy $1 \geq y \geq-1 \longrightarrow\left\{\begin{array}{l}M=1 \\ m=-1\end{array}\right.$. Chọn B.</div>
+                    <div class="sol-body">Ta có $-1 \leq \cos 3 x \leq 1 \longrightarrow 0 \leq|\cos 3 x| \leq 1 \longrightarrow 0 \geq-2|\cos 3 x| \geq-2$<br>$\longrightarrow 1 \geq 1-2|\cos 3 x| \geq-1$. Vậy $1 \geq y \geq-1 \longrightarrow\left\{\begin{array}{l}M=1 \\ m=-1\end{array}\right.$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1870,10 +1857,10 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 77</div>
                 <div class="q-content">Khi $x$ thay đổi trong đoạn $\displaystyle \left[-\frac{\pi}{2} ; \pi\right]$ thì $y=\sin x$ lấy mọi giá trị thuộc</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">đoạn $-1 ; 0$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">khoảng $-1 ; 0$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">nửa khoảng $-1 ; 1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">đoạn $-1 ; 1$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">đoạn $[-1 ; 0]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">khoảng $(-1 ; 0)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">nửa khoảng $[-1 ; 1)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">đoạn $[-1 ; 1]$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Dựa vào đường tròn lượng giác, dễ dàng xác định được $\sin x \in-1 ; 1$ khi $\displaystyle x \in\left[-\frac{\pi}{2} ; \pi\right]$. Chọn<br>D.<br><br>Sai lầm học sinh hay gặp là lấy giá trị sin của hai đầu mút, cụ thể $\displaystyle \sin \left(-\frac{\pi}{2}\right)=-1$ và $\sin \pi=0$ và chọn<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361674/chuyende_05/vbucu5m9zlluzv9xjlmr.jpg" alt="Math Image"></div><br>A.</div>
+                    <div class="sol-body">Dựa vào đường tròn lượng giác, dễ dàng xác định được $\sin x \in [-1 ; 1]$ khi $\displaystyle x \in\left[-\frac{\pi}{2} ; \pi\right]$. Chọn D.<br>Sai lầm học sinh hay gặp là lấy giá trị sin của hai đầu mút, cụ thể $\displaystyle \sin \left(-\frac{\pi}{2}\right)=-1$ và $\sin \pi=0$ và chọn A.<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361674/chuyende_05/vbucu5m9zlluzv9xjlmr.jpg" alt="Math Image"></div></div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1886,7 +1873,7 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \left(-\frac{1}{2} ; \frac{1}{2}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \left(\frac{1}{2} ; \frac{\sqrt{3}}{2}\right]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left(-\frac{1}{2} ; 1\right]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \left(-\frac{\sqrt{3}}{2} ; \frac{\sqrt{3}}{2}\right]$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Với $\displaystyle x \in\left(-\frac{\pi}{3} ; \frac{\pi}{6}\right] \rightarrow 2 x \in\left(-\frac{2 \pi}{3} ; \frac{\pi}{3}\right]$. Dựa vào đường tròn lượng giác, dễ dàng xác định được $y=\cos 2 x$ nhận mọi giá trị từ $\displaystyle -\frac{1}{2}$ đến 1 (không lấy giá trị $\displaystyle -\frac{1}{2}$ ). Chọn C.<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361676/chuyende_05/ogiuhopp5jsosgwvcxy0.jpg" alt="Math Image"></div><br><br>Cách 2. Ta có thể lập bảng giá trị như sau:<br><br><br>| $x$ | $\displaystyle -\frac{\pi}{3} \quad-\frac{\pi}{4}$ | $\displaystyle -\frac{\pi}{6}$ | $\displaystyle -\frac{\pi}{12}$ | $\displaystyle -\frac{\pi}{12}$ | $\displaystyle \frac{\pi}{6}$ |<br>| :--- | :--- | :--- | :--- | :--- | :--- |<br>| $2 x$ | $\displaystyle -\frac{2 \pi}{3} \quad-\frac{\pi}{2}$ | $\displaystyle -\frac{\pi}{3}$ | $\displaystyle -\frac{\pi}{6}$ | $\displaystyle \frac{\pi}{6}$ | $\displaystyle \frac{\pi}{3}$ |<br>| $\cos 2 x$ |  |  |  |  | $\displaystyle -\frac{1}{2} \longrightarrow 0 \longrightarrow \frac{1}{2} \longrightarrow \frac{\sqrt{3}}{2} \longrightarrow \frac{\sqrt{3}}{2} \longrightarrow \frac{1}{2}$ |</div>
+                    <div class="sol-body">Với $\displaystyle x \in\left(-\frac{\pi}{3} ; \frac{\pi}{6}\right] \rightarrow 2 x \in\left(-\frac{2 \pi}{3} ; \frac{\pi}{3}\right]$. Dựa vào đường tròn lượng giác, dễ dàng xác định được $y=\cos 2 x$ nhận mọi giá trị thuộc $\displaystyle (-\frac{1}{2} ; 1]$. Chọn C.<br>Cách 2. Ta có thể lập bảng giá trị như sau:<br><br><div style="overflow-x: auto; width: 100%; margin: 15px 0;"><table class="theory-table" style="text-align: center; width: 100%;"><tr><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$x$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{\pi}{3} \quad-\frac{\pi}{4}$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{\pi}{6}$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{\pi}{12}$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{\pi}{12}$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle \frac{\pi}{6}$</th></tr><tr><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$2 x$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{2 \pi}{3} \quad-\frac{\pi}{2}$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{\pi}{3}$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{\pi}{6}$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle \frac{\pi}{6}$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle \frac{\pi}{3}$</td></tr><tr><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\cos 2 x$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;"></td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;"></td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;"></td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;"></td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{1}{2} \longrightarrow 0 \longrightarrow \frac{1}{2} \longrightarrow \frac{\sqrt{3}}{2} \longrightarrow \frac{\sqrt{3}}{2} \longrightarrow \frac{1}{2}$</td></tr></table></div><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361676/chuyende_05/ogiuhopp5jsosgwvcxy0.jpg" alt="Math Image"></div></div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1896,10 +1883,10 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 79</div>
                 <div class="q-content">Khi $x$ thay đổi trong đoạn $\displaystyle \left[-\frac{\pi}{4} ; \frac{\pi}{6}\right]$ thì $y=\sin ^{2} 2 x$ lấy mọi giá trị thuộc</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \left[\frac{1}{4} ; \frac{1}{2}\right]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \left[0 ; \frac{1}{2}\right]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left[\frac{3}{4} ; 1\right]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$0 ; 1$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \left[\frac{1}{4} ; \frac{1}{2}\right]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \left[0 ; \frac{1}{2}\right]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left[\frac{3}{4} ; 1\right]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$[0 ; 1]$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Với $\displaystyle x \in\left[-\frac{\pi}{4} ; \frac{\pi}{6}\right] \rightarrow 2 x \in\left[-\frac{\pi}{2} ; \frac{\pi}{3}\right]$.<br>Dựa vào đường tròn lượng giác, dễ dàng xác định được $y=\sin 2 x$ nhận mọi giá trị từ -1 đến $\displaystyle \frac{\sqrt{3}}{2}$.<br><br>Ta có $\displaystyle -1 \leq \sin 2 x \leq \frac{\sqrt{3}}{2} \longrightarrow 0 \leq \sin ^{2} 2 x \leq 1$. Chọn<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361677/chuyende_05/c7ska86xe1r8mbn55vnq.jpg" alt="Math Image"></div><br>D.</div>
+                    <div class="sol-body">Với $\displaystyle x \in\left[-\frac{\pi}{4} ; \frac{\pi}{6}\right] \rightarrow 2 x \in\left[-\frac{\pi}{2} ; \frac{\pi}{3}\right]$.<br>Dựa vào đường tròn lượng giác, dễ dàng xác định được $y=\sin 2 x$ nhận mọi giá trị từ -1 đến $\displaystyle \frac{\sqrt{3}}{2}$.<br>Ta có $\displaystyle -1 \leq \sin 2 x \leq \frac{\sqrt{3}}{2} \longrightarrow 0 \leq \sin ^{2} 2 x \leq 1$. Chọn D.<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361677/chuyende_05/c7ska86xe1r8mbn55vnq.jpg" alt="Math Image"></div></div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1912,7 +1899,7 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$2^{2022}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$2^{4044}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$2^{2022} 1+2^{4044}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$2^{6066}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \sin x \leq 1 \longrightarrow 5 \geq-5 \sin x \geq-5$ hay $-5 \leq-5 \sin x \leq 5$<br>$\longrightarrow-2 \leq 3-5 \sin x \leq 8 \longrightarrow \leq 0 \leq 3-5 \sin x^{2022} \leq 8^{2022}$.<br>Vậy $m=0$ và $M=8^{2022}=2^{6066}$. Chọn D.</div>
+                    <div class="sol-body">Ta có $-1 \leq \sin x \leq 1 \longrightarrow 5 \geq-5 \sin x \geq-5$ hay $-5 \leq-5 \sin x \leq 5$<br>$\longrightarrow-2 \leq 3-5 \sin x \leq 8 \longrightarrow \leq 0 \leq 3-5 \sin x^{2022} \leq 8^{2022}$.<br>Vậy $m=0$ và $M=8^{2022}=2^{6066}$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1922,10 +1909,10 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 81</div>
                 <div class="q-content">Giá trị nhỏ nhất và lớn nhất của hàm số $\displaystyle f x=\sin \left(\frac{\pi}{3}|\sin x|\right)$ lần lượt là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-1 và 1 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">0 và 1 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle -\frac{\sqrt{3}}{2}$ và $\displaystyle \frac{\sqrt{3}}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">0 và $\displaystyle \frac{\sqrt{3}}{2}$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-1 và 1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">0 và 1</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle -\frac{\sqrt{3}}{2}$ và $\displaystyle \frac{\sqrt{3}}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">0 và $\displaystyle \frac{\sqrt{3}}{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Vì $\displaystyle 0 \leq|\sin x| \leq 1 \longrightarrow 0 \leq \frac{\pi}{3}|\sin x| \leq \frac{\pi}{3}$. Trên đoạn $\displaystyle \left[0 ; \frac{\pi}{3}\right]$ hàm số sin luôn tăng nên $\displaystyle \sin 0 \leq \sin \left(\frac{\pi}{3}|\sin x|\right) \leq \sin \frac{\pi}{3}$ hay $\displaystyle 0 \leq \sin \left(\frac{\pi}{3}|\sin x|\right) \leq \frac{\sqrt{3}}{2}$. Chọn D.</div>
+                    <div class="sol-body">Vì $\displaystyle 0 \leq|\sin x| \leq 1 \longrightarrow 0 \leq \frac{\pi}{3}|\sin x| \leq \frac{\pi}{3}$. Trên đoạn $\displaystyle \left[0 ; \frac{\pi}{3}\right]$ hàm số sin luôn tăng nên $\displaystyle \sin 0 \leq \sin \left(\frac{\pi}{3}|\sin x|\right) \leq \sin \frac{\pi}{3}$ hay $\displaystyle 0 \leq \sin \left(\frac{\pi}{3}|\sin x|\right) \leq \frac{\sqrt{3}}{2}$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1938,7 +1925,7 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle m=\frac{1}{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle m=\frac{1}{\sqrt{2}}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m=1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m=\sqrt{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $\displaystyle \frac{1}{\cos x+1}$ nhỏ nhất khi và chỉ khi $\cos x+1$ lớn nhất $\Leftrightarrow \cos x$ lớn nhất $\Leftrightarrow \cos x=1$.<br>Khi đó $\displaystyle y_{\text {min }}=\frac{1}{\cos x+1}=\frac{1}{2}$. Chọn A.</div>
+                    <div class="sol-body">Ta có $\displaystyle \frac{1}{\cos x+1}$ nhỏ nhất khi và chỉ khi $\cos x+1$ lớn nhất $\Leftrightarrow \cos x$ lớn nhất $\Leftrightarrow \cos x=1$.<br>Khi đó $\displaystyle y_{\text {min }}=\frac{1}{\cos x+1}=\frac{1}{2}$. Chọn A.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1951,13 +1938,7 @@ $$<br><br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến.
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$1+2 \sqrt{3} ; 1+2 \sqrt{5}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$2 \sqrt{3} ; 2 \sqrt{5}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$1-2 \sqrt{3} ; 1+2 \sqrt{5}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$-1+2 \sqrt{3} ;-1+2 \sqrt{5}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn A. Ta có $-1 \leq \cos 3 x \leq 1, \forall x \in \mathbb{R}$<br><br>$$
-\begin{aligned}
-& \Leftrightarrow 3 \leq 4+\cos 3 x \leq 5 \\
-& \Leftrightarrow \sqrt{3} \leq \sqrt{4+\cos 3 x} \leq \sqrt{5} \\
-& \Leftrightarrow 1+2 \sqrt{3} \leq 1+2 \sqrt{4+\cos 3 x} \leq 1+2 \sqrt{5} .
-\end{aligned}
-$$<br><br>Do đó<br><br>- $\max _{\mathbb{R}} y=1+2 \sqrt{5}$, đạt được khi $\displaystyle \cos 3 x=1 \Leftrightarrow 3 x=k 2 \pi \Leftrightarrow x=k \frac{2 \pi}{3} \quad k \in \mathbb{Z}$.<br>- $\min _{\mathbb{R}} y=1+2 \sqrt{3}$, đạt được khi $\displaystyle \cos 3 x=-1 \Leftrightarrow 3 x=\pi+k 2 \pi \Leftrightarrow x=\frac{\pi}{3}+k \frac{2 \pi}{3} \quad k \in \mathbb{Z}$.</div>
+                    <div class="sol-body">Chọn A. Ta có $-1 \leq \cos 3 x \leq 1, \forall x \in \mathbb{R}$<br>$$<br>\begin{aligned}<br>& \Leftrightarrow 3 \leq 4+\cos 3 x \leq 5 \\<br>& \Leftrightarrow \sqrt{3} \leq \sqrt{4+\cos 3 x} \leq \sqrt{5} \\<br>& \Leftrightarrow 1+2 \sqrt{3} \leq 1+2 \sqrt{4+\cos 3 x} \leq 1+2 \sqrt{5} .<br>\end{aligned}<br>$$<br>Do đó<br>- $\max _{\mathbb{R}} y=1+2 \sqrt{5}$, đạt được khi $\displaystyle \cos 3 x=1 \Leftrightarrow 3 x=k 2 \pi \Leftrightarrow x=k \frac{2 \pi}{3} \quad k \in \mathbb{Z}$.<br>- $\min _{\mathbb{R}} y=1+2 \sqrt{3}$, đạt được khi $\displaystyle \cos 3 x=-1 \Leftrightarrow 3 x=\pi+k 2 \pi \Leftrightarrow x=\frac{\pi}{3}+k \frac{2 \pi}{3} \quad k \in \mathbb{Z}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1967,10 +1948,10 @@ $$<br><br>Do đó<br><br>- $\max _{\mathbb{R}} y=1+2 \sqrt{5}$, đạt được 
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 84</div>
                 <div class="q-content">Hàm số $y=5+4 \sin 2 x \cos 2 x$ có tất cả bao nhiêu giá trị nguyên?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Viết lại $y=5+4 \sin 2 x \cos 2 x=5+2 \sin 4 x$.<br>Mà $-1 \leq \sin 4 x \leq 1 \longrightarrow-2 \leq 2 \sin 4 x \leq 2 \longrightarrow 3 \leq 5+2 \sin 4 x \leq 7$.<br>Vậy $3 \leq y \leq 7 \xrightarrow{y \in \mathbb{Z}} y \in 3 ; 4 ; 5 ; 6 ; 7$ nên $y$ có 5 giá trị nguyên. Chọn $\mathbf{C}$.</div>
+                    <div class="sol-body">Viết lại $y=5+4 \sin 2 x \cos 2 x=5+2 \sin 4 x$.<br>Mà $-1 \leq \sin 4 x \leq 1 \longrightarrow-2 \leq 2 \sin 4 x \leq 2 \longrightarrow 3 \leq 5+2 \sin 4 x \leq 7$.<br>Vậy $3 \leq y \leq 7 \xrightarrow{y \in \mathbb{Z}} y \in 3 ; 4 ; 5 ; 6 ; 7$ nên $y$ có 5 giá trị nguyên. Chọn $\mathbf{C}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1983,7 +1964,7 @@ $$<br><br>Do đó<br><br>- $\max _{\mathbb{R}} y=1+2 \sqrt{5}$, đạt được 
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$-1 ; 1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$-4042 ; 4042$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$[-\sqrt{2} ; \sqrt{2}]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$[0 ; \sqrt{2}]$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $\displaystyle y=\sin 2021 x-\cos 2021 x=\sqrt{2} \sin \left(2021 x-\frac{\pi}{4}\right) \Rightarrow-\sqrt{2} \leq y \leq \sqrt{2}$. Chọn C.</div>
+                    <div class="sol-body">Ta có $\displaystyle y=\sin 2021 x-\cos 2021 x=\sqrt{2} \sin \left(2021 x-\frac{\pi}{4}\right) \Rightarrow-\sqrt{2} \leq y \leq \sqrt{2}$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1996,7 +1977,7 @@ $$<br><br>Do đó<br><br>- $\max _{\mathbb{R}} y=1+2 \sqrt{5}$, đạt được 
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle x_{0}=\frac{\pi}{4}+k \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle x_{0}=\frac{\pi}{4}+k 2 \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$x_{0}=k \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle x_{0}=\frac{\pi}{2}+k \pi, k \in \mathbb{Z}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $y=\sin ^{4} x-\cos ^{4} x=\sin ^{2} x+\cos ^{2} x \quad \sin ^{2} x-\cos ^{2} x=-\cos 2 x$.<br><br>Mà $-1 \leq \cos 2 x \leq 1 \longrightarrow-1 \geq-\cos 2 x \geq 1$. Do đó giá trị nhỏ nhất của hàm số là -1 .<br>Đẳng thức xảy ra $\Leftrightarrow \cos 2 x=1 \Leftrightarrow 2 x=k 2 \pi \Leftrightarrow x=k \pi \quad k \in \mathbb{Z}$. Chọn C.</div>
+                    <div class="sol-body">Ta có $y=\sin ^{4} x-\cos ^{4} x=\sin ^{2} x+\cos ^{2} x \quad \sin ^{2} x-\cos ^{2} x=-\cos 2 x$.<br>Mà $-1 \leq \cos 2 x \leq 1 \longrightarrow-1 \geq-\cos 2 x \geq 1$. Do đó giá trị nhỏ nhất của hàm số là -1 .<br>Đẳng thức xảy ra $\Leftrightarrow \cos 2 x=1 \Leftrightarrow 2 x=k 2 \pi \Leftrightarrow x=k \pi \quad k \in \mathbb{Z}$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2009,9 +1990,7 @@ $$<br><br>Do đó<br><br>- $\max _{\mathbb{R}} y=1+2 \sqrt{5}$, đạt được 
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y \leq 2, \forall x \in \mathbb{R}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y \leq \sqrt{2}, \forall x \in \mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y \leq 1, \forall x \in \mathbb{R}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y \leq \frac{1}{2}, \forall x \in \mathbb{R}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $y=\cos ^{4} x+\sin ^{4} x=\sin ^{2} x+\cos ^{2} x{ }^{2}-2 \sin ^{2} x \cos ^{2} x$<br><br>$$
-=1-\frac{1}{2} \sin ^{2} 2 x=1-\frac{1}{2} \cdot \frac{1-\cos 4 x}{2}=\frac{3}{4}+\frac{1}{4} \cos 4 x
-$$<br><br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{2} \leq \frac{3}{4}+\frac{1}{4} \cos 4 x \leq 1$. Vậy $\displaystyle \frac{1}{2} \leq y \leq 1$. Chọn C.<br>Nhận xét: Từ $\displaystyle y=\cos ^{4} x+\sin ^{4} x=1-\frac{1}{2} \sin ^{2} 2 x$, ta có thể đánh giá thông qua $\sin ^{2} 2 x$.</div>
+                    <div class="sol-body">Ta có $y=\cos ^{4} x+\sin ^{4} x=(\sin ^{2} x+\cos ^{2} x)^{2}-2 \sin ^{2} x \cos ^{2} x$<br>$$<br>=1-\frac{1}{2} \sin ^{2} 2 x=1-\frac{1}{2} \cdot \frac{1-\cos 4 x}{2}=\frac{3}{4}+\frac{1}{4} \cos 4 x<br>$$<br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{2} \leq \frac{3}{4}+\frac{1}{4} \cos 4 x \leq 1$. Vậy $\displaystyle \frac{1}{2} \leq y \leq 1$. Chọn C.<br>Nhận xét: Từ $\displaystyle y=\cos ^{4} x+\sin ^{4} x=1-\frac{1}{2} \sin ^{2} 2 x$, ta có thể đánh giá thông qua $\sin ^{2} 2 x$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2024,9 +2003,7 @@ $$<br><br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{2}
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$0 ; 2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \left[\frac{1}{2} ; 1\right]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left[\frac{1}{4} ; 1\right]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \left[0 ; \frac{1}{4}\right]$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $y=\sin ^{6} x+\cos ^{6} x=\sin ^{2} x+\cos ^{2} x{ }^{2}-3 \sin ^{2} x \cos ^{2} x \sin ^{2} x+\cos ^{2} x$<br><br>$$
-=1-3 \sin ^{2} x \cos ^{2} x=1-\frac{3}{4} \sin ^{2} 2 x=1-\frac{3}{4} \cdot \frac{1-\cos 4 x}{2}=\frac{5}{8}+\frac{3}{8} \cos 4 x .
-$$<br><br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{4} \leq \frac{5}{8}+\frac{3}{8} \cos 4 x \leq 1$. Vậy $\displaystyle \frac{1}{4} \leq y \leq 1$. Chọn C.<br>Nhận xét: Từ $\displaystyle y=\sin ^{6} x+\cos ^{6} x=1-\frac{3}{4} \sin ^{2} 2 x$, ta có thể đánh giá thông qua $\sin ^{2} 2 x$.</div>
+                    <div class="sol-body">Ta có $y=\sin ^{6} x+\cos ^{6} x=(\sin ^{2} x+\cos ^{2} x)^{3}-3 \sin ^{2} x \cos ^{2} x (\sin ^{2} x+\cos ^{2} x)$<br>$$<br>=1-3 \sin ^{2} x \cos ^{2} x=1-\frac{3}{4} \sin ^{2} 2 x=1-\frac{3}{4} \cdot \frac{1-\cos 4 x}{2}=\frac{5}{8}+\frac{3}{8} \cos 4 x .<br>$$<br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{4} \leq \frac{5}{8}+\frac{3}{8} \cos 4 x \leq 1$. Vậy $\displaystyle \frac{1}{4} \leq y \leq 1$. Chọn C.<br>Nhận xét: Từ $\displaystyle y=\sin ^{6} x+\cos ^{6} x=1-\frac{3}{4} \sin ^{2} 2 x$, ta có thể đánh giá thông qua $\sin ^{2} 2 x$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2036,12 +2013,10 @@ $$<br><br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{4}
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 89</div>
                 <div class="q-content">Hàm số $\displaystyle y=\sin \left(x+\frac{\pi}{3}\right)-\sin x$ có tất cả bao nhiêu giá trị nguyên?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Áp dụng công thức: $\displaystyle \sin a-\sin b=2 \cos \frac{a+b}{2} \sin \frac{a-b}{2}$, ta có<br><br>$$
-\sin \left(x+\frac{\pi}{3}\right)-\sin x=2 \cos \left(x+\frac{\pi}{6}\right) \sin \frac{\pi}{6}=\cos \left(x+\frac{\pi}{6}\right)
-$$<br><br>Ta có $\displaystyle -1 \leq \cos \left(x+\frac{\pi}{6}\right) \leq 1$ nên $-1 \leq y \leq 1 \xrightarrow{y \in \mathbb{Z}} y \in-1 ; 0 ; 1$. Chọn C.</div>
+                    <div class="sol-body">Áp dụng công thức: $\displaystyle \sin a-\sin b=2 \cos \frac{a+b}{2} \sin \frac{a-b}{2}$, ta có<br>$$<br>\sin \left(x+\frac{\pi}{3}\right)-\sin x=2 \cos \left(x+\frac{\pi}{6}\right) \sin \frac{\pi}{6}=\cos \left(x+\frac{\pi}{6}\right)<br>$$<br>Ta có $\displaystyle -1 \leq \cos \left(x+\frac{\pi}{6}\right) \leq 1$ nên $-1 \leq y \leq 1 \xrightarrow{y \in \mathbb{Z}} y \in-1 ; 0 ; 1$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2054,7 +2029,7 @@ $$<br><br>Ta có $\displaystyle -1 \leq \cos \left(x+\frac{\pi}{6}\right) \leq 1
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle M=\frac{1}{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle M=\frac{2}{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$M=1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$M=2$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $\displaystyle y=\frac{2}{1+\tan ^{2} x}=\frac{2}{\frac{1}{\cos ^{2} x}}=2 \cos ^{2} x$. Chọn D.</div>
+                    <div class="sol-body">Ta có $\displaystyle y=\frac{2}{1+\tan ^{2} x}=\frac{2}{\frac{1}{\cos ^{2} x}}=2 \cos ^{2} x$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -2067,9 +2042,7 @@ $$<br><br>Ta có $\displaystyle -1 \leq \cos \left(x+\frac{\pi}{6}\right) \leq 1
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$M=\sqrt{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$M=\sqrt{2}-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$M=\sqrt{2}+2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle M=\frac{7}{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $\displaystyle y=4 \sin ^{2} x+\sqrt{2} \sin \left(2 x+\frac{\pi}{4}\right)=4\left(\frac{1-\cos 2 x}{2}\right)+\sin 2 x+\cos 2 x$<br><br>$$
-=\sin 2 x-\cos 2 x+2=\sqrt{2} \sin \left(2 x-\frac{\pi}{4}\right)+2
-$$<br><br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 \longrightarrow-\sqrt{2}+2 \leq \sqrt{2} \sin \left(2 x-\frac{\pi}{4}\right)+2 \leq \sqrt{2}+2$.<br>Vậy giá trị lớn nhất của hàm số là $2+\sqrt{2}$. Chọn C.</div>
+                    <div class="sol-body">Ta có $\displaystyle y=4 \sin ^{2} x+\sqrt{2} \sin \left(2 x+\frac{\pi}{4}\right)=4\left(\frac{1-\cos 2 x}{2}\right)+\sin 2 x+\cos 2 x$<br>$$<br>=\sin 2 x-\cos 2 x+2=\sqrt{2} \sin \left(2 x-\frac{\pi}{4}\right)+2<br>$$<br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 \longrightarrow-\sqrt{2}+2 \leq \sqrt{2} \sin \left(2 x-\frac{\pi}{4}\right)+2 \leq \sqrt{2}+2$.<br>Vậy giá trị lớn nhất của hàm số là $2+\sqrt{2}$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2082,7 +2055,7 @@ $$<br><br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$x_{0}=\pi+k 2 \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle x_{0}=\frac{\pi}{2}+k \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$x_{0}=k 2 \pi, k \in \mathbb{Z}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$x_{0}=k \pi, k \in \mathbb{Z}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \cos x \leq 1 \longrightarrow 0 \leq \cos ^{2} x \leq 1 \longrightarrow 1 \leq 1+2 \cos ^{2} x \leq 3$.<br>Do đó giá trị nhỏ nhất của hàm số bằng 1 .<br><br>Dấu " $=$ " xảy ra $\displaystyle \Leftrightarrow \cos x=0 \Leftrightarrow x=\frac{\pi}{2}+k \pi$. Chọn B.</div>
+                    <div class="sol-body">Ta có $-1 \leq \cos x \leq 1 \longrightarrow 0 \leq \cos ^{2} x \leq 1 \longrightarrow 1 \leq 1+2 \cos ^{2} x \leq 3$.<br>Do đó giá trị nhỏ nhất của hàm số bằng 1 .<br>Dấu " $=$ " xảy ra $\displaystyle \Leftrightarrow \cos x=0 \Leftrightarrow x=\frac{\pi}{2}+k \pi$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -2095,7 +2068,7 @@ $$<br><br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$M=\sqrt{10}, m=2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$M=\sqrt{7}, m=2$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$M=\sqrt{10}, m=\sqrt{7}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$M=0, m=1$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Ta có $-1 \leq \cos x \leq 1 \longrightarrow 0 \leq \cos ^{2} x \leq 1 \longrightarrow 4 \leq 7-3 \cos ^{2} x \leq 7$.<br>Suy ra $2 \leq \sqrt{7-3 \cos ^{2} x} \leq \sqrt{7}$. Chọn B.</div>
+                    <div class="sol-body">Ta có $-1 \leq \cos x \leq 1 \longrightarrow 0 \leq \cos ^{2} x \leq 1 \longrightarrow 4 \leq 7-3 \cos ^{2} x \leq 7$.<br>Suy ra $2 \leq \sqrt{7-3 \cos ^{2} x} \leq \sqrt{7}$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -2108,7 +2081,7 @@ $$<br><br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \frac{-3}{1+\sqrt{3}}$ và $\displaystyle \frac{3}{1+\sqrt{2}}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \frac{3}{1+\sqrt{3}}$ và $\displaystyle \frac{4}{1+\sqrt{2}}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{2}{1+\sqrt{3}}$ và $\displaystyle \frac{3}{1+\sqrt{2}}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \frac{3}{1+\sqrt{3}}$ và $\displaystyle \frac{3}{1+\sqrt{2}}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Có $0 \leq \sin ^{2} x \leq 1 \longrightarrow 2 \leq 2+\sin ^{2} x \leq 3 \longrightarrow 1+\sqrt{2} \leq 1+\sqrt{2+\sin ^{2} x} \leq 1+\sqrt{3}$.<br>Suy ra $\displaystyle \frac{3}{1+\sqrt{2}} \geq \frac{3}{1+\sqrt{2+\sin ^{2} x}} \geq \frac{3}{1+\sqrt{3}}$. Do đó<br><br>- $\displaystyle \max _{\mathbb{R}} y=\frac{3}{1+\sqrt{2}}$, đạt được khi $\sin ^{2} x=0 \Leftrightarrow x=k \pi \quad k \in \mathbb{Z}$.<br>- $\displaystyle \min _{\mathbb{R}} y=\frac{3}{1+\sqrt{3}}$, đạt được khi $\displaystyle \sin ^{2} x=1 \Leftrightarrow x=\frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$. Chọn D.</div>
+                    <div class="sol-body">Có $0 \leq \sin ^{2} x \leq 1 \longrightarrow 2 \leq 2+\sin ^{2} x \leq 3 \longrightarrow 1+\sqrt{2} \leq 1+\sqrt{2+\sin ^{2} x} \leq 1+\sqrt{3}$.<br>Suy ra $\displaystyle \frac{3}{1+\sqrt{2}} \geq \frac{3}{1+\sqrt{2+\sin ^{2} x}} \geq \frac{3}{1+\sqrt{3}}$. Do đó<br>- $\displaystyle \max _{\mathbb{R}} y=\frac{3}{1+\sqrt{2}}$, đạt được khi $\sin ^{2} x=0 \Leftrightarrow x=k \pi \quad k \in \mathbb{Z}$.<br>- $\displaystyle \min _{\mathbb{R}} y=\frac{3}{1+\sqrt{3}}$, đạt được khi $\displaystyle \sin ^{2} x=1 \Leftrightarrow x=\frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -2118,10 +2091,10 @@ $$<br><br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 95</div>
                 <div class="q-content">Tổng giá trị lớn nhất và nhỏ nhất của hàm số $y=8 \sin ^{2} x+3 \cos 2 x$ bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">2 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">8 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">11 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">15 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">2</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">8</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">11</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">15</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Viết lại $y=8 \sin ^{2} x+3 \cos 2 x=8 \sin ^{2} x+31-2 \sin ^{2} x=2 \sin ^{2} x+3$.<br><br>Ta có $0 \leq \sin ^{2} x \leq 1 \longrightarrow 3 \leq 2 \sin ^{2} x+3 \leq 5$. Vậy $3 \leq y \leq 5$. Chọn B.</div>
+                    <div class="sol-body">Viết lại $y=8 \sin ^{2} x+3 \cos 2 x=8 \sin ^{2} x+31-2 \sin ^{2} x=2 \sin ^{2} x+3$.<br>Ta có $0 \leq \sin ^{2} x \leq 1 \longrightarrow 3 \leq 2 \sin ^{2} x+3 \leq 5$. Vậy $3 \leq y \leq 5$. Chọn B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -2134,7 +2107,7 @@ $$<br><br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\sin x_{0}=-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \sin x_{0}=-\frac{\sqrt{3}}{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \sin x_{0}=-\frac{1}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\sin x_{0}=0$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Viết lại $y=1-\sin ^{2} x+2 \sin x+2=-\sin ^{2} x+2 \sin x+3=-\sin x-1^{2}+4$.<br><br>Ta có $-1 \leq \sin x \leq 1 \longrightarrow-2 \leq \sin x-1 \leq 0 \longrightarrow 0 \leq \sin x-1^{2} \leq 4$<br>$\longrightarrow 0 \geq-\sin x-1^{2} \geq-4 \longrightarrow 4 \geq-\sin x-1^{2}+4 \geq 0$.<br>Do đó giá trị nhỏ nhất của hàm số bằng 0 . Dấu " $=$ " xảy ra $\Leftrightarrow \sin x=-1$. Chọn $\mathbf{A}$.</div>
+                    <div class="sol-body">Viết lại $y=1-\sin ^{2} x+2 \sin x+2=-\sin ^{2} x+2 \sin x+3=-(\sin x-1)^{2}+4$.<br>Ta có $-1 \leq \sin x \leq 1 \longrightarrow-2 \leq \sin x-1 \leq 0 \longrightarrow 0 \leq (\sin x-1)^{2} \leq 4$<br>$\longrightarrow 0 \geq -(\sin x-1)^{2} \geq -4 \longrightarrow 4 \geq -(\sin x-1)^{2}+4 \geq 0$.<br>Do đó giá trị nhỏ nhất của hàm số bằng 0 . Dấu " $=$ " xảy ra $\Leftrightarrow \sin x=-1$. Chọn $\mathbf{A}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -2144,10 +2117,10 @@ $$<br><br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 97</div>
                 <div class="q-content">Hàm số $y=\cos ^{2} x-\cos x$ đạt giá trị nhỏ nhất tại $x_{0}$ và có giá trị nhỏ nhất là $m$. Giá trị của $m+\sin ^{2} x_{0}$ bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \frac{1}{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{3}{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">1 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \frac{1}{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{3}{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">1</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn B. Viết lại $\displaystyle y=\cos ^{2} x-\cos x=\left(\cos x-\frac{1}{2}\right)^{2}-\frac{1}{4}$.<br>Ta có $\displaystyle -1 \leq \cos x \leq 1 \longrightarrow-\frac{3}{2} \leq \cos x-\frac{1}{2} \leq \frac{1}{2} \longrightarrow 0 \leq\left(\cos x-\frac{1}{2}\right)^{2} \leq \frac{9}{4}$.<br>Suy ra $\displaystyle -\frac{1}{4} \leq\left(\cos x-\frac{1}{2}\right)^{2}-\frac{1}{4} \leq 2 \longrightarrow-\frac{1}{4} \leq y \leq 2$.<br>Vậy hàm số có giá trị nhỏ nhất bằng $\displaystyle -\frac{1}{4}$, đạt tại $\displaystyle \cos x=\frac{1}{2}$ (khi đó $\displaystyle \sin ^{2} x=\frac{3}{4}$ ).</div>
+                    <div class="sol-body">Chọn B. Viết lại $\displaystyle y=\cos ^{2} x-\cos x=\left(\cos x-\frac{1}{2}\right)^{2}-\frac{1}{4}$.<br>Ta có $\displaystyle -1 \leq \cos x \leq 1 \longrightarrow-\frac{3}{2} \leq \cos x-\frac{1}{2} \leq \frac{1}{2} \longrightarrow 0 \leq\left(\cos x-\frac{1}{2}\right)^{2} \leq \frac{9}{4}$.<br>Suy ra $\displaystyle -\frac{1}{4} \leq\left(\cos x-\frac{1}{2}\right)^{2}-\frac{1}{4} \leq 2 \longrightarrow-\frac{1}{4} \leq y \leq 2$.<br>Vậy hàm số có giá trị nhỏ nhất bằng $\displaystyle -\frac{1}{4}$, đạt tại $\displaystyle \cos x=\frac{1}{2}$ (khi đó $\displaystyle \sin ^{2} x=\frac{3}{4}$ ).</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -2160,7 +2133,7 @@ $$<br><br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\cos 2 x_{1}-\cos 2 x_{2}=-2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\cos 2 x_{1}-\cos 2 x_{2}=-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\cos 2 x_{1}-\cos 2 x_{2}=0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\cos 2 x_{1}-\cos 2 x_{2}=2$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Viết lại $\displaystyle y=4 .\left(\frac{1-\cos 2 x}{2}\right)^{2}-2 \cos ^{2} 2 x-1-4 \cos 2 x-8=-\cos 2 x+3^{2}+3$.<br>Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow 2 \leq \cos 2 x+3 \leq 4 \longrightarrow 4 \leq \cos 2 x+3^{2} \leq 16$<br>$\longrightarrow-13 \leq-\cos 2 x+3^{2}+3 \leq-1$. Do đó<br><br>- $\max _{\mathbb{R}} y=-1$, đạt được khi $\cos 2 x=-1=\cos 2 x_{2}$.<br>- $\min _{\mathbb{R}} y=-13$, đạt được khi $\cos 2 x=1=\cos 2 x_{1}$. Chọn D.</div>
+                    <div class="sol-body">Viết lại $\displaystyle y=4 .\left(\frac{1-\cos 2 x}{2}\right)^{2}-2 \cos ^{2} 2 x-1-4 \cos 2 x-8=-(\cos 2 x+3)^{2}+3$.<br>Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow 2 \leq \cos 2 x+3 \leq 4 \longrightarrow 4 \leq (\cos 2 x+3)^{2} \leq 16$<br>$\longrightarrow-13 \leq-(\cos 2 x+3)^{2}+3 \leq-1$. Do đó<br>- $\max _{\mathbb{R}} y=-1$, đạt được khi $\cos 2 x=-1=\cos 2 x_{2}$.<br>- $\min _{\mathbb{R}} y=-13$, đạt được khi $\cos 2 x=1=\cos 2 x_{1}$. Chọn D.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -2170,12 +2143,10 @@ $$<br><br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 99</div>
                 <div class="q-content">Cho hàm số $y=\sqrt{1+\cos x}+\sqrt{1-\cos x}$ có giá trị lớn nhất là $M$ và giá trị nhỏ nhất là $m$. Giá trị của biểu thức $M^{2}+m^{2}$ bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$2 \sqrt{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">6 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">8 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$2 \sqrt{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">6</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">8</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. • Ta có $y^{2}=1+\cos x+1-\cos x+2 \sqrt{1-\cos ^{2} x}=2+2 \sqrt{1-\cos ^{2} x} \leq 4$.<br><br><br>Suy ra $y \leq 2$. Dấu " $=$ " xảy ra $\displaystyle \Leftrightarrow \cos x=0 \Leftrightarrow x=\frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$.<br><br>- Áp dụng bất đẳng thức $\sqrt{a}+\sqrt{b} \geq \sqrt{a+b}$, ta được<br><br>$$
-y=\sqrt{1+\cos x}+\sqrt{1-\cos x} \geq \sqrt{1+\cos x+1-\cos x}=\sqrt{2}
-$$<br><br>Suy ra $y \geq \sqrt{2}$. Dấu " $=$ " xảy ra $\Leftrightarrow \cos x= \pm 1 \Leftrightarrow x=\ell \pi \quad \ell \in \mathbb{Z}$.<br>Vậy $\sqrt{2} \leq y \leq 2 \Rightarrow\left\{\begin{array}{l}m=\sqrt{2} \\ M=2\end{array} \Rightarrow m^{2}+M^{2}=6\right.$. Chọn C.</div>
+                    <div class="sol-body">• Ta có $y^{2}=1+\cos x+1-\cos x+2 \sqrt{1-\cos ^{2} x}=2+2 \sqrt{1-\cos ^{2} x} \leq 4$.<br><br>Suy ra $y \leq 2$. Dấu " $=$ " xảy ra $\displaystyle \Leftrightarrow \cos x=0 \Leftrightarrow x=\frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$.<br>- Áp dụng bất đẳng thức $\sqrt{a}+\sqrt{b} \geq \sqrt{a+b}$, ta được<br>$$<br>y=\sqrt{1+\cos x}+\sqrt{1-\cos x} \geq \sqrt{1+\cos x+1-\cos x}=\sqrt{2}<br>$$<br>Suy ra $y \geq \sqrt{2}$. Dấu " $=$ " xảy ra $\Leftrightarrow \cos x= \pm 1 \Leftrightarrow x=\ell \pi \quad \ell \in \mathbb{Z}$.<br>Vậy $\sqrt{2} \leq y \leq 2 \Rightarrow\left\{\begin{array}{l}m=\sqrt{2} \\ M=2\end{array} \Rightarrow m^{2}+M^{2}=6\right.$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2188,9 +2159,7 @@ $$<br><br>Suy ra $y \geq \sqrt{2}$. Dấu " $=$ " xảy ra $\Leftrightarrow \cos
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$t=13$ (giờ)</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$t=14$ (giờ)</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$t=15$ (giờ)</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$t=16$ (giờ)</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">. Chọn B. Mực nước của con kênh cao nhất khi $h$ lớn nhất<br><br>$$
-\Leftrightarrow \cos \left(\frac{\pi t}{8}+\frac{\pi}{4}\right)=1 \Leftrightarrow \frac{\pi t}{8}+\frac{\pi}{4}=k 2 \pi \text { với } 0&lt;t \leq 24 \text { và } k \in \mathbb{Z} \text {. }
-$$<br><br>Lần lượt thay các đáp án, ta được đáp án B thỏa mãn. Vì với $t=14$, ta thu được phương trình $\displaystyle \frac{\pi \cdot 14}{8}+\frac{\pi}{4}=k 2 \pi$ : đúng với $k=1 \in \mathbb{Z}$.</div>
+                    <div class="sol-body">Chọn B. Mực nước của con kênh cao nhất khi $h$ lớn nhất<br>$$<br>\Leftrightarrow \cos \left(\frac{\pi t}{8}+\frac{\pi}{4}\right)=1 \Leftrightarrow \frac{\pi t}{8}+\frac{\pi}{4}=k 2 \pi \text { với } 0&lt;t \leq 24 \text { và } k \in \mathbb{Z} \text {. }<br>$$<br>Lần lượt thay các đáp án, ta được đáp án B thỏa mãn. Vì với $t=14$, ta thu được phương trình $\displaystyle \frac{\pi \cdot 14}{8}+\frac{\pi}{4}=k 2 \pi$ : đúng với $k=1 \in \mathbb{Z}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -2289,7 +2258,7 @@ $$<br><br>Lần lượt thay các đáp án, ta được đáp án B thỏa mãn
 <br>
 <div class="theory-item"><span class="theory-bullet"></span><div>Tập xác định $\mathrm{D}=\mathrm{R} \backslash\{\mathrm{k} \pi, \mathrm{k} \in \mathbb{Z}\}$</div></div>
 <div class="theory-item"><span class="theory-bullet"></span><div>Tập giá trị $T=R$</div></div>
-<div class="theory-item"><span class="theory-bullet"></span><div>Là hàm số tuần hoàn với chu kì $\pi$ tức là $\cot (\mathrm{x}+\mathrm{k} \pi)=\operatorname{cotx}$ với $\mathrm{k} \in Z$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Là hàm số tuần hoàn với chu kì $\pi$ tức là $\cot (\mathrm{x}+\mathrm{k} \pi)=\cot x$ với $\mathrm{k} \in Z$</div></div>
 <div class="theory-item"><span class="theory-bullet"></span><div>Hàm số nghịch biến trên mỗi khoảng $(\mathrm{k} \pi ; \pi+\mathrm{k} \pi)$ với $\mathrm{k} \in \mathrm{Z}$</div></div>
 <div class="theory-item"><span class="theory-bullet"></span><div>Là hàm số lẻ nên đồ thị hàm số nhận gốc tọa độ $O$ làm tâm đối xứng.</div></div>
 <div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361624/chuyende_05/wwa9y3hsg8gcqkseeudg.jpg" alt="Math Image" style="max-width: 100%; height: auto;"></div>
@@ -2343,14 +2312,14 @@ $$<br><br>Lần lượt thay các đáp án, ta được đáp án B thỏa mãn
 <div class="theory-item"><span class="theory-bullet"></span><div>Hàm số $y=\sin x$ là hàm số lẻ</div></div>
 <div class="theory-item"><span class="theory-bullet"></span><div>Hàm số $y=\tan x$ là hàm số lẻ</div></div>
 <div class="theory-item"><span class="theory-bullet"></span><div>Hàm số $y=\cos x$ là hàm số chẵn</div></div>
-<div class="theory-item"><span class="theory-bullet"></span><div>Hàm số $y=\operatorname{cotx}$ là hàm số lẻ</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Hàm số $y=\cot x$ là hàm số lẻ</div></div>
 <br>
 <p class="theory-text">2. Nhắc lại kiến thức</p>
 <br>
 <br>
 <div class="theory-item"><span class="theory-bullet"></span><div>$|-x|=x$</div></div>
 <div class="theory-item"><span class="theory-bullet"></span><div>$(a-b)^{2 n+1}=-(b-a)^{2 n+1}$ với $\mathrm{n} \in \mathrm{N}^{*}$</div></div>
-<div class="theory-item"><span class="theory-bullet"></span><div>$(a-b)^{2 n}=(b-a)^{2 n}$ với neN*</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>$(a-b)^{2 n}=(b-a)^{2 n}$ với n \in \mathbb{N}^*</div></div>
 <br>
 <p class="theory-text">3. Sử dụng máy tính cầm tay</p>
 <br>

@@ -132,17 +132,66 @@ def markdown_to_html_basic(text):
     if not text: return ""
     text = fix_math_display(text)
     text = text.replace('<br>', '\n')
-    text = text.replace('<', '&lt;').replace('>', '&gt;')
-
-    # Tách các khối $$...$$ để bảo toàn \n bên trong
-    parts = re.split(r'(\$\$.*?\$\$)', text, flags=re.DOTALL)
-    for i in range(len(parts)):
-        if not parts[i].startswith('$$'):
-            parts[i] = parts[i].replace('\n', '<br>')
-            parts[i] = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', parts[i])
-            parts[i] = re.sub(r'!\[\]\((.*?)\)', r'<div class="img-wrap"><img src="\1" alt="Math Image"></div>', parts[i])
     
-    return "".join(parts)
+    lines = text.split('\n')
+    html = []
+    in_table = False
+    
+    for line in lines:
+        line_str = line.strip()
+        if not line_str:
+            if not in_table:
+                html.append('<br>')
+            continue
+            
+        # Xử lý Table
+        if line_str.startswith('|'):
+            if not in_table:
+                html.append('<div style="overflow-x: auto; width: 100%; margin: 15px 0;"><table class="theory-table" style="text-align: center; width: 100%;">')
+                in_table = True
+            
+            if re.match(r'^\|[\s:-]+\|', line_str):
+                continue
+                
+            temp_line = line_str.replace(r'\|', '__PIPE__')
+            cells_raw = temp_line.split('|')
+            cells = [c.strip().replace('__PIPE__', '|') for c in cells_raw[1:-1]]
+            
+            # Nếu dòng đầu tiên của table
+            if len(html) > 0 and html[-1].startswith('<div style="overflow-x') and not html[-1].endswith('</tr>'):
+                row = "<tr>" + "".join(f"<th style=\"text-align: center; border: 1px solid #e2e8f0; padding: 10px;\">{c}</th>" for c in cells) + "</tr>"
+            else:
+                row = "<tr>" + "".join(f"<td style=\"text-align: center; border: 1px solid #e2e8f0; padding: 10px;\">{c}</td>" for c in cells) + "</tr>"
+            html.append(row)
+            continue
+        else:
+            if in_table:
+                html.append('</table></div>')
+                in_table = False
+                
+        # Dòng bình thường
+        encoded_line = line_str.replace('<', '&lt;').replace('>', '&gt;')
+        encoded_line = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', encoded_line)
+        encoded_line = re.sub(r'!\[\]\((.*?)\)', r'<div class="img-wrap"><img src="\1" alt="Math Image"></div>', encoded_line)
+        
+        html.append(encoded_line)
+        
+    if in_table:
+        html.append('</table></div>')
+        
+    result = []
+    for i, h in enumerate(html):
+        if h == '<br>':
+            result.append('<br>')
+        elif h.startswith('<div') or h.startswith('<table') or h.startswith('<tr') or h.startswith('</table') or h.startswith('</div') or h.startswith('<thead') or h.startswith('<tbody'):
+            result.append(h)
+        else:
+            if i < len(html) - 1 and not (html[i+1].startswith('<div') or html[i+1].startswith('<table') or html[i+1].startswith('</table') or html[i+1] == '<br>'):
+                result.append(h + '<br>')
+            else:
+                result.append(h)
+                
+    return "".join(result)
 
 def parse_markdown(md_content, title="Chuyên đề"):
     md_content = clean_ocr(md_content)
@@ -270,6 +319,7 @@ def parse_markdown(md_content, title="Chuyên đề"):
 
             sol_text = re.sub(r'(?im)^\s*##\s*(?:Chọn|Đáp án|=>|Vậy chọn).*?$', '', sol_body).strip()
             sol_text = re.sub(r'(?im)^\s*(?:Chọn|Đáp án|=>|Vậy chọn).*?$', '', sol_text).strip()
+            sol_text = re.sub(r'^[.:\s]+', '', sol_text).strip()
             
             opts_match = re.split(r'\n(?=[A-Da-d][\.\s\)])', q_body)
             q_text = opts_match[0].strip()
