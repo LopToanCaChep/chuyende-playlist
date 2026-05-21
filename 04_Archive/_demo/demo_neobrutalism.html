@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEMO — Neobrutalism Style</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Manrope:wght@400;600;700;800&family=Unbounded:wght@400;700;900&display=swap&subset=vietnamese,latin" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --primary-blue: #0040BE;
+            --dark-blue: #003B99;
+            --light-blue: #1E85EB;
+            --yellow: #F7C800;
+            --orange: #FF7800;
+            --correct: #16a34a;
+            --incorrect: #ef4444;
+            --bg: #0f172a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg);
+            background-image: radial-gradient(rgba(30,133,235,0.15) 1px, transparent 1px);
+            background-size: 32px 32px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .demo-label {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+            background: var(--orange); color: #fff;
+            font-family: 'Unbounded'; font-weight: 900; font-size: 14px;
+            text-align: center; padding: 10px;
+            border-bottom: 3px solid var(--dark-blue);
+            letter-spacing: 2px;
+        }
+
+        .container { max-width: 800px; margin: 60px auto 40px; }
+
+        /* ═══ NEOBRUTALISM CARD ═══ */
+        .question-card {
+            background: #fff;
+            padding: 50px 24px 24px;
+            border-radius: 20px;
+            border: 3px solid var(--dark-blue);
+            box-shadow: 6px 6px 0 var(--dark-blue);
+            max-width: 800px;
+            width: 100%;
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .q-number {
+            position: absolute;
+            top: -16px; left: 20px;
+            background: var(--orange);
+            color: #fff;
+            padding: 6px 22px;
+            border-radius: 50px;
+            font-family: 'Bangers';
+            font-size: 20px;
+            letter-spacing: 2px;
+            border: 3px solid var(--dark-blue);
+            box-shadow: 3px 3px 0 var(--dark-blue);
+        }
+
+        /* Level badge */
+        .question-card::before {
+            content: attr(data-level-label);
+            position: absolute;
+            top: 12px; right: 20px;
+            font-size: 11px; font-weight: 900;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 50px;
+            border: 2px solid var(--dark-blue);
+            font-family: 'Unbounded';
+        }
+        .question-card[data-level="tb"]::before {
+            background: var(--yellow); color: var(--dark-blue);
+        }
+        .question-card[data-level="kg"]::before {
+            background: var(--orange); color: #fff;
+        }
+
+        .q-content {
+            font-size: 18px; font-weight: 700;
+            line-height: 1.65; margin-bottom: 14px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px; margin-top: 12px;
+        }
+
+        /* ═══ NEOBRUTALISM OPTIONS ═══ */
+        .option {
+            display: flex; align-items: flex-start;
+            background: #fff;
+            border: 3px solid var(--dark-blue);
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-weight: 700; font-size: 16px;
+            cursor: pointer; position: relative;
+            box-shadow: 3px 3px 0 var(--dark-blue);
+            transition: all .15s;
+        }
+        .option:hover:not(.answered) {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0 var(--dark-blue);
+            background: #f0f7ff;
+        }
+        .option:active:not(.answered) {
+            transform: translate(3px, 3px);
+            box-shadow: none;
+        }
+        .option.correct {
+            background: #dcfce7 !important;
+            border-color: var(--correct) !important;
+            box-shadow: 3px 3px 0 var(--correct) !important;
+        }
+        .option.incorrect {
+            background: #fef2f2 !important;
+            border-color: var(--incorrect) !important;
+            box-shadow: 3px 3px 0 var(--incorrect) !important;
+            opacity: 0.85;
+        }
+        .option.correct::after {
+            content: '✓'; position: absolute;
+            top: 50%; right: 14px; transform: translateY(-50%);
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--correct); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: 800;
+            border: 2px solid #15803d;
+        }
+        .option.incorrect::after {
+            content: '✕'; position: absolute;
+            top: 50%; right: 14px; transform: translateY(-50%);
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--incorrect); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 800;
+            border: 2px solid #dc2626;
+        }
+        .option.answered { cursor: default; }
+        .option.correct, .option.incorrect { padding-right: 54px; }
+
+        .opt-label {
+            color: var(--primary-blue);
+            font-size: 18px; font-weight: 900;
+            margin-right: 8px; flex-shrink: 0;
+            font-family: 'Bangers'; letter-spacing: 1px;
+        }
+        .option.correct .opt-label { color: #166534; }
+        .option.incorrect .opt-label { color: #991b1b; }
+
+        /* ═══ NEOBRUTALISM SOLUTION ═══ */
+        .solution {
+            display: none; margin-top: 16px;
+            padding: 16px;
+            background: #fffbeb;
+            border: 3px solid var(--yellow);
+            border-radius: 16px;
+            box-shadow: 4px 4px 0 var(--yellow);
+            font-size: 15px; line-height: 1.7;
+        }
+        .solution.show { display: block; animation: slideUp 0.3s ease; }
+
+        .solution-title {
+            font-family: 'Unbounded'; font-weight: 800;
+            color: var(--dark-blue); font-size: 13px;
+            text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .solution-title::before {
+            content: '💡'; font-size: 16px;
+        }
+
+        .ans-circle {
+            display: inline-flex;
+            width: 28px; height: 28px;
+            background: var(--dark-blue); color: #fff;
+            border-radius: 50%; align-items: center; justify-content: center;
+            font-weight: 900; margin-left: 6px;
+            border: 2px solid var(--dark-blue);
+        }
+        .sol-final {
+            margin-top: 12px; padding-top: 12px;
+            border-top: 3px dashed var(--yellow);
+            font-weight: 800; color: var(--dark-blue);
+        }
+
+        @keyframes slideUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .question-card { padding-top: 42px; }
+            body { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="demo-label">🎨 PHONG CÁCH A — NEOBRUTALISM</div>
+
+<div class="container">
+    <div class="question-card" data-correct="D" data-level="tb" data-level-label="Cơ bản">
+        <div class="q-number">Câu 1</div>
+        <div class="q-content">Gieo một xúc xắc một lần. Biến cố nào sau đây là biến cố không?</div>
+        <div class="options-grid">
+            <div class="option" data-ans="A"><div class="opt-label">A.</div> Số chấm ở mặt xuất hiện là số nguyên</div>
+            <div class="option" data-ans="B"><div class="opt-label">B.</div> Số chấm ở mặt xuất hiện là số tự nhiên</div>
+            <div class="option" data-ans="C"><div class="opt-label">C.</div> Số chấm ở mặt xuất hiện là số nguyên tố</div>
+            <div class="option" data-ans="D"><div class="opt-label">D.</div> Số chấm ở mặt xuất hiện lớn hơn 7</div>
+        </div>
+        <div class="solution">
+            <div class="solution-title">Hướng dẫn giải</div>
+            <div>Khi gieo một xúc xắc, số chấm xuất hiện chỉ có thể là $1, 2, 3, 4, 5, 6$.<br><br>Đáp án D: không có mặt nào lớn hơn 7 ⇒ biến cố không thể.</div>
+            <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+        </div>
+    </div>
+
+    <div class="question-card" data-correct="C" data-level="tb" data-level-label="Cơ bản">
+        <div class="q-number">Câu 2</div>
+        <div class="q-content">Gieo một xúc xắc ba lần liên tiếp. Số phần tử của không gian mẫu trong phép thử trên là:</div>
+        <div class="options-grid">
+            <div class="option" data-ans="A"><div class="opt-label">A.</div> $6$</div>
+            <div class="option" data-ans="B"><div class="opt-label">B.</div> $18$</div>
+            <div class="option" data-ans="C"><div class="opt-label">C.</div> $216$</div>
+            <div class="option" data-ans="D"><div class="opt-label">D.</div> $36$</div>
+        </div>
+        <div class="solution">
+            <div class="solution-title">Hướng dẫn giải</div>
+            <div>Mỗi lần gieo có 6 khả năng nên gieo 3 lần có $6 \cdot 6 \cdot 6 = 216$ khả năng.</div>
+            <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+        </div>
+    </div>
+
+    <div class="question-card" data-correct="A" data-level="kg" data-level-label="Nâng cao">
+        <div class="q-number">Câu 3</div>
+        <div class="q-content">Gieo một xúc xắc ba lần liên tiếp. Xác suất của biến cố "Tích số chấm ở ba lần gieo là số chẵn" bằng:</div>
+        <div class="options-grid">
+            <div class="option" data-ans="A"><div class="opt-label">A.</div> $\dfrac{7}{8}$</div>
+            <div class="option" data-ans="B"><div class="opt-label">B.</div> $\dfrac{1}{8}$</div>
+            <div class="option" data-ans="C"><div class="opt-label">C.</div> $\dfrac{1}{216}$</div>
+            <div class="option" data-ans="D"><div class="opt-label">D.</div> $\dfrac{215}{216}$</div>
+        </div>
+        <div class="solution">
+            <div class="solution-title">Hướng dẫn giải</div>
+            <div>Biến cố đối: tích là số lẻ ⇒ cả 3 lần đều lẻ.<br>$n(B) = 3^3 = 27$. Vậy $P = 1 - \dfrac{27}{216} = \dfrac{7}{8}$.</div>
+            <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+            delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+            throwOnError: false
+        });
+    } else {
+        const t = setInterval(() => {
+            if (typeof renderMathInElement === 'function') {
+                clearInterval(t);
+                renderMathInElement(document.body, {
+                    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+                    throwOnError: false
+                });
+            }
+        }, 100);
+    }
+
+    document.querySelectorAll('.question-card').forEach(card => {
+        card.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                if (card.dataset.answered === '1') return;
+                const correct = card.getAttribute('data-correct');
+                const selected = opt.getAttribute('data-ans');
+                card.querySelectorAll('.option').forEach(o => o.classList.add('answered'));
+                if (selected === correct) opt.classList.add('correct');
+                else {
+                    opt.classList.add('incorrect');
+                    card.querySelector(`.option[data-ans="${correct}"]`)?.classList.add('correct');
+                }
+                card.querySelector('.solution')?.classList.add('show');
+                card.dataset.answered = '1';
+            });
+        });
+    });
+});
+</script>
+</body>
+</html>

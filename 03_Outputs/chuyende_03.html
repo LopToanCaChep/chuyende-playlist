@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên đề 3 - Bài toán tối ưu hệ phương trình 2 ẩn</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Unbounded:wght@400;700;900&display=swap&subset=vietnamese,latin" rel="stylesheet">
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        :root {
+            --primary-blue: #0040BE;
+            --dark-blue: #003B99;
+            --light-blue: #1E85EB;
+            --cyan-blue: #3C9EEF;
+            --yellow: #F7C800;
+            --orange: #FF7800;
+            --dark-orange: #E24500;
+            --bg: #0f172a;
+            --card-bg: #FFFFFF;
+            --text-main: #0F172A;
+            --text-dim: #64748B;
+            --correct: #16a34a;
+            --incorrect: #ef4444;
+            --radius: 24px;
+            --shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden !important; /* Chặn cuộn ngang tuyệt đối */
+            width: 100% !important;
+            background-image: radial-gradient(rgba(30, 133, 235, 0.15) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        
+        .slide {
+            position: fixed;
+            inset: 0 0 70px 0; /* Chừa 70px cho bottom nav */
+            display: flex;
+            align-items: flex-start; /* Fix lỗi cắt content khi dùng flex center */
+            justify-content: center;
+            overflow-y: auto; /* Cho cuộn ở cấp độ slide */
+            padding: 40px 0;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.3s ease, visibility 0.3s;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            z-index: 10;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .question-card {
+            background: #fff;
+            padding: 52px 24px 24px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+            max-width: 800px;
+            width: 95%;
+            margin: 0 auto;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            transition: box-shadow 0.3s ease;
+        }
+        .question-card::after {
+            content: ''; display: block; height: 4px;
+        }
+        .q-number { z-index: 11; }
+        
+        .q-number {
+            position: absolute;
+            top: 0;
+            transform: translateY(-50%);
+            left: 24px;
+            background: #F7C800;
+            color: #003B99;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-family: 'Manrope';
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border: 2px solid #003B99;
+            box-shadow: 0 4px 12px rgba(0,64,190,0.15);
+            z-index: 10;
+        }
+
+        /* Level Badges */
+        .question-card::before {
+            content: attr(data-level-name);
+            position: absolute;
+            top: 14px;
+            right: 24px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 3px 12px;
+            border-radius: 6px;
+            background: #f1f5f9;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+        }
+        .question-card[data-level="tb"]::before { background: #3C9EEF; color: #fff; content: "Cơ bản"; }
+        .question-card[data-level="kg"]::before { background: #F7C800; color: #003B99; content: "Nâng cao"; }
+        .question-card[data-level="tb"] .q-number { background: #3C9EEF; color: #fff; border-color: #003B99; }
+        .question-card[data-level="kg"] .q-number { background: #F7C800; color: #003B99; border-color: #003B99; }
+
+        .q-content {
+            font-size: 19px;
+            font-weight: 700;
+            color: #003B99;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            padding: 0 4px;
+            text-align: justify;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .question-card { 
+                height: auto !important; 
+                max-height: none !important; /* Xóa bỏ giới hạn để không bị tràn lời giải */
+                min-height: auto;
+                padding-top: 38px; 
+                margin-bottom: 20px;
+                margin-top: 24px;
+            }
+            .q-content { font-size: 17px; }
+        }
+
+        /* Quy tắc: Công thức toán phải đi cùng nhau, không được bẻ giữa chừng */
+        .katex {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 13px 16px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all .2s ease;
+            cursor: pointer;
+            position: relative;
+            text-align: left;
+        }
+
+        .option:hover:not(.answered) {
+            background: #dbeafe;
+            border-color: var(--primary-blue);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.08);
+        }
+
+        .option.correct {
+            background: #dcfce7 !important;
+            border-color: var(--correct) !important;
+            color: #166534;
+        }
+        .option.correct::after {
+            content: '✓';
+            position: absolute;
+            top: 50%; right: 14px; transform: translateY(-50%);
+            width: 24px; height: 24px; border-radius: 50%;
+            background: var(--correct); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 800;
+        }
+
+        .option.incorrect {
+            background: #fef2f2 !important;
+            border-color: var(--incorrect) !important;
+            color: #991b1b;
+            opacity: 0.8;
+        }
+        .option.incorrect::after {
+            content: '✕';
+            position: absolute;
+            top: 50%; right: 14px; transform: translateY(-50%);
+            width: 24px; height: 24px; border-radius: 50%;
+            background: var(--incorrect); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800;
+        }
+        .option:focus-visible {
+            outline: 3px solid var(--cyan-blue);
+            outline-offset: 3px;
+        }
+        .option.answered { cursor: default; }
+        .option.correct, .option.incorrect { padding-right: 50px; }
+
+        .opt-label {
+            color: var(--primary-blue);
+            font-size: 17px;
+            font-weight: 800;
+            margin-right: 8px;
+            min-width: auto;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .option.correct .opt-label { color: #065f46; }
+        .option.incorrect .opt-label { color: #9f1239; }
+
+        .solution {
+            display: none;
+            margin-top: 16px;
+            padding: 18px 20px;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 4px 12px 12px 4px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #475569;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .solution.show { display: block; }
+
+        .solution-title {
+            font-family: 'Manrope';
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ans-circle {
+            display: inline-flex;
+            width: 26px;
+            height: 26px;
+            background: var(--primary-blue);
+            color: #fff;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin-left: 6px;
+            font-size: 13px;
+        }
+
+        .sol-final {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e2e8f0;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Tiêu đề phân mức */
+        .level-header {
+            background: var(--yellow);
+            color: var(--dark-blue);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 40px auto 20px;
+            border: 3px solid var(--dark-blue);
+            box-shadow: 4px 4px 0 var(--dark-blue);
+            max-width: fit-content;
+            display: none; /* Mặc định ẩn — JS sẽ bật khi cần */
+        }
+        .level-header.visible { display: block; }
+
+        /* Modal Lý thuyết - Modern Flat Style */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(15,23,42,0.8); backdrop-filter: blur(8px);
+            display: none; align-items: center; justify-content: center; z-index: 1000;
+        }
+
+        .modal-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+
+                .modal-content {
+            background: #fff; width: 92%; max-width: 800px; max-height: 85vh;
+            border-radius: 20px; overflow-y: auto; position: relative;
+            padding: 40px 32px; border: none;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .modal-close {
+            position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 24px; 
+            color: var(--text-dim); display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover { background: var(--incorrect); color: #fff; }
+
+
+        /* Floating Buttons */
+        .fab-container {
+            position: fixed; bottom: 25px; right: 20px; z-index: 200;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .fab {
+            width: 56px; height: 56px; border-radius: 50%; background: var(--orange);
+            border: 3px solid var(--dark-blue); color: #fff; font-size: 24px;
+            cursor: pointer; box-shadow: 4px 4px 0 var(--dark-blue);
+            display: flex; align-items: center; justify-content: center; transition: all .15s;
+        }
+        .fab:hover { transform: translateY(-4px); box-shadow: 4px 8px 0 var(--dark-blue); }
+        .fab:active { transform: translateY(2px); box-shadow: 2px 2px 0 var(--dark-blue); }
+        .fab.theory { background: var(--primary-blue); }
+
+        /* Nav Bar */
+        .nav {
+            position: fixed; bottom: 0; left: 0; right: 0; height: 70px;
+            z-index: 100; background: #fff; border-top: 3px solid var(--dark-blue);
+            display: flex; align-items: center; justify-content: center; gap: 20px;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+        }
+        .nb {
+            font-family: 'Manrope'; font-weight: 800; background: var(--dark-blue); color: #fff;
+            border: none; border-radius: 12px; padding: 8px 24px;
+            font-size: 16px; cursor: pointer; transition: all .1s;
+        }
+        .nb:hover:not(:disabled) { background: var(--light-blue); }
+        .nb:disabled { opacity: .35; filter: grayscale(0.6); cursor: default; }
+        .sc { font-family: 'Manrope'; font-weight: 800; color: var(--dark-blue); font-size: 18px; min-width: 90px; text-align: center; }
+        .prog { position: fixed; top: 0; left: 0; height: 6px; background: linear-gradient(90deg, var(--cyan-blue), var(--yellow)); z-index: 200; transition: width .3s; }
+        
+        .img-wrap { margin: 16px 0; text-align: center; }
+        .img-wrap img { max-width: 100%; border-radius: 12px; border: 2px solid #3B82F6; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- Cover Slide Styles --- */
+        .cover-card {
+            background: var(--primary-blue) !important;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px) !important;
+            background-size: 24px 24px !important;
+            color: #fff !important;
+            border: none !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            padding: 60px 40px 40px !important;
+            min-height: auto;
+            overflow: hidden !important;
+            position: relative !important;
+        }
+
+        .cover-eyebrow {
+            font-family: 'Unbounded';
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #FFD84D;
+            opacity: 1;
+            margin-top: 10px;
+        }
+
+        .cover-title {
+            font-family: 'Unbounded';
+            font-weight: 800;
+            font-size: clamp(28px, 8vw, 54px);
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin: 24px 0;
+            color: #fff;
+        }
+        .cover-subject {
+            display: block;
+            color: var(--yellow);
+            font-size: 0.6em;
+            margin-top: 8px;
+        }
+
+        .cover-subtitle {
+            font-family: 'Manrope';
+            font-size: 16px;
+            line-height: 1.5;
+            opacity: 0.9;
+            max-width: 420px;
+            margin-bottom: 30px;
+        }
+
+        .cover-badges {
+            display: flex;
+            gap: 12px;
+        }
+
+        .cover-badge {
+            background: var(--yellow);
+            color: var(--dark-blue);
+            font-family: 'Unbounded';
+            font-weight: 700;
+            font-size: 10px;
+            padding: 6px 16px;
+            border-radius: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .cover-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: none;
+            padding-top: 10px;
+            position: relative;
+            z-index: 2;
+            padding-bottom: 10px;
+        }
+
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 0 !important;
+                padding-bottom: 100px !important;
+            }
+            .slide:first-child .question-card {
+                height: auto !important;
+                border-radius: 18px !important;
+            }
+            .cover-card {
+                min-height: auto !important;
+                padding: 16px 16px 5px !important;
+                justify-content: flex-start !important;
+                gap: 16px;
+                overflow-y: auto !important;
+            }
+            .cover-title {
+                font-size: 38px !important;
+                margin: 16px 0 !important;
+            }
+            .cover-eyebrow { display: none !important; }
+            .cover-mascot { display: none !important; }
+            .cover-desc { margin: 0 !important; font-size: 14px !important; }
+            .cover-badges {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .cover-badge {
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                padding: 12px;
+            }
+            .cover-footer {
+                margin-top: 10px;
+                padding-top: 4px !important;
+                padding-bottom: 0 !important;
+            }
+        }
+
+        .cover-mascot {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 60%;
+            max-width: 300px;
+            opacity: 0.2;
+            pointer-events: none;
+            transform: rotate(-10deg);
+        }
+
+        /* Level Selector Styles */
+        .level-popup {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(12px);
+        }
+        .level-popup.show { display: flex; animation: fadeIn 0.3s ease; }
+        .level-box {
+            background: #fff; padding: 40px; border-radius: 32px;
+            border: 4px solid var(--dark-blue); text-align: center; width: 90%; max-width: 400px;
+            box-shadow: none;
+            position: relative;
+        }
+        .level-title { font-family: 'Manrope'; font-weight: 800; font-size: 24px; color: var(--dark-blue); margin-bottom: 30px; }
+        .level-btn {
+            display: block; width: 100%; padding: 20px; margin: 15px 0;
+            border-radius: 20px; border: 3px solid var(--dark-blue);
+            font-family: 'Manrope'; font-weight: 700; cursor: pointer;
+            transition: all 0.2s; font-size: 16px;
+        }
+        .level-btn:hover { transform: scale(1.03); }
+        .level-btn.basic { background: var(--yellow); color: var(--dark-blue); }
+        .level-btn.advanced { background: var(--orange); color: #fff; }
+        .level-btn.all { background: var(--light-blue); color: #fff; }
+
+        /* ═══ PROGRESS PANEL ═══ */
+        .progress-panel {
+            position: fixed;
+            bottom: 90px; left: 20px;
+            z-index: 500;
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+            width: 320px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+            display: none;
+        }
+        .progress-panel.open { display: block; animation: fadeIn 0.3s ease; }
+        .pp-header {
+            font-family: 'Manrope'; font-weight: 900;
+            font-size: 14px; color: var(--dark-blue);
+            text-align: center; margin-bottom: 14px;
+        }
+        .pp-filters {
+            display: flex; gap: 6px; margin-bottom: 14px;
+        }
+        .pp-filter {
+            flex: 1; padding: 8px 0;
+            border-radius: 8px; border: 1.5px solid #e2e8f0;
+            font-family: 'Manrope'; font-weight: 700;
+            font-size: 11px; text-align: center;
+            cursor: pointer; transition: all 0.2s;
+            background: #f8fafc; color: #64748b;
+        }
+        .pp-filter:hover { background: #dbeafe; border-color: var(--primary-blue); }
+        .pp-filter.active { background: var(--primary-blue); color: #fff; border-color: var(--primary-blue); }
+        .pp-filter.active-tb { background: #dbeafe; color: #2563eb; border-color: #2563eb; }
+        .pp-filter.active-kg { background: #fef3c7; color: #d97706; border-color: #d97706; }
+        .pg-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            padding-bottom: 45px;
+        }
+        .pg-cell {
+            width: 100%; aspect-ratio: 1;
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 13px;
+            color: #94a3b8;
+            cursor: pointer; transition: all .15s;
+            position: relative;
+        }
+        .pg-cell:hover { transform: scale(1.1); }
+        .pg-cell.current { box-shadow: 0 0 0 2px var(--primary-blue); }
+        .pg-cell.pg-correct {
+            background: #dcfce7; border-color: #16a34a; color: #16a34a;
+        }
+        .pg-cell.pg-correct::after {
+            content: '✓'; position: absolute; top: -4px; right: -4px;
+            font-size: 8px; background: #16a34a; color: #fff;
+            width: 14px; height: 14px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pg-cell.pg-wrong {
+            background: #fef2f2; border-color: #ef4444; color: #ef4444;
+        }
+        .pg-cell.pg-wrong::after {
+            content: '✗'; position: absolute; top: -4px; right: -4px;
+            font-size: 8px; background: #ef4444; color: #fff;
+            width: 14px; height: 14px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pg-legend {
+            display: flex; gap: 10px; margin-top: 10px;
+            justify-content: center;
+            font-size: 10px; font-weight: 700; color: #64748b;
+        }
+        .pg-legend span { display: flex; align-items: center; gap: 4px; }
+        .pg-legend .ldot { width: 10px; height: 10px; border-radius: 3px; }
+        .pp-score {
+            margin-top: 10px; padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .pp-score-label { font-family: 'Manrope'; font-weight: 800; font-size: 11px; color: var(--dark-blue); }
+        .pp-score-num { font-family: 'Manrope'; font-size: 20px; font-weight: 900; color: var(--primary-blue); }
+        /* Fix nền mobile */
+    @media (max-width: 768px) {
+        body {
+            background-color: #E8F4FF !important;
+            background-image: radial-gradient(#3C9EEF 1.5px, transparent 1.5px) !important;
+            background-size: 40px 40px !important;
+            min-height: 100vh;
+        }
+        .slide {
+            background-color: transparent !important;
+        }
+    }
+
+    
+    .theory-header { text-align: center; margin-bottom: 30px; position: relative; }
+
+    .theory-badge {
+        display: inline-block; background: var(--primary-soft, #dbeafe); color: var(--primary-blue, #2563eb);
+        padding: 6px 16px; border-radius: 99px; font-weight: 800; font-size: 11px;
+        letter-spacing: 1px; margin-bottom: 12px;
+    }
+
+    .theory-main-title {
+        font-family: 'Unbounded'; font-weight: 900; font-size: 28px;
+        color: var(--text-main, #0F172A); margin: 0;
+    }
+
+    .theory-line {
+        width: 60px; height: 4px; background: var(--primary-blue, #2563eb);
+        margin: 15px auto 0; border-radius: 2px;
+    }
+
+    .theory-h2 {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 18px;
+        color: var(--primary-blue, #2563eb); margin: 32px 0 16px;
+        display: flex; align-items: center; gap: 12px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    .theory-h2::before {
+        content: ""; width: 8px; height: 8px;
+        background: var(--orange, #FF7800); border-radius: 2px;
+        transform: rotate(45deg);
+    }
+
+    .theory-item {
+        display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
+    }
+
+    .theory-bullet {
+        width: 6px; height: 6px; background: var(--orange, #FF7800);
+        border-radius: 50%; margin-top: 10px; flex-shrink: 0;
+    }
+
+    .theory-box {
+        padding: 20px; border-radius: 16px; margin: 24px 0;
+        background: #f8fafc; border-left: 4px solid var(--primary-blue, #2563eb);
+    }
+
+    .theory-box-title {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 12px;
+        margin-bottom: 12px; color: var(--primary-blue, #2563eb);
+    }
+
+    .theory-note {
+        padding: 20px 24px; border-radius: 16px; margin: 24px 0;
+        background: #fffbeb; border: 2px solid #fde68a;
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+    }
+    
+    .theory-note-title {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 14px;
+        color: #d97706; margin-bottom: 12px;
+        display: flex; align-items: center; gap: 8px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    
+    .theory-note-title::before {
+        content: "💡"; font-size: 18px;
+    }
+    
+    .theory-note .theory-text, .theory-note .theory-item {
+        color: #92400e; margin-bottom: 10px;
+    }
+    
+    .theory-note .theory-bullet {
+        background: #d97706;
+    }
+
+    .theory-table {
+        width: 100%; border-collapse: separate; border-spacing: 0;
+        margin: 24px 0; border-radius: 12px; overflow: hidden;
+        border: 1px solid var(--border, #e2e8f0);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .theory-table th {
+        background: #f8fafc; color: var(--text-main, #1e293b); font-weight: 800;
+        padding: 16px; text-align: left; border-bottom: 2px solid var(--border, #e2e8f0);
+    }
+
+    .theory-table td {
+        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0);
+        background: #fff;
+    }
+
+    .theory-table tr:last-child td { border-bottom: none; }
+    
+    .theory-text { font-size: 16px; line-height: 1.8; color: #334155; }
+
+
+    /* Screen reader only */
+    .sr-only {
+        position: absolute !important;
+        width: 1px; height: 1px; padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0,0,0,0);
+        white-space: nowrap; border: 0;
+    }
+
+    /* Score chip — góc phải trên */
+    .score-chip {
+        position: fixed; top: 23px; right: 20px;
+        background: rgba(255,255,255,0.98); color: var(--dark-blue);
+        border: none;
+        border-radius: 12px; padding: 6px 14px;
+        font-family: 'Manrope', sans-serif; font-weight: 800;
+        text-align: center; z-index: 200;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        min-width: 70px;
+    }
+    @media (max-width: 768px) {
+        .score-chip { top: 60px; right: 12px; padding: 4px 10px; min-width: 56px; }
+        .score-chip span:last-child { font-size: 16px !important; }
+        .question-card::before {
+            right: 24px;
+            left: auto;
+            top: 10px;
+            display: block;
+            font-size: 9px;
+            padding: 2px 8px;
+        }
+    }
+
+
+
+    /* Final score modal */
+    .final-card {
+        background: #fff; border: 4px solid var(--dark-blue);
+        border-radius: 32px; padding: 40px;
+        text-align: center; max-width: 400px; width: 90%;
+        position: relative;
+    }
+    .final-card .big-score {
+        font-family: 'Manrope'; font-weight: 900; font-size: 72px;
+        color: var(--orange); line-height: 1;
+        margin: 16px 0;
+    }
+    .final-card .label {
+        font-family: 'Manrope'; font-weight: 800;
+        font-size: 14px; letter-spacing: 1px;
+        color: var(--dark-blue); text-transform: uppercase;
+    }
+    .final-card .verdict {
+        font-family: 'Manrope', sans-serif; font-weight: 700;
+        font-size: 16px; color: var(--text-main); margin: 16px 0 24px;
+    }
+
+    /* Quick Level Toggle Button (Menu) */
+    .quick-level-toggle {
+        position: fixed;
+        left: 20px;
+        bottom: 25px;
+        width: 56px;
+        height: 56px;
+        background: var(--primary-blue, #2563eb);
+        color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+        border: 2px solid white;
+        transition: all 0.2s;
+    }
+    .quick-level-toggle:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37,99,235,0.4);
+    }
+
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog" style="width:0%"></div>
+
+<!-- Live region cho screen reader -->
+<div id="ariaLive" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Nút mở Progress Panel (luôn hiển thị) -->
+<button class="quick-level-toggle" id="btnOpenLevel" aria-label="Tiến trình học" aria-expanded="false" aria-controls="progressPanel">
+    <span style="line-height:1; font-size: 18px;">📋</span>
+    <span style="font-size:8px; margin-top:2px;">MENU</span>
+</button>
+
+<!-- Bảng điểm số / score chip -->
+<div class="score-chip" id="scoreChip" aria-live="polite">
+    <span style="font-size:10px; opacity:0.8; display:block; line-height:1;">ĐIỂM</span>
+    <span id="scoreNum" style="font-family:'Manrope'; font-weight:800; font-size:20px;">0/0</span>
+</div>
+
+<div class="container">
+    <div id="content-container">
+        <div class="slide" data-i="0" id="slide-0">
+            <div class="question-card cover-card">
+                <div class="cover-top">
+                    <div style="font-family:'Unbounded'; font-weight:900; font-size:24px; letter-spacing:-1px; color:#fff;">TOÁN CÁ CHÉP</div>
+                    <div class="cover-eyebrow">Hệ thống Chuyên đề</div>
+                </div>
+
+                <div class="cover-middle">
+                    <h1 class="cover-title">
+                        Chuyên đề 3 - Bài toán tối ưu hệ phương trình 2 ẩn
+                        <span class="cover-subject">Đại số - Giải tích</span>
+                    </h1>
+                    <p class="cover-subtitle">
+                        Nắm vững lý thuyết, thành thạo bài tập phân mức Cơ bản và Nâng cao.
+                    </p>
+                    <div class="cover-badges">
+                        <span class="cover-badge" style="cursor:pointer;" onclick="document.getElementById('levelPopup').classList.add('show')">CƠ BẢN & NÂNG CAO ▼</span>
+                    </div>
+                </div>
+
+                <div class="cover-footer">
+                    <div style="font-size: 13px; opacity: 0.8; font-family:'Manrope';">Lớp Toán Cá Chép · 2026</div>
+                    <img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1778198273/chuyende_assets/f6ahieihwhupukjagl8x.png" alt="Mascot Cá Chép" style="height: 80px; object-fit: contain;">
+                </div>
+                
+                <div class="cover-mascot" style="font-size: 200px; color: rgba(255,255,255,0.05); line-height: 1;">🐟</div>
+            </div>
+        </div>
+<h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="1" id="slide-1">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 1</div>
+                <div class="q-content">Giá trị nhỏ nhất của biểu thức $F=y-x$ trên miền xác định bởi hệ $\left\{\begin{array}{c}2 x+y \leq 2 \\ x-y \leq 2 \\ 5 x+y \geq-4\end{array}\right.$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\min F=-3$ khi $x=1, y=-2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\min F=0$ khi $x=0, y=0$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\min F=-2$ khi $\displaystyle x=\frac{4}{3}, y=-\frac{2}{3}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\min F=8$ khi $x=-2, y=6$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Biểu diễn miền nghiệm của hệ bất phương trình trên hệ trục tọa độ như dưới đây:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-05.jpg?height=538&width=661&top_left_y=1537&top_left_x=836" alt="Math Image"></div><br><br>Giá trị nhỏ nhất của biểu thức $F=y-x$ đạt được tại một trong các đỉnh của tam giác $ABC$ là $A(-2 ; 6)$, $\displaystyle B\left(-\frac{1}{3} ; -\frac{7}{3}\right)$, $\displaystyle C\left(\frac{4}{3} ; -\frac{2}{3}\right)$.<br>Ta có: <br>* $F(A) = 6 - (-2) = 8$<br>* $\displaystyle F(B) = -\frac{7}{3} - \left(-\frac{1}{3}\right) = -2$<br>* $\displaystyle F(C) = -\frac{2}{3} - \frac{4}{3} = -2$<br><br>Vậy $\min F = -2$ khi $\displaystyle x=\frac{4}{3}, y=-\frac{2}{3}$ hoặc $\displaystyle x=-\frac{1}{3}, y=-\frac{7}{3}$. Đối chiếu các phương án ta chọn C.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="2" id="slide-2">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 2</div>
+                <div class="q-content">Giá trị nhỏ nhất của biểu thức $F(x ; y)=x-2 y$ với điều kiện $\left\{\begin{array}{c}0 \leq y \leq 5 \\ x \geq 0 \\ x+y-2 \geq 0 \\ x-y-2 \leq 0\end{array}\right.$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-10</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">12</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">-8</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-6</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Biểu diễn miền nghiệm của hệ bất phương trình trên hệ trục tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-06.jpg?height=634&width=721&top_left_y=511&top_left_x=808" alt="Math Image"></div><br><br>Nhận thấy biểu thức $F(x; y) = x - 2y$ đạt giá trị nhỏ nhất tại một trong các đỉnh $A(7; 5)$, $B(0; 5)$, $C(0; 2)$, $D(2; 0)$.<br>Ta tính giá trị tại các đỉnh:<br>* $F(A) = 7 - 2 \cdot 5 = -3$<br>* $F(B) = 0 - 2 \cdot 5 = -10$<br>* $F(C) = 0 - 2 \cdot 2 = -4$<br>* $F(D) = 2 - 2 \cdot 0 = 2$<br><br>Vậy $\min F = -10$ khi $x=0, y=5$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="3" id="slide-3">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 3</div>
+                <div class="q-content">Biểu thức $F=y-x$ đạt giá trị nhỏ nhất với điều kiện $\left\{\begin{array}{c}-2 x+y \leq-2 \\ x-2 y \leq 2 \\ x+y \leq 5 \\ x \geq 0\end{array}\right.$ tại điểm $S(x ; y)$ có toạ độ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$(4 ; 1)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$(3 ; 1)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$(2 ; 1)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$(1 ; 1)$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Biểu diễn miền nghiệm của hệ bất phương trình trên hệ trục tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-06.jpg?height=556&width=620&top_left_y=2177&top_left_x=858" alt="Math Image"></div><br><br>Nhận thấy biểu thức $F=y-x$ đạt giá trị nhỏ nhất tại một trong các đỉnh $A(1; 0)$, $B(2; 0)$, $C(4; 1)$ hoặc đỉnh giao điểm khác.<br>Ta xét điểm $C(4 ; 1)$ thuộc miền nghiệm.<br>Tại $C(4; 1)$, ta có $F(C) = 1 - 4 = -3$.<br>Đây là điểm đạt giá trị nhỏ nhất của biểu thức $F$. Vậy toạ độ điểm $S$ là $(4; 1)$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="4" id="slide-4">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 4</div>
+                <div class="q-content">Biểu thức $L=y-x$, với $x$ và $y$ thỏa mãn hệ bất phương trình $\left\{\begin{array}{l}2 x+3 y-6 \leq 0 \\ x \geq 0 \\ 2 x-3 y-1 \leq 0\end{array}\right.$, đạt giá trị lớn nhất là $a$ và đạt giá trị nhỏ nhất là $b$. Hãy chọn kết quả đúng trong các kết quả sau:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle a=\frac{25}{8}$ và $b=-2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a=2$ và $\displaystyle b=-\frac{11}{12}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$a=3$ và $b=0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a=3$ và $\displaystyle b=\frac{-9}{8}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Trước hết, ta vẽ ba đường thẳng giới hạn miền nghiệm:<br>* $d_1: 2x+3y-6=0$<br>* $d_2: x=0$<br>* $d_3: 2x-3y-1=0$<br><br>Miền nghiệm là hình tam giác $ABC$ (kể cả biên), với các đỉnh:<br>* $A(0 ; 2)$<br>* $\displaystyle B\left(\frac{7}{4} ; \frac{5}{6}\right)$<br>* $\displaystyle C\left(0 ; -\frac{1}{3}\right)$<br><br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-07.jpg?height=231&width=273&top_left_y=1247&top_left_x=776" alt="Math Image"></div><br><br>Tính giá trị của $L = y-x$ tại các đỉnh:<br>* $L(A) = 2 - 0 = 2$<br>* $\displaystyle L(B) = \frac{5}{6} - \frac{7}{4} = -\frac{11}{12}$<br>* $\displaystyle L(C) = -\frac{1}{3} - 0 = -\frac{1}{3}$<br><br>So sánh các giá trị trên, ta được giá trị lớn nhất $a = 2$ (tại $A$) và giá trị nhỏ nhất $\displaystyle b = -\frac{11}{12}$ (tại $B$).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
+            <div class="slide" data-i="5" id="slide-5">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 5</div>
+                <div class="q-content">Trong một cuộc thi pha chế, hai đội $A, B$ được sử dụng tối đa 24 g hương liệu, 9 lít nước và 210 g đường để pha chế nước cam và nước táo. Để pha chế 1 lít nước cam cần 30 g đường, 1 lít nước và 1 g hương liệu; pha chế 1 lít nước táo cần 10 g đường, 1 lít nước và 4 g hương liệu. Mỗi lít nước cam nhận được 60 điểm thưởng, mỗi lít nước táo nhận được 80 điểm thưởng. Đội A pha chế được $a$ lít nước cam và $b$ lít nước táo và dành được điểm thưởng cao nhất. Hiệu số $a-b$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">3</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">-1</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-6</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Gọi $x, y$ lần lượt là số lít nước cam và nước táo mà đội A cần pha chế ($x \geq 0 ; y \geq 0$).<br>* Lượng đường sử dụng: $30x + 10y \leq 210$ (g).<br>* Lượng nước sử dụng: $x + y \leq 9$ (lít).<br>* Lượng hương liệu sử dụng: $x + 4y \leq 24$ (g).<br><br>Ta có hệ bất phương trình:<br>$$\left\{\begin{array}{l}30 x+10 y \leq 210 \\ x+y \leq 9 \\ x+4 y \leq 24 \\ x \geq 0 ; y \geq 0\end{array}\right.$$<br><br>Số điểm thưởng đạt được là $M(x, y) = 60x + 80y$. Ta cần tìm giá trị lớn nhất của $M(x, y)$ trên miền nghiệm của hệ bất phương trình.<br><br>Biểu diễn miền nghiệm của hệ trên mặt phẳng tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-08.jpg?height=655&width=990&top_left_y=1025&top_left_x=670" alt="Math Image"></div><br><br>Miền nghiệm thu được là ngũ giác $OEDAB$ với các đỉnh:<br>* $O(0; 0)$<br>* $E(0; 6)$<br>* $A(4; 5)$<br>* $B(6; 3)$<br>* $C(7; 0)$ (tương ứng điểm trên trục hoành)<br><br>Tính giá trị $M(x, y)$ tại các đỉnh:<br>* $M(O) = 0$<br>* $M(E) = 60 \cdot 0 + 80 \cdot 6 = 480$<br>* $M(A) = 60 \cdot 4 + 80 \cdot 5 = 640$<br>* $M(B) = 60 \cdot 6 + 80 \cdot 3 = 600$<br>* $M(C) = 60 \cdot 7 + 80 \cdot 0 = 420$<br><br>Như vậy, điểm thưởng cao nhất đạt được là 640 điểm khi $x = 4$ và $y = 5$. Do đó $a = 4, b = 5 \Rightarrow a - b = -1$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="6" id="slide-6">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 6</div>
+                <div class="q-content">Một công ty TNHH trong một đợt quảng cáo và bán khuyến mãi hàng hóa (1 sản phẩm mới của công ty) cần thuê xe để chở trên 140 người và trên 9 tấn hàng. Nơi thuê chỉ có hai loại xe A và B. Trong đó xe loại A có 10 chiếc, xe loại B có 9 chiếc. Một chiếc xe loại A cho thuê với giá 4 triệu, loại B giá 3 triệu. Hỏi phải thuê bao nhiêu xe mỗi loại để chi phí vận chuyển là thấp nhất. Biết rằng xe A chỉ chở tối đa 20 người và 0,6 tấn hàng. Xe B chở tối đa 10 người và 1,5 tấn hàng.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4 xe A và 5 xe B</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">5 xe A và 6 xe B</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5 xe A và 4 xe B</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6 xe A và 4 xe B</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Gọi $x$ là số xe loại A ($0 \leq x \leq 10 ; x \in \mathbb{N}$), $y$ là số xe loại B ($0 \leq y \leq 9 ; y \in \mathbb{N}$).<br>* Chi phí thuê xe cần tối thiểu hóa là: $T = 4x + 3y$ (triệu đồng).<br>* Điều kiện về số người chở được: $20x + 10y \geq 140$.<br>* Điều kiện về khối lượng hàng chở được: $0,6x + 1,5y \geq 9$.<br><br>Ta có hệ bất phương trình:<br>$$\left\{\begin{array}{l}0 \leq x \leq 10 \\ 0 \leq y \leq 9 \\ 20 x+10 y \geq 140 \\ 0,6 x+1,5 y \geq 9\end{array}\right.$$<br><br>Biểu diễn miền nghiệm của hệ trên mặt phẳng tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-09.jpg?height=736&width=1023&top_left_y=900&top_left_x=657" alt="Math Image"></div><br><br>Miền nghiệm là miền tứ giác $ABCD$ kể cả biên với các đỉnh:<br>* $A(10 ; 2)$<br>* $B(10 ; 9)$<br>* $C(2,5 ; 9)$<br>* $D(5 ; 4)$<br><br>Tính chi phí $T$ tại các đỉnh:<br>* $T(A) = 4 \cdot 10 + 3 \cdot 2 = 46$<br>* $T(B) = 4 \cdot 10 + 3 \cdot 9 = 67$<br>* $T(C) = 4 \cdot 2,5 + 3 \cdot 9 = 37$<br>* $T(D) = 4 \cdot 5 + 3 \cdot 4 = 32$<br><br>Chi phí thấp nhất đạt được là $T_{\min} = 32$ triệu đồng khi thuê 5 xe loại A và 4 xe loại B.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="7" id="slide-7">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 7</div>
+                <div class="q-content">Một gia đình cần ít nhất 900 đơn vị protein và 400 đơn vị lipit trong thức ăn mỗi ngày. Mỗi kilogam thịt bò chứa 800 đơn vị protein và 200 đơn vị lipit. Mỗi kilogam thịt lợn chứa 600 đơn vị protein và 400 đơn vị lipit. Biết rằng gia đình này chỉ mua nhiều nhất $1,6 \text{ kg}$ thịt bò và $1,1 \text{ kg}$ thịt lợn. Giá tiền một kg thịt bò là 160 nghìn đồng, 1 kg thịt lợn là 110 nghìn đồng. Gọi $x, y$ lần lượt là số kg thịt bò và thịt lợn mà gia đình đó cần mua để tổng số tiền họ phải trả là ít nhất mà vẫn đảm bảo lượng protein và lipit trong thức ăn. Tính $x^2+y^2$.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$x^2+y^2=1,3$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$x^2+y^2=2,6$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$x^2+y^2=1,09$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$x^2+y^2=0,58$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có các điều kiện ràng buộc đối với lượng thịt bò $x$ (kg) và thịt lợn $y$ (kg):<br>* $0 \leq x \leq 1,6$<br>* $0 \leq y \leq 1,1$<br>* Lượng protein: $800x + 600y \geq 900 \Leftrightarrow 8x + 6y \geq 9$<br>* Lượng lipit: $200x + 400y \geq 400 \Leftrightarrow x + 2y \geq 2$<br><br>Ta được hệ bất phương trình:<br>$$\left\{\begin{array//l}0 \leq x \leq 1,6 \\ 0 \leq y \leq 1,1 \\ 8 x+6 y \geq 9 \\ x+2 y \geq 2\end{array}\right.$$<br><br>Tổng số tiền chi tiêu là $T = 160x + 110y$ (nghìn đồng).<br><br>Biểu diễn miền nghiệm của hệ bất phương trình trên mặt phẳng tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-10.jpg?height=510&width=563&top_left_y=1948&top_left_x=886" alt="Math Image"></div><br><br>Miền nghiệm là tứ giác $ABCD$ với tọa độ các đỉnh:<br>* $A(0,3 ; 1,1)$<br>* $B(1,6 ; 1,1)$<br>* $C(1,6 ; 0,2)$<br>* $D(0,6 ; 0,7)$ - giao điểm của $8x+6y=9$ và $x+2y=2$<br><br>Tính chi phí $T$ tại các đỉnh:<br>* $T(A) = 160 \cdot 0,3 + 110 \cdot 1,1 = 169$ (nghìn đồng)<br>* $T(B) = 160 \cdot 1,6 + 110 \cdot 1,1 = 377$ (nghìn đồng)<br>* $T(C) = 160 \cdot 1,6 + 110 \cdot 0,2 = 278$ (nghìn đồng)<br>* $T(D) = 160 \cdot 0,6 + 110 \cdot 0,7 = 173$ (nghìn đồng)<br><br>Chi phí nhỏ nhất đạt được khi $x = 0,3$ và $y = 1,1$.<br>Khi đó: $x^2 + y^2 = 0,3^2 + 1,1^2 = 0,09 + 1,21 = 1,3$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="8" id="slide-8">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 8</div>
+                <div class="q-content">Có hai cái giỏ đựng trứng gồm giỏ A và giỏ B, các quả trứng trong mỗi giỏ đều có hai loại là trứng lành và trứng hỏng. Tổng số trứng trong hai giỏ là 20 quả và số trứng trong giỏ A nhiều hơn số trứng trong giỏ B. Lấy ngẫu nhiên mỗi giỏ 1 quả trứng, biết xác suất để lấy được hai quả trứng lành là $\displaystyle \frac{55}{84}$. Tìm số trứng lành trong giỏ A.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">6</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">14</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">11</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">10</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Gọi $a$ là số trứng lành trong giỏ A, $N_A$ là tổng số trứng trong giỏ A.<br>Gọi $b$ là số trứng lành trong giỏ B, $N_B$ là tổng số trứng trong giỏ B.<br>* Ta có tổng số trứng là $N_A + N_B = 20$. Do $N_A &gt; N_B$ nên $N_A \geq 11$.<br>* Xác suất lấy ra từ mỗi giỏ 1 quả trứng lành là:<br>  $$P = \frac{a}{N_A} \cdot \frac{b}{N_B} = \frac{55}{84}$$<br>* Vì $\displaystyle \frac{a \cdot b}{N_A \cdot N_B} = \frac{55}{84}$, ta suy ra tích $N_A \cdot N_B$ phải là bội của 84.<br>* Đồng thời ta có: $\displaystyle N_A \cdot N_B \leq \left(\frac{N_A + N_B}{2}\right)^2 = 10^2 = 100$.<br>* Bội số duy nhất của 84 nhỏ hơn hoặc bằng 100 là chính nó: $N_A \cdot N_B = 84$.<br>* Từ hệ $\left\{\begin{array}{l}N_A + N_B = 20 \\ N_A \cdot N_B = 84\end{array}\right.$ với $N_A &gt; N_B$, ta tìm được $N_A = 14$ và $N_B = 6$.<br>* Khi đó: $\displaystyle \frac{a \cdot b}{14 \cdot 6} = \frac{55}{84} \Rightarrow a \cdot b = 55$.<br>* Vì $a \leq N_A = 14$ và $b \leq N_B = 6$, ước số của 55 thỏa mãn điều kiện chỉ có $a = 11, b = 5$.<br><br>Vậy số trứng lành trong giỏ A là 11 quả.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="9" id="slide-9">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 9</div>
+                <div class="q-content">Một xưởng cơ khí có hai công nhân là Chiến và Bình. Xưởng sản xuất loại sản phẩm $I$ và $II$. Mỗi sản phẩm $I$ bán lãi 500 nghìn đồng, mỗi sản phẩm $II$ bán lãi 400 nghìn đồng. Để sản xuất được một sản phẩm $I$ thì Chiến phải làm việc trong 3 giờ, Bình phải làm việc trong 1 giờ. Để sản xuất được một sản phẩm $II$ thì Chiến phải làm việc trong 2 giờ, Bình phải làm việc trong 6 giờ. Một người không thể làm được đồng thời hai sản phẩm. Biết rằng trong một tháng Chiến không thể làm việc quá 180 giờ và Bình không thể làm việc quá 220 giờ. Số tiền lãi lớn nhất trong một tháng của xưởng là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">32 triệu đồng</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">35 triệu đồng</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">14 triệu đồng</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">30 triệu đồng</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Gọi $x, y$ lần lượt là số sản phẩm loại $I$ và loại $II$ được sản xuất ra ($x, y \geq 0$).<br>* Tổng thời gian Chiến làm việc: $3x + 2y \leq 180$ (giờ).<br>* Tổng thời gian Bình làm việc: $x + 6y \leq 220$ (giờ).<br><br>Ta có hệ bất phương trình:<br>$$\left\{\begin{array}{l}3 x+2 y \leq 180 \\ x+6 y \leq 220 \\ x \geq 0 \\ y \geq 0\end{array}\right. (*)$$<br><br>Miền nghiệm của hệ bất phương trình (*) được biểu diễn trên hình vẽ dưới đây:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-12.jpg?height=414&width=748&top_left_y=50&top_left_x=794" alt="Math Image"></div><br><br>Tiền lãi thu được trong một tháng của xưởng là $T = 0,5x + 0,4y$ (triệu đồng).<br>Biểu thức $T$ sẽ đạt cực đại tại một trong các đỉnh của tứ giác:<br>* $O(0; 0)$<br>* $A(60 ; 0)$<br>* $B(40 ; 30)$ - giao điểm của $3x+2y=180$ và $x+6y=220$<br>* $\displaystyle C\left(0 ; \frac{110}{3}\right)$<br><br>Tính giá trị $T$ tại các đỉnh:<br>* $T(O) = 0$<br>* $T(A) = 0,5 \cdot 60 = 30$ (triệu đồng)<br>* $T(B) = 0,5 \cdot 40 + 0,4 \cdot 30 = 32$ (triệu đồng)<br>* $\displaystyle T(C) = 0,4 \cdot \frac{110}{3} \approx 14,67$ (triệu đồng)<br><br>Vậy tiền lãi lớn nhất trong một tháng của xưởng là 32 triệu đồng khi sản xuất 40 sản phẩm loại $I$ và 30 sản phẩm loại $II$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="10" id="slide-10">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 10</div>
+                <div class="q-content">Một gia đình cần ít nhất 900 đơn vị protein và 400 đơn vị lipit trong thức ăn mỗi ngày. Mỗi kilogam thịt bò chứa 800 đơn vị protein và 200 đơn vị lipit. Mỗi kilogam thịt lợn chứa 600 đơn vị protein và 400 đơn vị lipit. Biết rằng gia đình này chỉ mua nhiều nhất $1,6 \text{ kg}$ thịt bò và $1,1 \text{ kg}$ thịt lợn. Giá tiền một kg thịt bò là 160 nghìn đồng, một kg thịt lợn là 110 nghìn đồng. Gọi $x, y$ lần lượt là số kg thịt bò và thịt lợn mà gia đình đó cần mua. Tìm $x, y$ để tổng số tiền họ phải trả là ít nhất mà vẫn đảm bảo lượng protein và lipit trong thức ăn?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$x=0,3$ và $y=1,1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$x=0,3$ và $y=0,7$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$x=0,6$ và $y=0,7$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$x=1,6$ và $y=0,2$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Tương tự Câu 7, bài toán yêu cầu tìm cặp số $(x; y)$ để tổng số tiền họ phải trả là ít nhất mà vẫn đảm bảo lượng dinh dưỡng.<br>Hệ bất phương trình ràng buộc:<br>$$\left\{\begin{array}{l}0 \leq x \leq 1,6 \\ 0 \leq y \leq 1,1 \\ 8 x+6 y \geq 9 \\ x+2 y \geq 2\end{array}\right.$$<br><br>Hàm mục tiêu chi phí: $T = 160x + 110y$ (nghìn đồng).<br><br>Miền nghiệm của hệ bất phương trình được biểu diễn trên hình vẽ dưới đây:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-13.jpg?height=496&width=709&top_left_y=57&top_left_x=813" alt="Math Image"></div><br><br>Tọa độ các đỉnh của đa giác nghiệm:<br>* $A(1,6 ; 1,1)$<br>* $B(1,6 ; 0,2)$<br>* $C(0,6 ; 0,7)$<br>* $D(0,3 ; 1,1)$<br><br>So sánh giá trị chi phí $T$ tại các đỉnh:<br>* $T(A) = 377$ nghìn đồng<br>* $T(B) = 278$ nghìn đồng<br>* $T(C) = 173$ nghìn đồng<br>* $T(D) = 169$ nghìn đồng<br><br>Như vậy, giá trị nhỏ nhất của chi phí là 169 nghìn đồng khi mua $x = 0,3$ kg thịt bò và $y = 1,1$ kg thịt lợn.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+    </div>
+</div>
+
+<!-- Nav Bar -->
+<div class="nav" id="bottomNav">
+    <button class="nb" id="bp" onclick="go(-1)">◀ TRƯỚC</button>
+    <div class="sc" id="sc">1 / X</div>
+    <button class="nb" id="bn" onclick="go(1)">SAU ▶</button>
+</div>
+
+<!-- Floating Action Buttons -->
+<div class="fab-container">
+    <button class="fab theory" id="btnOpenTheory" title="Xem lý thuyết" aria-label="Mở modal lý thuyết" aria-expanded="false" aria-controls="theoryModal">📚</button>
+</div>
+
+<!-- Progress Panel -->
+<div class="progress-panel" id="progressPanel">
+    <div class="pp-header">📋 Tiến trình học</div>
+    <div class="pp-filters">
+        <div class="pp-filter active" data-filter="all" onclick="filterFromPanel('all', this)">Tất cả</div>
+        <div class="pp-filter" data-filter="tb" onclick="filterFromPanel('tb', this)">Cơ bản</div>
+        <div class="pp-filter" data-filter="kg" onclick="filterFromPanel('kg', this)">Nâng cao</div>
+    </div>
+    <div class="pg-grid" id="pgGrid"></div>
+    <div class="pg-legend">
+        <span><span class="ldot" style="background:#f8fafc;border:1.5px solid #e2e8f0"></span> Chưa</span>
+        <span><span class="ldot" style="background:#dcfce7;border:1.5px solid #16a34a"></span> Đúng</span>
+        <span><span class="ldot" style="background:#fef2f2;border:1.5px solid #ef4444"></span> Sai</span>
+    </div>
+    <div class="pp-score">
+        <div class="pp-score-label">ĐIỂM SỐ</div>
+        <div class="pp-score-num" id="ppScore">0/0</div>
+    </div>
+</div>
+
+<!-- Level Popup (giữ ẩn, dùng cho filterLevel logic) -->
+<div class="level-popup" id="levelPopup" role="dialog" aria-modal="true" aria-labelledby="levelPopupTitle" aria-hidden="true" style="display:none">
+    <div class="level-box">
+        <button class="modal-close" id="btnCloseLevel" aria-label="Đóng" style="position:absolute; top:16px; right:16px;">&times;</button>
+        <div class="level-title" id="levelPopupTitle">CHỌN MỨC ĐỘ HỌC</div>
+    </div>
+</div>
+
+<!-- Modal Lý Thuyết -->
+<div class="modal-overlay" id="theoryModal" role="dialog" aria-modal="true" aria-labelledby="theoryTitle" aria-hidden="true">
+    <div class="modal-content">
+        <button class="modal-close" id="btnCloseTheory" aria-label="Đóng modal lý thuyết">&times;</button>
+        
+        <!-- Header Sổ tay -->
+        <div class="theory-header">
+            <div class="theory-badge">KIẾN THỨC CỐT LÕI</div>
+            <h2 class="theory-main-title" id="theoryTitle">Chuyên đề 3 - Bài toán tối ưu hệ phương trình 2 ẩn</h2>
+            <div class="theory-line"></div>
+        </div>
+
+        <div class="theory-text" id="theory-content" style="font-size:16px; line-height:1.8; color:#334155; padding: 10px 0;">
+            <div class="theory-h2">Biểu diễn miền nghiệm của hệ bất phương trình bậc nhất hai ẩn</div>
+<br>
+<p class="theory-text">Để biểu diễn miền nghiệm của hệ bất phương trình bậc nhất hai ẩn, ta làm như sau:</p>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 1.</strong> Trong cùng mặt phẳng tọa độ, biểu diễn miền nghiệm của mỗi bất phương trình trong hệ bằng cách gạch bỏ phần không thuộc miền nghiệm của nó.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 2.</strong> Phần không bị gạch là miền nghiệm cần tìm.</div></div>
+<br>
+<p class="theory-text"><strong>Ví dụ.</strong> Biểu diễn miền nghiệm của hệ bất phương trình: $\left\{\begin{array}{ll}2 x+y \leq 4 & (1) \\ x+y \leq 3 & (2) \\ x \geq 0 & (3) \\ y \geq 0 & (4)\end{array}\right.$</p>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 1.</strong> Vẽ các đường thẳng giới hạn:</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Vẽ đường thẳng $d_1: 2x+y=4$. Chọn $(0; 4)$ và $(2; 0)$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Vẽ đường thẳng $d_2: x+y=3$. Chọn $(0; 3)$ và $(3; 0)$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Đường thẳng $x=0$ là trục tung (trục $Oy$).</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Đường thẳng $y=0$ là trục hoành (trục $Ox$).</div></div>
+<br>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-01.jpg?height=588&width=570&top_left_y=1471&top_left_x=790" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Lần lượt biểu diễn các miền nghiệm của 4 bất phương trình:</strong></div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Thử điểm $O(0 ; 0)$ vào (1): $2 \cdot 0+0=0 \leq 4$ (thỏa mãn). Giữ phần chứa điểm $O$, gạch phần không chứa.</div></div>
+<br>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-02.jpg?height=650&width=604&top_left_y=75&top_left_x=774" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div>Thử điểm $O(0 ; 0)$ vào (2): $0+0=0 \leq 3$ (thỏa mãn). Giữ phần chứa điểm $O$, gạch phần không chứa.</div></div>
+<br>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-02.jpg?height=654&width=597&top_left_y=872&top_left_x=776" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div>Đối với bất phương trình (3): $x \geq 0$. Ta giữ phần $x$ dương (bên phải trục $Oy$), gạch đi phần $x$ âm (bên trái trục $Oy$).</div></div>
+<br>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-02.jpg?height=645&width=585&top_left_y=1738&top_left_x=788" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div>Đối với bất phương trình (4): $y \geq 0$. Ta giữ phần $y$ dương (bên trên trục $Ox$), gạch đi phần $y$ âm (bên dưới trục $Ox$).</div></div>
+<br>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-03.jpg?height=643&width=591&top_left_y=219&top_left_x=826" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 2.</strong> Miền nghiệm của hệ bất phương trình là tứ giác $OABC$ kể cả miền trong, với $O(0 ; 0)$, $A(2 ; 0)$, $B(1 ; 2)$, $C(0 ; 3)$.</div></div>
+<br>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-03.jpg?height=801&width=743&top_left_y=1025&top_left_x=708" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<br>
+<p class="theory-text">---</p>
+<br>
+<div class="theory-h2">ỨNG DỤNG CỦA HỆ BẤT PHƯƠNG TRÌNH BẬC NHẤT HAI ẨN</div>
+<br>
+<div class="theory-box-title">Phương pháp tìm cực trị của biểu thức $F=a x+b y$ trên một miền đa giác</div>
+<br>
+<p class="theory-text"><strong>Bài toán.</strong> Tìm giá trị lớn nhất, giá trị nhỏ nhất của biểu thức $F=a x+b y$ ($a, b$ là hai số đã cho không đồng thời bằng 0) với $x, y$ thỏa mãn hệ bất phương trình bậc nhất hai ẩn (có miền nghiệm là miền đa giác $A_{1} A_{2} \ldots A_{n}$).</p>
+<br>
+<div class="theory-box-title">Phương pháp giải</div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 1.</strong> Xác định miền đa giác $A_{1} A_{2} \ldots A_{n}$ là miền nghiệm của hệ bất phương trình.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 2.</strong> Tìm tọa độ các đỉnh $A_{1}, A_{2}, \ldots, A_{n}$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 3.</strong> Tính giá trị biểu thức $F(x_i; y_i)$ tại tọa độ từng đỉnh $A_i(x_i; y_i)$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 4.</strong> So sánh các giá trị tính được và kết luận:</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Giá trị lớn nhất: $M = \max \{F(A_1), F(A_2), \ldots, F(A_n)\}$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Giá trị nhỏ nhất: $m = \min \{F(A_1), F(A_2), \ldots, F(A_n)\}$.</div></div>
+<br>
+<p class="theory-text"><strong>Ví dụ 1.</strong> Trong năm nay, một cửa hàng điện lạnh dự định kinh doanh hai loại máy điều hoà: điều hoà hai chiều và điều hoà một chiều với số vốn ban đầu không vượt quá 1,2 tỉ đồng.</p>
+<br>
+<div style="overflow-x: auto; width: 100%;"><table class="theory-table">
+<tr><th>Hạng mục</th><th>Điều hoà hai chiều</th><th>Điều hoà một chiều</th></tr>
+<tr><td><strong>Giá mua vào</strong></td><td>20 triệu đồng / 1 máy</td><td>10 triệu đồng / 1 máy</td></tr>
+<tr><td><strong>Lợi nhuận dự kiến</strong></td><td>3,5 triệu đồng / 1 máy</td><td>2 triệu đồng / 1 máy</td></tr>
+</table></div>
+<p class="theory-text">Cửa hàng ước tính rằng tổng nhu cầu của thị trường sẽ không vượt quá 100 máy cả hai loại. Nếu là chủ cửa hàng thì em cần đầu tư kinh doanh mỗi loại bao nhiêu máy để lợi nhuận thu được là lớn nhất?</p>
+<div class="theory-h2">Lời giải</div>
+<p class="theory-text">Giả sử cửa hàng cần nhập số máy điều hoà hai chiều là $x$ và số máy điều hoà một chiều là $y$. Khi đó ta có $x \geq 0, y \geq 0$.</p>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div>Vì nhu cầu của thị trường không quá 100 máy nên: $x+y \leq 100$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Số tiền để nhập hai loại máy điều hoà là: $20x + 10y$ (triệu đồng). Số vốn đầu tư không vượt quá 1,2 tỉ đồng (1200 triệu đồng) nên ta có: $20x + 10y \leq 1200 \Leftrightarrow 2x + y \leq 120$.</div></div>
+<br>
+<p class="theory-text">Từ đó ta thu được hệ bất phương trình bậc nhất hai ẩn sau:</p>
+<p class="theory-text">$$\left\{\begin{array}{l}x \geq 0 \\ y \geq 0 \\ x+y \leq 100 \\ 2 x+y \leq 120\end{array}\right.$$</p>
+<br>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-04.jpg?height=659&width=670&top_left_y=1841&top_left_x=749" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<br>
+<p class="theory-text">Lợi nhuận thu được khi bán $x$ máy điều hòa hai chiều và $y$ máy điều hoà một chiều là $F(x ; y) = 3,5x + 2y$ (triệu đồng). Ta cần tìm giá trị lớn nhất của $F(x ; y)$ trên miền nghiệm của hệ bất phương trình trên.</p>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 1.</strong> Xác định miền nghiệm là miền tứ giác $OABC$ với tọa độ các đỉnh: $O(0 ; 0)$, $A(0 ; 100)$, $B(20 ; 80)$, $C(60 ; 0)$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 2.</strong> Tính giá trị của biểu thức $F$ tại các đỉnh của tứ giác này:</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>$F(0 ; 0) = 0$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>$F(0 ; 100) = 2 \cdot 100 = 200$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>$F(20 ; 80) = 3,5 \cdot 20 + 2 \cdot 80 = 230$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>$F(60 ; 0) = 3,5 \cdot 60 = 210$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Bước 3.</strong> So sánh các giá trị thu được, ta được giá trị lớn nhất là $F(20 ; 80) = 230$.</div></div>
+<br>
+<p class="theory-text"><strong>Kết luận:</strong> Cửa hàng cần đầu tư kinh doanh 20 máy điều hoà hai chiều và 80 máy điều hoà một chiều để lợi nhuận thu được là lớn nhất.</p>
+<br>
+<p class="theory-text">---</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    let currentSlides = [];
+    let cur = 0;
+    const scoreState = {};
+    let totalQuestions = 0;
+    let lastFocusBeforeModal = null;
+    let isMobile = false;
+
+    const KATEX_OPTS = {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false
+    };
+
+    function renderMathIn(el) {
+        if (!el || el.dataset.mathRendered === '1') return;
+        if (typeof renderMathInElement !== 'function') return;
+        renderMathInElement(el, KATEX_OPTS);
+        el.dataset.mathRendered = '1';
+    }
+
+    function renderMathInitial() {
+        // Render slide 0 (cover) + modal lý thuyết ngay từ đầu
+        const cover = document.getElementById('slide-0');
+        if (cover) renderMathIn(cover);
+        const theory = document.getElementById('theoryModal');
+        if (theory) renderMathIn(theory);
+    }
+
+    function ensureKatexReady(cb) {
+        if (typeof renderMathInElement === 'function') { cb(); return; }
+        let tries = 0;
+        const t = setInterval(() => {
+            tries++;
+            if (typeof renderMathInElement === 'function') {
+                clearInterval(t); cb();
+            } else if (tries > 50) {
+                clearInterval(t);
+            }
+        }, 100);
+    }
+
+    function announceLive(text) {
+        const el = document.getElementById('ariaLive');
+        if (el) el.textContent = text;
+    }
+
+    function updateScore() {
+        const correct = Object.values(scoreState).filter(v => v === 'correct').length;
+        const num = document.getElementById('scoreNum');
+        if (num) num.textContent = `${correct}/${totalQuestions}`;
+        const ppScore = document.getElementById('ppScore');
+        if (ppScore) ppScore.textContent = `${correct}/${totalQuestions}`;
+    }
+
+    function filterLevel(lvl) {
+        const allSlides = Array.from(document.querySelectorAll('.slide'));
+
+        if (lvl === 'all') {
+            currentSlides = allSlides;
+        } else {
+            currentSlides = allSlides.filter(s => {
+                const card = s.querySelector('.question-card:not(.cover-card)');
+                return s.id === 'slide-0' || (card && card.getAttribute('data-level') === lvl);
+            });
+        }
+
+        allSlides.forEach(s => {
+            s.classList.remove('active');
+            s.style.display = 'none';
+        });
+        currentSlides.forEach(s => s.style.display = 'block');
+
+        document.querySelectorAll('.level-header').forEach(h => {
+            if (lvl === 'all' && isMobile) h.classList.add('visible');
+            else h.classList.remove('visible');
+        });
+
+        cur = currentSlides.length > 1 ? 1 : 0;
+        if (isMobile) applyMobileLayout();
+        else show(cur);
+        renderProgressGrid();
+    }
+    window.filterLevel = filterLevel;
+
+    /* Progress Panel */
+    function toggleProgress() {
+        const panel = document.getElementById('progressPanel');
+        panel.classList.toggle('open');
+        renderProgressGrid();
+    }
+
+    function renderProgressGrid() {
+        const grid = document.getElementById('pgGrid');
+        if (!grid) return;
+        const questionSlides = currentSlides.filter(s => s.id !== 'slide-0');
+        grid.innerHTML = questionSlides.map((s, i) => {
+            const realIdx = currentSlides.indexOf(s);
+            const id = s.id;
+            let cls = '';
+            if (realIdx === cur) cls += ' current';
+            if (scoreState[id] === 'correct') cls += ' pg-correct';
+            else if (scoreState[id] === 'incorrect') cls += ' pg-wrong';
+            return `<div class="pg-cell${cls}" onclick="jumpTo(${realIdx})">${i + 1}</div>`;
+        }).join('');
+    }
+
+    function jumpTo(i) {
+        document.getElementById('progressPanel')?.classList.remove('open');
+        if (isMobile) {
+            const target = currentSlides[i];
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            show(i);
+        }
+    }
+    window.jumpTo = jumpTo;
+
+    function filterFromPanel(lvl, btn) {
+        document.querySelectorAll('.pp-filter').forEach(f => {
+            f.classList.remove('active', 'active-tb', 'active-kg');
+        });
+        if (lvl === 'all') btn.classList.add('active');
+        else if (lvl === 'tb') btn.classList.add('active-tb');
+        else btn.classList.add('active-kg');
+        filterLevel(lvl);
+    }
+    window.filterFromPanel = filterFromPanel;
+
+    function show(i) {
+        if (i < 0 || i >= currentSlides.length) return;
+        if (currentSlides[cur]) currentSlides[cur].classList.remove('active');
+        cur = i;
+        if (currentSlides[cur]) {
+            currentSlides[cur].classList.add('active');
+            renderMathIn(currentSlides[cur]);
+            if (currentSlides[cur + 1]) renderMathIn(currentSlides[cur + 1]);
+            const card = currentSlides[cur].querySelector('.question-card');
+            if (card) card.scrollTop = 0;
+        }
+        updateNav();
+        renderProgressGrid();
+    }
+    window.go = function(d) { show(cur + d); };
+
+    function updateNav() {
+        const sc = document.getElementById('sc'),
+              prog = document.getElementById('prog'),
+              bp = document.getElementById('bp'),
+              bn = document.getElementById('bn');
+        if (sc) sc.textContent = `${cur + 1} / ${currentSlides.length}`;
+        if (prog) prog.style.width = `${((cur + 1) / currentSlides.length) * 100}%`;
+        if (bp) bp.disabled = (cur === 0);
+        if (bn) bn.disabled = (cur === currentSlides.length - 1);
+    }
+
+    /* Modal helpers */
+    const modalTriggerMap = {
+        'levelPopup': 'btnOpenLevel',
+        'theoryModal': 'btnOpenTheory'
+    };
+    let activeModalKeyHandler = null;
+
+    function trapFocusInModal(modal) {
+        const focusable = modal.querySelectorAll(
+            'button:not([disabled]), [tabindex]:not([tabindex="-1"]), a[href]'
+        );
+        if (!focusable.length) return null;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const handler = (e) => {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault(); last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault(); first.focus();
+            }
+        };
+        modal.addEventListener('keydown', handler);
+        return handler;
+    }
+
+    function openModal(modal, focusEl) {
+        if (!modal) return;
+        lastFocusBeforeModal = document.activeElement;
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+        const triggerId = modalTriggerMap[modal.id];
+        if (triggerId) {
+            const trigger = document.getElementById(triggerId);
+            if (trigger) trigger.setAttribute('aria-expanded', 'true');
+        }
+        if (focusEl && typeof focusEl.focus === 'function') {
+            setTimeout(() => focusEl.focus(), 50);
+        }
+        activeModalKeyHandler = trapFocusInModal(modal);
+        modal._focusHandler = activeModalKeyHandler;
+    }
+    function closeModal(modal) {
+        if (!modal) return;
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+        const triggerId = modalTriggerMap[modal.id];
+        if (triggerId) {
+            const trigger = document.getElementById(triggerId);
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
+        if (modal._focusHandler) {
+            modal.removeEventListener('keydown', modal._focusHandler);
+            modal._focusHandler = null;
+        }
+        if (lastFocusBeforeModal && typeof lastFocusBeforeModal.focus === 'function') {
+            lastFocusBeforeModal.focus();
+            lastFocusBeforeModal = null;
+        }
+    }
+    function openLevelPopup() { toggleProgress(); }
+    function closeLevelPopup() { document.getElementById('progressPanel')?.classList.remove('open'); }
+    function openTheory() {
+        const m = document.getElementById('theoryModal');
+        renderMathIn(m);
+        openModal(m, document.getElementById('btnCloseTheory'));
+    }
+    function closeTheory() { closeModal(document.getElementById('theoryModal')); }
+
+    /* Question logic */
+    function answerQuestion(card, opt) {
+        if (card.dataset.answered === '1') return;
+        const correctAns = card.getAttribute('data-correct');
+        const selected = opt.getAttribute('data-ans');
+        const options = card.querySelectorAll('.option');
+        options.forEach(o => {
+            o.classList.add('answered');
+            o.setAttribute('aria-disabled', 'true');
+            o.setAttribute('tabindex', '-1');
+        });
+
+        const isCorrect = selected === correctAns;
+        if (isCorrect) {
+            opt.classList.add('correct');
+            announceLive('Chính xác! Đáp án ' + correctAns + ' đúng.');
+        } else {
+            opt.classList.add('incorrect');
+            const correctOpt = card.querySelector(`.option[data-ans="${correctAns}"]`);
+            if (correctOpt) correctOpt.classList.add('correct');
+            announceLive('Chưa đúng. Đáp án đúng là ' + correctAns + '.');
+        }
+
+        const solution = card.querySelector('.solution');
+        if (solution) solution.classList.add('show');
+
+        card.dataset.answered = '1';
+        const qid = card.closest('.slide')?.id || '';
+        if (qid && !(qid in scoreState)) {
+            scoreState[qid] = isCorrect ? 'correct' : 'incorrect';
+            updateScore();
+        }
+
+        renderProgressGrid();
+
+        if (Object.keys(scoreState).length === totalQuestions) {
+            setTimeout(showFinalResult, 1500);
+        }
+    }
+
+
+
+    function showFinalResult() {
+        const correct = Object.values(scoreState).filter(v => v === 'correct').length;
+        const total = totalQuestions;
+        const pct = Math.round(correct / total * 100);
+        let verdict = 'Cố lên nhé! Hãy ôn lại lý thuyết.';
+        if (pct >= 90) verdict = '🏆 Xuất sắc! Cậu nắm chắc kiến thức.';
+        else if (pct >= 75) verdict = '🎉 Khá lắm! Còn vài chỗ nhỏ cần luyện.';
+        else if (pct >= 50) verdict = '👍 Tốt rồi, cần luyện thêm phần Nâng cao.';
+        const html = `
+          <div class="modal-overlay show" id="finalModal" role="dialog" aria-modal="true" aria-labelledby="finalLabel" style="z-index:3000;">
+            <div class="final-card">
+              <div class="label" id="finalLabel">Kết quả của cậu</div>
+              <div class="big-score">${correct}/${total}</div>
+              <div style="font-family:'Manrope'; font-weight:900; font-size:32px; color:var(--dark-blue);">${pct}%</div>
+              <div class="verdict">${verdict}</div>
+              <button class="btn-reset" onclick="document.getElementById('finalModal').remove();">Đóng</button>
+            </div>
+          </div>`;
+        document.body.insertAdjacentHTML('beforeend', html);
+    }
+
+    /* Mobile/desktop layout */
+    function applyMobileLayout() {
+        const allSlides = document.querySelectorAll('.slide');
+        document.body.style.overflow = 'auto';
+        currentSlides.forEach(s => {
+            s.style.position = 'relative'; s.style.opacity = '1'; s.style.visibility = 'visible';
+            s.style.pointerEvents = 'all'; s.style.height = 'auto'; s.style.minHeight = 'auto';
+            s.style.padding = '40px 0'; s.classList.add('active');
+        });
+        allSlides.forEach(s => {
+            if (!currentSlides.includes(s)) s.style.display = 'none';
+        });
+        const nav = document.getElementById('bottomNav');
+        if (nav) nav.style.display = 'none';
+    }
+    function applyDesktopLayout() {
+        const S = document.querySelectorAll('.slide');
+        document.body.style.overflow = 'hidden';
+        S.forEach(s => {
+            s.style.position = ''; s.style.opacity = ''; s.style.visibility = '';
+            s.style.pointerEvents = ''; s.style.height = ''; s.style.minHeight = '';
+            s.style.padding = '';
+        });
+        const nav = document.getElementById('bottomNav');
+        if (nav) nav.style.display = 'flex';
+        show(cur);
+    }
+    function checkMobile() {
+        isMobile = window.innerWidth <= 768;
+        if (isMobile) applyMobileLayout(); else applyDesktopLayout();
+    }
+
+    /* Bootstrap */
+    document.addEventListener("DOMContentLoaded", function() {
+        ensureKatexReady(renderMathInitial);
+
+        // Lazy render math khi slide gần vào viewport (đặc biệt hữu ích trên mobile scroll dài)
+        if ('IntersectionObserver' in window) {
+            const slideObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        renderMathIn(entry.target);
+                    }
+                });
+            }, { rootMargin: '300px' });
+            document.querySelectorAll('.slide').forEach(s => slideObserver.observe(s));
+        }
+
+        // Validation: cảnh báo console nếu có câu thiếu data
+        const cards = document.querySelectorAll('.question-card:not(.cover-card)');
+        cards.forEach((card, idx) => {
+            const correct = card.getAttribute('data-correct');
+            const circleEl = card.querySelector('.ans-circle');
+            if (!correct) {
+                console.warn(`[DATA] Câu ${idx + 1}: thiếu data-correct`);
+            }
+            if (circleEl && !circleEl.textContent.trim()) {
+                console.warn(`[DATA] Câu ${idx + 1}: thiếu nội dung trong .ans-circle`);
+            }
+        });
+
+        totalQuestions = cards.length;
+
+        cards.forEach(card => {
+            const options = card.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.addEventListener('click', () => answerQuestion(card, opt));
+                opt.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        answerQuestion(card, opt);
+                    }
+                });
+            });
+
+        });
+        updateScore();
+
+        const btnOpenTh = document.getElementById('btnOpenTheory');
+        const btnCloseTh = document.getElementById('btnCloseTheory');
+        if (btnOpenTh) btnOpenTh.onclick = openTheory;
+        if (btnCloseTh) btnCloseTh.onclick = closeTheory;
+
+        const btnOpenLv = document.getElementById('btnOpenLevel');
+        const btnCloseLv = document.getElementById('btnCloseLevel');
+        if (btnOpenLv) btnOpenLv.onclick = openLevelPopup;
+        if (btnCloseLv) btnCloseLv.onclick = closeLevelPopup;
+
+        ['theoryModal', 'levelPopup'].forEach(id => {
+            const m = document.getElementById(id);
+            if (m) m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); });
+        });
+
+        currentSlides = Array.from(document.querySelectorAll('.slide'));
+        show(0);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                ['theoryModal', 'levelPopup', 'finalModal'].forEach(id => {
+                    const m = document.getElementById(id);
+                    if (m && m.classList.contains('show')) { e.preventDefault(); closeModal(m); }
+                });
+                return;
+            }
+            const tag = (e.target && e.target.tagName) || '';
+            if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+            const anyModalOpen = ['theoryModal', 'levelPopup', 'finalModal'].some(id => {
+                const m = document.getElementById(id); return m && m.classList.contains('show');
+            });
+            if (anyModalOpen) return;
+
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); window.go(1); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); window.go(-1); }
+            else if (!isMobile) {
+                const map = { 'a':'A','b':'B','c':'C','d':'D','1':'A','2':'B','3':'C','4':'D' };
+                const ans = map[e.key.toLowerCase()];
+                if (ans && currentSlides[cur]) {
+                    const opt = currentSlides[cur].querySelector(`.option[data-ans="${ans}"]`);
+                    if (opt && !opt.classList.contains('answered')) { e.preventDefault(); opt.click(); }
+                }
+            }
+        });
+
+        window.addEventListener('resize', checkMobile);
+        checkMobile();
+    });
+</script>
+</body>
+</html>

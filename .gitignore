@@ -1,0 +1,17 @@
+# Credentials
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Mathpix OCR cache
+.cache/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# GitHub Workflows (avoid PAT workflow scope issues)
+.github/
