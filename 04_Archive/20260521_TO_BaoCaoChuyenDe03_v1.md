@@ -35,6 +35,7 @@
   * Đổi tên nhánh local từ `master` sang `main` để đồng bộ hoàn toàn với remote branch.
   * Thêm cấu hình bỏ qua thư mục `.github/` trong [.gitignore](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/.gitignore) để tránh lỗi phân quyền Personal Access Token khi push các tệp CI/CD workflows.
   * Chạy script `sync_chuyende.ps1` để tự động băm mật khẩu bảo mật cho chuyên đề mới, cập nhật danh sách hiển thị trên [index.html](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/index.html) và thực hiện push thành công lên GitHub repository.
+  * *Cập nhật ngày 21/05/2026:* Sửa lỗi hiển thị LaTeX `\begin{array//l}` tại Lời giải Câu 7 thành `\begin{array}{l}`, build lại file HTML và đồng bộ lên GitHub thành công.
 
 ---
 
