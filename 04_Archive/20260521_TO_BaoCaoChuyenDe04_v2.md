@@ -16,12 +16,13 @@ Dưới đây là chi tiết các lỗi hiển thị và nội dung toán học 
    * **Nguyên nhân:** Lỗi OCR nhận diện ký tự đáp án B thành chữ `в.` (chữ cái Cyrillic viết thường) thay vì chữ cái Latin in hoa `B.` và viết liền dòng.
    * **Khắc phục:** Sửa chữ `в.` thành `B.` và tách dòng độc lập trong file Markdown gốc. Sau khi biên dịch lại, đáp án B đã hiển thị thành một ô lựa chọn riêng biệt đúng chuẩn.
 
-3. **Câu 7 & 8 (Trích xuất lại bảng biến thiên từ PDF gốc):**
-   * **Khắc phục:** Đã trích xuất trực tiếp bảng biến thiên dưới dạng ảnh chất lượng cao từ file PDF gốc [cd04.pdf](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/01_Inputs/chuyende_04/cd04.pdf).
+3. **Câu 7 & 8 (Cập nhật bảng biến thiên dạng hình ảnh):**
+   * **Câu 7:** Đã cập nhật bằng hình ảnh bảng biến thiên phẳng, màu sắc trực quan do Tí gửi trực tiếp trong chat (giúp học sinh dễ nhìn và chuyên nghiệp hơn).
+   * **Câu 8:** Đã trích xuất trực tiếp ảnh bảng biến thiên từ file PDF gốc [cd04.pdf](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/01_Inputs/chuyende_04/cd04.pdf).
    * **Đường dẫn ảnh lưu trữ:**
-     * [Pic/bbt_cau_7.png](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/Pic/bbt_cau_7.png)
-     * [Pic/bbt_cau_8.png](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/Pic/bbt_cau_8.png)
-   * Thay thế các khối biểu diễn bảng text lỗi bằng mã ảnh markdown `![](../Pic/bbt_cau_7.png)` và `![](../Pic/bbt_cau_8.png)`. Cả 2 hình ảnh này đã được tự động thêm vào Git và đồng bộ hóa thành công lên GitHub Pages.
+     * [Pic/bbt_cau_7.png](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/Pic/bbt_cau_7.png) (Ảnh Tí gửi)
+     * [Pic/bbt_cau_8.png](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/Pic/bbt_cau_8.png) (Ảnh trích từ PDF)
+   * Thay thế các khối biểu diễn bảng text lỗi bằng mã ảnh markdown `![](../Pic/bbt_cau_7.png)` và `![](../Pic/bbt_cau_8.png)`. Cả 2 hình ảnh này đã được đồng bộ hóa thành công lên GitHub Pages.
 
 4. **Câu 10 (Dư khoảng trống trong lời giải & Sai công thức):**
    * **Khắc phục:**
