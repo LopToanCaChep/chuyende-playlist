@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên đề 5 - Hàm số lượng giác</title>
+    <title>Chuyên đề 5: Hàm số lượng giác</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -170,12 +170,18 @@
             overflow-x: auto;
             overflow-y: hidden;
             vertical-align: middle;
+            -webkit-overflow-scrolling: touch;
         }
         .katex-display {
             overflow-x: auto;
             overflow-y: hidden;
             max-width: 100%;
             padding: 8px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .q-content, .sol-body, .opt-text {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .option {
@@ -845,7 +851,7 @@
 
                 <div class="cover-middle">
                     <h1 class="cover-title">
-                        Chuyên đề 5 - Hàm số lượng giác
+                        Chuyên đề 5: Hàm số lượng giác
                         <span class="cover-subject">Đại số - Giải tích</span>
                     </h1>
                     <p class="cover-subtitle">
@@ -1336,7 +1342,7 @@
             <div class="slide" data-i="37" id="slide-37">
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 37</div>
-                <div class="q-content">Cho $\displaystyle f(x)=\frac{\cos 2 x}{1+\sin ^{2} 3 x}$ và $g(x)=\frac{|\sin 2 x|-\cos 3 x}{2+\tan ^{2} x}$$. Mệnh đề nào sau đây đúng?</div>
+                <div class="q-content">Cho $\displaystyle f(x)=\frac{\cos 2 x}{1+\sin ^{2} 3 x}$ và $\displaystyle g(x)=\frac{|\sin 2 x|-\cos 3 x}{2+\tan ^{2} x}$. Mệnh đề nào sau đây đúng?</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$f(x)$ lẻ và $g(x)$ chẵn</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$f(x)$ chẵn, $g(x)$ lẻ</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$f(x)$ và $g(x)$ cùng chẵn</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$f(x)$ và $g(x)$ cùng lẻ</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
@@ -1347,27 +1353,27 @@
             </div>
             <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
             <div class="slide" data-i="38" id="slide-38">
-            <div class="question-card" data-correct="B" data-level="kg">
+            <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 38</div>
                 <div class="q-content">Trong các hàm số sau, hàm số nào có đồ thị đối xứng qua gốc tọa độ?</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\frac{1}{\sin ^{3} x}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=\sin \left(x+\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\sqrt{2} \cos \left(x-\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\sqrt{\sin 2 x}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Viết lại đáp án B là $\displaystyle y=\sin \left(x+\frac{\pi}{4}\right)=\frac{1}{\sqrt{2}} \sin x+\cos x$.<br>Viết lại đáp án C là $\displaystyle y=\sqrt{2} \cos \left(x-\frac{\pi}{4}\right)=\sin x+\cos x$.<br>Kiểm tra được đáp án $A$ là hàm số lẻ nên có đồ thị đối xứng qua gốc tọa độ. Chọn $A$.<br>Ta kiểm tra được đáp án $B$ và $C$ là các hàm số không chẵn, không lẻ.<br>Xét đáp án D.<br><br>- Hàm số xác định $\displaystyle \Leftrightarrow \sin 2 x \geq 0 \Leftrightarrow 2 x \in k 2 \pi ; \pi+k 2 \pi \Leftrightarrow x \in\left[k \pi ; \frac{\pi}{2}+k \pi\right]$<br>⟶ TXĐ: D $\displaystyle =\left[k \pi ; \frac{\pi}{2}+k \pi\right]$ với $k \in \mathbb{Z}$.<br>- Chọn $\displaystyle x=\frac{\pi}{4} \in \mathrm{D}$ nhưng $\displaystyle -x=-\frac{\pi}{4} \notin \mathrm{D}$. Vậy $y=\sqrt{\sin 2 x}$ không chẵn, không lẻ.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="39" id="slide-39">
-            <div class="question-card" data-correct="A" data-level="kg">
+            <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 39</div>
                 <div class="q-content">Trong các hàm số sau, hàm số nào là hàm số chẵn?</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=2 \cos \left(x+\frac{\pi}{2}\right)+\sin \pi-2 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=\sin \left(x-\frac{\pi}{4}\right)+\sin \left(x+\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\sqrt{2} \sin \left(x+\frac{\pi}{4}\right)-\sin x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\sqrt{\sin x}+\sqrt{\cos x}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Viết lại đáp án A là $\displaystyle y=2 \cos \left(x+\frac{\pi}{2}\right)+\sin \pi-2 x=-2 \sin x+\sin 2 x$.<br>Viết lại đáp án B là $\displaystyle y=\sin \left(x-\frac{\pi}{4}\right)+\sin \left(x+\frac{\pi}{4}\right)=2 \sin x \cdot \cos \frac{\pi}{4}=\sqrt{2} \sin x$.<br>Viết lại đáp án C là $\displaystyle y=\sqrt{2} \sin \left(x+\frac{\pi}{4}\right)-\sin x=\sin x+\cos x-\sin x=\cos x$.<br>Ta kiểm tra được đáp án $A, B$ là các hàm số lẻ; $C$ là hàm số chẵn. Chọn $C$.<br>Xét đáp án D.<br>- Hàm số xác định ⇔ $\left\{\begin{array}{l}\sin x \geq 0 \\ \cos x \geq 0\end{array} \longrightarrow \mathrm{TX}\right.$ Đ: $\displaystyle \mathrm{D}=\left[k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right]$ với $k \in \mathbb{Z}$.<br>- Chọn $\displaystyle x=\frac{\pi}{4} \in \mathrm{D}$ nhưng $\displaystyle -x=-\frac{\pi}{4} \notin \mathrm{D}$. Vậy $y=\sqrt{\sin x}+\sqrt{\cos x}$ không chẵn, không lé.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
@@ -1440,7 +1446,7 @@
             <div class="slide" data-i="45" id="slide-45">
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 45</div>
-                <div class="q-content">Trong các hàm số $y_{1}=\sin x, y_{2}=\sin 2 x, y_{3}=\tan x, y_{4}=\cot x$ có bao nhiêu hàm số thỏa mãn tính chất $f x+k \pi=f x$ với mọi $x \in \mathbb{R}$ và $k \in \mathbb{Z}$.</div>
+                <div class="q-content">Trong các hàm số $y_{1}=\sin x, y_{2}=\sin 2 x, y_{3}=\tan x, y_{4}=\cot x$ có bao nhiêu hàm số thỏa mãn tính chất $f(x+k\pi)=f(x)$ với mọi $x \in \mathbb{R}$ và $k \in \mathbb{Z}$.</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
@@ -1620,14 +1626,14 @@
             </div>
             
             <div class="slide" data-i="59" id="slide-59">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 59</div>
                 <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có bảng biến thiên trên khoảng $\displaystyle \left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$ như sau:<br><div style="overflow-x: auto; width: 100%; margin: 15px 0;"><table class="theory-table" style="text-align: center; width: 100%;"><tr><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$x$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle -\frac{\pi}{2}$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;"></th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$0$</th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;"></th><th style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\displaystyle \frac{\pi}{2}$</th></tr><tr><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$y$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$0$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\searrow$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$-\infty$ | $+\infty$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$\searrow$</td><td style="text-align: center; border: 1px solid #e2e8f0; padding: 10px;">$0$</td></tr></table></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\sin x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\tan x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=\cot x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Dựa vào bảng biến thiên ta thấy hàm số nghịch biến trên từng khoảng xác định. Đối chiếu các đáp án chỉ có đáp án D thỏa mãn. Chọn D.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
             </div>
@@ -1646,27 +1652,27 @@
             </div>
             
             <div class="slide" data-i="61" id="slide-61">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 61</div>
                 <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361656/chuyende_05/wrgmmumwhyqxs5fiu3zr.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=1+\sin 2 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=-\sin x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-\cos x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta thấy tại $x=0$ thì $y=1$. Do đó loại đáp án C và D .<br>Tại $\displaystyle x=\frac{\pi}{2}$ thì $y=0$. Do đó chỉ có đáp án B thỏa mãn. Chọn B.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="62" id="slide-62">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 62</div>
                 <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361659/chuyende_05/tkrjp8xn8keu1jopt4wk.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\sin x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=|\sin x|$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=\sin |x|$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-\sin x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta thấy tại $x=0$ thì $y=0$. Cả 4 đáp án đều thỏa.<br>Tại $\displaystyle x=\frac{\pi}{2}$ thì $y=-1$. Do đó chỉ có đáp án D thỏa mãn. Chọn D.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
             </div>
@@ -1685,27 +1691,27 @@
             </div>
             
             <div class="slide" data-i="64" id="slide-64">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 64</div>
                 <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361662/chuyende_05/lmzzudyc2oksuo3xhqjw.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\cos x-4$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=-2-\cos x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=-3 \cos x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=2+|\cos x|$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta thấy tại $x=0$ thì $y=-3$. Do đó ta loại đáp án D.<br>Tại $x=\pi$ thì $y=3$. Thay vào chỉ có đáp án C thỏa mãn. Chọn C.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="65" id="slide-65">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 65</div>
                 <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361664/chuyende_05/sqesjjvbdb4dvtcqiss0.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\sin \left(x+\frac{\pi}{3}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=-\sin \left(x+\frac{\pi}{3}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\sin \left|x+\frac{\pi}{3}\right|$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y=\left|\sin \left(x+\frac{\pi}{3}\right)\right|$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta thấy $\displaystyle x=\frac{\pi}{6}$ thì $y=-1$. Do đó chỉ có đáp án B thỏa mãn. Chọn B.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
             </div>
@@ -1724,14 +1730,14 @@
             </div>
             <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
             <div class="slide" data-i="67" id="slide-67">
-            <div class="question-card" data-correct="A" data-level="kg">
+            <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 67</div>
                 <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<br><div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361668/chuyende_05/n8hfp4u43rmu6re2urn3.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\sin \left(x-\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle y=\cos \left(x-\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y=\sqrt{2} \sin \left(x+\frac{\pi}{4}\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y=\sqrt{2} \cos \left(x+\frac{\pi}{4}\right)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Dựa vào đồ thị ta thấy hàm số có GTLN bằng $\sqrt{2}$ và GTNN bằng $-\sqrt{2}$. Do đó các đáp án A và B không thỏa mãn.<br>Tại $\displaystyle x=\frac{3 \pi}{4}$ thì $y=-\sqrt{2}$. Thay vào hai đáp án C và D thỉ chỉ có D thỏa mãn. Chọn D.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
             </div>
@@ -1763,14 +1769,14 @@
             </div>
             
             <div class="slide" data-i="70" id="slide-70">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 70</div>
                 <div class="q-content">Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?<div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361673/chuyende_05/uuxt1b9zxlhrew15xycq.jpg" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=\tan x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=\cot x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=|\tan x|$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=|\cot x|$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Dựa vào đồ thị ta thấy hàm số có GTNN bằng 0 . Do đó loại đáp án $A$ và $B$.<br>Hàm số xác định tại $x=0$ và tại $x=0$ thì $y=0$. Do đó chỉ có C thỏa mãn. Chọn C.<br>### Dạng 6. Giá trị lớn nhất - Giá trị nhỏ nhất</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
@@ -1795,7 +1801,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$T=[-1 ; 1]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$T=[-1 ; 11]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=[2 ; 8]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=[5 ; 8]$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow-3 \leq 3 \cos 2 x \leq 3 \longrightarrow 2 \leq 3 \cos 2 x+5 \leq 8$.<br>Vậy $2 \leq y \leq 8 \longrightarrow T=2 ; 8$. Chọn C.</div>
+                    <div class="sol-body">Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow-3 \leq 3 \cos 2 x \leq 3 \longrightarrow 2 \leq 3 \cos 2 x+5 \leq 8$.<br>Vậy $2 \leq y \leq 8 \longrightarrow T=[2 ; 8]$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2216,7 +2222,7 @@
         <!-- Header Sổ tay -->
         <div class="theory-header">
             <div class="theory-badge">KIẾN THỨC CỐT LÕI</div>
-            <h2 class="theory-main-title" id="theoryTitle">Chuyên đề 5 - Hàm số lượng giác</h2>
+            <h2 class="theory-main-title" id="theoryTitle">Chuyên đề 5: Hàm số lượng giác</h2>
             <div class="theory-line"></div>
         </div>
 
@@ -2303,7 +2309,7 @@
 <div class="theory-item"><span class="theory-bullet"></span><div>Nếu $f(-x)=-f(x)$ thì ta kết luận hàm số là hàm lẻ.</div></div>
 <div class="theory-item"><span class="theory-bullet"></span><div>Nếu $\left\{\begin{array}{l}f(-x) \neq f(x) \\ f(-x) \neq-f(x)\end{array}\right.$ thì ta kết luận hàm số không chẵn, không lẻ.</div></div>
 <br>
-<p class="theory-text">Lúc đó ta chỉ câ̂n chỉ ra điểm $x_{0} \in \mathrm{D}$ thỏa mãn hệ thức trên</p>
+<p class="theory-text">Lúc đó ta chỉ cần chỉ ra điểm $x_{0} \in \mathrm{D}$ thỏa mãn hệ thức trên</p>
 <br>
 <div class="theory-h2">Lưu ý</div>
 <br>
@@ -2318,8 +2324,8 @@
 <br>
 <br>
 <div class="theory-item"><span class="theory-bullet"></span><div>$|-x|=x$</div></div>
-<div class="theory-item"><span class="theory-bullet"></span><div>$(a-b)^{2 n+1}=-(b-a)^{2 n+1}$ với $\mathrm{n} \in \mathrm{N}^{*}$</div></div>
-<div class="theory-item"><span class="theory-bullet"></span><div>$(a-b)^{2 n}=(b-a)^{2 n}$ với n \in \mathbb{N}^*</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>$(a-b)^{2 n+1}=-(b-a)^{2 n+1}$ với $n \in \mathbb{N}^*$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>$(a-b)^{2 n}=(b-a)^{2 n}$ với $n \in \mathbb{N}^*$</div></div>
 <br>
 <p class="theory-text">3. Sử dụng máy tính cầm tay</p>
 <br>

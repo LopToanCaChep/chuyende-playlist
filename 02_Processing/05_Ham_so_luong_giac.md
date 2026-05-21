@@ -80,7 +80,7 @@ Bước 3. Xác định $\mathrm{f}(-\mathrm{x})$
 - Nếu $f(-x)=-f(x)$ thì ta kết luận hàm số là hàm lẻ.
 - Nếu $\left\{\begin{array}{l}f(-x) \neq f(x) \\ f(-x) \neq-f(x)\end{array}\right.$ thì ta kết luận hàm số không chẵn, không lẻ.
 
-Lúc đó ta chỉ câ̂n chỉ ra điểm $x_{0} \in \mathrm{D}$ thỏa mãn hệ thức trên
+Lúc đó ta chỉ cần chỉ ra điểm $x_{0} \in \mathrm{D}$ thỏa mãn hệ thức trên
 
 ## Lưu ý
 
@@ -95,8 +95,8 @@ Lúc đó ta chỉ câ̂n chỉ ra điểm $x_{0} \in \mathrm{D}$ thỏa mãn h�
 
 
 - $|-x|=x$
-- $(a-b)^{2 n+1}=-(b-a)^{2 n+1}$ với $\mathrm{n} \in \mathrm{N}^{*}$
-- $(a-b)^{2 n}=(b-a)^{2 n}$ với n \in \mathbb{N}^*
+- $(a-b)^{2 n+1}=-(b-a)^{2 n+1}$ với $n \in \mathbb{N}^*$
+- $(a-b)^{2 n}=(b-a)^{2 n}$ với $n \in \mathbb{N}^*$
 
 3. Sử dụng máy tính cầm tay
 
@@ -728,7 +728,7 @@ D. $f(x)$ và $g(x)$ cùng lẻ.
 
 ## Lời giải. Chọn A.
 
-Câu 37. Cho $f(x)=\frac{\cos 2 x}{1+\sin ^{2} 3 x}$ và $g(x)=\frac{|\sin 2 x|-\cos 3 x}{2+\tan ^{2} x}$$. Mệnh đề nào sau đây đúng?
+Câu 37. Cho $f(x)=\frac{\cos 2 x}{1+\sin ^{2} 3 x}$ và $g(x)=\frac{|\sin 2 x|-\cos 3 x}{2+\tan ^{2} x}$. Mệnh đề nào sau đây đúng?
 A. $f(x)$ lẻ và $g(x)$ chẵn.
 B. $f(x)$ chẵn, $g(x)$ lẻ.
 C. $f(x)$ và $g(x)$ cùng chẵn.
@@ -827,7 +827,7 @@ Hai hàm số $y=\sin x$ có chu kì là $2 \pi$, hàm số $y=\tan 2 x$ có chu
 Hai hàm số $y=\sin \frac{x}{2}$ và $y=\cos \frac{x}{2}$ có cùng chu kì là $4 \pi$.
 Hai hàm số $y=\tan 2 x$ và $y=\cot 2 x$ có cùng chu kì là $\frac{\pi}{2}$.
 
-Câu 45. Trong các hàm số $y_{1}=\sin x, y_{2}=\sin 2 x, y_{3}=\tan x, y_{4}=\cot x$ có bao nhiêu hàm số thỏa mãn tính chất $f x+k \pi=f x$ với mọi $x \in \mathbb{R}$ và $k \in \mathbb{Z}$.
+Câu 45. Trong các hàm số $y_{1}=\sin x, y_{2}=\sin 2 x, y_{3}=\tan x, y_{4}=\cot x$ có bao nhiêu hàm số thỏa mãn tính chất $f(x+k\pi)=f(x)$ với mọi $x \in \mathbb{R}$ và $k \in \mathbb{Z}$.
 A. 1 .
 B. 2 .
 C. 3 .
@@ -1160,7 +1160,7 @@ C. $T=[2 ; 8]$.
 D. $T=[5 ; 8]$.
 
 Lời giải. Ta có $-1 \leq \cos 2 x \leq 1 \longrightarrow-3 \leq 3 \cos 2 x \leq 3 \longrightarrow 2 \leq 3 \cos 2 x+5 \leq 8$.
-Vậy $2 \leq y \leq 8 \longrightarrow T=2 ; 8$. Chọn C.
+Vậy $2 \leq y \leq 8 \longrightarrow T=[2 ; 8]$. Chọn C.
 
 Câu 73. Tìm tập giá trị $T$ của hàm số $y=5-3 \sin x$.
 A. $T=[-1 ; 1]$.

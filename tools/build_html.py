@@ -193,6 +193,52 @@ def markdown_to_html_basic(text):
                 
     return "".join(result)
 
+
+def clean_latex_ans(text):
+    if not text: return ""
+    # Thay thế \mathbf{A} -> A, \mathrm{A} -> A, \boldsymbol{A} -> A, \underline{A} -> A
+    text = re.sub(r'\\(?:mathbf|mathrm|boldsymbol|underline)\s*\{\s*([A-D])\s*\}', r'\1', text)
+    # Thay thế \mathbf A -> A, etc.
+    text = re.sub(r'\\(?:mathbf|mathrm|boldsymbol|underline)\s+([A-D])\b', r'\1', text)
+    # Thay thế $A$ -> A
+    text = re.sub(r'\$\s*([A-D])\s*\$', r'\1', text)
+    # Thay thế **A** -> A, *A* -> A
+    text = re.sub(r'\*+\s*([A-D])\s*\*+', r'\1', text)
+    return text
+
+
+def extract_correct_answer(raw_q_text, sol_body):
+    search_text = sol_body if sol_body else raw_q_text
+    search_text = clean_latex_ans(search_text)
+    
+    # 1. Tìm các cụm từ chỉ đáp án viết hoa rõ ràng ở cuối hoặc dòng cuối
+    ans_match = re.search(r'\b(?:Chọn|Đáp án|Vậy chọn|Do đó chọn|Chọn đáp án)\s*(?:đáp\s*án\s*)?([A-D])\b\.?\s*$', search_text.strip())
+    if ans_match:
+        return ans_match.group(1).upper()
+        
+    # 2. Tìm trong toàn bộ search_text các cụm từ viết hoa "Chọn X", "Vậy chọn X", "Do đó chọn X", "Đáp án X"
+    ans_matches = re.findall(r'\b(?:Chọn|Vậy\s+chọn|Do\s+đó\s+chọn|Đáp\s+án|Chọn\s+đáp\s+án)\s*(?:đáp\s*án\s*)?([A-D])\b', search_text)
+    if ans_matches:
+        return ans_matches[0].upper()
+        
+    # 3. Dự phòng tìm kiếm case-insensitive
+    ans_matches_lower = re.findall(r'(?i)\b(?:Chọn|Vậy\s+chọn|Do\s+đó\s+chọn|Đáp\s+án|Chọn\s+đáp\s+án)\s*(?:đáp\s*án\s*)?([A-D])\b', search_text)
+    if ans_matches_lower:
+        return ans_matches_lower[0].upper()
+        
+    # 4. Tìm chữ cái A,B,C,D độc lập ở cuối
+    ans_match = re.search(r'(?i)\b([A-D])\b\.?\s*$', search_text.strip())
+    if ans_match:
+        return ans_match.group(1).upper()
+        
+    # 5. Nếu vẫn không thấy, thử tìm trên raw_q_text
+    ans_match = re.search(r'(?i)\b(?:Chọn|Vậy\s+chọn|Do\s+đó\s+chọn|Đáp\s+án|Chọn\s+đáp\s+án)\s*(?:đáp\s*án\s*)?([A-D])\b', raw_q_text)
+    if ans_match:
+        return ans_match.group(1).upper()
+        
+    return ""
+
+
 def parse_markdown(md_content, title="Chuyên đề"):
     md_content = clean_ocr(md_content)
     theory_pattern = re.compile(r'##\s*PH.*?N\s*A', re.IGNORECASE)
@@ -299,22 +345,8 @@ def parse_markdown(md_content, title="Chuyên đề"):
                 q_body = q_body[:chon_in_body.start()].strip()
             
             # Trích xuất đáp án đúng (SIÊU MẠNH MẼ - PHIÊN BẢN 2.0)
-            correct_ans = ""
-            
-            # Cải tiến 1: Tìm cụm từ rõ ràng nhất trước
-            ans_match = re.search(r'(?im)(?:Chọn|Đáp án|Chọn đáp án|=>|Vậy chọn|Do đó chọn)[ \t]*[: \t]*[\$\\\{\}\*\_a-zA-Z]*(?:\bmathbf\b|\bmathrm\b|\bunderline\b)?[\{\\ \t]*([A-Da-d])[\}]?[\$\\\{\}\*\_]*', raw_q_text)
-            
-            if not ans_match:
-                # Cải tiến 2: Tìm chữ cái A,B,C,D đứng độc lập ở cuối câu với các dấu chấm, phẩy
-                ans_match = re.search(r'(?im)(?:Chọn|Đáp án|Vậy)\s*[:\s]*([A-Da-d])(?:[\.\s]|$)', raw_q_text)
-                
-            if not ans_match:
-                # Cải tiến 3: Bắt các trường hợp như "**A**", "**B.**" ở dòng cuối cùng
-                ans_match = re.search(r'(?im)[\*\s]*([A-Da-d])[\.\*\s]*$', sol_body)
-            
-            if ans_match:
-                correct_ans = ans_match.group(1).upper()
-            else:
+            correct_ans = extract_correct_answer(raw_q_text, sol_body)
+            if not correct_ans:
                 print(f"[CẢNH BÁO] Không tìm thấy đáp án đúng cho Câu {q_num}. Vui lòng kiểm tra lại file Markdown gốc!")
 
             sol_text = re.sub(r'(?im)^\s*##\s*(?:Chọn|Đáp án|=>|Vậy chọn).*?$', '', sol_body).strip()
