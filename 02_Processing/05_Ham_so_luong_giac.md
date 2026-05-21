@@ -40,23 +40,18 @@ Từ đó, bằng cách tịnh tiến đồ thị hàm số $y=\sin x$ theo vect
 - Là hàm số tuần hoàn với chu kì $\pi$ tức là $\cot (\mathrm{x}+\mathrm{k} \pi)=\operatorname{cotx}$ với $\mathrm{k} \in Z$
 - Hàm số nghịch biến trên mỗi khoảng $(\mathrm{k} \pi ; \pi+\mathrm{k} \pi)$ với $\mathrm{k} \in \mathrm{Z}$
 - Là hàm số lẻ nên đồ thị hàm số nhận gốc tọa độ $O$ làm tâm đối xứng.
-
-Ôn tập kiến thức toán 10-11-12
-Luyện thi THPTQG và ĐGNL
-
-
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361624/chuyende_05/wwa9y3hsg8gcqkseeudg.jpg)
-Dạng 1 - Tìm tập xác định
+## ## Dạng 1 - Tìm tập xác định
 
 | HÀM SỐ | ĐIỀU KIỆN XÁC ĐỊNH |
 | :--- | :--- |
-| $y=\frac{f(x)}{g(x)}$ | $\mathbf{g}(\mathbf{x}) \neq 0$ |
-| $y=\sqrt[2 n]{x}$ với $n \in N^{*}$ | $\mathrm{x} \geq 0$ |
-| $y=\frac{1}{\sqrt[2 n]{x}}$ với $n \in N^{*}$ | $\mathbf{f} \boldsymbol{(} \mathbf{x} \boldsymbol{)} \boldsymbol{>} \mathbf{0}$ |
-| $y=\sin [u(x)]$ | u(x)xác định |
-| $y=\cos [u(x)]$ | u(x) xác định |
-| $y=\tan x$ | $x \neq \frac{\pi}{2}+k \pi$ với $k \in Z$ |
-| $y=\cot x$ | $\times \boldsymbol{k} \mathbf{k} \boldsymbol{\pi}$ với $\mathbf{k} \boldsymbol{\in} \mathbf{Z}$ |
+| $y=\frac{f(x)}{g(x)}$ | $g(x) \neq 0$ |
+| $y=\sqrt[2 n]{x}$ với $n \in \mathbb{N}^{*}$ | $x \geq 0$ |
+| $y=\frac{1}{\sqrt[2 n]{x}}$ với $n \in \mathbb{N}^{*}$ | $x > 0$ |
+| $y=\sin [u(x)]$ | $u(x)$ xác định |
+| $y=\cos [u(x)]$ | $u(x)$ xác định |
+| $y=\tan x$ | $x \neq \frac{\pi}{2}+k \pi$ với $k \in \mathbb{Z}$ |
+| $y=\cot x$ | $x \neq k \pi$ với $k \in \mathbb{Z}$ |
 
 Lưu ý
 A. Hàm số có mẫu số đặc biệt
@@ -67,9 +62,7 @@ A. Hàm số có mẫu số đặc biệt
 4. $\cos u \neq 1 \Leftrightarrow u \neq k 2 \pi$
 5. $\sin u \neq-1 \Leftrightarrow u \neq-\frac{\pi}{2}+k 2 \pi$
 6. $\cos u \neq-1 \Leftrightarrow u \neq \pi+k 2 \pi$
-fb.me/loptoancachep 0948.215.040 (thầy Huy)
-
-## B. Biết cách sử dụng đường tròn lượng giác
+B. Biết cách sử dụng đường tròn lượng giác
 
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361626/chuyende_05/yjnaronblcav2hhagzdf.jpg)
 
@@ -184,8 +177,6 @@ Số lớn nhất sẽ là giá trị lớn nhất - Số nhỏ nhất sẽ là 
 
 Dễ thấy: Tại hàng thứ 6 , khi $x=1,5707$ thì $f(x)=1$ là giá trị lớn nhất
 Tại hàng thứ 16 , khi $x=4,7123$ thì $f(x)=-1$ là giá trị nhỏ nhất
-fb.me/loptoancachep
-
 Lưu ý: tùy đề bài xét trên khoảng nào mà thay đổi khoảng nhập ở bước 3
 Trong B3, phần bước luôn lấy giá trị "kết thúc" trừ giá trị "bắt đầu" và chia 20.
 
@@ -204,7 +195,7 @@ Bước 1. Nhập hàm số vào máy
 Ví dụ. Xác định chu kì hàm số $y=\cot 6 x+\sin 8 x$
 
 $$
-\frac{1^{\sqrt{6}}}{\tan (6 x)}+\sin (8 x)
+\frac{1}{\tan(6x)} + \sin(8x)
 $$
 
 A. $\pi$
@@ -215,9 +206,10 @@ D. $\frac{\pi}{6}$
 Bước 2. Bấm CALC $\rightarrow x=1 \rightarrow=\rightarrow$ Ghi lại kết quả
 
 $$
-\begin{array}{|r|}
-\frac{1}{\tan (6 x)}+\sin (8 x) \\
--2.446994758 \\
+\begin{array}{|l|}
+\hline
+\frac{1}{\tan(6x)} + \sin(8x)  \\
+\text{Kết quả: } -2.446994758  \\
 \hline
 \end{array}
 $$
@@ -227,15 +219,17 @@ Ví dụ. Ta thấy $\frac{\pi}{6}<\frac{\pi}{4}<\frac{\pi}{2}<\pi$ nên thử t
 
 $$
 \begin{aligned}
-& \frac{1^{\sqrt{ }}}{\tan (6 x)}+\sin (8 x) \\
+& \frac{1}{\tan(6x)} + \sin(8x) \\
 & x=1+\pi \div 6
 \end{aligned}
 $$
 
 $$
-\begin{array}{r}
-\frac{1}{\tan (6 x)}+\sin (8 x) \\
--3.805025402
+\begin{array}{|l|}
+\hline
+\frac{1}{\tan(6x)} + \sin(8x)  \\
+\text{Kết quả: } -3.805025402  \\
+\hline
 \end{array}
 $$
 
@@ -249,29 +243,28 @@ $$
 $$
 
 $$
-\frac{1^{\sqrt{2}}}{\tan (6 x)}+\sin (8 x)
+\begin{array}{|l|}
+\hline
+\frac{1}{\tan(6x)} + \sin(8x) \\
+\text{Kết quả: } 1.280364438 \\
+\hline
+\end{array}
 $$
-
-1.280364438
 
 Kết quả không giống bước 2 nên thử tiếp $\frac{\pi}{2}$
-
-Ôn tập kiến thức toán 10-11-12
-Luyện thi THPTQG và ĐGNL
-
-fb.me/loptoancachep 0948.215.040 (thầy Huy)
-
 $$
 \begin{aligned}
-& \frac{1^{\sqrt{2}}}{\tan (6 x)}+\sin (8 x) \\
+& \frac{1}{\tan(6x)} + \sin(8x) \\
 & x=1+\pi \div 2
 \end{aligned}
 $$
 
 $$
-\begin{array}{r}
-\frac{1^{\sqrt{8}}}{\tan (6 x)}+\sin (8 x) \\
--2.446994758
+\begin{array}{|l|}
+\hline
+\frac{1}{\tan(6x)} + \sin(8x)  \\
+\text{Kết quả: } -2.446994758  \\
+\hline
 \end{array}
 $$
 
@@ -289,9 +282,10 @@ $$
 $$
 
 $$
-\begin{array}{r}
-\frac{1}{\sqrt{\bar{t}} \tan (6 x)}+\sin (8 x) \\
--2.446994758 \\
+\begin{array}{|l|}
+\hline
+\frac{1}{\tan(6x)} + \sin(8x)  \\
+\text{Kết quả: } -2.446994758  \\
 \hline
 \end{array}
 $$
@@ -341,7 +335,7 @@ Bước 1. Nhập hàm số vào bảng
 Bước 2. Ở phạm vi bảng, nhập như hình
 
 $$
-f(x)=\sin ^{\sqrt{\sigma}}(x)+\cos (x
+f(x) = \sin x + \cos x
 $$
 
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361642/chuyende_05/zmcoskuofyhghx6kdnvl.jpg)
@@ -358,11 +352,6 @@ dò nhanh tới hàng 21 vẫn giảm về 1
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361649/chuyende_05/ftg1qxw4rjjtp01qplju.jpg)
 
 Vậy hàm số đồng biến trên từ hàng 1 đến 11 , tức là $x \in(0 ; 0,78) \sim\left(0 ; \frac{\pi}{4}\right)$
-
-Ôn tập kiến thức toán 10-11-12
-Luyện thi THPTQG và ĐGNL
-
-fb.me/loptoancachep 0948.215.040 (thầy Huy)
 nghịch biến trên từ hàng 11 đến 20 tức là $x \in\left(\frac{\pi}{4} ; \frac{\pi}{2}\right)$
 
 ## PHẦN C. BÀI TẬP TRẮC NGHIỆM
@@ -436,10 +425,6 @@ $$
 $$
 
 Câu 8. Tập xác định D của hàm số $y=3 \tan ^{2}\left(\frac{x}{2}-\frac{\pi}{4}\right)$ là
-
-Ôn tập kiến thức toán 10-11-12
-Luyện thi THPTQG và ĐGNL
-
 A. $\mathrm{D}=\mathbb{R} \backslash\left\{\frac{3 \pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$.
 B. $\mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$.
 C. $\mathrm{D}=\mathbb{R} \backslash\left\{\frac{3 \pi}{2}+k \pi, k \in \mathbb{Z}\right\}$.
@@ -929,12 +914,6 @@ A. Hàm số đồng biến trên khoảng $\left(\frac{\pi}{2} ; \pi\right)$, n
 B. Hàm số đồng biến trên khoảng $\left(-\frac{3 \pi}{2} ;-\frac{\pi}{2}\right)$, nghịch biến trên khoảng $\left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$.
 C. Hàm số đồng biến trên khoảng $\left(0 ; \frac{\pi}{2}\right)$, nghịch biến trên khoảng $\left(-\frac{\pi}{2} ; 0\right)$.
 D. Hàm số đồng biến trên khoảng $\left(-\frac{\pi}{2} ; \frac{\pi}{2}\right)$, nghịch biến trên khoảng $\left(\frac{\pi}{2} ; \frac{3 \pi}{2}\right)$.
-
-Ôn tập kiến thức toán 10-11-12
-Luyện thi THPTQG và ĐGNL
-
-fb.me/loptoancachep 0948.215.040 (thầy Huy)
-
 Lời giải. Dựa vào lý thuyết " Hàm số $y=\sin x$ đồng biến khi $x$ thuộc góc phần tư thứ I và thứ IV; nghịch biến khi $x$ thuộc góc phần tư thứ II và thứ III ". Chọn D.
 
 Câu 52. Hàm số nào sau đây có tính đơn điệu trên khoảng ( $0 ; \frac{\pi}{2}$ ) khác với các hàm số còn lại?
@@ -1059,7 +1038,6 @@ Tại $x=\frac{\pi}{2}$ thì $y=0$. Do đó chỉ có đáp án B thỏa mãn. C
 
 Câu 62. Hàm số nào trong bốn hàm số được cho ở các đáp án $A, B, C, D$ có đồ thị như hình vẽ dưới đây?
 ![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779361659/chuyende_05/tkrjp8xn8keu1jopt4wk.jpg)
-fb.me/loptoancachep 0948.215 .040 (thầy Huy)
 A. $y=\sin x$.
 B. $y=|\sin x|$.
 C. $y=\sin |x|$.
@@ -1353,10 +1331,6 @@ $$
 $$
 
 Mà $-1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{2} \leq \frac{3}{4}+\frac{1}{4} \cos 4 x \leq 1$. Vậy $\frac{1}{2} \leq y \leq 1$. Chọn C.
-Ôn tập kiến thức toán 10-11-12
-Luyện thi THPTQG và ĐGNL
-
-
 Nhận xét: Từ $y=\cos ^{4} x+\sin ^{4} x=1-\frac{1}{2} \sin ^{2} 2 x$, ta có thể đánh giá thông qua $\sin ^{2} 2 x$.
 
 Câu 88. Tập giá trị của hàm số $y=\sin ^{6} x+\cos ^{6} x$ là
