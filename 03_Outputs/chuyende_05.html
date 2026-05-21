@@ -33,6 +33,10 @@
             --shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Manrope', sans-serif;
             background-color: var(--bg);
@@ -171,15 +175,36 @@
             overflow-y: hidden;
             vertical-align: middle;
             -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
         }
+        .katex::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
         .katex-display {
             overflow-x: auto;
             overflow-y: hidden;
             max-width: 100%;
             padding: 8px 0;
             -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
         }
-        .q-content, .sol-body, .opt-text {
+        .katex-display::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
+        .q-content, .sol-body {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .opt-text {
+            flex: 1;
+            min-width: 0;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
@@ -956,7 +981,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\varnothing$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{8}+k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \cot \left(2 x-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \sin \left(2 x-\frac{\pi}{4}\right) \neq 0$<br>$$<br>\Leftrightarrow 2 x-\frac{\pi}{4} \neq k \pi \Leftrightarrow x \neq \frac{\pi}{8}+\frac{k \pi}{2} \quad k \in \mathbb{Z} \text {. Chọn C. }<br>$$</div>
+                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \cot \left(2 x-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \sin \left(2 x-\frac{\pi}{4}\right) \neq 0$<br>$$\Leftrightarrow 2 x-\frac{\pi}{4} \neq k \pi \Leftrightarrow x \neq \frac{\pi}{8}+\frac{k \pi}{2} \quad k \in \mathbb{Z} \text {. Chọn C. }$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -969,7 +994,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{3 \pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{3 \pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \tan ^{2}\left(\frac{x}{2}-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \cos ^{2}\left(\frac{x}{2}-\frac{\pi}{4}\right) \neq 0$<br>$$<br>\Leftrightarrow \frac{x}{2}-\frac{\pi}{4} \neq \frac{\pi}{2}+k \pi \Leftrightarrow x \neq \frac{3 \pi}{2}+k 2 \pi \quad k \in \mathbb{Z} \text {. Chọn A. }<br>$$</div>
+                    <div class="sol-body">Hàm số xác định $\displaystyle \Leftrightarrow \tan ^{2}\left(\frac{x}{2}-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \cos ^{2}\left(\frac{x}{2}-\frac{\pi}{4}\right) \neq 0$<br>$$\Leftrightarrow \frac{x}{2}-\frac{\pi}{4} \neq \frac{\pi}{2}+k \pi \Leftrightarrow x \neq \frac{3 \pi}{2}+k 2 \pi \quad k \in \mathbb{Z} \text {. Chọn A. }$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -982,7 +1007,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$D=\mathbb{R}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Hàm số xác định $\Leftrightarrow \tan ^{2021} 2 x$ xác định $\Leftrightarrow \cos ^{2021} 2 x \neq 0 \Leftrightarrow \cos 2 x \neq 0$<br>$$<br>\Leftrightarrow 2 x \neq \frac{\pi}{2}+k \pi \Leftrightarrow x \neq \frac{\pi}{4}+k \frac{\pi}{2} \quad k \in \mathbb{Z} \text {. Chọn D. }<br>$$</div>
+                    <div class="sol-body">Hàm số xác định $\Leftrightarrow \tan ^{2021} 2 x$ xác định $\Leftrightarrow \cos ^{2021} 2 x \neq 0 \Leftrightarrow \cos 2 x \neq 0$<br>$$\Leftrightarrow 2 x \neq \frac{\pi}{2}+k \pi \Leftrightarrow x \neq \frac{\pi}{4}+k \frac{\pi}{2} \quad k \in \mathbb{Z} \text {. Chọn D. }$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1008,7 +1033,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{3 \pi}{4}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \frac{\pi}{2}, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{4}+k \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Chọn C. Hàm số xác định khi thỏa mãn đồng thời các điều kiện sau:<br>- $\displaystyle \tan \left(x-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \cos \left(x-\frac{\pi}{4}\right) \neq 0$.<br>- $\displaystyle \tan \left(x-\frac{\pi}{4}\right) \neq 0 \Leftrightarrow \sin \left(x-\frac{\pi}{4}\right) \neq 0$.<br>Từ 1 và 2 , suy ra hàm số xác định $\displaystyle \Leftrightarrow \sin \left(x-\frac{\pi}{4}\right) \cos \left(x-\frac{\pi}{4}\right) \neq 0 \Leftrightarrow \sin 2\left(x-\frac{\pi}{4}\right) \neq 0$<br>$$<br>\Leftrightarrow 2\left(x-\frac{\pi}{4}\right) \neq k \pi \Leftrightarrow x \neq \frac{\pi}{4}+k \frac{\pi}{2} \quad k \in \mathbb{Z} .<br>$$</div>
+                    <div class="sol-body">Chọn C. Hàm số xác định khi thỏa mãn đồng thời các điều kiện sau:<br>- $\displaystyle \tan \left(x-\frac{\pi}{4}\right)$ xác định $\displaystyle \Leftrightarrow \cos \left(x-\frac{\pi}{4}\right) \neq 0$.<br>- $\displaystyle \tan \left(x-\frac{\pi}{4}\right) \neq 0 \Leftrightarrow \sin \left(x-\frac{\pi}{4}\right) \neq 0$.<br>Từ 1 và 2 , suy ra hàm số xác định $\displaystyle \Leftrightarrow \sin \left(x-\frac{\pi}{4}\right) \cos \left(x-\frac{\pi}{4}\right) \neq 0 \Leftrightarrow \sin 2\left(x-\frac{\pi}{4}\right) \neq 0$<br>$$\Leftrightarrow 2\left(x-\frac{\pi}{4}\right) \neq k \pi \Leftrightarrow x \neq \frac{\pi}{4}+k \frac{\pi}{2} \quad k \in \mathbb{Z} .$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1112,7 +1137,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\mathrm{D}=\varnothing$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\mathrm{D}=\mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \mathrm{D}=\mathbb{R} \backslash\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \mathrm{D}=\left\{\frac{\pi}{2}+k 2 \pi, k \in \mathbb{Z}\right\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Chọn D. Ta có $\cos x-4&lt;0, \forall x \in \mathbb{R}$.<br>Do đó hàm số xác định<br>$$<br>\Leftrightarrow 1-\sin x \leq 0 \Leftrightarrow \sin x \geq 1<br>$$<br>$$<br>\Leftrightarrow \sin x=1 \quad \text { vì } \sin x \leq 1, \forall \mathbf{x} \in \mathbb{R} \quad \Leftrightarrow x=\frac{\pi}{2}+k 2 \pi \quad k \in \mathbb{Z} .<br>$$</div>
+                    <div class="sol-body">Chọn D. Ta có $\cos x-4&lt;0, \forall x \in \mathbb{R}$.<br>Do đó hàm số xác định<br>$$\Leftrightarrow 1-\sin x \leq 0 \Leftrightarrow \sin x \geq 1$$<br>$$\Leftrightarrow \sin x=1 \quad \text { vì } \sin x \leq 1, \forall \mathbf{x} \in \mathbb{R} \quad \Leftrightarrow x=\frac{\pi}{2}+k 2 \pi \quad k \in \mathbb{Z} .$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1515,7 +1540,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Chọn A. Các hàm số $\displaystyle y=x+\sin x, y=x \cos x, y=\frac{\sin x}{x}$ không tuần hoàn.<br>Xét hàm số $y=x+\sin x$.<br>- Tập xác định $\mathrm{D}=\mathbb{R}$.<br>- Giả sử $f(x+T)=f(x), \forall x \in \mathbf{D}$<br>$$<br>\begin{aligned}<br>& \Leftrightarrow x+T+\sin(x+T)=x+\sin x, \forall x \in \mathrm{D} \\<br>& \Leftrightarrow T+\sin(x+T)=\sin x, \forall x \in \mathrm{D} .<br>\end{aligned}<br>$$<br>Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\sin 0=0 \\ T+\sin(\pi+T)=\sin \pi=0\end{array}\right.$.<br>Suy ra $2 T+\sin T+\sin(\pi+T)=0 \Leftrightarrow T=0$. Điều này trái với định nghĩa là $T&gt;0$.<br>Vậy hàm số $y=x+\sin x$ không phải là hàm số tuần hoàn.<br>Tương tự chứng minh cho các hàm số $y=x \cos x$ và $\displaystyle y=\frac{\sin x}{x}$ không tuần hoàn.<br>### Dạng 4. Sự đồng biến - nghịch biến của hàm số</div>
+                    <div class="sol-body">Chọn A. Các hàm số $\displaystyle y=x+\sin x, y=x \cos x, y=\frac{\sin x}{x}$ không tuần hoàn.<br>Xét hàm số $y=x+\sin x$.<br>- Tập xác định $\mathrm{D}=\mathbb{R}$.<br>- Giả sử $f(x+T)=f(x), \forall x \in \mathbf{D}$<br>$$\begin{aligned}\\& \Leftrightarrow x+T+\sin(x+T)=x+\sin x, \forall x \in \mathrm{D} \\\\& \Leftrightarrow T+\sin(x+T)=\sin x, \forall x \in \mathrm{D} .\\\end{aligned}$$<br>Cho $x=0$ và $x=\pi$, ta được $\left\{\begin{array}{l}T+\sin T=\sin 0=0 \\ T+\sin(\pi+T)=\sin \pi=0\end{array}\right.$.<br>Suy ra $2 T+\sin T+\sin(\pi+T)=0 \Leftrightarrow T=0$. Điều này trái với định nghĩa là $T&gt;0$.<br>Vậy hàm số $y=x+\sin x$ không phải là hàm số tuần hoàn.<br>Tương tự chứng minh cho các hàm số $y=x \cos x$ và $\displaystyle y=\frac{\sin x}{x}$ không tuần hoàn.<br>### Dạng 4. Sự đồng biến - nghịch biến của hàm số</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1576,7 +1601,7 @@
             <div class="slide" data-i="55" id="slide-55">
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 55</div>
-                <div class="q-content">Trong các hàm số sau, có bao nhiêu hàm số đồng biến trên $\displaystyle \left(-\frac{\pi}{3} ; \frac{\pi}{6}\right)$ ?<br>$$<br>y=\sin \left(2 x+\frac{\pi}{6}\right), y=\cos \left(2 x+\frac{\pi}{6}\right), y=\tan \left(2 x+\frac{\pi}{6}\right) \text { và } y=\cot \left(2 x+\frac{\pi}{6}\right)<br>$$</div>
+                <div class="q-content">Trong các hàm số sau, có bao nhiêu hàm số đồng biến trên $\displaystyle \left(-\frac{\pi}{3} ; \frac{\pi}{6}\right)$ ?<br>$$y=\sin \left(2 x+\frac{\pi}{6}\right), y=\cos \left(2 x+\frac{\pi}{6}\right), y=\tan \left(2 x+\frac{\pi}{6}\right) \text { và } y=\cot \left(2 x+\frac{\pi}{6}\right)$$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
@@ -1593,7 +1618,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \left(-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\pi+k 2 \pi ; 2 \pi+k 2 \pi$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left(-\frac{3 \pi}{4}+k \pi ; \frac{\pi}{4}+k \pi\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \left(-\frac{3 \pi}{4}+k 2 \pi ; \frac{\pi}{4}+k 2 \pi\right)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Chọn D. Hàm $y=\sin x$ đồng biến khi $x$ thuộc góc phần tư thứ I và thứ IV.<br>Do đó để hàm số $\displaystyle y=\sin \left(x+\frac{\pi}{4}\right)$ đồng biến khi $\displaystyle x+\frac{\pi}{4} \in\left(-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right)$<br>$$<br>\Leftrightarrow x \in\left(-\frac{3 \pi}{4}+k 2 \pi ; \frac{\pi}{4}+k 2 \pi\right) \text { với } k \in \mathbb{Z} \text {. }<br>$$</div>
+                    <div class="sol-body">Chọn D. Hàm $y=\sin x$ đồng biến khi $x$ thuộc góc phần tư thứ I và thứ IV.<br>Do đó để hàm số $\displaystyle y=\sin \left(x+\frac{\pi}{4}\right)$ đồng biến khi $\displaystyle x+\frac{\pi}{4} \in\left(-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right)$<br>$$\Leftrightarrow x \in\left(-\frac{3 \pi}{4}+k 2 \pi ; \frac{\pi}{4}+k 2 \pi\right) \text { với } k \in \mathbb{Z} \text {. }$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1619,7 +1644,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Hàm số đã cho đồng biến trên các khoảng $\displaystyle \left(0 ; \frac{\pi}{4}\right)$ và $\displaystyle \left(\frac{3 \pi}{4} ; \pi\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Hàm số đã cho đồng biến trên $0 ; \pi$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Hàm số đã cho nghịch biến trên $\displaystyle \left(0 ; \frac{3 \pi}{4}\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Hàm số đã cho đồng biến trên ( $\displaystyle 0 ; \frac{\pi}{4}$ ) và nghịch biến trên ( $\displaystyle \frac{\pi}{4} ; \pi$ )</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Có $\displaystyle y=4 \sin \left(x+\frac{\pi}{6}\right) \cos \left(x-\frac{\pi}{6}\right)-\sin 2 x=2\left(\sin 2 x+\sin \frac{\pi}{3}\right)-\sin 2 x=\sqrt{3}+\sin 2 x$.<br>Xét mệnh đề A: Với $\displaystyle x \in\left(0 ; \frac{\pi}{4}\right) \rightarrow 2 x \in\left(0 ; \frac{\pi}{2}\right)$ : góc phần tư thứ I;<br>$$<br>x \in\left(\frac{3 \pi}{4} ; \pi\right) \rightarrow 2 x \in\left(\frac{3 \pi}{2} ; 2 \pi\right) \text { : góc phần tư thứ IV. }<br>$$<br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến. Vậy đáp án $A$ đúng. Chọn $A$.</div>
+                    <div class="sol-body">Có $\displaystyle y=4 \sin \left(x+\frac{\pi}{6}\right) \cos \left(x-\frac{\pi}{6}\right)-\sin 2 x=2\left(\sin 2 x+\sin \frac{\pi}{3}\right)-\sin 2 x=\sqrt{3}+\sin 2 x$.<br>Xét mệnh đề A: Với $\displaystyle x \in\left(0 ; \frac{\pi}{4}\right) \rightarrow 2 x \in\left(0 ; \frac{\pi}{2}\right)$ : góc phần tư thứ I;<br>$$x \in\left(\frac{3 \pi}{4} ; \pi\right) \rightarrow 2 x \in\left(\frac{3 \pi}{2} ; 2 \pi\right) \text { : góc phần tư thứ IV. }$$<br>Ở góc phần tư thứ I và thứ IV hàm số sin đồng biến. Vậy đáp án $A$ đúng. Chọn $A$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1944,7 +1969,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$1+2 \sqrt{3} ; 1+2 \sqrt{5}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$2 \sqrt{3} ; 2 \sqrt{5}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$1-2 \sqrt{3} ; 1+2 \sqrt{5}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$-1+2 \sqrt{3} ;-1+2 \sqrt{5}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Chọn A. Ta có $-1 \leq \cos 3 x \leq 1, \forall x \in \mathbb{R}$<br>$$<br>\begin{aligned}<br>& \Leftrightarrow 3 \leq 4+\cos 3 x \leq 5 \\<br>& \Leftrightarrow \sqrt{3} \leq \sqrt{4+\cos 3 x} \leq \sqrt{5} \\<br>& \Leftrightarrow 1+2 \sqrt{3} \leq 1+2 \sqrt{4+\cos 3 x} \leq 1+2 \sqrt{5} .<br>\end{aligned}<br>$$<br>Do đó<br>- $\max _{\mathbb{R}} y=1+2 \sqrt{5}$, đạt được khi $\displaystyle \cos 3 x=1 \Leftrightarrow 3 x=k 2 \pi \Leftrightarrow x=k \frac{2 \pi}{3} \quad k \in \mathbb{Z}$.<br>- $\min _{\mathbb{R}} y=1+2 \sqrt{3}$, đạt được khi $\displaystyle \cos 3 x=-1 \Leftrightarrow 3 x=\pi+k 2 \pi \Leftrightarrow x=\frac{\pi}{3}+k \frac{2 \pi}{3} \quad k \in \mathbb{Z}$.</div>
+                    <div class="sol-body">Chọn A. Ta có $-1 \leq \cos 3 x \leq 1, \forall x \in \mathbb{R}$<br>$$\begin{aligned}\\& \Leftrightarrow 3 \leq 4+\cos 3 x \leq 5 \\\\& \Leftrightarrow \sqrt{3} \leq \sqrt{4+\cos 3 x} \leq \sqrt{5} \\\\& \Leftrightarrow 1+2 \sqrt{3} \leq 1+2 \sqrt{4+\cos 3 x} \leq 1+2 \sqrt{5} .\\\end{aligned}$$<br>Do đó<br>- $\max _{\mathbb{R}} y=1+2 \sqrt{5}$, đạt được khi $\displaystyle \cos 3 x=1 \Leftrightarrow 3 x=k 2 \pi \Leftrightarrow x=k \frac{2 \pi}{3} \quad k \in \mathbb{Z}$.<br>- $\min _{\mathbb{R}} y=1+2 \sqrt{3}$, đạt được khi $\displaystyle \cos 3 x=-1 \Leftrightarrow 3 x=\pi+k 2 \pi \Leftrightarrow x=\frac{\pi}{3}+k \frac{2 \pi}{3} \quad k \in \mathbb{Z}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1996,7 +2021,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y \leq 2, \forall x \in \mathbb{R}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y \leq \sqrt{2}, \forall x \in \mathbb{R}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y \leq 1, \forall x \in \mathbb{R}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y \leq \frac{1}{2}, \forall x \in \mathbb{R}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Ta có $y=\cos ^{4} x+\sin ^{4} x=(\sin ^{2} x+\cos ^{2} x)^{2}-2 \sin ^{2} x \cos ^{2} x$<br>$$<br>=1-\frac{1}{2} \sin ^{2} 2 x=1-\frac{1}{2} \cdot \frac{1-\cos 4 x}{2}=\frac{3}{4}+\frac{1}{4} \cos 4 x<br>$$<br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{2} \leq \frac{3}{4}+\frac{1}{4} \cos 4 x \leq 1$. Vậy $\displaystyle \frac{1}{2} \leq y \leq 1$. Chọn C.<br>Nhận xét: Từ $\displaystyle y=\cos ^{4} x+\sin ^{4} x=1-\frac{1}{2} \sin ^{2} 2 x$, ta có thể đánh giá thông qua $\sin ^{2} 2 x$.</div>
+                    <div class="sol-body">Ta có $y=\cos ^{4} x+\sin ^{4} x=(\sin ^{2} x+\cos ^{2} x)^{2}-2 \sin ^{2} x \cos ^{2} x$<br>$$=1-\frac{1}{2} \sin ^{2} 2 x=1-\frac{1}{2} \cdot \frac{1-\cos 4 x}{2}=\frac{3}{4}+\frac{1}{4} \cos 4 x$$<br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{2} \leq \frac{3}{4}+\frac{1}{4} \cos 4 x \leq 1$. Vậy $\displaystyle \frac{1}{2} \leq y \leq 1$. Chọn C.<br>Nhận xét: Từ $\displaystyle y=\cos ^{4} x+\sin ^{4} x=1-\frac{1}{2} \sin ^{2} 2 x$, ta có thể đánh giá thông qua $\sin ^{2} 2 x$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2009,7 +2034,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$0 ; 2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \left[\frac{1}{2} ; 1\right]$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left[\frac{1}{4} ; 1\right]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \left[0 ; \frac{1}{4}\right]$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Ta có $y=\sin ^{6} x+\cos ^{6} x=(\sin ^{2} x+\cos ^{2} x)^{3}-3 \sin ^{2} x \cos ^{2} x (\sin ^{2} x+\cos ^{2} x)$<br>$$<br>=1-3 \sin ^{2} x \cos ^{2} x=1-\frac{3}{4} \sin ^{2} 2 x=1-\frac{3}{4} \cdot \frac{1-\cos 4 x}{2}=\frac{5}{8}+\frac{3}{8} \cos 4 x .<br>$$<br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{4} \leq \frac{5}{8}+\frac{3}{8} \cos 4 x \leq 1$. Vậy $\displaystyle \frac{1}{4} \leq y \leq 1$. Chọn C.<br>Nhận xét: Từ $\displaystyle y=\sin ^{6} x+\cos ^{6} x=1-\frac{3}{4} \sin ^{2} 2 x$, ta có thể đánh giá thông qua $\sin ^{2} 2 x$.</div>
+                    <div class="sol-body">Ta có $y=\sin ^{6} x+\cos ^{6} x=(\sin ^{2} x+\cos ^{2} x)^{3}-3 \sin ^{2} x \cos ^{2} x (\sin ^{2} x+\cos ^{2} x)$<br>$$=1-3 \sin ^{2} x \cos ^{2} x=1-\frac{3}{4} \sin ^{2} 2 x=1-\frac{3}{4} \cdot \frac{1-\cos 4 x}{2}=\frac{5}{8}+\frac{3}{8} \cos 4 x .$$<br>Mà $\displaystyle -1 \leq \cos 4 x \leq 1 \longrightarrow \frac{1}{4} \leq \frac{5}{8}+\frac{3}{8} \cos 4 x \leq 1$. Vậy $\displaystyle \frac{1}{4} \leq y \leq 1$. Chọn C.<br>Nhận xét: Từ $\displaystyle y=\sin ^{6} x+\cos ^{6} x=1-\frac{3}{4} \sin ^{2} 2 x$, ta có thể đánh giá thông qua $\sin ^{2} 2 x$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2022,7 +2047,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Áp dụng công thức: $\displaystyle \sin a-\sin b=2 \cos \frac{a+b}{2} \sin \frac{a-b}{2}$, ta có<br>$$<br>\sin \left(x+\frac{\pi}{3}\right)-\sin x=2 \cos \left(x+\frac{\pi}{6}\right) \sin \frac{\pi}{6}=\cos \left(x+\frac{\pi}{6}\right)<br>$$<br>Ta có $\displaystyle -1 \leq \cos \left(x+\frac{\pi}{6}\right) \leq 1$ nên $-1 \leq y \leq 1 \xrightarrow{y \in \mathbb{Z}} y \in-1 ; 0 ; 1$. Chọn C.</div>
+                    <div class="sol-body">Áp dụng công thức: $\displaystyle \sin a-\sin b=2 \cos \frac{a+b}{2} \sin \frac{a-b}{2}$, ta có<br>$$\sin \left(x+\frac{\pi}{3}\right)-\sin x=2 \cos \left(x+\frac{\pi}{6}\right) \sin \frac{\pi}{6}=\cos \left(x+\frac{\pi}{6}\right)$$<br>Ta có $\displaystyle -1 \leq \cos \left(x+\frac{\pi}{6}\right) \leq 1$ nên $-1 \leq y \leq 1 \xrightarrow{y \in \mathbb{Z}} y \in -1 ; 0 ; 1$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2048,7 +2073,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$M=\sqrt{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$M=\sqrt{2}-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$M=\sqrt{2}+2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle M=\frac{7}{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Ta có $\displaystyle y=4 \sin ^{2} x+\sqrt{2} \sin \left(2 x+\frac{\pi}{4}\right)=4\left(\frac{1-\cos 2 x}{2}\right)+\sin 2 x+\cos 2 x$<br>$$<br>=\sin 2 x-\cos 2 x+2=\sqrt{2} \sin \left(2 x-\frac{\pi}{4}\right)+2<br>$$<br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 \longrightarrow-\sqrt{2}+2 \leq \sqrt{2} \sin \left(2 x-\frac{\pi}{4}\right)+2 \leq \sqrt{2}+2$.<br>Vậy giá trị lớn nhất của hàm số là $2+\sqrt{2}$. Chọn C.</div>
+                    <div class="sol-body">Ta có $\displaystyle y=4 \sin ^{2} x+\sqrt{2} \sin \left(2 x+\frac{\pi}{4}\right)=4\left(\frac{1-\cos 2 x}{2}\right)+\sin 2 x+\cos 2 x$<br>$$=\sin 2 x-\cos 2 x+2=\sqrt{2} \sin \left(2 x-\frac{\pi}{4}\right)+2$$<br>Mà $\displaystyle -1 \leq \sin \left(2 x-\frac{\pi}{4}\right) \leq 1 \longrightarrow-\sqrt{2}+2 \leq \sqrt{2} \sin \left(2 x-\frac{\pi}{4}\right)+2 \leq \sqrt{2}+2$.<br>Vậy giá trị lớn nhất của hàm số là $2+\sqrt{2}$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2152,7 +2177,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$2 \sqrt{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">6</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">8</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">• Ta có $y^{2}=1+\cos x+1-\cos x+2 \sqrt{1-\cos ^{2} x}=2+2 \sqrt{1-\cos ^{2} x} \leq 4$.<br><br>Suy ra $y \leq 2$. Dấu " $=$ " xảy ra $\displaystyle \Leftrightarrow \cos x=0 \Leftrightarrow x=\frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$.<br>- Áp dụng bất đẳng thức $\sqrt{a}+\sqrt{b} \geq \sqrt{a+b}$, ta được<br>$$<br>y=\sqrt{1+\cos x}+\sqrt{1-\cos x} \geq \sqrt{1+\cos x+1-\cos x}=\sqrt{2}<br>$$<br>Suy ra $y \geq \sqrt{2}$. Dấu " $=$ " xảy ra $\Leftrightarrow \cos x= \pm 1 \Leftrightarrow x=\ell \pi \quad \ell \in \mathbb{Z}$.<br>Vậy $\sqrt{2} \leq y \leq 2 \Rightarrow\left\{\begin{array}{l}m=\sqrt{2} \\ M=2\end{array} \Rightarrow m^{2}+M^{2}=6\right.$. Chọn C.</div>
+                    <div class="sol-body">• Ta có $y^{2}=1+\cos x+1-\cos x+2 \sqrt{1-\cos ^{2} x}=2+2 \sqrt{1-\cos ^{2} x} \leq 4$.<br><br>Suy ra $y \leq 2$. Dấu " $=$ " xảy ra $\displaystyle \Leftrightarrow \cos x=0 \Leftrightarrow x=\frac{\pi}{2}+k \pi \quad k \in \mathbb{Z}$.<br>- Áp dụng bất đẳng thức $\sqrt{a}+\sqrt{b} \geq \sqrt{a+b}$, ta được<br>$$y=\sqrt{1+\cos x}+\sqrt{1-\cos x} \geq \sqrt{1+\cos x+1-\cos x}=\sqrt{2}$$<br>Suy ra $y \geq \sqrt{2}$. Dấu " $=$ " xảy ra $\Leftrightarrow \cos x= \pm 1 \Leftrightarrow x=\ell \pi \quad \ell \in \mathbb{Z}$.<br>Vậy $\sqrt{2} \leq y \leq 2 \Rightarrow\left\{\begin{array}{l}m=\sqrt{2} \\ M=2\end{array}\right. \Rightarrow m^{2}+M^{2}=6$. Chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2165,7 +2190,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$t=13$ (giờ)</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$t=14$ (giờ)</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$t=15$ (giờ)</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$t=16$ (giờ)</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Chọn B. Mực nước của con kênh cao nhất khi $h$ lớn nhất<br>$$<br>\Leftrightarrow \cos \left(\frac{\pi t}{8}+\frac{\pi}{4}\right)=1 \Leftrightarrow \frac{\pi t}{8}+\frac{\pi}{4}=k 2 \pi \text { với } 0&lt;t \leq 24 \text { và } k \in \mathbb{Z} \text {. }<br>$$<br>Lần lượt thay các đáp án, ta được đáp án B thỏa mãn. Vì với $t=14$, ta thu được phương trình $\displaystyle \frac{\pi \cdot 14}{8}+\frac{\pi}{4}=k 2 \pi$ : đúng với $k=1 \in \mathbb{Z}$.</div>
+                    <div class="sol-body">Chọn B. Mực nước của con kênh cao nhất khi $h$ lớn nhất<br>$$\Leftrightarrow \cos \left(\frac{\pi t}{8}+\frac{\pi}{4}\right)=1 \Leftrightarrow \frac{\pi t}{8}+\frac{\pi}{4}=k 2 \pi \text { với } 0&lt;t \leq 24 \text { và } k \in \mathbb{Z} \text {. }$$<br>Lần lượt thay các đáp án, ta được đáp án B thỏa mãn. Vì với $t=14$, ta thu được phương trình $\displaystyle \frac{\pi \cdot 14}{8}+\frac{\pi}{4}=k 2 \pi$ : đúng với $k=1 \in \mathbb{Z}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -2470,9 +2495,7 @@
 <br>
 <p class="theory-text">Tức là đồng biến mỗi khoảng $\displaystyle \left(-\frac{\pi}{2}+k 2 \pi ; \frac{\pi}{2}+k 2 \pi\right)$, nghịch biến trên mỗi khoảng</p>
 <br>
-<p class="theory-text">$$</p>
-<p class="theory-text">\left(\frac{\pi}{2}+k 2 \pi ; \frac{3 \pi}{2}+k 2 \pi\right), k \in Z</p>
-<p class="theory-text">$$</p>
+<p class="theory-text">$$\left(\frac{\pi}{2}+k 2 \pi ; \frac{3 \pi}{2}+k 2 \pi\right), k \in Z$$</p>
 <br>
 <div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361638/chuyende_05/yceaorey3ftfixayuem7.jpg" alt="Math Image" style="max-width: 100%; height: auto;"></div>
 <br>
@@ -2506,9 +2529,7 @@
 <br>
 <p class="theory-text">Bước 2. Ở phạm vi bảng, nhập như hình</p>
 <br>
-<p class="theory-text">$$</p>
-<p class="theory-text">f(x) = \sin x + \cos x</p>
-<p class="theory-text">$$</p>
+<p class="theory-text">$$f(x) = \sin x + \cos x$$</p>
 <br>
 <div class="img-wrap"><img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1779361642/chuyende_05/zmcoskuofyhghx6kdnvl.jpg" alt="Math Image" style="max-width: 100%; height: auto;"></div>
 <br>
