@@ -110,7 +110,7 @@ D. $a<0, b>0, c>0$.
 Dựa vào đồ thị, nhận thấy:
 
 * Đồ thị hàm số là một parabol có bề lõm quay xuống dưới nên $a<0$.
-* Đồ thị cắt trục tung tại tung độ bằng ${ }^{c}$ nên $c>0$.
+* Đồ thị cắt trục tung tại tung độ bằng $c$ nên $c>0$.
 * Đồ thị cắt trục hoành tại hai điểm có hoành độ $x_{1}=-1$ và $x_{2}=3$ nên $x_{1}, x_{2}$ là hai nghiệm của phương trình $a x^{2}+b x+c=0$ mà theo Vi-et $x_{1}+x_{2}=-\frac{b}{a}=2 \Leftrightarrow b=-2 a \Rightarrow b>0$.
 * Vậy $a<0, b>0, c>0$.
 
@@ -150,7 +150,7 @@ Vậy parabol cần tìm là: $y=2 x^{2}-4 x-1$.
 Câu 6. Cho parabol $(P): y=a x^{2}+b x+c,(a \neq 0)$ có đồ thị như hình bên. Khi đó $2 a+b+2 c$ có giá trị là
 ![](https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-07.jpg?height=519&width=469&top_left_y=777&top_left_x=814)
 A. -9 .
-B. ${ }^{9}$.
+B. 9.
 c. -6 .
 D. 6 .
 
@@ -191,7 +191,7 @@ D. $y=-x^{2}-4 x$.
 ## Chọn B
 
 Dựa vào BBT ta thấy:
-Parabol có bề lõm quay lên trên nên hệ số $a<0 \Rightarrow$ Loại $\mathbf{A}$.
+Parabol có nhánh cuối đi xuống nên $a<0 \Rightarrow$ Loại $\mathbf{A}$.
 Parabol có đỉnh $I(-2 ;-4)$ nên thay $x=-2 ; y=-4$ vào các đáp án B, C, D.
 Nhận thấy chỉ có đáp án B thỏa mãn.
 
@@ -253,7 +253,7 @@ Suy ra hàm số $y=\frac{2}{x^{2}-5 x+9}$ có giá trị lớn nhất là $\fra
 ## Dành cho học sinh trung bình
 
 Câu 13. Cho parabol $(P): y=3 x^{2}-2 x+1$. Điểm nào sau đây là đỉnh của $(P)$ ?
-A. ${ }^{I(0 ; 1)}$.
+A. $I(0 ; 1)$.
 B. $I\left(\frac{1}{3} ; \frac{2}{3}\right)$.
 C. $I\left(-\frac{1}{3} ; \frac{2}{3}\right)$.
 D. $I\left(\frac{1}{3} ;-\frac{2}{3}\right)$.
@@ -262,7 +262,7 @@ D. $I\left(\frac{1}{3} ;-\frac{2}{3}\right)$.
 
 ## Chọn B
 
-Hoành độ đỉnh của $(P): y=3 x^{2}-2 x+1 \quad x=-\frac{b}{2 a}=\frac{1}{3} \Rightarrow y=3\left(\frac{1}{3}\right)^{2}-2 \cdot \frac{1}{3}+1=\frac{2}{3}$.
+Hoành độ đỉnh của $(P): y=3 x^{2}-2 x+1 \Rightarrow x=-\frac{b}{2 a}=\frac{1}{3} \Rightarrow y=3\left(\frac{1}{3}\right)^{2}-2 \cdot \frac{1}{3}+1=\frac{2}{3}$.
 Vậy $I\left(\frac{1}{3} ; \frac{2}{3}\right)$.
 Câu 14. Trục đối xứng của đồ thị hàm số $y=a x^{2}+b x+c,(a \neq 0)$ là đường thẳng nào dưới đây?
 A. $x=-\frac{b}{2 a}$.
@@ -273,6 +273,8 @@ D. Không có.
 ## Lời giải
 
 ## Chọn A
+
+Trục đối xứng của đồ thị hàm số bậc hai $y = ax^2+bx+c$ ($a \neq 0$) là đường thẳng có phương trình $\displaystyle x = -\frac{b}{2a}$.
 
 Câu 15. Điểm $I(-2 ; 1)$ là đỉnh của Parabol nào sau đây?
 A. $y=x^{2}+4 x+5$.
@@ -311,7 +313,7 @@ D. $\frac{1}{2}$.
 
 ## Chọn C
 
-Theo giả thiết ta có hệ: $\left\{\begin{array}{l}a-b+c=0 \\ -\frac{b}{2 a}=1 \\ a+b+c=2\end{array}\right.$ với $a \neq 0$ ∴ $\left\{\begin{array}{l}a-b+c=0 \\ b=-2 a \\ a+b+c=2\end{array} \Leftrightarrow\left\{\begin{array}{l}b=1 \\ a=-\frac{1}{2} \\ c=\frac{3}{2}\end{array}\right.\right.$
+Theo giả thiết ta có hệ: $\left\{\begin{array}{l}a-b+c=0 \\ -\frac{b}{2 a}=1 \\ a+b+c=2\end{array}\right.$ với $a \neq 0 \Rightarrow \left\{\begin{array}{l}a-b+c=0 \\ b=-2 a \\ a+b+c=2\end{array} \Leftrightarrow\left\{\begin{array}{l}b=1 \\ a=-\frac{1}{2} \\ c=\frac{3}{2}\end{array}\right.\right.$
 Vậy hàm bậc hai cần tìm là $y=-\frac{1}{2} x^{2}+x+\frac{3}{2}$
 Câu 18. Biết đồ thị hàm số $y=a x^{2}+b x+c,(a, b, c \in \mathbb{R} ; a \neq 0)$ đi qua điểm $A(2 ; 1)$ và có đỉnh $I(1 ;-1)$. Tính giá trị biểu thức $T=a^{3}+b^{2}-2 c$.
 A. $T=22$.
@@ -323,7 +325,7 @@ D. $T=1$.
 
 ## Chọn A
 
-Đồ thị hàm số $y=\mathrm{ax}^{2}+b x+c$ đi qua điểm $A(2 ; 1)$ và có đỉnh $I(1 ;-1)$ nên có hệ phương trình
+Đồ thị hàm số $y=ax^{2}+b x+c$ đi qua điểm $A(2 ; 1)$ và có đỉnh $I(1 ;-1)$ nên có hệ phương trình
 $\left\{\begin{array}{l}4 a+2 b+c=1 \\ -\frac{b}{2 a}=1 \\ a+b+c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}4 a+2 b+c=1 \\ b=-2 a \\ a+b+c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}c=1 \\ b=-2 a \\ -a+c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}c=1 \\ b=-4 \\ a=2\end{array}\right.\right.\right.\right.$
 Vậy $T=a^{3}+b^{2}-2 c=22$.
 Câu 19. Cho hàm số $y=a x^{2}+b x+c(a \neq 0)$ có đồ thị ( P ). Biết đồ thị của hàm số có đỉnh $I(1 ; 1)$ và đi qua điểm $A(2 ; 3)$. Tính tổng $S=a^{2}+b^{2}+c^{2}$
@@ -379,9 +381,9 @@ D. $(P): y=-\frac{1}{4} x^{2}+2 x-1$
 
 ## Chọn C
 
-Parabol $(P): y=a x^{2}+b x+c \longrightarrow$ đinh $I\left(-\frac{b}{2 a} ; c-\frac{b^{2}}{4 a}\right)$
+Parabol $(P): y=a x^{2}+b x+c \longrightarrow$ đỉnh $I\left(-\frac{b}{2 a} ; c-\frac{b^{2}}{4 a}\right)$
 
-Theo bài ra, ta có (P) có đỉnh
+Theo bài ra, ta có (P) đỉnh
 
 $$
 I(2 ; 0) \Rightarrow\left\{\begin{array} { l } 
@@ -409,7 +411,7 @@ D. -2 .
 Khi $m \neq 0$ thì $(P): y=m x^{2}+2 m x+m^{2}+2 m$ có đỉnh là $I\left(-\frac{b}{2 a} ;-\frac{\Delta}{4 a}\right) \Rightarrow I\left(-1 ; m^{2}+m\right)$
 Vì đỉnh nằm trên đường thẳng $y=x+7$ nên
 $m^{2}+m=-1+7 \Leftrightarrow m^{2}+m-6=0 \Leftrightarrow\left[\begin{array}{l}m=2 \\ m=-3\end{array}(T M)\right.$
-Vậy tổng các giá trị của tập $S:^{2+(-3)=-1}$.
+Vậy tổng các giá trị của tập $S: 2+(-3)=-1$.
 Câu 23. Xác định hàm số $y=a x^{2}+b x+c$ biết đồ thị của nó có đỉnh $I\left(\frac{3}{2} ; \frac{1}{4}\right)$ và cắt trục hoành tại điểm có hoành độ bằng 2 .
 A. $y=-x^{2}+3 x+2$.
 B. $y=-x^{2}-3 x-2$.
@@ -420,16 +422,15 @@ D. $y=-x^{2}+3 x-2$.
 
 ## Chọn D
 
-. Do đồ thị của nó có đỉnh $I\left(\frac{3}{2} ; \frac{1}{4}\right)$ và cắt trụ hoành tại điểm có hoành độ bằng 2 nên ta có $\left\{\begin{array}{l}\frac{-b}{2 a}=\frac{3}{2} \\ \frac{9}{4} a+\frac{3}{2} b+c=\frac{1}{4} \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}3 a+b=0 \\ 9 a+6 b+4 c=1 \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}a=-1 \\ b=3 \\ c=-2\end{array}\right.\right.\right.$
+Do đồ thị của nó có đỉnh $I\left(\frac{3}{2} ; \frac{1}{4}\right)$ và cắt trục hoành tại điểm có hoành độ bằng 2 nên ta có $\left\{\begin{array}{l}\frac{-b}{2 a}=\frac{3}{2} \\ \frac{9}{4} a+\frac{3}{2} b+c=\frac{1}{4} \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}3 a+b=0 \\ 9 a+6 b+4 c=1 \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}a=-1 \\ b=3 \\ c=-2\end{array}\right.\right.\right.$
 
 Vậy $y=-x^{2}+3 x-2$
-Câu 24. Hàm số bậc hai nào sau đây có đồ thị là parabol có đỉnh là $S\left(\frac{5}{2} ; \frac{1}{2}\right)$ và đi qua $A(1 ;-4)_{\text {? }}$
+Câu 24. Hàm số bậc hai nào sau đây có đồ thị là parabol có đỉnh là $S\left(\frac{5}{2} ; \frac{1}{2}\right)$ và đi qua $A(1 ;-4)$?
 A. $y=-x^{2}+5 x-8$.
 B. $y=-2 x^{2}+10 x-12$.
 C. $y=x^{2}-5 x$.
 D. $y=-2 x^{2}+5 x+\frac{1}{2}$.
 
-Lời giải
 ## Lời giải
 
 ## Chọn B
@@ -513,7 +514,7 @@ $b+d=-15$
 
 ## Dành cho học sinh khá giỏi
 
-Câu 29. Cho hai parabol có phương trình $y=x^{2}+x+1$ và $y=2 x^{2}-x-2$. Biết hai parabol cắt nhau tại hai điểm $A$ và $B$ ( ${ }^{x_{A}<x_{B}}$ ). Tính độ dài đoạn thẳng $A B$.
+Câu 29. Cho hai parabol có phương trình $y=x^{2}+x+1$ và $y=2 x^{2}-x-2$. Biết hai parabol cắt nhau tại hai điểm $A$ và $B$ ( $x_{A}<x_{B}$ ). Tính độ dài đoạn thẳng $A B$.
 A. $A B=4 \sqrt{2}$
 B. $A B=2 \sqrt{26}$
 C. $A B=4 \sqrt{10}$
@@ -538,7 +539,7 @@ D. $m>1$.
 ## Chọn D
 
 $x^{2}+2 x+m=0 \Leftrightarrow x^{2}+2 x-1=-m-1 \quad\left({ }^{*}\right)$
-Số nghiệm của phương trình ${ }^{(*)}$ chính là số giao điểm của parabol $y=x^{2}+2 x+1$ và đường thẳng $y=-m-1$.
+Số nghiệm của phương trình ${ }^{(*)}$ chính là số giao điểm của parabol $y=x^{2}+2 x-1$ và đường thẳng $y=-m-1$.
 
 Ycbt $\Rightarrow m>1$.
 
@@ -575,7 +576,7 @@ D. $m \in(0 ; 28)$.
 
 ## Chọn D
 
-Bất phương trình vô nghiệm khi và chỉ khi $(m+2)^{2}-4(8 m+1)<0 \Leftrightarrow m^{2}-28 m<0 \quad 0<m<28$ -
+Bất phương trình vô nghiệm khi và chỉ khi $(m+2)^{2}-4(8 m+1)<0 \Leftrightarrow m^{2}-28 m<0 \Leftrightarrow 0<m<28$.
 
 ## Dành cho học sinh trung bình
 
@@ -624,7 +625,7 @@ $\Leftrightarrow m^{2}-6 m-27<0 \Leftrightarrow-3<m<9$.
 Câu 35. Tìm $m$ để $f(x)=m x^{2}-2(m-1) x+4 m$ luôn luôn âm
 A. $\left(-1 ; \frac{1}{3}\right)$.
 B. $(-\infty ;-1) \cup\left(\frac{1}{3} ;+\infty\right)$
-.c. $(-\infty ;-1)$.
+C. $(-\infty ;-1)$.
 D. $\left(\frac{1}{3} ;+\infty\right)$.
 
 ## Lời giải
@@ -677,7 +678,7 @@ D. $\{-1 ; 2\}$.
 
 Điều kiện: $x \geq 1$.
 $\left(x^{2}-x-2\right) \cdot \sqrt{x-1}=0 \Leftrightarrow\left[\begin{array}{l}x^{2}-x-2=0 \\ \sqrt{x-1}=0\end{array} \Leftrightarrow\left[\begin{array}{l}x=-1 \\ x=2 \\ x=1\end{array}\right.\right.$
-So sánh điều kiện kết luận phương trình có nghiệm $x=1 ; x=2$.
+So sánh điều kiện, kết luận phương trình có nghiệm $x=1 ; x=2$.
 
 ## Dành cho học sinh khá giỏi
 
@@ -705,7 +706,7 @@ $$
 
 - PT $\Leftrightarrow \sqrt{3 x+1}=1+\sqrt{2-x} \Leftrightarrow[\sqrt{3 x+1}]^{2}=[1+\sqrt{2-x}]^{2} \Leftrightarrow 3 x+1=1+2 \sqrt{2-x}+2-x$
 $\Leftrightarrow 2 \sqrt{2-x}=4 x-2 \Leftrightarrow \sqrt{2-x}=2 x-1 \Leftrightarrow\left\{\begin{array}{l}2 x-1 \geq 0 \\ 2-x=(2 x-1)^{2}\end{array} \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ 2-x=4 x^{2}-4 x+1\end{array}\right.\right.$
-$\Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ 4 x^{2}-3 x-1=0\end{array}\left\{\begin{array}{l}x \geq \frac{1}{2} \\ {\left[\begin{array}{l}x=1 \\ x=-\frac{1}{4}\end{array} \Leftrightarrow x=1 \text { (thỏa mãn điều kiện). }\right.}\end{array}\right.\right.$
+$\Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ 4 x^{2}-3 x-1=0\end{array}\right. \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ {\left[\begin{array}{l}x=1 \\ x=-\frac{1}{4}\end{array} \Leftrightarrow x=1 \text { (thỏa mãn điều kiện). }\right.}\end{array}\right.$
 Vậy phương trình đã cho có một nghiệm $x=1$.
 
 Câu 40. Số nghiệm nguyên của phương trình sau $\sqrt{x+3}-\sqrt{2 x-1}=1$ là:
@@ -729,11 +730,10 @@ $$
 \end{aligned} \Leftrightarrow\left\{\begin{array}{l}
 -x+3 \geq 0 \\
 4(2 x-1)=(-x+3)^{2}
-\end{array}{ }_{\Leftrightarrow\left\{\begin{array}{l}
+\end{array}\right. \Leftrightarrow\left\{\begin{array}{l}
 x \leq 3 \\
 x^{2}-14 x+13=0 \Leftrightarrow x=1
-\end{array}\right.}\right.
+\end{array}\right.
 $$
 
 Vậy số nghiệm nguyên của phương trình là 1 .
-

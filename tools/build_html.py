@@ -253,7 +253,7 @@ def parse_markdown(md_content, title="Chuyên đề"):
             correct_ans = ""
             
             # Cải tiến 1: Tìm cụm từ rõ ràng nhất trước
-            ans_match = re.search(r'(?im)(?:Chọn|Đáp án|Chọn đáp án|=>|Vậy chọn|Do đó chọn)\s*[:\s]*[\$\\\{\}\*\_a-zA-Z]*(?:\bmathbf\b|\bmathrm\b|\bunderline\b)?[\{\\\s]*([A-Da-d])[\}]?[\$\\\{\}\*\_]*', raw_q_text)
+            ans_match = re.search(r'(?im)(?:Chọn|Đáp án|Chọn đáp án|=>|Vậy chọn|Do đó chọn)[ \t]*[: \t]*[\$\\\{\}\*\_a-zA-Z]*(?:\bmathbf\b|\bmathrm\b|\bunderline\b)?[\{\\ \t]*([A-Da-d])[\}]?[\$\\\{\}\*\_]*', raw_q_text)
             
             if not ans_match:
                 # Cải tiến 2: Tìm chữ cái A,B,C,D đứng độc lập ở cuối câu với các dấu chấm, phẩy
