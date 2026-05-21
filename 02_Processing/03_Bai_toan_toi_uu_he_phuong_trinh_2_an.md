@@ -274,7 +274,7 @@ Ta có các điều kiện ràng buộc đối với lượng thịt bò $x$ (kg
 * Lượng lipit: $200x + 400y \geq 400 \Leftrightarrow x + 2y \geq 2$
 
 Ta được hệ bất phương trình:
-$$\left\{\begin{array//l}0 \leq x \leq 1,6 \\ 0 \leq y \leq 1,1 \\ 8 x+6 y \geq 9 \\ x+2 y \geq 2\end{array}\right.$$
+$$\left\{\begin{array}{l}0 \leq x \leq 1,6 \\ 0 \leq y \leq 1,1 \\ 8 x+6 y \geq 9 \\ x+2 y \geq 2\end{array}\right.$$
 
 Tổng số tiền chi tiêu là $T = 160x + 110y$ (nghìn đồng).
 
