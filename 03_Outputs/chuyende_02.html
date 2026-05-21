@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên đề: Xác suất cổ điển</title>
+    <title>Chuyên đề 2 - Xác suất cổ điển</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -95,7 +95,8 @@
         
         .q-number {
             position: absolute;
-            top: -14px;
+            top: 0;
+            transform: translateY(-50%);
             left: 24px;
             background: #F7C800;
             color: #003B99;
@@ -161,9 +162,15 @@
             .q-content { font-size: 17px; }
         }
 
+        /* Quy tắc: Công thức toán phải đi cùng nhau, không được bẻ giữa chừng */
+        .katex {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
         .option {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             background: #f8fafc;
             border: 1.5px solid #e2e8f0;
             border-radius: 12px;
@@ -173,6 +180,7 @@
             transition: all .2s ease;
             cursor: pointer;
             position: relative;
+            text-align: left;
         }
 
         .option:hover:not(.answered) {
@@ -241,7 +249,7 @@
             font-size: 15px;
             line-height: 1.7;
             color: #475569;
-            animation: slideUp 0.4s ease;
+            animation: fadeIn 0.3s ease;
         }
 
         .solution.show { display: block; }
@@ -296,29 +304,35 @@
         }
         .level-header.visible { display: block; }
 
-        /* Modal Lý thuyết */
+        /* Modal Lý thuyết - Modern Flat Style */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(15,23,42,0.8); backdrop-filter: blur(8px);
             display: none; align-items: center; justify-content: center; z-index: 1000;
         }
+
         .modal-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
-        .modal-content {
-            background: #fff; width: 92%; max-width: 700px; max-height: 85vh;
-            border-radius: 24px; overflow-y: auto; position: relative;
-            padding: 40px 24px; border: 4px solid var(--dark-blue);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+
+                .modal-content {
+            background: #fff; width: 92%; max-width: 800px; max-height: 85vh;
+            border-radius: 20px; overflow-y: auto; position: relative;
+            padding: 40px 32px; border: none;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            font-family: 'Manrope', sans-serif;
         }
+
         .modal-close {
-            position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none;
+            position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none;
             width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 24px; 
             color: var(--text-dim); display: flex; align-items: center; justify-content: center;
             transition: all 0.2s;
         }
+
         .modal-close:hover { background: var(--incorrect); color: #fff; }
+
 
         /* Floating Buttons */
         .fab-container {
-            position: fixed; bottom: 85px; right: 20px; z-index: 200;
+            position: fixed; bottom: 25px; right: 20px; z-index: 200;
             display: flex; flex-direction: column; gap: 12px;
         }
         .fab {
@@ -610,191 +624,103 @@
         }
     }
 
+    
     .theory-header { text-align: center; margin-bottom: 30px; position: relative; }
+
     .theory-badge {
-        display: inline-block;
-        background: var(--yellow);
-        color: var(--dark-blue);
-        padding: 6px 16px;
-        border-radius: 99px;
-        font-family: 'Manrope';
-        font-weight: 800;
-        font-size: 11px;
-        letter-spacing: 1px;
-        margin-bottom: 12px;
+        display: inline-block; background: var(--primary-soft, #dbeafe); color: var(--primary-blue, #2563eb);
+        padding: 6px 16px; border-radius: 99px; font-weight: 800; font-size: 11px;
+        letter-spacing: 1px; margin-bottom: 12px;
     }
+
     .theory-main-title {
-        font-family: 'Manrope';
-        font-weight: 900;
-        font-size: 28px;
-        color: var(--dark-blue);
-        margin: 0;
+        font-family: 'Unbounded'; font-weight: 900; font-size: 28px;
+        color: var(--text-main, #0F172A); margin: 0;
     }
+
     .theory-line {
-        width: 60px;
-        height: 4px;
-        background: var(--yellow);
-        margin: 15px auto 0;
-        border-radius: 2px;
+        width: 60px; height: 4px; background: var(--primary-blue, #2563eb);
+        margin: 15px auto 0; border-radius: 2px;
     }
 
     .theory-h2 {
-        font-family: 'Manrope';
-        font-weight: 800;
-        font-size: 18px;
-        color: var(--dark-blue);
-        margin: 32px 0 16px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        font-family: 'Unbounded'; font-weight: 800; font-size: 18px;
+        color: var(--primary-blue, #2563eb); margin: 32px 0 16px;
+        display: flex; align-items: center; gap: 12px;
+        text-transform: uppercase; letter-spacing: 0.5px;
     }
+
     .theory-h2::before {
-        content: "";
-        width: 12px;
-        height: 12px;
-        background: var(--yellow);
-        border-radius: 3px;
+        content: ""; width: 8px; height: 8px;
+        background: var(--orange, #FF7800); border-radius: 2px;
         transform: rotate(45deg);
     }
 
     .theory-item {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 12px;
-        align-items: flex-start;
+        display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
     }
+
     .theory-bullet {
-        width: 6px;
-        height: 6px;
-        background: var(--light-blue);
-        border-radius: 50%;
-        margin-top: 10px;
-        flex-shrink: 0;
+        width: 6px; height: 6px; background: var(--orange, #FF7800);
+        border-radius: 50%; margin-top: 10px; flex-shrink: 0;
     }
 
     .theory-box {
-        padding: 20px;
-        border-radius: 20px;
-        margin: 24px 0;
-        position: relative;
-        border: 2px solid transparent;
+        padding: 20px; border-radius: 16px; margin: 24px 0;
+        background: #f8fafc; border-left: 4px solid var(--primary-blue, #2563eb);
     }
-    .theory-box.note {
-        background: #f0f7ff;
-        border-color: var(--light-blue);
-    }
-    .theory-box.warning {
-        background: #fff9e6;
-        border-color: var(--yellow);
-    }
+
     .theory-box-title {
-        font-family: 'Manrope';
-        font-weight: 800;
-        font-size: 12px;
-        margin-bottom: 12px;
-        color: var(--dark-blue);
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        font-family: 'Unbounded'; font-weight: 800; font-size: 12px;
+        margin-bottom: 12px; color: var(--primary-blue, #2563eb);
     }
 
-    .theory-mini-card {
-        background: white;
-        padding: 10px;
-        border-radius: 12px;
-        font-size: 13px;
-        text-align: center;
-        border: 1px solid #e2e8f0;
-        font-weight: 600;
-    }
-
-    .theory-formula-card {
-        background: var(--dark-blue);
-        color: white;
-        padding: 24px;
-        border-radius: 24px;
-        text-align: center;
-        margin: 24px 0;
-        box-shadow: 0 10px 20px rgba(0,59,153,0.2);
-    }
-    .formula-label {
-        font-family: 'Manrope';
-        font-weight: 700;
-        font-size: 10px;
-        color: var(--yellow);
-        margin-bottom: 12px;
-        letter-spacing: 1px;
-    }
-    .formula-content { font-size: 22px; font-weight: 700; }
-    
-    /* Nút truy cập nhanh bên trái (Hình tròn đồng bộ) */
-    .quick-level-toggle {
-        position: fixed;
-        left: 20px;
-        bottom: 25px;
-        width: 56px;
-        height: 56px;
-        background: var(--primary-blue);
-        color: white;
-        border-radius: 50%;
-        cursor: pointer;
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Manrope';
-        font-size: 9px;
-        font-weight: 800;
-        box-shadow: 0 4px 16px rgba(0,64,190,0.3);
-        transition: all 0.3s;
-        border: none;
-        text-align: center;
-    }
-    .quick-level-toggle:hover {
-        background: var(--dark-blue);
-        transform: scale(1.08);
-        box-shadow: 0 6px 20px rgba(0,64,190,0.4);
-    }
-
-    @media (max-width: 768px) {
-        .quick-level-toggle { left: 15px; bottom: 20px; width: 50px; height: 50px; font-size: 8px; }
-    }
-
-    /* Nút Lý Thuyết (Đồng bộ hình tròn) */
-    .fab-container {
-        position: fixed;
-        right: 20px;
-        bottom: 25px;
-        z-index: 1000;
-    }
-    .fab {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        border: none;
-        background: var(--primary-blue);
-        color: white;
-        font-size: 24px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 16px rgba(0,64,190,0.3);
-        transition: all 0.3s;
-    }
-    .fab:hover { transform: scale(1.08); background: var(--dark-blue); box-shadow: 0 6px 20px rgba(0,64,190,0.4); }
-
-    @media (max-width: 768px) {
-        .fab-container { right: 15px; bottom: 20px; }
-        .fab { width: 50px; height: 50px; font-size: 20px; }
+    .theory-note {
+        padding: 20px 24px; border-radius: 16px; margin: 24px 0;
+        background: #fffbeb; border: 2px solid #fde68a;
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
     }
     
-    .theory-text {
-        font-size: 15px;
-        line-height: 1.7;
-        color: #334155;
+    .theory-note-title {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 14px;
+        color: #d97706; margin-bottom: 12px;
+        display: flex; align-items: center; gap: 8px;
+        text-transform: uppercase; letter-spacing: 0.5px;
     }
+    
+    .theory-note-title::before {
+        content: "💡"; font-size: 18px;
+    }
+    
+    .theory-note .theory-text, .theory-note .theory-item {
+        color: #92400e; margin-bottom: 10px;
+    }
+    
+    .theory-note .theory-bullet {
+        background: #d97706;
+    }
+
+    .theory-table {
+        width: 100%; border-collapse: separate; border-spacing: 0;
+        margin: 24px 0; border-radius: 12px; overflow: hidden;
+        border: 1px solid var(--border, #e2e8f0);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .theory-table th {
+        background: #f8fafc; color: var(--text-main, #1e293b); font-weight: 800;
+        padding: 16px; text-align: left; border-bottom: 2px solid var(--border, #e2e8f0);
+    }
+
+    .theory-table td {
+        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0);
+        background: #fff;
+    }
+
+    .theory-table tr:last-child td { border-bottom: none; }
+    
+    .theory-text { font-size: 16px; line-height: 1.8; color: #334155; }
+
 
     /* Screen reader only */
     .sr-only {
@@ -806,15 +732,14 @@
 
     /* Score chip — góc phải trên */
     .score-chip {
-        position: fixed; top: 18px; right: 20px;
-        background: rgba(255,255,255,0.95); color: var(--dark-blue);
+        position: fixed; top: 23px; right: 20px;
+        background: rgba(255,255,255,0.98); color: var(--dark-blue);
         border: none;
         border-radius: 12px; padding: 6px 14px;
         font-family: 'Manrope', sans-serif; font-weight: 800;
         text-align: center; z-index: 200;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         min-width: 70px;
-        backdrop-filter: blur(10px);
     }
     @media (max-width: 768px) {
         .score-chip { top: 60px; right: 12px; padding: 4px 10px; min-width: 56px; }
@@ -852,6 +777,32 @@
         font-family: 'Manrope', sans-serif; font-weight: 700;
         font-size: 16px; color: var(--text-main); margin: 16px 0 24px;
     }
+
+    /* Quick Level Toggle Button (Menu) */
+    .quick-level-toggle {
+        position: fixed;
+        left: 20px;
+        bottom: 25px;
+        width: 56px;
+        height: 56px;
+        background: var(--primary-blue, #2563eb);
+        color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+        border: 2px solid white;
+        transition: all 0.2s;
+    }
+    .quick-level-toggle:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37,99,235,0.4);
+    }
+
 </style>
 </head>
 <body>
@@ -884,14 +835,13 @@
 
                 <div class="cover-middle">
                     <h1 class="cover-title">
-                        Xác suất Cổ điển
-                        <span class="cover-subject">Toán 10</span>
+                        Chuyên đề 2 - Xác suất cổ điển
+                        <span class="cover-subject">Đại số - Giải tích</span>
                     </h1>
                     <p class="cover-subtitle">
-                        Học sâu, hiểu kỹ các khái niệm cốt lõi: Không gian mẫu, biến cố và các phương pháp tính xác suất thực tế.
+                        Nắm vững lý thuyết, thành thạo bài tập phân mức Cơ bản và Nâng cao.
                     </p>
                     <div class="cover-badges">
-                        <span class="cover-badge">CHUYÊN ĐỀ 02</span>
                         <span class="cover-badge" style="cursor:pointer;" onclick="document.getElementById('levelPopup').classList.add('show')">CƠ BẢN & NÂNG CAO ▼</span>
                     </div>
                 </div>
@@ -906,14 +856,14 @@
         </div>
 <h2 class="level-header">Dành cho học sinh trung bình</h2>
             <div class="slide" data-i="1" id="slide-1">
-            <div class="question-card" data-correct="D" data-level="tb">
+            <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 1</div>
                 <div class="q-content">Gieo một xúc xắc một lần. Biến cố nào sau đây là biến cố không?</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> Số chấm ở mặt xuất hiện là số nguyên</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> Số chấm ở mặt xuất hiện là số tự nhiên</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> Số chấm ở mặt xuất hiện là số nguyên tố</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> Số chấm ở mặt xuất hiện lớn hơn 7</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Số chấm ở mặt xuất hiện là số nguyên</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Số chấm ở mặt xuất hiện là số tự nhiên</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Số chấm ở mặt xuất hiện là số nguyên tố</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Số chấm ở mặt xuất hiện lớn hơn 7</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Khi gieo một xúc xắc, số chấm xuất hiện chỉ có thể là một trong các giá trị $1, 2, 3, 4, 5, 6$.<br><br>- Đáp án A, B đúng vì các số $1$–$6$ đều là số nguyên và là số tự nhiên → biến cố chắc chắn.<br>- Đáp án C có thể xảy ra khi xuất hiện $2, 3, 5$ → biến cố ngẫu nhiên.<br>- Đáp án D: không có mặt nào lớn hơn $7$ ⇒ biến cố này không bao giờ xảy ra, đó là <strong>biến cố không thể</strong>.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                    <div class="sol-body">Khi gieo một xúc xắc, số chấm xuất hiện chỉ có thể là một trong các giá trị $1, 2, 3, 4, 5, 6$.<br>- Đáp án A, B đúng vì các số $1$–$6$ đều là số nguyên và là số tự nhiên → biến cố chắc chắn.<br>- Đáp án C có thể xảy ra khi xuất hiện $2, 3, 5$ → biến cố ngẫu nhiên.<br>- Đáp án D: không có mặt nào lớn hơn $7$ ⇒ biến cố này không bao giờ xảy ra, đó là biến cố không thể.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
             </div>
@@ -922,10 +872,10 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 2</div>
                 <div class="q-content">Gieo một xúc xắc hai lần liên tiếp. Biến cố nào sau đây là biến cố chắc chắn?</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> Tổng số chấm ở hai lần gieo là 12</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> Tổng số chấm ở hai lần gieo không vượt quá 12</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> Tổng số chấm ở hai lần gieo là số nguyên tố</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> Tổng số chấm ở hai lần gieo là số chẵn</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Tổng số chấm ở hai lần gieo là 12</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">Tổng số chấm ở hai lần gieo không vượt quá 12</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">Tổng số chấm ở hai lần gieo là số nguyên tố</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Tổng số chấm ở hai lần gieo là số chã̃n</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Tổng số chấm ở hai lần gieo nhỏ nhất bằng $1+1=2$ và lớn nhất bằng $6+6=12$.<br><br>- A: Tổng bằng $12$ chỉ xảy ra khi cả hai lần đều ra mặt $6$ → biến cố ngẫu nhiên.<br>- B: Tổng <strong>không vượt quá 12</strong> luôn đúng với mọi kết quả ⇒ <strong>biến cố chắc chắn</strong>.<br>- C, D: Tùy kết quả mà có hoặc không, là biến cố ngẫu nhiên.</div>
+                    <div class="sol-body">Tổng số chấm ở hai lần gieo nhỏ nhất bằng $1+1=2$ và lớn nhất bằng $6+6=12$.<br>- A: Tổng bằng $12$ chỉ xảy ra khi cả hai lần đều ra mặt $6$ → biến cố ngẫu nhiên.<br>- B: Tổng không vượt quá $12$ luôn đúng với mọi kết quả ⇒ biến cố chắc chắn.<br>- C, D: Tùy kết quả mà có hoặc không, là biến cố ngẫu nhiên.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -934,11 +884,11 @@
             <div class="slide" data-i="3" id="slide-3">
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 3</div>
-                <div class="q-content">Tung một đồng xu hai lần liên tiếp. Tập hợp kết quả thuận lợi của biến cố $A$ là $\{S N\}$ ( $S$ là mặt sấp, $N$ là mặt ngửa). Biến cố đối của biến cố $A$ có tập hợp các kết quả thuận lợi là:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\{N S\}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\{N N ; S S\}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\{S S ; N S ; N N\}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\{S S\}$</div></div>
+                <div class="q-content">Tung một đồng xu hai lần liên tiếp. Tập hợp kết quả thuận lợi của biến cố $A$ là $\backslash\{S N\}$ ( $S$ là mặt sấp, $N$ là mặt ngửa). Biến cố đối của biến cố $A$ có tập hợp các kết quả thuận lợi là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\{N S\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\{N N ; S S\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\{S S ; N S ; N N\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\{S S\}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Không gian mẫu khi tung đồng xu hai lần là: $\Omega = \{SS,\ SN,\ NS,\ NN\}$, $n(\Omega)=4$.<br><br>Biến cố $A=\{SN\}$ ⇒ Biến cố đối $\overline{A} = \Omega \setminus A = \{SS,\ NS,\ NN\}$.</div>
+                    <div class="sol-body">Không gian mẫu khi tung đồng xu hai lần là: $\Omega = \{SS, SN, NS, NN\}$, $n(\Omega)=4$.<br>Biến cố $A=\{SN\}$ $\Rightarrow$ Biến cố đối $\bar{A} = \Omega \setminus A = \{SS, NS, NN\}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -948,14 +898,10 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 4</div>
                 <div class="q-content">Trong một hộp có 10 chiếc thẻ cùng loại, mỗi thẻ được ghi một số tự nhiên có một chữ số, hai thẻ khác nhau thì ghi hai số khác nhau. Lấy ngẫu nhiên một thẻ. Biến cố đối của biến cố "Số ở thẻ lấy được là số nguyên tố" là:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> "Số ở thẻ lấy được là hợp số"</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> "Số ở thẻ lấy được không là số nguyên tố"</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> "Số ở thẻ lấy được là số chẵn"</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> "Số ở thẻ lấy được là số lẻ"</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">"Số ở thẻ lấy được là hợp số"</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">"Số ở thẻ lấy được không là số nguyên tố"</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">"Số ở thẻ lấy được là số chẵn"</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">"Số ở thẻ lấy được là số lẻ"</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">
-                        - Không gian mẫu $\Omega$ gồm 10 thẻ từ 0 đến 9: $n(\Omega) = 10$.<br>
-                        - Các thẻ ghi số nguyên tố là: $\{2, 3, 5, 7\}$.<br>
-                        - Biến cố đối của "Số ở thẻ lấy được là số nguyên tố" là biến cố "Số ở thẻ lấy được KHÔNG là số nguyên tố".
-                    </div>
+                    <div class="sol-body"></div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -965,7 +911,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 5</div>
                 <div class="q-content">Gieo một xúc xắc ba lần liên tiếp. Số phần tử của không gian mẫu trong phép thử trên là:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $6$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $18$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $216$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $36$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$6$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$18$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$216$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$36$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Mỗi lần gieo một xúc xắc có 6 khả năng xảy ra nên gieo một xúc xắc ba lần liên tiếp có $6 \cdot 6 \cdot 6=216$ khả năng xảy ra. Suy ra số phần tử của không gian mẫu là 216 .</div>
@@ -978,37 +924,37 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 6</div>
                 <div class="q-content">Gieo một xúc xắc ba lần liên tiếp. Xác suất của biến cố "Tích số chấm ở ba lần gieo là số chẵn" bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{7}{8}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{8}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{216}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{215}{216}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{7}{8}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{8}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{216}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{215}{216}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Lấy biến cố đối của biến cố "Tích số chấm ở ba lần gieo là số chẵn" là $B$: "Tích số chấm ở ba lần gieo là số lẻ".<br><br>Trên xúc xắc có 3 mặt số chấm lẻ là $1, 3, 5$. Muốn tích số chấm ở ba lần gieo là số lẻ thì số chấm ở ba lần gieo đều là số lẻ, suy ra $n(B)=3 \cdot 3 \cdot 3=27$.<br><br>Vậy xác suất của biến cố "Tích số chấm ở ba lần gieo là số chẵn" là: $1-P(B)=1-\dfrac{27}{216}=\dfrac{7}{8}$.</div>
+                    <div class="sol-body">Lấy biến cố đối của biến cố "Tích số chấm ở ba lần gieo là số chẵn" là $B$ : "Tích số chấm ở ba lần gieo là số lẻ".<br><br>Trên xúc xắc có 3 mặt số chấm lẻ là $1,3,5$. Muốn tích số chấm ở ba lần gieo là số lẻ thì số chấm ở ba lần gieo đều là số lẻ, suy ra $n(B)=3 \cdot 3 \cdot 3=27$.<br><br>Vậy xác suất của biến cố "Tích số chấm ở ba lần gieo là số chẵn" là: $1-P(B)=1-\dfrac{27}{216}=\dfrac{7}{8}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="7" id="slide-7">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 7</div>
                 <div class="q-content">Một hộp có 10 chiếc thẻ cùng loại, mỗi thẻ được ghi một số nguyên dương không vượt quá 10 , hai thẻ khác nhau ghi hai số khác nhau. Lấy ngẫu nhiên 1 thẻ. Xác suất của biến cố "Số trên thẻ được lấy ra là số nguyên tố" bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $0,4$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $0,5$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $0,3$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $0,6$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$0,4$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$0,5$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$0,3$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$0,6$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Có đúng 4 số nguyên tố không vượt quá 10 là $2,3,5,7$.<br>Xác suất cần tìm là: $\dfrac{4}{10}=0,4$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="8" id="slide-8">
-            <div class="question-card" data-correct="B" data-level="tb">
+            <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 8</div>
-                <div class="q-content">Trong một hộp kẹo có 4 loại kẹo với vỏ ngoài và khối lượng giống nhau, tỉ lệ các loại kẹo được biểu diễn ở biểu đồ như hình bên. Chọn ngẫu nhiên 1 kẹo. Xác suất của biến cố "Chọn được 1 kẹo vị xoài" bằng:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/0f870c95-a07f-4ae9-831a-8d8b21ea630f-03.jpg?height=392&width=398&top_left_y=1667&top_left_x=397" alt="Biểu đồ tròn tỉ lệ 4 loại kẹo trong hộp" loading="lazy" decoding="async"></div></div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $0,15$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $0,20$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $0,30$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $0,35$</div></div>
+                <div class="q-content">Trong một hộp kẹo có 4 loại kẹo với vỏ ngoài và khối lượng giống nhau, tỉ lệ các loại kẹo được biểu diễn ở biểu đồ như hình bên. Chọn ngẫu nhiên 1 kẹo. Xác suất của biến cố "Chọn được 1 kẹo vị xoài" bằng:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/0f870c95-a07f-4ae9-831a-8d8b21ea630f-03.jpg?height=392&width=398&top_left_y=1667&top_left_x=397" alt="Math Image"></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$0,15$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$0,20$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$0,30$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$0,35$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Dựa vào biểu đồ, tỉ lệ kẹo vị xoài chiếm $20\%$.<br>Do đó, xác suất để chọn được $1$ kẹo vị xoài là $20\% = 0,20$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                    <div class="sol-body">Dựa vào biểu đồ hình quạt tròn, tỉ lệ kẹo vị xoài chiếm $20\%$.<br>Do đó, xác suất để chọn được $1$ kẹo vị xoài là $20\% = 0,20$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
             </div>
@@ -1017,7 +963,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 9</div>
                 <div class="q-content">Tung một đồng xu hai lần liên tiếp. Xác suất của biến cố $A$ : "Kết quả của hai lần tung là giống nhau" bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $0$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $1$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{2}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{4}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$0$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{4}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Không gian mẫu $\Omega=\{S S ; N N ; S N ; N S\}$ (trong đó, $S$ là mặt sấp, $N$ là mặt ngửa). Vậy $n(\Omega)=4$<br><br>Ta có: $A=\{S S ; N N\}$ nên $n(A)=2$.<br>Suy ra $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{2}{4}=\dfrac{1}{2}$. Chọn $\mathbf{C}$</div>
@@ -1030,7 +976,7 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 10</div>
                 <div class="q-content">Gieo một xúc xắc hai lần liên tiếp. Xác suất của biến cố $A$ : "Số chấm ở hai lần gieo đều là số chẵn" bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $0$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $1$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{2}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{4}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$0$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{4}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Không gian mẫu $\Omega=\{(i ; j) \mid i, j=1,2,3,4,5,6\}$ (i là số chấm ở lần gieo thứ nhất, $j$ là số chấm ở lần gieo thứ hai). Vậy $n(\Omega)=36$.<br><br>Ta có: $A=\{(2 ; 2) ;(4 ; 4) ;(6 ; 6) ;(2 ; 4) ;(4 ; 2) ;(2 ; 6) ;(6 ; 2) ;(4 ; 6) ;(6 ; 4)\}$ nên $n(A)=9$.<br>Suy ra $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{9}{36}=\dfrac{1}{4}$. Chọn $\mathbf{D}$</div>
@@ -1043,7 +989,7 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 11</div>
                 <div class="q-content">Một tổ trong lớp 10 B có 12 học sinh trong đó có 7 học sinh nam và 5 học sinh nữ. Giáo viên chọn ngẫu nhiên 4 học sinh trong tổ đó để tham gia đội tình nguyện Mùa hè xanh. Tính xác suất để 4 học sinh được chọn đều là nữ.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{99}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{7}{99}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{3}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{4}{5}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{99}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{7}{99}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{3}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{4}{5}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu $n(\Omega)=C_{12}^{4}=495$.<br>Gọi biến cố A : "Cả 4 học sinh được chọn đều là nữ"<br>$\Rightarrow n(A)=C_{5}^{4}=5$<br>Xác suất của biến cố $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{5}{495}=\dfrac{1}{99}$.</div>
@@ -1056,7 +1002,7 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 12</div>
                 <div class="q-content">Chọn ngẫu nhiên hai số khác nhau từ tập $\{1 ; 2 ; 3 ; 4 ; 5 ; 6 ; 7 ; 8 ; 9\}$. Tính xác suất để trong hai số lấy ra có ít nhất một số lẻ.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{5}{6}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{5}{9}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{5}{18}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{8}{9}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{5}{6}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{5}{9}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{5}{18}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{8}{9}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu $n(\Omega)=C_{9}^{2}=36$.<br>Gọi biến cố A : "Cả 2 số lấy ra đều chẵn"<br>$\Rightarrow n(A)=C_{4}^{2}=6$<br>Xác suất của biến cố $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{6}{36}=\dfrac{1}{6}$.<br>Ta có biến cố $\bar{A}$ : "Trong hai số lấy ra có ít nhất một số lẻ"<br>$\Rightarrow P(\bar{A})=1-P(A)=\dfrac{5}{6}$.</div>
@@ -1069,7 +1015,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 13</div>
                 <div class="q-content">Có 10 tấm thẻ được đánh số từ 1 đến 10. Chọn ngẫu nhiên 2 tấm thẻ. Xác suất để chọn được 2 tấm thẻ đều ghi số chẵn là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{4}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{2}{9}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{2}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{7}{9}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{4}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{2}{9}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$x=2$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Từ 1 đến 10 có 5 số chẵn.<br>Số cách chọn ngẫu nhiên 2 tấm thẻ là: $n(\Omega)=C_{10}^{2}=45$.<br>Số cách để chọn được hai tấm thẻ ghi số chẵn là: $n(A)=C_{5}^{2}=10$.<br>⇒ Xác suất để chọn được hai tấm thẻ đều ghi số chẵn là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{10}{45}=\dfrac{2}{9}$.</div>
@@ -1082,7 +1028,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 14</div>
                 <div class="q-content">Cho $E$ là một biến cố. Xác suất của biến cố đối $\bar{E}$ liên hệ với xác suất của biến cố $E$ theo công thức nào sau đây?</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $P(\bar{E})=P(E)-1$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $P(\bar{E})=P(E)$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $P(\bar{E})=1-P(E)$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $P(\bar{E})=1+P(E)$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$P(\bar{E})=P(E)-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$P(\bar{E})=P(E)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$P(\bar{E})=1-P(E)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$P(\bar{E})=1+P(E)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Xác suất của biến cố đối $\bar{E}$ liên hệ với xác suất của biến cố $E$ theo công thức $P(\bar{E})=1-P(E)$.</div>
@@ -1094,8 +1040,8 @@
             <div class="slide" data-i="15" id="slide-15">
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 15</div>
-                <div class="q-content">Có ba chiếc hộp. Hộp 1 có chứa hai viên bi: 1 viên màu đỏ, 1 viên màu vàng. Hộp 2 chứa hai viên bi: 1 viên màu đỏ, 1 viên màu xanh. Hộp 3 chứa hai viên bi: 1 viên màu vàng, 1 viên màu xanh. Từ mỗi hộp ta lấy ngẫu nhiên một viên bi và các phần tử của không gian mẫu được mô tả bằng sơ đồ dưới đây<br><br>Hộp 1<br><br>Hộp 2<br><br>Hộp 3<br><br>Đ: Đỏ, V: Vàng, X: Xanh<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/0f870c95-a07f-4ae9-831a-8d8b21ea630f-05.jpg?height=426&width=691&top_left_y=1375&top_left_x=548" alt="Sơ đồ cây mô tả không gian mẫu khi lấy ngẫu nhiên 1 viên bi từ mỗi hộp 1, 2, 3" aria-describedby="desc-q15" loading="lazy" decoding="async"></div><div id="desc-q15" class="sr-only">Sơ đồ cây thể hiện 8 kết quả có thể: từ Hộp 1 (Đỏ hoặc Vàng), Hộp 2 (Đỏ hoặc Xanh), Hộp 3 (Vàng hoặc Xanh). Các kết quả gồm: ĐĐV, ĐĐX, ĐXV, ĐXX, VĐV, VĐX, VXV, VXX.</div><br><br>Gọi $K$ là biến cố: "Trong ba viên bi lấy ra có đúng một viên bi màu đỏ". Số kết quả thuận lợi cho biến cố $K$ là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $8$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $2$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $6$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $4$</div></div>
+                <div class="q-content">Có ba chiếc hộp. Hộp 1 có chứa hai viên bi: 1 viên màu đỏ, 1 viên màu vàng. Hộp 2 chứa hai viên bi: 1 viên màu đỏ, 1 viên màu xanh. Hộp 3 chứa hai viên bi: 1 viên màu vàng, 1 viên màu xanh. Từ mỗi hộp ta lấy ngẫu nhiên một viên bi và các phần tử của không gian mẫu được mô tả bằng sơ đồ dưới đây<br><br>Hộp 1<br><br>Hộp 2<br><br>Hộp 3<br><br>Đ: Đỏ, V: Vàng, X: Xanh<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/0f870c95-a07f-4ae9-831a-8d8b21ea630f-05.jpg?height=426&width=691&top_left_y=1375&top_left_x=548" alt="Math Image"></div><br><br>Gọi $K$ là biến cố: "Trong ba viên bi lấy ra có đúng một viên bi màu đỏ". Số kết quả thuận lợi cho biến cố $K$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$8$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$2$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$6$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$4$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số kết quả thuận lợi cho biến cố $K$ là 4 .</div>
@@ -1108,7 +1054,7 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 16</div>
                 <div class="q-content">Một hộp có 8 chiếc thẻ cùng loại, mỗi thẻ được đánh số từ 1 đến 8 , hai thẻ khác nhau thì ghi hai số khác nhau. Rút ngẫu nhiên đồng thời hai chiếc thẻ từ trong hộp. Tính xác suất của biến cố "Rút được hai thẻ ghi số chẵn"</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{7}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{3}{14}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{2}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{14}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{7}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{3}{14}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{14}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu $n(\Omega)=C_{8}^{2}=28$.<br>Gọi biến cố $A=$ "Rút được hai thẻ ghi số chẵn"<br>$\Rightarrow n(A)=4 \Rightarrow p(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{4}{28}=\dfrac{1}{7}$.</div>
@@ -1121,7 +1067,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 17</div>
                 <div class="q-content">Từ một đội văn nghệ có 5 nam và 8 nữ, cần lập một nhóm 4 người hát tốp ca một cách ngẫu nhiên. Xác suất để trong 4 người được chọn có ít nhất 3 nam bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{70}{143}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{73}{143}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{17}{143}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{16}{143}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{70}{143}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{73}{143}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{17}{143}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{16}{143}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">$n(\Omega)=C_{13}^{4}$.<br>Gọi A là biến cố chọ đượcc ít nhất 3 nam: $n(\mathrm{~A})=C_{5}^{3} \cdot C_{8}^{1}+C_{5}^{4}$.<br>Xác suất để A xảy ra là: $P_{A}=\dfrac{n(A)}{n(\Omega)}=\dfrac{17}{143}$.</div>
@@ -1134,7 +1080,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 18</div>
                 <div class="q-content">Bác $A$ có một chiếc điện thoại cũ để mật khẩu 4 chữ số. Bác đã quên mật khẩu chính xác và chỉ nhớ các chữ số đó là đôi một khác nhau. Xác suất để Bác A bấm đúng mật khẩu của chiếc điện thoại cũ đó trong một lần là:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{C_{10}^{4}}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{A_{10}^{4}}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{A_{10}^{4}}{4!}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{4!}{A_{10}^{4}}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{C_{10}^{4}}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{A_{10}^{4}}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{A_{10}^{4}}{4!}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{4!}{A_{10}^{4}}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi A là biến cố "bác A bấm đúng mật khẩu của chiếc điện thoại cũ đó trong một lần"<br>Ta có $n(\Omega)=A_{10}^{4}$ và $n(A)=1 \Rightarrow P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{1}{A_{10}^{4}}$.</div>
@@ -1147,7 +1093,7 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 19</div>
                 <div class="q-content">Một tổ trong lớp 10 A có 10 học sinh trong đó có 6 học sinh nam và 4 học sinh nữ. Giáo viên chọn ngẫu nhiên 4 học sinh trong tổ đó để tham gia đội làm báo tường của lớp. Xác suất để cả bốn bạn được chọn đều là nữ là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{210}$.</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{10}$.</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{5040}$.</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{2}{105}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{210}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{10}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{5040}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{2}{105}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu là: $n(\Omega)=C_{10}^{4}=210$.<br>Số kết quả thuận lợi cho biến cố $A$ : "cả bốn bạn được chọn đều là nữ" là $n(A)=1$.<br>Vậy xác suất cần tìm là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{1}{210}$.</div>
@@ -1160,7 +1106,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 20</div>
                 <div class="q-content">Một tổ trong lớp 10D có 10 học sinh trong đó có 6 học sinh nam và 4 học sinh nữ. Giáo viên chọn ngẫu nhiên 4 học sinh trong tổ đó để tham gia đội tình nguyện Mùa hè xanh. Xác suất để trong bốn bạn được chọn có ba nam và một nữ là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{8}{21}$.</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{4}{35}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{2}{21}$.</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{63}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{8}{21}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{4}{35}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{2}{21}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{63}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu là: $n(\Omega)=C_{10}^{4}=210$.<br><br>Số kết quả thuận lợi cho biến cố $A$ : "bốn bạn được chọn có ba nam và một nữ" là $n(A)=C_{6}^{3} \cdot C_{4}^{1}=80$.<br><br>Vậy xác suất cần tìm là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{80}{210}=\dfrac{8}{21}$.</div>
@@ -1173,7 +1119,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 21</div>
                 <div class="q-content">Một khoa Bệnh viện $A$ có 12 bác sĩ trong đó có 6 bác sĩ nam và 6 bác sĩ nữ. Cần chọn ngẫu nhiên 6 bác sĩ trong khoa đó để thành lập đoàn kiểm tra công tác phòng chống dịch Covid 19. Xác suất để 6 bác sĩ được chọn có số bác sĩ nữ bằng số bác sĩ nam là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{100}{231}$.</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{924}$.</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{5}{8316}$.</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{5}{231}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{100}{231}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{924}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{5}{8316}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{5}{231}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu là: $n(\Omega)=C_{12}^{6}=924$.<br>Số kết quả thuận lợi cho biến cố $A$ : " 6 bác sĩ được chọn có số bác sĩ nữ bằng số bác sĩ nam" là $n(A)=C_{6}^{3} \cdot C_{6}^{3}=400$.<br><br>Vậy xác suất cần tìm là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{400}{924}=\dfrac{100}{231}$.</div>
@@ -1186,7 +1132,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 22</div>
                 <div class="q-content">Một hộp chứa các viên bi kích thước khác nhau, trong đó có 5 viên bi màu xanh, 4 viên bi màu đỏ và 6 viên bi màu vàng. Lấy ngẫu nhiên đồng thời 4 viên bi từ hộp. Tính xác suất để trong 4 viên bi lấy ra có đúng 1 viên bi màu vàng.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{37}{65}$.</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{59}{65}$.</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{24}{65} .$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{6}{65}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{37}{65}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{59}{65}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{24}{65} .$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{6}{65}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta có $n(\Omega)=C_{15}^{4}$.<br>Số cách để lấy được 4 viên bi trong đó có đúng 1 bi màu vàng là $n(A)=C_{6}^{1} \cdot C_{9}^{3}$.<br>Xác suất cần tính là $P(A)=\dfrac{C_{6}^{1} \cdot C_{9}^{3}}{C_{15}^{4}}=\dfrac{24}{65}$.</div>
@@ -1199,7 +1145,7 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 23</div>
                 <div class="q-content">Một người chọn ngẫu nhiên đồng thời 4 quân bài từ bộ tú lơ khơ gồm 52 quân bài. Tính xác suất của biến cố: "Cả 4 quân bài đều là Át".</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{C_{52}^{4}}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{4}{C_{52}^{4}}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{3}{4}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{2}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{C_{52}^{4}}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{4}{C_{52}^{4}}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{3}{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử không gian mẫu $n(\Omega)=C_{52}^{4}$.<br>Chỉ có 1 cách để lấy được cả 4 quân bài đều là Át nên xác suất cần tính là $\dfrac{1}{C_{52}^{4}}$.</div>
@@ -1212,7 +1158,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 24</div>
                 <div class="q-content">Một hộp có 5 chiếc thẻ cùng loại được đánh số $1,2,3,4,5$. Hai thẻ khác nhau thì ghi hai số khác nhau. Rút ngẫu nhiên đồng thời 2 chiếc thẻ từ trong hộp. Xét biến cố Y: "Số ghi trên hai thẻ đều là số lẻ". Tính số phần tử của biến cố Y.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $4$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $3$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $5$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $6$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$4$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$3$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$5$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$6$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của $Y$ là $C_{3}^{2}=3$.</div>
@@ -1222,27 +1168,27 @@
             </div>
             
             <div class="slide" data-i="25" id="slide-25">
-            <div class="question-card" data-correct="D" data-level="tb">
+            <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 25</div>
                 <div class="q-content">Một hộp chứa 3 quả cầu màu xanh và 7 quả cầu màu đỏ. Chọn ngẫu nhiên đồng thời hai quả cầu từ hộp đó. Xác suất để hai quả cầu được chọn ra cùng màu bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{7}{15}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{7}{30}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{5}{11}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{8}{15}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{7}{15}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{7}{30}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{5}{11}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{8}{15}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta có: $n(\Omega)=C_{10}^{2}=45$.<br>Gọi A là biến cố " Chọn được hai quả cầu cùng màu" $\Rightarrow n(A)=C_{3}^{2}+C_{7}^{2}=24$<br>Do đó: $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{24}{45}=\dfrac{8}{15}$..</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="26" id="slide-26">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 26</div>
                 <div class="q-content">Một khách sạn có 6 phòng đơn. Có 10 khách thuê phòng trong đó có 6 nam và 4 nữ. Người quản lí chọn ngẫu nhiên 6 người cho nhận phòng. Xác suất để cả 6 người là nam là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{210}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{11}{210}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{105}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{7}{210}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{210}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{11}{210}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{105}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{7}{210}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Suy ra xác suất để cả 6 người là nam là $\dfrac{1}{210}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
@@ -1251,10 +1197,10 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 27</div>
                 <div class="q-content">Từ một hộp chứa 12 quả bóng gồm 5 quả màu đỏ và 7 quả màu xanh, lấy ngẫu nhiên đồng thời 3 quả. Xác suất để lấy được 3 quả màu xanh bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{7}{44}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{5}{12}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{2}{7}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{22}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{7}{44}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{5}{12}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{2}{7}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{22}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Lấy ngẫu nhiên 3 quả bóng có số cách là $C_{12}^{3}=220$ cách.<br>Lấy ngẫu nhiên 3 quả bóng đều màu xanh có số cách là $C_{7}^{3}=35$ cách.<br>Suy ra xác suất để 3 quả bóng đều màu xanh là $\dfrac{35}{220}=\dfrac{7}{44}$.</div>
+                    <div class="sol-body">Lấy ngẫu nhiên 3 quả bóng có số cách là $C_{12}^{3}=220$ cách.<br>Lấy ngẫu nhiên 3 quả bóng đều màu xanh có số cách là $C_{7}^{3}=35$ cách.<br>Suy ra xác suất để cả 6 người là nam là $\dfrac{35}{220}=\dfrac{7}{44}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1264,7 +1210,7 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 28</div>
                 <div class="q-content">Một bình đựng 5 quả cầu xanh và 4 quả cầu đỏ và 3 quả cầu vàng. Chọn ngẫu nhiên 3 quả cầu. Xác suất để được 3 quả cầu có đủ ba màu là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{3}{14}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{3}{5}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{3}{7}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{3}{11}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{3}{14}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{3}{5}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{3}{7}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{3}{11}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số quả cầu trong bình là $5+4+3=12$<br>Số phần tử không gian mẫu là: $n(\Omega)=C_{12}^{3}=220$<br>Gọi A là biến cố: "Chọn được 3 quả cầu có đủ ba màu"<br>Số phần tử của biến cố A là: $n(A)=5.4 .3=60$<br>Xác suất của biến cố A là: $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{60}{220}=\dfrac{3}{11}$.</div>
@@ -1277,7 +1223,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 29</div>
                 <div class="q-content">Một tổ học sinh có 7 nam và 3 nữ. Chọn ngẫu nhiên 2 người. Tính xác suất sao cho 2 người được chọn có một nam và một nữ.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{8}{15}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{5}$.</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{7}{15} .$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{15}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{8}{15}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{5}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{7}{15} .$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{15}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số người trong tổ học sinh là: $7+3=10$<br>Số phần tử không gian mẫu là: $n(\Omega)=C_{10}^{2}=45$<br>Gọi A là biến cố: " 2 người được chọn có một nam và một nữ"<br>Số phần tử của biến cố A là: $n(A)=7.3=21$<br>Xác suất của biến cố A là: $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{21}{45}=\dfrac{7}{15}$.</div>
@@ -1290,7 +1236,7 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 30</div>
                 <div class="q-content">Từ một hộp chứa 10 quả cầu màu đỏ và 5 quả cầu màu xanh, lấy ngẫu nhiên đồng thời 3 quả cầu. Xác suất để lấy được 3 quả cầu màu xanh bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{2}{91}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{12}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{24}{91}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{12}{91}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{2}{91}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{12}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{24}{91}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{12}{91}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số quả cầu trong hộp là: $10+5=15$<br>Số phần tử không gian mẫu là: $n(\Omega)=C_{15}^{3}=455$<br>Gọi A là biến cố: "lấy được 3 quả cầu màu xanh"<br>Số phần tử của biến cố A là $n(A)=C_{5}^{3}=10$<br>Xác suất của biến cố A là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{10}{455}=\dfrac{2}{91}$.</div>
@@ -1303,7 +1249,7 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 31</div>
                 <div class="q-content">Trong một hộp có 5 viên bi vàng, 4 viên bi đỏ và 7 viên bi xanh. Lấy ngẫu nhiên đồng thời 3 viên bi từ hộp đó. Xác suất để lấy ra được 3 viên bi cùng màu bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{56}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{16}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{140}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{7}{80}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{56}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{16}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{140}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{7}{80}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta có: $n(\Omega)=C_{16}^{3}=560$.<br>Gọi $A$ là biến cố lấy được 3 viên cùng màu, khi đó: $n(A)=C_{5}^{3}+C_{4}^{3}+C_{7}^{3}=49$.<br>Suy ra $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{49}{560}=\dfrac{7}{80}$.</div>
@@ -1316,7 +1262,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 32</div>
                 <div class="q-content">Đội Thanh niên tình nguyện của Đoàn trường THPT Lê Quý Đôn gồm có 15 học sinh ( 9 học sinh nam và 6 học sinh nữ). Chọn ngẫu nhiên 3 học sinh đi làm nhiệm vụ. Xác suất để chọn được 3 học sinh nam là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{4}{91}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{12}{65}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{5}{21}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{21}{55}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{4}{91}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{12}{65}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{5}{21}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{21}{55}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách chọn 3 học sinh từ 15 học sinh là $C_{15}^{3}$<br>Số cách chọn 3 học sinh nam từ 9 học sinh nam là $C_{9}^{3}$<br>Vậy xác suất để chọn được 3 học sinh nam là $\dfrac{C_{9}^{3}}{C_{15}^{3}}=\dfrac{12}{65}$.</div>
@@ -1329,7 +1275,7 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 33</div>
                 <div class="q-content">Trong một hộp chứa một số bi, mỗi bi mang một số từ số 1 đến số 21 và không có hai bi nào mang số giống nhau. Chọn ngẫu nhiên từ hộp đó ra 2 bi. Xác suất 2 bi được chọn đều mang số lẻ là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{3}{14}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{5}{14}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{23}{42}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{11}{42}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{3}{14}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{5}{14}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{23}{42}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{11}{42}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách chọn 2 bi từ 21 bi là $C_{21}^{2}$<br>Từ số 1 đến số 21 có 11 số lẻ nên số cách chọn được 2 bi đều mang số lẻ là $C_{11}^{2}$<br>Vậy xác suất 2 bi được chọn đều mang số lẻ là $\dfrac{C_{11}^{2}}{C_{21}^{2}}=\dfrac{11}{42}$.</div>
@@ -1342,7 +1288,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 34</div>
                 <div class="q-content">Từ một hộp có 6 viên bi xanh, 5 viên bi đỏ và 4 viên bi vàng, lấy ngẫu nhiên 7 viên bi. Tính xác suất để lấy được ít nhất một viên bi vàng.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{661}{715}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{2}{39}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{37}{39}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{56}{195}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{661}{715}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{2}{39}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{37}{39}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{56}{195}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử không gian mẫu là $C_{15}^{7}=6435$<br>Số phần tử biến cố lấy ngẫu nhiên 7 viên bi không có viên bi màu vàng là $C_{11}^{7}=330$<br>Vậy xác suất để lấy được ít nhất một viên bi vàng là $P=\dfrac{6435-330}{6435}=\dfrac{37}{39}$.</div>
@@ -1355,7 +1301,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 35</div>
                 <div class="q-content">Cho hai đường thẳng song song $d_{1}, d_{2}$. Trên $d_{1}$ có 6 điểm phân biệt được tô màu đỏ, trên $d_{2}$ có 4 điểm phân biệt được tô màu xanh. Xét tất cả các tam giác được tạo thành khi nối các điểm đó với nhau. Chọn ngẫu nhiên một tam giác, khi đó xác suất để thu được tam giác có hai đỉnh màu đỏ là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{5}{9}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{5}{8}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{2}{9}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{3}{8}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{5}{9}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{5}{8}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{2}{9}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{3}{8}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu: $n(\Omega)=C_{6}^{1} \cdot C_{4}^{2}+C_{6}^{2} \cdot C_{4}^{1}=96$.<br>Gọi $A$ là biến cố "thu được tam giác có hai đỉnh màu đỏ".<br>Vậy $P(A)=\dfrac{C_{6}^{2} \cdot C_{4}^{1}}{96}=\dfrac{5}{8}$.</div>
@@ -1368,7 +1314,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 36</div>
                 <div class="q-content">Một hộp chứa 11 quả cầu gồm 5 quả màu xanh và 6 quả màu đỏ. Chọn ngẫu nhiên đồng thời 2 quả cầu từ hộp đó. Xác suất để 2 quả cầu chọn ra cùng màu bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{3}{11}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{6}{11}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{5}{11}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{2}{11}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{3}{11}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{6}{11}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{5}{11}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{2}{11}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Xác suất để 2 quả cầu chọn ra cùng màu bằng: $\dfrac{C_{5}^{2}+C_{6}^{2}}{C_{11}^{2}}=\dfrac{25}{55}=\dfrac{5}{11}$</div>
@@ -1381,7 +1327,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 37</div>
                 <div class="q-content">Có 10 tấm thẻ được đánh số từ 1 đến 10. Chọn ngẫu nhiên 2 tấm thẻ. Xác suất để chọn được 2 tấm thẻ đều ghi số chẵn là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{4}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{2}{9}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{7}{9}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{2}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{4}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{2}{9}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{7}{9}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu: $n(\Omega)=C_{10}^{2}=45$.<br>Gọi $A$ là biến cố "chọn được 2 tấm thẻ đều ghi số chẵn".<br>Để chọn được 2 tấm thẻ đều ghi số chẵn có $n(A)=C_{5}^{2}=10$ khả năng.<br>Vậy $P(A)=\dfrac{10}{45}=\dfrac{2}{9}$.</div>
@@ -1394,7 +1340,7 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 38</div>
                 <div class="q-content">Chọn ngẫu nhiên hai số khác nhau từ 15 số nguyên dương đầu tiên. Xác suất để chọn được hai số có tổng là một số lẻ là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{7}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{14}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{4}{15}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{8}{15}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{7}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{14}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{4}{15}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{8}{15}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách chọn ngẫu nhiên hai số khác nhau từ 15 số nguyên dương đầu tiên là $C_{15}^{2}=105$<br>Để chọn được hai số có tổng là một số lẻ thì hai số được chọn có 1 số chẵn và 1 số lẻ.<br><br>Xác suất để chọn được hai số có tổng là một số lẻ là $\dfrac{56}{105}=\dfrac{8}{15}$</div>
@@ -1407,7 +1353,7 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 39</div>
                 <div class="q-content">Cho đa giác đều có 14 đỉnh. Chọn ngẫu nhiên 3 đỉnh trong số 14 đỉnh của đa giác. Xác suất để 3 đỉnh được chọn là 3 đỉnh của một tam giác vuông là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{3}{13}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{5}{13}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{4}{13}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{2}{13}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{3}{13}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{5}{13}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{4}{13}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{2}{13}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách chọn 3 đỉnh từ 14 đỉnh là $C_{14}^{3}=364$<br>Đa giác đều có 14 đỉnh có 7 đường kính.<br>Tam giác vuông được tạo thành từ 1 đường kính và 1 đỉnh bất kì trong 12 đỉnh còn lại (trừ 2 đỉnh tạo nên đường kính) do đó số tam giác vuông được tạo thành là $7.12=84$<br><br>Xác suất để 3 đỉnh được chọn là 3 đỉnh của một tam giác vuông là $\dfrac{84}{364}=\dfrac{3}{13}$</div>
@@ -1417,14 +1363,14 @@
             </div>
             <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
             <div class="slide" data-i="40" id="slide-40">
-            <div class="question-card" data-correct="A" data-level="kg">
+            <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 40</div>
                 <div class="q-content">Một người chọn ngẫu nhiên một dãy kí tự gồm 4 chữ số để làm mật khẩu cho vali. Xác suất của biến cố "Chọn được một dãy 4 chữ số sắp xếp theo thứ tự tăng dần mà số liền sau hơn số liền trước 1 đơn vị" bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{7}{10^{4}}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{6}{10^{4}}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{7}{9.10^{3}}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{6}{9.10^{3}}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{7}{10^{4}}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{6}{10^{4}}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{7}{9.10^{3}}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{6}{9.10^{3}}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Các dãy 4 chữ số sắp xếp theo thứ tự tăng dần mà số liền sau hơn số liền trước 1 đơn vị là: 0123,1234,2345,3456,4567,5678,6789. Suy ra số phần tử của biến cố là 7 .<br><br>Số cách chọn một dãy 4 chữ số là: $10 \cdot 10 \cdot 10 \cdot 10=10^{4}$. Suy ra số phần tử của không gian mẫu là $10^{4}$.<br><br>Vậy xác suất cần tìm là: $\dfrac{7}{10^{4}}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
@@ -1433,7 +1379,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 41</div>
                 <div class="q-content">Mật khẩu của một ứng dụng mobile banking là dãy 6 kí tự bao gồm chữ và số. Xét tập hợp $A$ bao gồm các mật khẩu có 2 kí tự đầu là chữ cái thuộc tập hợp 27 chữ cái in thường và 4 kí tự sau là chữ số thuộc tập hợp 10 chữ số. Chọn ngẫu nhiên 1 mật khẩu từ $A$. Xác suất của biến cố "Chọn được mật khẩu ab0123" bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{2^{27} \cdot 4^{10}}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{270}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{6}{270}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{27^{2} \cdot 10^{4}}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{2^{27} \cdot 4^{10}}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{270}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{6}{270}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{27^{2} \cdot 10^{4}}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của tập hợp $A$ là $27^{2} \cdot 10^{4}$. Số phần tử của biến cố là 1 . Vậy xác suất cần tìm là: $\dfrac{1}{27^{2} \cdot 10^{4}}$.</div>
@@ -1446,7 +1392,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 42</div>
                 <div class="q-content">Gieo một xúc xắc hai lần liên tiếp. Xác suất của biến cố "Số chấm ở lần gieo thứ hai hơn số chấm ở lần gieo thứ nhất 2 đơn vị" bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{8}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{3}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{9}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{3}{8}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{8}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{9}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{3}{8}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Các kết quả thuận lợi của biến cố là: $(1 ; 3),(2 ; 4),(3 ; 5),(4 ; 6)$, với $(i ; j)$ là kết quả mặt xuất hiện ở lần gieo thứ nhất và thứ hai lần lượt là $i$ chấm và $j$ chấm.<br><br>Số phần tử của không gian mẫu là 36 .<br><br>Vậy xác suất cần tìm là: $\dfrac{4}{36}=\dfrac{1}{9}$.</div>
@@ -1456,14 +1402,14 @@
             </div>
             
             <div class="slide" data-i="43" id="slide-43">
-            <div class="question-card" data-correct="B" data-level="kg">
+            <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 43</div>
                 <div class="q-content">Gieo một xúc xắc ba lần liên tiếp. Xác suất của biến cố "Tổng số chấm ở ba lần gieo không nhỏ hơn 16 " bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{216}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{5}{108}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{7}{216}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{3}{108}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{216}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{5}{108}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{7}{216}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{3}{108}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Các kết quả thuận lợi của biến cố là: $(6 ; 6 ; 4),(6 ; 4 ; 6),(4 ; 6 ; 6),(5 ; 5 ; 6)$, $(5 ; 6 ; 5),(6 ; 5 ; 5),(6 ; 6 ; 5),(6 ; 5 ; 6),(5 ; 6 ; 6),(6 ; 6 ; 6)$, với $(i ; j ; k)$ là kết quả mặt xuất hiện ở lần gieo thứ nhất, thứ hai và thứ ba lần lượt là $i$ chấm, $j$ chấm và $k$ chấm.<br><br>Số phần tử của không gian mẫu là 216 .<br>Xác suất cần tìm là: $\dfrac{10}{216}=\dfrac{5}{108}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
@@ -1472,10 +1418,10 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 44</div>
                 <div class="q-content">Nhân ngày khai trương, một siêu thị đưa ra chương trình tặng quà như sau: Các khách hàng vào siêu thị được đánh số thứ tự là các số tự nhiên liên tiếp (khách hàng đầu tiên được đánh số thứ tự là 1); cứ 4 lượt khách vào siêu thị thì khách thứ 4 được tặng một cái lược, cứ 5 lượt khách vào siêu thị thì khách thứ 5 được tặng một bọc khăn giấy, cứ 6 lượt khách vào siêu thị thì khách thứ 6 được tặng một cục xà bông. Sau một thời gian có 200 khách đầu tiên vào siêu thị và chưa có ai đi về. Chọn ngẫu nhiên 1 người trong 200 khách hàng đó. Xác suất của biến cố "Chọn được một khách hàng được nhận cả 3 món quà" là:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{100}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{3}{100}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{3}{200}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{200}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{100}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{3}{100}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{3}{200}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{200}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Gọi $n$ là số thứ tự của khách hàng được nhận cả ba món quà, suy ra $n$ chia hết cho cả $4,5,6$ nên $n$ chia hết cho $\operatorname{BCNN}(4,5,6)$.<br><br>Mà $n<200$ nên $n \in\{60 ; 120 ; 180\}$. Vậy xác suất cần tìm là: $\dfrac{3}{200}$.</div>
+                    <div class="sol-body">Gọi $n$ là số thứ tự của khách hàng được nhận cả ba món quà, suy ra $n$ chia hết cho cả $4,5,6$ nên $n$ chia hết cho $\operatorname{BCNN}(4,5,6)$.<br><br>Mà $n&lt;200$ nên $n \in\{60 ; 120 ; 180\}$. Vậy xác suất cần tìm là: $\dfrac{3}{200}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1484,11 +1430,11 @@
             <div class="slide" data-i="45" id="slide-45">
             <div class="question-card" data-correct="B" data-level="kg">
                 <div class="q-number">Câu 45</div>
-                <div class="q-content">Cho tập hợp $A$ gồm 2022 số nguyên dương không vượt quá 2 022. Chọn ngẫu nhiên 2 số thuộc tập hợp $A$. Xác suất của biến cố "Tích của hai số được chọn là số chẵn" là:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{C_{1011}^{2}}{C_{2022}^{2}}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $1-\dfrac{C_{1011}^{2}}{C_{2022}^{2}}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{2}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{1011}$</div></div>
+                <div class="q-content">Cho tập hợp $A$ gồm 2022 số nguyên dương không vượt quá 2 022. Chọn ngẫu nhiên 2 số thuộc tập hợp $A$. Xác suất của biến cố "Tích của hai số được chọn là số chẵ" là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{C_{1011}^{2}}{C_{2022}^{2}}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$1-\dfrac{C_{1011}^{2}}{C_{2022}^{2}}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{1011}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Lấy biến cố đối của biến cố "Tích của hai số được chọn là số chẵn" là "Tích của hai số được chọn là số lẻ".<br><br>Tích của hai số nguyên dương là số lẻ khi và chỉ khi cả hai số đều là số lẻ.<br>Có 1011 số nguyên dương lẻ không vượt quá 2022.<br><br>Vậy xác suất cần tìm là: $1-\dfrac{C_{1011}^{2}}{C_{2011}^{2}}$.</div>
+                    <div class="sol-body">Lấy biến cố đối của biến cố "Tích của hai số được chọn là số chã̃n" là "Tích của hai số được chọn là số lẻ".<br><br>Tích của hai số nguyên dương là số lẻ khi và chỉ khi cả hai số đều là số lẻ.<br>Có 1011 số nguyên dương lẻ không vượt quá 2022.<br><br>Vậy xác suất cần tìm là: $1-\dfrac{C_{1011}^{2}}{C_{2011}^{2}}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1498,7 +1444,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 46</div>
                 <div class="q-content">Ngân hàng đề thi của một môn khoa học xã hội gồm 150 câu hỏi. Người ta chọn trong ngân hàng đề thi 5 câu hỏi để làm thành một đề thi, hai đề thi được gọi là giống nhau nếu có cùng tập hợp 5 câu hỏi. Một học sinh chắc chắn trả lời đúng 105 câu hỏi trong ngân hàng đề thi đó. Xác suất của biến cố "Học sinh đó rút ngẫu nhiên được một đề thi mà có đúng 3 câu hỏi chắc chắn trả lời đúng" là:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{C_{105}^{3}}{C_{120}^{5}}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $1-\dfrac{C_{105}^{3}}{C_{150}^{5}}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{105}{150}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{C_{45}^{2} C_{105}^{3}}{C_{150}^{5}}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{C_{105}^{3}}{C_{120}^{5}}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$1-\dfrac{C_{105}^{3}}{C_{150}^{5}}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{105}{150}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{C_{45}^{2} C_{105}^{3}}{C_{150}^{5}}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách chọn một đề thi mà có đúng 3 câu hỏi sao cho học sinh chắc chắn trả lời đúng là: $C_{45}^{2} \cdot C_{105}^{3}$ .<br><br>Số cách chọn 5 câu trong 150 câu là: $C_{150}^{5}$.<br>Vậy xác suất cần tìm là: $\dfrac{C_{45}^{2} C_{105}^{3}}{C_{150}^{5}}$.</div>
@@ -1511,7 +1457,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 47</div>
                 <div class="q-content">Một đề thi trắc nghiệm gồm 50 câu hỏi, mỗi câu hỏi có 4 phương án trả lời và có duy nhất 1 phương án đúng. Một học sinh khoanh ngẫu nhiên cả 50 câu, mỗi câu khoanh một phương án, nếu đúng thì được 0,2 điểm. Xác suất của biến cố "Học sinh đó được 9 điểm" là:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{C_{50}^{45} 3^{5}}{4^{45}}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $C_{50}^{45}\left(\dfrac{1}{4}\right)^{45}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\left(\dfrac{1}{4}\right)^{45}\left(\dfrac{3}{4}\right)^{5}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $C_{50}^{45}\left(\dfrac{1}{4}\right)^{45}\left(\dfrac{3}{4}\right)^{5}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{C_{50}^{45} 3^{5}}{4^{45}}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{50}^{45}\left(\dfrac{1}{4}\right)^{45}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\left(\dfrac{1}{4}\right)^{45}\left(\dfrac{3}{4}\right)^{5}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{50}^{45}\left(\dfrac{1}{4}\right)^{45}\left(\dfrac{3}{4}\right)^{5}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Mô̂i câu hỏi có 4 cách khoanh đáp án, số cách khoanh 50 câu là $4^{50}$.<br>Học sinh đó được 9 điểm khi khoanh đúng 45 câu, khoanh sai 5 câu.<br>Số cách chọn 45 câu khoanh đúng trong 50 câu là $C_{50}^{45}$. Sau khi chọn 45 câu khoanh đúng, chỉ có 1 cách chọn 5 câu còn lại khoanh sai.<br><br>Có 1 cách để khoanh đáp án đúng ở mỗi câu và có 3 cách để khoanh đáp án sai ở mỗi câu.<br>Vậy xác suất cần tìm là: $\dfrac{C_{50}^{45} \cdot 1^{45} \cdot 3^{5}}{4^{50}}=C_{50}^{45}\left(\dfrac{1}{4}\right)^{45} \cdot\left(\dfrac{3}{4}\right)^{5}$.</div>
@@ -1524,7 +1470,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 48</div>
                 <div class="q-content">Một hộp đựng 11 chiếc thẻ cùng loại, mỗi thẻ được ghi một số nguyên dương không vượt quá 11, hai thẻ khác nhau ghi hai số khác nhau. Lấy ngẫu nhiên đồng thời 2 thẻ. Xác suất của biến cố $A$ : "Tích hai số trên hai thẻ được lấy ra là số lẻ" bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{2}{C_{11}^{2}}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{8}{11}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{3}{11}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{2}{A_{11}^{2}}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{2}{C_{11}^{2}}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{8}{11}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{3}{11}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{2}{A_{11}^{2}}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Mô̂i cách lấy ra đồng thời 2 thẻ là một tổ hợp chập 2 của 11 phần tử. Do đó, số phần tử của không gian mẫu $\Omega$ là: $n(\Omega)=C_{11}^{2}=55$.<br><br>Tích của hai số nguyên dương là số lẻ khi và chỉ khi cả hai số là số lẻ. Tập hợp các số nguyên dương lẻ không vượt quá 11 là $\{1 ; 3 ; 5 ; 7 ; 9 ; 11\}$ có 6 phần tử.<br><br>Suy ra số phần tử của biến cố $A$ là: $n(A)=C_{6}^{2}=15$<br>Vậy xác suất của biến cố $A$ là: $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{15}{55}=\dfrac{3}{11}$. Chọn $\mathbf{C}$</div>
@@ -1537,7 +1483,7 @@
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 49</div>
                 <div class="q-content">Chọn ngẫu nhiên hai số khác nhau từ 30 số nguyên dương đầu tiên. Xác suất để chọn được hai số có tổng là một số chẵn bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{14}{29}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{28}{29}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{7}{29}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{2}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{14}{29}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{28}{29}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{7}{29}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi $A$ là biến cố "hai số được chọn có tổng là một số chẵn".<br>$n(\Omega)=C_{30}^{2}=435$.<br>Tổng của hai số là một số chẵn khi và chỉ khi cả 2 số đó đều chẵn hoặc đều lẻ<br>$\Rightarrow n(A)=C_{15}^{2}+C_{15}^{2}=210$.<br>$P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{210}{435}=\dfrac{14}{29}$.</div>
@@ -1547,14 +1493,14 @@
             </div>
             
             <div class="slide" data-i="50" id="slide-50">
-            <div class="question-card" data-correct="D" data-level="kg">
+            <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 50</div>
                 <div class="q-content">Một lớp có 20 nam sinh và 23 nữ sinh. Giáo viên chọn ngẫu nhiên 5 học sinh đi test Covid. Tính xác suất $P$ để 5 học sinh được chọn có cả nam và nữ.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $P \approx 0,85$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $P \approx 0,97$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $P \approx 0,96$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $P \approx 0,95$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$P \approx 0,85$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$P \approx 0,97$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$P \approx 0,96$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$P \approx 0,95$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách chọn 5 học sinh trong 43 học sinh là $C_{43}^{5}=962598$.<br>Số cách chọn 5 học sinh chỉ có nam hoặc chỉ có nữ là $C_{20}^{5}+C_{23}^{5}=49153$.<br>Số cách chọn 5 học sinh có cả nam và nữ là $962598-49153=913445$.<br>$P=\dfrac{913445}{962598} \approx 0,95$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
@@ -1563,7 +1509,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 51</div>
                 <div class="q-content">Một tổ có 10 học sinh nam và 8 học sinh nữ. Chọn ngẫu nhiên đồng thời 5 học sinh. Tính xác suất để trong 5 học sinh được chọn có cả nam và nữ đồng thời số học sinh nam nhiều hơn số học sinh nữ.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{3}{5}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{3}{11}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{10}{17} \ldots$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{7}{17}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{3}{5}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{3}{11}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{10}{17} \ldots$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{7}{17}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phân tử không gian mẫu $n(\Omega)=C_{18}^{5}=8568$.<br>Các trường hợp thõa mãn yêu cầu bài toán:<br>TH1: Chọn được 3 nam và 2 nữ: $C_{10}^{3} \cdot C_{8}^{2}=3360$.<br>TH2: Chọn được 4 nam và 1 nữ: $C_{10}^{4} \cdot C_{8}^{1}=1680$<br>Vậy có $3360+1680=5040$ cách chọn thỏa mãn.<br><br>Suy ra xác suất cần tính là $P=\dfrac{5040}{8568}=\dfrac{10}{17}$.</div>
@@ -1576,7 +1522,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 52</div>
                 <div class="q-content">Một hộp có 37 cái thẻ được đánh số từ 1 đến 37 . Hai thẻ khác nhau được đánh số khác nhau. Rút ngẫu nhiên đồng thời ba thẻ. Tính xác suất để các số ghi trên ba thẻ được rút có tổng là một số chia hết cho 3 .</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{121}{1295}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1189}{3385}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{253}{3885}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{433}{1295}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{121}{1295}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1189}{3385}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{253}{3885}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{433}{1295}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Từ số 1 đến 37 ta có: 12 số chia hết cho 3 ; 13 số chia cho 3 dư 1 ; 12 số chia 3 dư 2 .<br>Số phần tử không gian mẫu $n(\Omega)=C_{37}^{3}=7770$.<br>Để lấy được 3 số có tổng chia hết cho 3 ta có các trường hợp sau:<br><br>+ TH1: 3 số đều chia hết cho 3 , số cách chọn là $C_{12}^{3}=220$.<br>+ TH2: 3 số chia cho 3 dư 1, số cách chọn là $C_{13}^{3}=286$.<br>+ TH3: 3 số chia cho 3 dư 2 , số cách chọn là $C_{12}^{3}=220$.<br>+ TH4: 1 số chia hết cho 3,1 số chia 3 dư 1,1 số chia 3 dư 2 , số cách là 12.13.12 = 1872 .<br>Vậy có tất cả $220+286+220+1872=2598$ cách chọn thỏa mãn.<br>Suy ra xác suất cần tính là $P=\dfrac{2598}{7770}=\dfrac{433}{1295}$.</div>
@@ -1589,7 +1535,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 53</div>
                 <div class="q-content">Trên kệ có 5 quyển sách Tiếng Anh và 7 quyển sách Toán. Lấy ngẫu nhiên ba quyển sách. Xác suất ba quyển lấy ra có cả sách Tiếng Anh và sách Toán là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{9}{44}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{22}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{7}{44}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{35}{44}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{9}{44}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{22}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{7}{44}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{35}{44}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi không gian mẫu $\Omega \Rightarrow n(\Omega)=C_{12}^{3}=220$ (Lấy 3 trong 12 quyển sách)<br>Gọi $E$ là " Biến cố lấy được 3 quyển có cả sách Tiếng Anh và Toán " $\Rightarrow \bar{E}$ là " Biến cố lấy được 3 quyển chỉ có một loại Tiếng Anh hoặc Toán " $\Rightarrow n(\bar{E})=C_{5}^{3}+C_{7}^{3}=45$.<br><br>Xác suất cần tìm là: $P(E)=1-P(\bar{E})=1-\dfrac{n(\bar{E})}{n(\Omega)}=1-\dfrac{45}{220}=\dfrac{35}{44}$.</div>
@@ -1602,7 +1548,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 54</div>
                 <div class="q-content">Gọi là $X$ tập hợp các số có 4 chữ số khác nhau được lập từ $\{1 ; 2 ; 3 ; 4 ; 5 ; 6 ; 7 ; 8 ; 9\}$. Lấy ngẫu nhiên một số bất kỳ từ tập $X$. Xác suất để số lấy được có mặt đúng hai chữ số chẵn và hai chữ số lẻ là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{4}{7}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{11}{21}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{10}{21}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{3}{7}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{4}{7}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{11}{21}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{10}{21}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{3}{7}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi không gian mẫu $\Omega$. Mỗi số tự nhiên có 4 chữ số khác nhau lập từ các số của tập A là một chỉnh hợp chập 4 của $9 \Rightarrow n(\Omega)=A_{9}^{4}=3024$.<br><br>Gọi $E$ là " Biến cố lấy được số có mặt đúng hai chữ số chẵn và hai chữ số lẻ ", ta có:<br>Số cách lấy một bộ gồm 2 số chẵn và 2 số lẻ từ tập A là: $C_{4}^{2} \cdot C_{5}^{2}=60$, mỗi bộ như vậy sẽ lập được 4! số suy ra $n(E)=60.4!=1440$. Vậy xác suất cần tìm là $P(E)=\dfrac{n(E)}{n(\Omega)}=\dfrac{1440}{3024}=\dfrac{10}{21}$.</div>
@@ -1615,7 +1561,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 55</div>
                 <div class="q-content">Lấy ngẫu nhiên hai tấm thẻ trong một hộp chứa 9 tấm thẻ đánh số từ 1 đến. Tính xác suất để tổng của các số trên hai thẻ lấy ra là số chẵn.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{9}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{5}{3}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{5}{9}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{4}{9}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{9}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{5}{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{5}{9}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{4}{9}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử không gian mẫu là $n(\Omega)=C_{9}^{2}=36$.<br>Gọi $A$ là biến cố "Tổng của các số trên hai thẻ lấy ra là số chẵn".<br>Suy ra $n(A)=C_{4}^{2}+C_{5}^{2}=16$.<br>Vậy xác suất của biến cố $A$ là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{16}{36}=\dfrac{4}{9}$.</div>
@@ -1628,7 +1574,7 @@
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 56</div>
                 <div class="q-content">Trong một lớp học gồm có 18 học sinh nam và 17 học sinh nữ. Giáo viên gọi ngẫu nhiên 4 học sinh lên bảng giải bài tập. Xác suất để 4 học sinh được gọi có cả nam và nữ là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{69}{77}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{65}{71}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{443}{506}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{68}{75}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{69}{77}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{65}{71}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{443}{506}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{68}{75}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử không gian mẫu là $n(\Omega)=C_{35}^{4}=52360$.<br>Gọi $A$ là biến cố " 4 học sinh được gọi có cả nam và nữ".<br>Suy ra $\bar{A}$ là biến cố " 4 học sinh được chỉ có cả nam hoặc nữ".<br>Suy ra $n(\bar{A})=C_{18}^{4}+C_{17}^{4}=2380+3060=5440 \Rightarrow n(A)=46920$.<br>Vậy xác suất của biến cố $A$ là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{69}{77}$.</div>
@@ -1641,7 +1587,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 57</div>
                 <div class="q-content">Chọn ngẫu nhiên hai số phân biệt từ 15 số nguyên dương đầu tiên. Xác suất để tích hai số được chọn là một số chẵn bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{4}{15}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{4}{5}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{11}{15}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{5}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{4}{15}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{4}{5}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{11}{15}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{5}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử không gian mẫu là $n(\Omega)=C_{15}^{2}=105$.<br><br>Gọi $A$ là biến cố "Tích hai số được chọn là một số chẵn".<br>Suy ra $n(A)=7.8+C_{7}^{2}=77$.<br>Vậy xác suất của biến cố $A$ là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{11}{15}$.</div>
@@ -1654,7 +1600,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 58</div>
                 <div class="q-content">Từ một hộp chứa 9 quả cầu đỏ và 6 quả cầu xanh, lấy ngẫu nhiên đồng thời 3 quả cầu. Xác suất để lấy được 3 quả cầu màu xanh bằng?</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{5}{21}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{24}{91}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{4}{91}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{12}{65}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{5}{21}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{24}{91}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{4}{91}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{12}{65}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử không gian mẫu là $n(\Omega)=C_{15}^{3}=455$.<br>Gọi $A$ là biến cố "Lấy được 3 quả cầu màu xanh".<br>Suy ra $n(A)=C_{6}^{3}=20$.<br>Vậy xác suất của biến cố $A$ là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{4}{91}$.</div>
@@ -1667,7 +1613,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 59</div>
                 <div class="q-content">Một người đi du lịch mang 3 hộp thịt, 2 hộp quả và 3 hộp sữa. Do trời mưa nên các hộp bị mất nhãn. Người đó chọn ngẫu nhiên 3 hộp. Tính xác suất để trong đó có một hộp thịt, một hộp sữa, một hộp quả.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{5}{14}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{9}{14}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{9}{28}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{19}{28}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{5}{14}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{9}{14}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{9}{28}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{19}{28}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Để chọn được một hộp thịt, một hộp sữa, một hộp quả ta có $n(\mathrm{~A})=C_{3}^{1} C_{2}^{1} C_{3}^{1}$<br>Vậy $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{n(\mathrm{~A})=C_{3}^{1} C_{2}^{1} C_{3}^{1}}{C_{8}^{3}}=\dfrac{9}{28}$.</div>
@@ -1680,10 +1626,10 @@
             <div class="question-card" data-correct="B" data-level="kg">
                 <div class="q-number">Câu 60</div>
                 <div class="q-content">Một hộp đựng 9 chiếc thẻ được đánh số từ 1 đến 9. Rút ngẫu nhiên ra hai thẻ rồi nhân hai số ghi trên hai thẻ lại với nhau. Xác suất để kết quả nhận được là một số chẵn bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{2}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{13}{18}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{5}{18}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{6}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{13}{18}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{5}{18}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{6}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">B.<br><br>Rút ngẫu nhiên hai thẻ từ 9 chiếc thẻ được đánh số từ 1 đến 9 , số cách rút hay $n(\Omega)=C_{9}^{2}$<br>Gọi A là biến cố: " Tích hai số ghi trên hai thẻ là số chẵn"<br>Tích hai số là một số chẵn nếu hai số mang nhân có ít nhất 1 số chẵn.<br>Khi đó $n(A)=C_{4}^{1} \cdot C_{5}^{1}+C_{4}^{2}=26$<br><br>Vậy xác suất của biến cố $A$ là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{13}{18}$.</div>
+                    <div class="sol-body">B. <br><br>Rút ngẫu nhiên hai thẻ từ 9 chiếc thẻ được đánh số từ 1 đến 9 , số cách rút hay $n(\Omega)=C_{9}^{2}$<br>Gọi A là biến cố: " Tích hai số ghi trên hai thẻ là số chẵn"<br>Tích hai số là một số chẵn nếu hai số mang nhân có ít nhất 1 số chẵn.<br>Khi đó $n(A)=C_{4}^{1} \cdot C_{5}^{1}+C_{4}^{2}=26$<br><br>Vậy xác suất của biến cố $A$ là $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{13}{18}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1693,7 +1639,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 61</div>
                 <div class="q-content">Bạn Hằng có 6 cuốn sách khoa học và 4 cuốn truyện tranh (các sách khác nhau từng đôi một). Hằng cho Tâm mượn ngẫu nhiên 3 cuốn sách trong số đó để đọc. Tính xác suất của biến cố: "Hằng cho Tâm mượn ít nhất 1 cuốn truyện tranh".</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{5}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{6}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{5}{6}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{3}{10}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{5}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{6}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{5}{6}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{3}{10}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi $\Omega$ là không gian mẫu. $n(\Omega)=C_{10}^{3}=120$.<br>Gọi $A$ là biến cố: "Hằng cho Tâm mượn ít nhất 1 cuốn truyện tranh".<br>$\bar{A}$ là biến cố: " Hằng cho Tâm mượn 3 cuốn sách khoa học". $n(\bar{A})=C_{6}^{3}=20$.<br>Xác suất: $P(\bar{A})=\dfrac{n(\bar{A})}{n(\Omega)}=\dfrac{20}{120}=\dfrac{1}{6} \Rightarrow P(A)=1-P(\bar{A})=\dfrac{5}{6}$.</div>
@@ -1706,7 +1652,7 @@
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 62</div>
                 <div class="q-content">Có năm tấm bìa được đánh số từ 1 đến 5 . Rút ngẫu nhiên ba tấm. Xác suất của biến cố "Tổng các số trên ba tấm bìa chia hết cho 3 " là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{2}{5}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{9}{10}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{10}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{3}{10}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{2}{5}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{9}{10}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{10}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{3}{10}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi $\Omega$ là không gian mẫu. $n(\Omega)=C_{5}^{3}=10$.<br>Gọi A là biến cố: "Tổng các số trên ba tấm bìa chia hết cho 3 ".<br>Các số ghi trên các tấm bìa chia làm 3 nhóm:<br><br>- Nhóm 1: các số chia hết cho $3: 3$.<br>- Nhóm 2: các số chia 3 dư 1: 1;4.<br>- Nhóm 3: các số chia 3 dư 2: 2;5.<br><br>Vì chỉ có 5 số như trên nên muốn tổng 3 số là số chia hết cho 3 thì 3 số lấy ra sẽ có 1 số ở nhóm 1, một số ở nhóm 2, một số ở nhóm 3 .<br>$n(A)=1.2 .2=4$.<br>Xác suất $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{4}{10}=\dfrac{2}{5}$.</div>
@@ -1719,7 +1665,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 63</div>
                 <div class="q-content">Một chiếc hộp chứa 20 quả cầu gồm 8 quả màu xanh, 7 quả màu đỏ và 5 quả màu vàng. Lấy ngẫu nhiên 6 quả cầu từ chiếc hộp đó. Xác suất để trong 6 quả cầu lấy được ít nhất một quả màu đỏ bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{143}{3230}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{3}{10}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1287}{6460}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{3087}{3230}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{143}{3230}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{3}{10}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1287}{6460}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{3087}{3230}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta có số phần tử của không gian mẫu là: $n(\Omega)=C_{20}^{6}$.<br>Gọi $A$ là biến cố: "trong 6 quả cầu lấy được ít nhất một quả màu đỏ"<br>Gọi $B$ là biến cố: "trong 6 quả cầu lấy được không có quả màu đỏ"<br>Số phần tử của biến cố là: $n(B)=C_{13}^{6}$<br>Xác suất $P(B)=\dfrac{n(B)}{n(\Omega)}=\dfrac{143}{3230}$.<br>Xác suất cần tính là: $P(A)=1-P(B)=\dfrac{3087}{3230}$.</div>
@@ -1732,7 +1678,7 @@
             <div class="question-card" data-correct="B" data-level="kg">
                 <div class="q-number">Câu 64</div>
                 <div class="q-content">Từ một hộp chứa 6 quả cầu trắng và 3 ba quả cầu đen, lấy ngẫu nhiên đồng thời 3 quả. Xác suất sao cho lấy được 3 quả cùng màu</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $1$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{4}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $3$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $4$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{4}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$3$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$4$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Hộp có $6+3=9$ quả cầu. Số phần tử của không gian mẫu là: $n(\Omega)=C_{9}^{3}=84$.<br>Gọi $A$ là biến cố "lấy được 3 quả cùng màu"<br>TH1: Lấy 3 quả cầu trắng có $C_{6}^{3}=20$ cách.<br>TH2: Lấy 3 quả cầu đen có $C_{3}^{3}=1$ cách.<br>$\Rightarrow n(A)=20+1=21$<br>Xác suất sao cho lấy được 3 quả cùng màu là: $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{21}{84}=\dfrac{1}{4}$.</div>
@@ -1745,7 +1691,7 @@
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 65</div>
                 <div class="q-content">Từ một hộp chứa 15 quả cầu gồm 10 quả màu đỏ và 5 quả màu xanh, lấy ngẫu nhiên đồng thời hai quả. Xác suất để lấy được 2 quả có màu khác nhau là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{10}{21}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{2}{21}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{7}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{3}{7}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{10}{21}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{2}{21}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{7}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{3}{7}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta có số phần tử của không gian mẫu là: $n(\Omega)=C_{15}^{2}$.<br>Gọi $A$ là biến cố: "lấy được 2 quả khác màu"<br>Số phần tử của biến cố là: $n(A)=C_{10}^{1} \cdot C_{5}^{1}$.<br>Xác suất cần tính là: $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{10}{21}$.</div>
@@ -1758,7 +1704,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 66</div>
                 <div class="q-content">Cho hai hộp, hộp I chứa 4 viên bi đỏ và 3 viên bi xanh, hộp II chứa 5 viên bi đỏ và 2 viên bi xanh. Lấy ngẫu nhiên từ mỗi hộp ra 2 viên bi. Xác suất để các viên bi lấy ra cùng màu là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{131}{1001}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{9}{143}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{131}{441}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{7}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{131}{1001}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{9}{143}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{131}{441}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{7}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Lấy ngẫu nhiên 2 viên bi từ hộp I có $C_{7}^{2}=21$.<br>Lấy ngẫu nhiên 2 viên bi từ hộp II có $C_{7}^{2}=21$.<br>Ta có số phần tử của không gian mẫu là: $n(\Omega)=21.21=441$.<br>Gọi $A$ là biến cố: "các viên bi lấy ra cùng màu".<br>Số phần tử của biến cố là: $n(A)=C_{4}^{2} \cdot C_{5}^{2}+C_{3}^{2} \cdot C_{2}^{2}$.<br>Xác suất cần tính là: $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{1}{7}$.</div>
@@ -1771,7 +1717,7 @@
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 67</div>
                 <div class="q-content">Chọn ngẫu nhiên hai số khác nhau từ 30 số nguyên dương đầu tiên. Xác suất để chọn được hai số có tổng là một số chẵn bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{14}{29}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{28}{29}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{7}{29}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{2}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{14}{29}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{28}{29}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{7}{29}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta có số phần tử của không gian mẫu là: $n(\Omega)=C_{30}^{2}$.<br>Gọi $A$ là biến cố: "chọn được hai số có tổng là một số chẵn".<br>TH1: Chọn hai số chẵn có $C_{15}^{2}$<br>TH2: Chọn hai số lẻ có $C_{15}^{2}$<br>Số phần tử của biến cố là: $n(A)=2 \cdot C_{15}^{2}$.<br>Xác suất cần tính là: $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{14}{29}$.</div>
@@ -1784,7 +1730,7 @@
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 68</div>
                 <div class="q-content">Một hộp chứa 5 viên bi màu trắng, 10 viên bi màu xanh và 15 viên bi màu đỏ. Lấy ngẫu nhiên từ hộp ra 7 viên bi. Xác suất để trong số 7 viên bi được lấy ra có ít nhất 2 viên bi màu đỏ là:</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{5011}{5220}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{250}{261}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{17}{180}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{20}{261}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{5011}{5220}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{250}{261}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{17}{180}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{20}{261}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu là: $n(\Omega)=C_{30}^{7}$<br>Gọi $A$ là biến cố để trong số 7 viên bi được lấy ra có ít nhất 2 viên bi màu đỏ.<br>$\bar{A}$ là biến cố để trong số 7 viên bi được lấy ra có 1 viên bi màu đỏ và không có viên bị màu đỏ nào. Khi đó: $n(\bar{A})=15 . C_{15}^{6}+C_{15}^{7}=81510$<br><br>Vậy xác suất để trong số 7 viên bi được lấy ra có ít nhất 2 viên bi màu đỏ là: $1-\dfrac{n(\bar{A})}{n(\Omega)}=1-\dfrac{81510}{C_{30}^{7}}=\dfrac{5011}{5220}$.</div>
@@ -1797,7 +1743,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 69</div>
                 <div class="q-content">Cho tập hợp $A=\{1 ; 2 ; 3 ; 4 ; 5\}$. Gọi $S$ là tập hợp tất cả các số tự nhiên có 3 chữ số, các chữ số đôi một khác nhau được lập thành từ các chữ số thuộc tập $A$. Chọn ngẫu nhiên hai số từ $S$, tính xác xuất để hai số được chọn đều chia hết cho 3 ?</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{3}{5}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{46}{295}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{2}{5}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{51}{590}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{3}{5}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{46}{295}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{2}{5}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{51}{590}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi $B$ là biến cố "chọn được hai số được chọn đều chia hết cho 3 "<br>Số các số tự nhiên có ba chữ số tạo nên từ tập $A$ là: $A_{5}^{3}=60$<br>$n(\Omega)=C_{60}^{2}$<br>Tập các số gồm ba chữ số tạo thành các số chia hết cho 3 là:<br>$\{1 ; 2 ; 3\},\{1 ; 3 ; 5\},\{2 ; 3 ; 4\}$<br>Mỗi tập trên tạo thành 3 ! số chia hết cho 3 , nên có 3.3 ! $=18$ số chia hết cho 3 .<br>Suy ra: $n(B)=C_{18}^{2}$<br>$P(B)=\dfrac{n(B)}{n(\Omega)}=\dfrac{C_{18}^{2}}{C_{60}^{2}}=\dfrac{51}{590}$.</div>
@@ -1807,53 +1753,53 @@
             </div>
             
             <div class="slide" data-i="70" id="slide-70">
-            <div class="question-card" data-correct="C" data-level="kg">
+            <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 70</div>
                 <div class="q-content">Cho đa giác đều có 24 đỉnh. Chọn ngẫu nhiên bốn đỉnh. Tính xác suất chọn ra được hình chữ nhật có các đỉnh là 4 trong 24 đỉnh của đa giác đó.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{35}{46}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{11}{46}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{1}{161}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{15}{322}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{35}{46}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{11}{46}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{1}{161}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{15}{322}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu là $n(\Omega)=C_{24}^{4}$<br>Ta vẽ đường tròn ngoại tiếp đa giác đều 24 đỉnh.Vẽ một đường kính của đường tròn này.Khi đó 2 nửa đường tròn đều chứa 12 đỉnh.<br><br>Với mỗi đỉnh thuộc nửa đường tròn thứ nhất ta đều có 1 đỉnh đối xứng với nó qua đường kính và thuộc nưa đường tròn còn lại.<br><br>Như vậy cứ 2 đỉnh thuộc đường tròn thứ nhất ta xác định được 2 đỉnh đối xứng với nó qua đường kính và thuộc nửa đường tròn còn lại,bốn đỉnh này tạo thành hình chữ nhật.<br><br>Vậy số hình chữ nhật tạo thành từ 4 đa giác đã cho là $C_{12}^{2}$<br>Xác xuất cần tìm $P=\dfrac{C_{12}^{2}}{C_{24}^{4}}=\dfrac{1}{161}$</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="71" id="slide-71">
-            <div class="question-card" data-correct="A" data-level="kg">
+            <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 71</div>
                 <div class="q-content">Một tổ trong lớp 10 A có 5 bạn nữ và 6 bạn nam. Giáo viên chọn ngẫu nhiên ba bạn trong tổ đó tham gia đội làm báo của lớp. Xác suất để ba bạn được chọn có đúng một bạn nữ là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{5}{11}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{29}{33}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{4}{33}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{9}{11}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{5}{11}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{29}{33}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{4}{33}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{9}{11}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Không gian mẫu $\Omega$ là các cách chọn ba bạn từ tổ gồm 5 bạn nữ và 6 bạn nam của lớp $10 \mathbf{A}$.<br>Số phần tử của không gian mẫu là $n(\Omega)=C_{11}^{3}=165$.<br>Biến cố $A$ là các cách chọn ba bạn sao cho có đúng một bạn nữ.<br><br><br>Số phần tử của biến cố $A$ là $C_{5}^{1} \cdot C_{6}^{2}=75$.<br>Xác suất cần tìm là: $P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{75}{165}=\dfrac{5}{11}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="72" id="slide-72">
-            <div class="question-card" data-correct="A" data-level="kg">
+            <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 72</div>
                 <div class="q-content">Xếp ngẫu nhiên 6 nam và 4 nữ thành hàng ngang. Tính xác suất để không có hai bạn nữ nào đứng cạnh nhau.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{1}{6}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{1}{30}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{29}{30}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{210}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{1}{6}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{1}{30}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{29}{30}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{210}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Các kết quả của không gian mẫu là các các cách xếp ngẫu nhiên 6 nam và 4 nữ thành hàng ngang có 10 vị trí, nên $n(\Omega)=10$ !; 12345678910<br>Gọi $A$ : biến cố không có hai bạn nữ nào đứng cạnh nhau.<br>+) Xếp 6 bạn nam có: $6!=720$ cách;<br>+) Cứ hai bạn nam có một chỗ trống và có 5 chỗ trống giữa hai nam, và hai chỗ trống ở đầu hàng và cuối hàng;<br>+) Số cách xếp 4 bạn nữ vào 7 chỗ trống: $A_{7}^{4}=840$ cách<br>$n(A)=720.840=604800$;<br>$P(A)=\dfrac{604800}{10!}=\dfrac{1}{6}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="73" id="slide-73">
-            <div class="question-card" data-correct="B" data-level="kg">
+            <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 73</div>
                 <div class="q-content">Một đội gồm 5 nam và 8 nữ. Lập một nhóm gồm 4 người hát tốp ca, tính xác suất để trong 4 người được chọn có ít nhất 3 nữ.</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{73}{143}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{70}{143}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{87}{143}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{56}{143}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{73}{143}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{70}{143}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{87}{143}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{56}{143}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi A: "4 người được chọn có ít nhất 3 nữ"<br>$n(A)=C_{8}^{3} \cdot C_{5}^{1}+C_{8}^{4}=350$<br>$P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{70}{143}$</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
@@ -1862,7 +1808,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 74</div>
                 <div class="q-content">Một tổ học sinh có 7 nữ và 5 nam. Chọn ngẫu nhiên 3 học sinh. Xác suất để trong 3 học sinh được chọn có đúng 1 học sinh nữ bằng</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{21}{44}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{5}{12}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{7}{22}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{1}{5}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{21}{44}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{5}{12}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{7}{22}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{1}{5}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách chọn ngẫu nhiên 3 học sinh của tổ có 7 nữ và 5 nam là $C_{12}^{3}=220$. Do đó, số phần tử của không gian mẫu là $n(\Omega)=220$.<br>Để chọn ra 3 học sinh có đúng 1 học sinh nữ thì ta chọn ra 1 học sinh nữ và 2 học sinh nam.<br>Số cách chọn ra 1 học sinh nữ và 2 học sinh nam là $C_{7}^{1} \cdot C_{5}^{2}=70$.<br>Gọi A là biến cố "chọn ra 3 học sinh có đúng 1 học sinh nữ" thì $n(A)=70$.<br>Do đó $P(A)=\dfrac{70}{220}=\dfrac{7}{22}$.</div>
@@ -1875,7 +1821,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 75</div>
                 <div class="q-content">Một bình đựng 8 viên bi xanh và 4 viên bi đỏ. Lấy ngẫu nhiên 3 viên bi. Xác suất để có được ít nhất hai viên bi xanh là bao nhiêu?</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{28}{55}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{14}{55}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{41}{55}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{42}{55}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{28}{55}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{14}{55}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{41}{55}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{42}{55}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số phần tử của không gian mẫu: $n(\Omega)=C_{12}^{3}=220$.<br>Gọi $A$ là biến cố "lấy được ít nhất hai viên bi xanh".<br>TH1: Lấy được 2 bi xanh và 1 bi đỏ: $C_{8}^{2} \cdot C_{4}^{1}=112$.<br>TH2: Lấy được cả 3 đều là bi xanh: $C_{8}^{3}=56$.<br>Vậy $P(A)=\dfrac{56+112}{220}=\dfrac{42}{55}$.</div>
@@ -1885,14 +1831,14 @@
             </div>
             
             <div class="slide" data-i="76" id="slide-76">
-            <div class="question-card" data-correct="D" data-level="kg">
+            <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 76</div>
                 <div class="q-content">Một hộp chứa 11 quả cầu gồm 5 quả màu xanh và 6 quả màu đỏ. Chọn ngẫu nhiên đồng thời 2 quả cầu từ hộp đó. Xác suất để 2 quả cầu chọn ra cùng màu là</div>
-            <div class="options-grid"><div class="option" data-ans="A" role="button" tabindex="0" aria-label="Phương án A"><div class="opt-label">A.</div> $\dfrac{8}{11}$</div><div class="option" data-ans="B" role="button" tabindex="0" aria-label="Phương án B"><div class="opt-label">B.</div> $\dfrac{5}{22}$</div><div class="option" data-ans="C" role="button" tabindex="0" aria-label="Phương án C"><div class="opt-label">C.</div> $\dfrac{6}{11}$</div><div class="option" data-ans="D" role="button" tabindex="0" aria-label="Phương án D"><div class="opt-label">D.</div> $\dfrac{5}{11}$</div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\dfrac{8}{11}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\dfrac{5}{22}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\dfrac{6}{11}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\dfrac{5}{11}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi $A$ là biến cố " 2 quả cầu chọn ra cùng màu".<br>Số phần tử của không gian mẫu: $n(\Omega)=C_{11}^{2}=55$.<br>Trường hợp 1: Hai quả chọn được cùng màu xanh sẽ có $C_{5}^{2}$ khả năng.<br>Trường hợp 2: Hai quả chọn được cùng màu đỏ sẽ có $C_{6}^{2}$ khả năng.<br>Vậy $n(A)=C_{5}^{2}+C_{6}^{2}=25$ và $P(A)=\dfrac{25}{55}=\dfrac{5}{11}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
@@ -1948,114 +1894,70 @@
         <!-- Header Sổ tay -->
         <div class="theory-header">
             <div class="theory-badge">KIẾN THỨC CỐT LÕI</div>
-            <h2 class="theory-main-title" id="theoryTitle">Xác Suất Cổ Điển</h2>
+            <h2 class="theory-main-title" id="theoryTitle">Chuyên đề 2 - Xác suất cổ điển</h2>
             <div class="theory-line"></div>
         </div>
 
-        <div class="theory-text">
-            <div class="theory-h2">1. Khái niệm cơ bản</div>
-            
-            <div class="theory-item">
-                <span class="theory-bullet"></span>
-                <div><strong>Phép thử ngẫu nhiên:</strong> Là phép thử mà ta không thể đoán trước kết quả, mặc dù đã biết tập hợp tất cả các kết quả có thể xảy ra.</div>
-            </div>
-
-            <div class="theory-item">
-                <span class="theory-bullet"></span>
-                <div><strong>Không gian mẫu ($\Omega$):</strong> Tập hợp các kết quả có thể xảy ra của phép thử.</div>
-            </div>
-            
-            <div class="theory-box note">
-                <div class="theory-box-title">📝 GHI NHỚ</div>
-                <p><strong>Biến cố:</strong> Là một tập con của không gian mẫu. Kí hiệu là $A, B, C...$</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-                    <div class="theory-mini-card">$\varnothing$: Biến cố không thể</div>
-                    <div class="theory-mini-card">$\Omega$: Biến cố chắc chắn</div>
-                </div>
-                <p style="margin-top: 10px;">$\bullet$ Biến cố đối của $A$: $\bar{A} = \Omega \setminus A$</p>
-            </div>
-
-            <div class="theory-h2">2. Định nghĩa xác suất</div>
-            <p>Xác suất của biến cố $A$, kí hiệu là $P(A)$, được tính bằng tỉ số giữa số kết quả thuận lợi cho $A$ và tổng số kết quả có thể xảy ra:</p>
-            
-            <div class="theory-formula-card">
-                <div class="formula-label">CÔNG THỨC VÀNG</div>
-                <div class="formula-content">
-                    $P(A) = \dfrac{n(A)}{n(\Omega)}$
-                </div>
-            </div>
-
-            <div class="theory-h2">3. Tính chất quan trọng</div>
-            <div class="theory-box warning">
-                <div class="theory-box-title">⚠️ LƯU Ý KHI LÀM BÀI</div>
-                <ul style="padding-left: 18px; margin: 0;">
-                    <li>Giá trị xác suất luôn nằm trong đoạn $[0 ; 1]$.</li>
-                    <li>$P(\varnothing) = 0$ và $P(\Omega) = 1$.</li>
-                    <li>Xác suất của biến cố đối: $P(\bar{A}) = 1 - P(A)$.</li>
-                </ul>
-            </div>
-
-            <div class="theory-h2">4. Hình học Tổ hợp</div>
-            <div class="theory-box note">
-                <div class="theory-box-title">📏 ĐIỂM VÀ ĐƯỜNG THẲNG</div>
-                <p>$\bullet$ <strong>Số vectơ</strong> (khác $\overrightarrow{0}$) từ $n$ điểm: $A_n^2$</p>
-                <p>$\bullet$ <strong>Số đường thẳng</strong> tạo thành từ $n$ điểm: $C_n^2$</p>
-                <p>$\bullet$ <strong>Hai đường thẳng song song</strong> ($d_1$ có $m$ điểm, $d_2$ có $n$ điểm):</p>
-                <div style="padding-left: 15px; font-size: 14px;">
-                    - Số giao điểm của các đoạn thẳng chéo nhau: $C_m^2 \cdot C_n^2$<br>
-                    - Số tam giác tạo thành: $C_m^2 \cdot n + C_n^2 \cdot m$
-                </div>
-                <p style="margin-top: 10px;">$\bullet$ <strong>Lưới đường thẳng:</strong> $m$ đường ngang cắt $n$ đường dọc tạo ra số hình bình hành: $C_m^2 \cdot C_n^2$</p>
-            </div>
-
-            <div class="theory-h2">5. Đếm hình trong Đa giác lồi ($n$ đỉnh)</div>
-            <div class="theory-item">
-                <span class="theory-bullet"></span>
-                <div><strong>Số đoạn thẳng</strong> (cạnh + đường chéo): $C_n^2$</div>
-            </div>
-            <div class="theory-item">
-                <span class="theory-bullet"></span>
-                <div><strong>Số đường chéo:</strong> $\dfrac{n(n-3)}{2}$</div>
-            </div>
-            <div class="theory-item">
-                <span class="theory-bullet"></span>
-                <div><strong>Giao điểm đường chéo</strong> (bên trong): $C_n^4$</div>
-            </div>
-
-            <div class="theory-formula-card" style="background: var(--light-blue); padding: 15px;">
-                <div class="formula-label" style="color: white;">ĐẾM TAM GIÁC THEO CẠNH CHUNG</div>
-                <div style="font-size: 14px; text-align: left;">
-                    - <strong>Đúng 2 cạnh chung:</strong> $n$<br>
-                    - <strong>Đúng 1 cạnh chung:</strong> $n(n-4)$<br>
-                    - <strong>Không có cạnh chung:</strong> $C_n^3 - n - n(n-4)$
-                </div>
-            </div>
-
-            <div class="theory-h2">6. Tam giác Nhọn, Vuông, Tù</div>
-            <p>Xét đa giác đều $n$ đỉnh nội tiếp đường tròn. Tổng số tam giác là $C_n^3$.</p>
-            
-            <div class="theory-box note">
-                <div class="theory-box-title">📐 TRƯỜNG HỢP $n$ CHẴN ($n=2k$)</div>
-                <p>- Số tam giác vuông: $\dfrac{n}{2} \cdot (n-2)$</p>
-                <p>- Số tam giác tù: $n \cdot C_{\dfrac{n}{2}-1}^2$</p>
-                <p>- Số tam giác nhọn: $C_n^3 - S_{\text{vuông}} - S_{\text{tù}}$</p>
-            </div>
-
-            <div class="theory-box note">
-                <div class="theory-box-title">📐 TRƯỜNG HỢP $n$ LẺ ($n=2k+1$)</div>
-                <p>- Số tam giác vuông: $0$</p>
-                <p>- Số tam giác tù: $n \cdot C_{\dfrac{n-1}{2}}^2$</p>
-                <p>- Số tam giác nhọn: $C_n^3 - S_{\text{tù}}$</p>
-            </div>
-
-            <div class="theory-box warning">
-                <div class="theory-box-title">💡 MẸO TRẮC NGHIỆM NHANH</div>
-                <p>Khi đa giác đều có $n$ đỉnh ($n$ lớn) ⇒ tỉ lệ tam giác nhọn $\to \dfrac{1}{4}$, tam giác tù $\to \dfrac{3}{4}$.</p>
-                <p>$\bullet$ Lưu ý: kết quả $C_n^3 = $ <strong>nhọn + vuông + tù</strong>.</p>
-            </div>
-
+        <div class="theory-text" id="theory-content" style="font-size:16px; line-height:1.8; color:#334155; padding: 10px 0;">
+            <div class="theory-h2">1. Một số khái niệm về xác suất</div>
+<br>
+<p class="theory-text">a) Phép thử ngẫu nhiên và không gian mẫu</p>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div>Có những phép thử mà ta không thể đoán trước được kết quả của nó, mặc dù đã biết tập hợp tất cả các kết quả có thể có của phép thử đó. Những phép thử như thế gọi là phép thử ngẫu nhiên (gọi tắt là phép thử).</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Tập hợp $\Omega$ các kết quả có thể xảy ra của một phép thử gọi là không gian mẫu của phép thử đó.</div></div>
+<p class="theory-text">b) Biến cố và xác suất của biến cố</p>
+<div class="theory-item"><span class="theory-bullet"></span><div>Biến cố ngẫu nhiên (gọi tắt là biến cố) là một tập con của không gian mẫu.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Xét phép thử $T$ với không gian mẫu là $\Omega$. Mỗi biến cố là một tập con của tập hợp $\Omega$. Vì thế, tập rỗng $\varnothing$ cũng là một biến cố, gọi là biến cố không thể (gọi tắt là biến cố không). Còn tập hợp $\Omega$ gọi là biến cố chắc chắn.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Tập con $\Omega \backslash A$ xác định một biến cố, gọi là biến cố đối của biến cố $A$, kí hiệu là $\bar{A}$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Xét phép thử chỉ có một số hữu hạn kết quả có thể xảy ra và khả năng xảy ra của từng kết quả là giống nhau. Gọi $\Omega$ là không gian mẫu của phép thử đó. Khi đó, với mỗi biến cố $A$, ta có định nghĩa cổ điển của xác suất như sau:</div></div>
+<br>
+<p class="theory-text">Xác suất của biến cố $A$, kí hiệu là $P(A)$, bằng tỉ số $\dfrac{n(A)}{n(\Omega)}$, ở đó $n(A), n(\Omega)$ lần lượt là số phần tử của hai tập hợp $A$ và $\Omega$. Như vậy: $P(A)=\dfrac{n(A)}{n(\Omega)}$.</p>
+<br>
+<div class="theory-h2">2. Tính chất của xác suất</div>
+<br>
+<p class="theory-text">Xét phép thử $T$ với không gian mẫu là $\Omega$. Khi đó, ta có các tính chất sau:</p>
+<p class="theory-text">$-P(\varnothing)=0 ; P(\Omega)=1$</p>
+<p class="theory-text">$-0 \leq P(A) \leq 1$ với mỗi biến cố $A$;</p>
+<p class="theory-text">$-P(\bar{A})=1-P(A)$ với mỗi biến cố $A$.</p>
+<br>
+<div class="theory-h2">3. Hình học Tổ hợp</div>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Số vectơ</strong> (khác $\overrightarrow{0}$) từ $n$ điểm: $A_n^2$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Số đường thẳng</strong> tạo thành từ $n$ điểm (không có 3 điểm thẳng hàng): $C_n^2$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Hai đường thẳng song song</strong> ($d_1$ có $m$ điểm, $d_2$ có $n$ điểm):</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Số giao điểm của các đoạn thẳng chéo nhau: $C_m^2 \cdot C_n^2$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Số tam giác tạo thành: $C_m^2 \cdot n + C_n^2 \cdot m$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Lưới đường thẳng:</strong> $m$ đường ngang cắt $n$ đường dọc tạo ra số hình bình hành: $C_m^2 \cdot C_n^2$</div></div>
+<br>
+<div class="theory-h2">4. Đếm hình trong Đa giác lồi ($n$ đỉnh)</div>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Số đoạn thẳng</strong> (cạnh + đường chéo): $C_n^2$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Số đường chéo:</strong> $\dfrac{n(n-3)}{2}$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Giao điểm đường chéo</strong> (bên trong): $C_n^4$</div></div>
+<p class="theory-text">&gt; ⚠️ *Điều kiện: đa giác ở vị trí tổng quát, không có 3 đường chéo nào đồng quy bên trong. Lưu ý các đa giác đều như lục giác, bát giác, thập nhị giác... có đường chéo đồng quy nên công thức này không áp dụng trực tiếp.*</p>
+<div class="theory-item"><span class="theory-bullet"></span><div><strong>Đếm tam giác theo cạnh chung:</strong></div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Đúng 2 cạnh chung: $n$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Đúng 1 cạnh chung: $n(n-4)$ *(với $n \ge 4$)*</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Không có cạnh chung: $C_n^3 - n - n(n-4)$</div></div>
+<br>
+<div class="theory-h2">5. Tam giác Nhọn, Vuông, Tù</div>
+<br>
+<p class="theory-text">Xét đa giác đều $n$ đỉnh nội tiếp đường tròn. Tổng số tam giác là $C_n^3$.</p>
+<br>
+<p class="theory-text"><strong>Trường hợp $n$ chẵn ($n=2k$)</strong></p>
+<div class="theory-item"><span class="theory-bullet"></span><div>Số tam giác vuông: $\dfrac{n}{2} \cdot (n-2)$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Số tam giác tù: $n \cdot C_{\dfrac{n}{2}-1}^2$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Số tam giác nhọn: $C_n^3 - S_{\text{vuông}} - S_{\text{tù}}$</div></div>
+<br>
+<p class="theory-text"><strong>Trường hợp $n$ lẻ ($n=2k+1$)</strong></p>
+<div class="theory-item"><span class="theory-bullet"></span><div>Số tam giác vuông: $0$ *(không có đường kính nào nối 2 đỉnh)*</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Số tam giác tù: $n \cdot C_{\dfrac{n-1}{2}}^2$</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Số tam giác nhọn: $C_n^3 - S_{\text{tù}}$</div></div>
+<br>
+<p class="theory-text">&gt; <strong>Mẹo trắc nghiệm nhanh:</strong> Nếu lấy ngẫu nhiên 3 điểm độc lập, phân bố đều trên đường tròn, xác suất tam giác nhọn là <strong>25%</strong> và xác suất tam giác tù là <strong>75%</strong>. *(Đây là bài toán xác suất hình học liên tục, khác với bài toán đếm trên đa giác đều ở trên.)*</p>
         </div>
     </div>
+</div>
 </div>
 
 <script>
@@ -2155,6 +2057,7 @@
     function renderProgressGrid() {
         const grid = document.getElementById('pgGrid');
         if (!grid) return;
+        const allQuestionSlides = Array.from(document.querySelectorAll('.slide')).filter(s => s.id !== 'slide-0');
         const questionSlides = currentSlides.filter(s => s.id !== 'slide-0');
         grid.innerHTML = questionSlides.map((s, i) => {
             const realIdx = currentSlides.indexOf(s);
@@ -2163,7 +2066,8 @@
             if (realIdx === cur) cls += ' current';
             if (scoreState[id] === 'correct') cls += ' pg-correct';
             else if (scoreState[id] === 'incorrect') cls += ' pg-wrong';
-            return `<div class="pg-cell${cls}" onclick="jumpTo(${realIdx})">${i + 1}</div>`;
+            const displayIdx = allQuestionSlides.indexOf(s) + 1;
+            return `<div class="pg-cell${cls}" onclick="jumpTo(${realIdx})">${displayIdx}</div>`;
         }).join('');
     }
 

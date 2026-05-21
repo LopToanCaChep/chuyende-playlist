@@ -986,6 +986,7 @@
     function renderProgressGrid() {
         const grid = document.getElementById('pgGrid');
         if (!grid) return;
+        const allQuestionSlides = Array.from(document.querySelectorAll('.slide')).filter(s => s.id !== 'slide-0');
         const questionSlides = currentSlides.filter(s => s.id !== 'slide-0');
         grid.innerHTML = questionSlides.map((s, i) => {
             const realIdx = currentSlides.indexOf(s);
@@ -994,7 +995,8 @@
             if (realIdx === cur) cls += ' current';
             if (scoreState[id] === 'correct') cls += ' pg-correct';
             else if (scoreState[id] === 'incorrect') cls += ' pg-wrong';
-            return `<div class="pg-cell${cls}" onclick="jumpTo(${realIdx})">${i + 1}</div>`;
+            const displayIdx = allQuestionSlides.indexOf(s) + 1;
+            return `<div class="pg-cell${cls}" onclick="jumpTo(${realIdx})">${displayIdx}</div>`;
         }).join('');
     }
 

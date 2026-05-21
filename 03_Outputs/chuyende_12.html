@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đạo Hàm</title>
+    <title>Chuyên đề 12 - Đạo hàm</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -675,6 +675,31 @@
         margin-bottom: 12px; color: var(--primary-blue, #2563eb);
     }
 
+    .theory-note {
+        padding: 20px 24px; border-radius: 16px; margin: 24px 0;
+        background: #fffbeb; border: 2px solid #fde68a;
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+    }
+    
+    .theory-note-title {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 14px;
+        color: #d97706; margin-bottom: 12px;
+        display: flex; align-items: center; gap: 8px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    
+    .theory-note-title::before {
+        content: "💡"; font-size: 18px;
+    }
+    
+    .theory-note .theory-text, .theory-note .theory-item {
+        color: #92400e; margin-bottom: 10px;
+    }
+    
+    .theory-note .theory-bullet {
+        background: #d97706;
+    }
+
     .theory-table {
         width: 100%; border-collapse: separate; border-spacing: 0;
         margin: 24px 0; border-radius: 12px; overflow: hidden;
@@ -810,7 +835,7 @@
 
                 <div class="cover-middle">
                     <h1 class="cover-title">
-                        Đạo Hàm
+                        Chuyên đề 12 - Đạo hàm
                         <span class="cover-subject">Đại số - Giải tích</span>
                     </h1>
                     <p class="cover-subtitle">
@@ -1604,7 +1629,9 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y^{\prime}=2 e^{1-2 x}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y^{\prime}=-2 e^{1-2 x}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle y^{\prime}=-\frac{e^{1-2 x}}{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y^{\prime}=e^{1-2 x}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">$$<br>y^{\prime}=e^{1-2 x} \cdot(1-2 x)^{\prime}=-2 \cdot e^{1-2 x}<br>$$</div>
+                    <div class="sol-body">$$
+y^{\prime}=e^{1-2 x} \cdot(1-2 x)^{\prime}=-2 \cdot e^{1-2 x}
+$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1630,7 +1657,9 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$(2 x+1) e^{x}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$(2 x+1) e^{x^{2}+x}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$(2 x+1) e^{2 x+1}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\left(x^{2}+x\right) e^{2 x+1}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">$$<br>\left(e^{x^{2}+x}\right)^{\prime}=e^{x^{2}+x} \cdot\left(x^{2}+x\right)^{\prime}=(2 x+1) e^{x^{2}+x}<br>$$</div>
+                    <div class="sol-body">$$
+\left(e^{x^{2}+x}\right)^{\prime}=e^{x^{2}+x} \cdot\left(x^{2}+x\right)^{\prime}=(2 x+1) e^{x^{2}+x}
+$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1695,7 +1724,9 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$e^{x}(\sin 2 x-\cos 2 x)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$e^{x} \cdot \cos 2 x$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$e^{x}(\sin 2 x+\cos 2 x)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$e^{x}(\sin 2 x+2 \cos 2 x)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">$$<br>y^{\prime}=\left(e^{x} \cdot \sin 2 x\right)^{\prime}=\left(e^{x}\right)^{\prime} \cdot \sin 2 x+e^{x} \cdot(\sin 2 x)^{\prime}=e^{x} \cdot \sin 2 x+2 e^{x} \cdot \cos 2 x=e^{x}(\sin 2 x+2 \cos 2 x)<br>$$</div>
+                    <div class="sol-body">$$
+y^{\prime}=\left(e^{x} \cdot \sin 2 x\right)^{\prime}=\left(e^{x}\right)^{\prime} \cdot \sin 2 x+e^{x} \cdot(\sin 2 x)^{\prime}=e^{x} \cdot \sin 2 x+2 e^{x} \cdot \cos 2 x=e^{x}(\sin 2 x+2 \cos 2 x)
+$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1786,7 +1817,11 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$f^{\prime}(1)=2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$f$ không có đạo hàm tại $x_{0}=1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$f^{\prime}(0)=2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$f^{\prime}(2)=4$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Ta có<br><br>$$<br>\lim _{x \rightarrow 1^{-}} \frac{f(x)-f(1)}{x-1}=\lim _{x \rightarrow 1^{-}} \frac{2 x-2}{x-1}=2<br>$$<br><br>$$<br>\lim _{x \rightarrow 1^{+}} \frac{f(x)-f(1)}{x-1}=\lim _{x \rightarrow 1^{+}} \frac{x^{2}+1-2}{x-1}=\lim _{x \rightarrow 1^{+}}(x+1)=2 .<br>$$<br><br>Vậy $f^{\prime}\left(1^{-}\right)=f^{\prime}\left(1^{+}\right)=f^{\prime}(1)=2$. Suy ra hàm số có đạo hàm tại $x_{0}=1$. Vậy B sai.</div>
+                    <div class="sol-body">Ta có<br><br>$$
+\lim _{x \rightarrow 1^{-}} \frac{f(x)-f(1)}{x-1}=\lim _{x \rightarrow 1^{-}} \frac{2 x-2}{x-1}=2
+$$<br><br>$$
+\lim _{x \rightarrow 1^{+}} \frac{f(x)-f(1)}{x-1}=\lim _{x \rightarrow 1^{+}} \frac{x^{2}+1-2}{x-1}=\lim _{x \rightarrow 1^{+}}(x+1)=2 .
+$$<br><br>Vậy $f^{\prime}\left(1^{-}\right)=f^{\prime}\left(1^{+}\right)=f^{\prime}(1)=2$. Suy ra hàm số có đạo hàm tại $x_{0}=1$. Vậy B sai.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1851,7 +1886,12 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \frac{1}{4}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \frac{1}{16}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{1}{32}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Không tồn tại</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Với $x \neq 0$ xét:<br><br>$$<br>\begin{aligned}<br>& \lim _{x \rightarrow 0} \frac{f(x)-f(0)}{x-0}=\lim _{x \rightarrow 0} \frac{\frac{3-\sqrt{4-x}}{4}-\frac{1}{4}}{x}=\lim _{x \rightarrow 0} \frac{2-\sqrt{4-x}}{4 x}=\lim _{x \rightarrow 0} \frac{4-(4-x)}{4 x(2+\sqrt{4-x})} \\<br>& =\lim _{x \rightarrow 0} \frac{1}{4(2+\sqrt{4-x})}=\frac{1}{4(2+\sqrt{4-0})}=\frac{1}{16} \Rightarrow f^{\prime}(0)=\frac{1}{16} .<br>\end{aligned}<br>$$</div>
+                    <div class="sol-body">Với $x \neq 0$ xét:<br><br>$$
+\begin{aligned}
+& \lim _{x \rightarrow 0} \frac{f(x)-f(0)}{x-0}=\lim _{x \rightarrow 0} \frac{\frac{3-\sqrt{4-x}}{4}-\frac{1}{4}}{x}=\lim _{x \rightarrow 0} \frac{2-\sqrt{4-x}}{4 x}=\lim _{x \rightarrow 0} \frac{4-(4-x)}{4 x(2+\sqrt{4-x})} \\
+& =\lim _{x \rightarrow 0} \frac{1}{4(2+\sqrt{4-x})}=\frac{1}{4(2+\sqrt{4-0})}=\frac{1}{16} \Rightarrow f^{\prime}(0)=\frac{1}{16} .
+\end{aligned}
+$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1864,7 +1904,12 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">Không tồn tại</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">0</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle -\frac{7}{50}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle -\frac{9}{64}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Ta có:<br>$\displaystyle \lim _{x \rightarrow 1} f(x)=\lim _{x \rightarrow 1} \frac{\sqrt{3 x+1}-2 x}{x-1}=\lim _{x \rightarrow 1} \frac{3 x+1-4 x^{2}}{(x-1)(\sqrt{3 x+1}+2 x)}=\lim _{x \rightarrow 1} \frac{-4 x-1}{(\sqrt{3 x+1}+2 x)}=\frac{-5}{4}=f(1)$<br>⇒ Hàm số liên tục lại $x=1$.<br><br>$$<br>\begin{aligned}<br>f^{\prime}(1) & =\lim _{x \rightarrow 1} \frac{f(x)-f(1)}{x-1}=\lim _{x \rightarrow 1} \frac{\frac{\sqrt{3 x+1}-2 x}{x-1}+\frac{5}{4}}{x-1}=\lim _{x \rightarrow 1} \frac{4 \sqrt{3 x+1}-3 x-5}{4(x-1)^{2}} \\<br>& =\lim _{x \rightarrow 1} \frac{16(3 x+1)-(3 x+5)^{2}}{4(x-1)^{2}(4 \sqrt{3 x+1}+3 x+5)}=\lim _{x \rightarrow 1} \frac{-9}{4(4 \sqrt{3 x+1}+3 x+5)}=-\frac{9}{64}<br>\end{aligned}<br>$$</div>
+                    <div class="sol-body">Ta có:<br>$\displaystyle \lim _{x \rightarrow 1} f(x)=\lim _{x \rightarrow 1} \frac{\sqrt{3 x+1}-2 x}{x-1}=\lim _{x \rightarrow 1} \frac{3 x+1-4 x^{2}}{(x-1)(\sqrt{3 x+1}+2 x)}=\lim _{x \rightarrow 1} \frac{-4 x-1}{(\sqrt{3 x+1}+2 x)}=\frac{-5}{4}=f(1)$<br>⇒ Hàm số liên tục lại $x=1$.<br><br>$$
+\begin{aligned}
+f^{\prime}(1) & =\lim _{x \rightarrow 1} \frac{f(x)-f(1)}{x-1}=\lim _{x \rightarrow 1} \frac{\frac{\sqrt{3 x+1}-2 x}{x-1}+\frac{5}{4}}{x-1}=\lim _{x \rightarrow 1} \frac{4 \sqrt{3 x+1}-3 x-5}{4(x-1)^{2}} \\
+& =\lim _{x \rightarrow 1} \frac{16(3 x+1)-(3 x+5)^{2}}{4(x-1)^{2}(4 \sqrt{3 x+1}+3 x+5)}=\lim _{x \rightarrow 1} \frac{-9}{4(4 \sqrt{3 x+1}+3 x+5)}=-\frac{9}{64}
+\end{aligned}
+$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1884,14 +1929,14 @@
             </div>
             
             <div class="slide" data-i="82" id="slide-82">
-            <div class="question-card" data-correct="C" data-level="kg">
+            <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 82</div>
                 <div class="q-content">Cho hàm số $y=f(x)$ có đạo hàm tại điểm $x_{0}=2$. Tìm $\displaystyle \lim _{x \rightarrow 2} \frac{2 f(x)-x f(2)}{x-2}$.</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$f^{\prime}(2)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$2 f^{\prime}(2)-f(2)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$f(2)-2 f^{\prime}(2)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Do hàm số $y=f(x)$ có đạo hàm tại điểm $x_{0}=2$ suy ra $\displaystyle \lim _{x \rightarrow 2} \frac{f(x)-f(2)}{x-2}=f^{\prime}(2)$.<br>Ta có $\displaystyle I=\lim _{x \rightarrow 2} \frac{2 f(x)-x f(2)}{x-2} \Leftrightarrow I=\lim _{x \rightarrow 2} \frac{2 f(x)-2 f(2)+2 f(2)-x f(2)}{x-2}$<br>$\displaystyle \Leftrightarrow I=\lim _{x \rightarrow 2} \frac{2(f(x)-f(2))}{x-2}-\lim _{x \rightarrow 2} \frac{f(2)(x-2)}{x-2} \Leftrightarrow I=2 f^{\prime}(2)-f(2)$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
             </div>
@@ -2046,7 +2091,12 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">2 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">3 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4 </div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Giả sử tiếp tuyến của $C$ tại $M x_{0} ; y_{0}$ cắt $O x$ tại $A, O y$ tại B sao cho $O A=4 O B$.<br>Do tam giác $O A B$ vuông tại $O$ nên $\displaystyle \tan A=\frac{O B}{O A}=\frac{1}{4} \Rightarrow$ Hệ số góc tiếp tuyến bằng $\displaystyle \frac{1}{4}$ hoặc $\displaystyle -\frac{1}{4}$.<br>Hệ số góc tiếp tuyến là $\displaystyle f^{\prime}(x_{0})=-\frac{1}{(x_{0}-1)^{2}}&lt;0 \Rightarrow-\frac{1}{(x_{0}-1)^{2}}=-\frac{1}{4} \Leftrightarrow\left[\begin{array}{l}x_{0}=3 \\ x_{0}=-1\end{array}\right.$.<br><br>$$<br>\begin{aligned}<br>& x_{0}=3 \Rightarrow y_{0}=\frac{5}{2}: d: y=-\frac{1}{4} x+\frac{13}{4} . \\<br>& x_{0}=-1 \Rightarrow y_{0}=\frac{3}{2}: d: y=-\frac{1}{4} x+\frac{5}{4} .<br>\end{aligned}<br>$$</div>
+                    <div class="sol-body">Giả sử tiếp tuyến của $C$ tại $M x_{0} ; y_{0}$ cắt $O x$ tại $A, O y$ tại B sao cho $O A=4 O B$.<br>Do tam giác $O A B$ vuông tại $O$ nên $\displaystyle \tan A=\frac{O B}{O A}=\frac{1}{4} \Rightarrow$ Hệ số góc tiếp tuyến bằng $\displaystyle \frac{1}{4}$ hoặc $\displaystyle -\frac{1}{4}$.<br>Hệ số góc tiếp tuyến là $\displaystyle f^{\prime}(x_{0})=-\frac{1}{(x_{0}-1)^{2}}&lt;0 \Rightarrow-\frac{1}{(x_{0}-1)^{2}}=-\frac{1}{4} \Leftrightarrow\left[\begin{array}{l}x_{0}=3 \\ x_{0}=-1\end{array}\right.$.<br><br>$$
+\begin{aligned}
+& x_{0}=3 \Rightarrow y_{0}=\frac{5}{2}: d: y=-\frac{1}{4} x+\frac{13}{4} . \\
+& x_{0}=-1 \Rightarrow y_{0}=\frac{3}{2}: d: y=-\frac{1}{4} x+\frac{5}{4} .
+\end{aligned}
+$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -2072,7 +2122,9 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m \neq 0$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m&gt;1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m \neq 1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m \in \varnothing$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Hệ số góc tiếp tuyến của đồ thị hàm số $y=x^{3}-m x^{2}+(2 m-3) x-1$ tại tiếp điểm $M\left(x_{0} ; y_{0}\right)$ là:<br><br>$$<br>y^{\prime}\left(x_{0}\right)=3 x_{0}^{2}-2 m x_{0}+2 m-3<br>$$<br><br>Hệ số góc luôn dương $\Leftrightarrow y^{\prime}\left(x_{0}\right)&gt;0, \forall x_{0} \in \mathbb{R} \Leftrightarrow\left\{\begin{array}{l}3&gt;0 \\ \Delta^{\prime}&lt;0\end{array} \Leftrightarrow(m-3)^{2}&lt;0 \Leftrightarrow m \in \varnothing\right.$</div>
+                    <div class="sol-body">Hệ số góc tiếp tuyến của đồ thị hàm số $y=x^{3}-m x^{2}+(2 m-3) x-1$ tại tiếp điểm $M\left(x_{0} ; y_{0}\right)$ là:<br><br>$$
+y^{\prime}\left(x_{0}\right)=3 x_{0}^{2}-2 m x_{0}+2 m-3
+$$<br><br>Hệ số góc luôn dương $\Leftrightarrow y^{\prime}\left(x_{0}\right)&gt;0, \forall x_{0} \in \mathbb{R} \Leftrightarrow\left\{\begin{array}{l}3&gt;0 \\ \Delta^{\prime}&lt;0\end{array} \Leftrightarrow(m-3)^{2}&lt;0 \Leftrightarrow m \in \varnothing\right.$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -2155,7 +2207,7 @@
         <!-- Header Sổ tay -->
         <div class="theory-header">
             <div class="theory-badge">KIẾN THỨC CỐT LÕI</div>
-            <h2 class="theory-main-title" id="theoryTitle">Đạo Hàm</h2>
+            <h2 class="theory-main-title" id="theoryTitle">Chuyên đề 12 - Đạo hàm</h2>
             <div class="theory-line"></div>
         </div>
 
@@ -2314,6 +2366,7 @@
     function renderProgressGrid() {
         const grid = document.getElementById('pgGrid');
         if (!grid) return;
+        const allQuestionSlides = Array.from(document.querySelectorAll('.slide')).filter(s => s.id !== 'slide-0');
         const questionSlides = currentSlides.filter(s => s.id !== 'slide-0');
         grid.innerHTML = questionSlides.map((s, i) => {
             const realIdx = currentSlides.indexOf(s);
@@ -2322,7 +2375,8 @@
             if (realIdx === cur) cls += ' current';
             if (scoreState[id] === 'correct') cls += ' pg-correct';
             else if (scoreState[id] === 'incorrect') cls += ' pg-wrong';
-            return `<div class="pg-cell${cls}" onclick="jumpTo(${realIdx})">${i + 1}</div>`;
+            const displayIdx = allQuestionSlides.indexOf(s) + 1;
+            return `<div class="pg-cell${cls}" onclick="jumpTo(${realIdx})">${displayIdx}</div>`;
         }).join('');
     }
 
