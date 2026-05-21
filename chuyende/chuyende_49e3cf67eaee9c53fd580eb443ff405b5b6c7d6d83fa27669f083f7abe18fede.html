@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên đề 4 - Hàm số bậc 2 và dấu tam thức bậc 2</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Unbounded:wght@400;700;900&display=swap&subset=vietnamese,latin" rel="stylesheet">
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        :root {
+            --primary-blue: #0040BE;
+            --dark-blue: #003B99;
+            --light-blue: #1E85EB;
+            --cyan-blue: #3C9EEF;
+            --yellow: #F7C800;
+            --orange: #FF7800;
+            --dark-orange: #E24500;
+            --bg: #0f172a;
+            --card-bg: #FFFFFF;
+            --text-main: #0F172A;
+            --text-dim: #64748B;
+            --correct: #16a34a;
+            --incorrect: #ef4444;
+            --radius: 24px;
+            --shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden !important; /* Chặn cuộn ngang tuyệt đối */
+            width: 100% !important;
+            background-image: radial-gradient(rgba(30, 133, 235, 0.15) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        
+        .slide {
+            position: fixed;
+            inset: 0 0 70px 0; /* Chừa 70px cho bottom nav */
+            display: flex;
+            align-items: flex-start; /* Fix lỗi cắt content khi dùng flex center */
+            justify-content: center;
+            overflow-y: auto; /* Cho cuộn ở cấp độ slide */
+            padding: 40px 0;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.3s ease, visibility 0.3s;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            z-index: 10;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .question-card {
+            background: #fff;
+            padding: 52px 24px 24px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+            max-width: 800px;
+            width: 95%;
+            margin: 0 auto;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            transition: box-shadow 0.3s ease;
+        }
+        .question-card::after {
+            content: ''; display: block; height: 4px;
+        }
+        .q-number { z-index: 11; }
+        
+        .q-number {
+            position: absolute;
+            top: 0;
+            transform: translateY(-50%);
+            left: 24px;
+            background: #F7C800;
+            color: #003B99;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-family: 'Manrope';
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border: 2px solid #003B99;
+            box-shadow: 0 4px 12px rgba(0,64,190,0.15);
+            z-index: 10;
+        }
+
+        /* Level Badges */
+        .question-card::before {
+            content: attr(data-level-name);
+            position: absolute;
+            top: 14px;
+            right: 24px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 3px 12px;
+            border-radius: 6px;
+            background: #f1f5f9;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+        }
+        .question-card[data-level="tb"]::before { background: #3C9EEF; color: #fff; content: "Cơ bản"; }
+        .question-card[data-level="kg"]::before { background: #F7C800; color: #003B99; content: "Nâng cao"; }
+        .question-card[data-level="tb"] .q-number { background: #3C9EEF; color: #fff; border-color: #003B99; }
+        .question-card[data-level="kg"] .q-number { background: #F7C800; color: #003B99; border-color: #003B99; }
+
+        .q-content {
+            font-size: 19px;
+            font-weight: 700;
+            color: #003B99;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            padding: 0 4px;
+            text-align: justify;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .question-card { 
+                height: auto !important; 
+                max-height: none !important; /* Xóa bỏ giới hạn để không bị tràn lời giải */
+                min-height: auto;
+                padding-top: 38px; 
+                margin-bottom: 20px;
+                margin-top: 24px;
+            }
+            .q-content { font-size: 17px; }
+        }
+
+        /* Quy tắc: Công thức toán phải đi cùng nhau, không được bẻ giữa chừng */
+        .katex {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 13px 16px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all .2s ease;
+            cursor: pointer;
+            position: relative;
+            text-align: left;
+        }
+
+        .option:hover:not(.answered) {
+            background: #dbeafe;
+            border-color: var(--primary-blue);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.08);
+        }
+
+        .option.correct {
+            background: #dcfce7 !important;
+            border-color: var(--correct) !important;
+            color: #166534;
+        }
+        .option.correct::after {
+            content: '✓';
+            position: absolute;
+            top: 50%; right: 14px; transform: translateY(-50%);
+            width: 24px; height: 24px; border-radius: 50%;
+            background: var(--correct); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 800;
+        }
+
+        .option.incorrect {
+            background: #fef2f2 !important;
+            border-color: var(--incorrect) !important;
+            color: #991b1b;
+            opacity: 0.8;
+        }
+        .option.incorrect::after {
+            content: '✕';
+            position: absolute;
+            top: 50%; right: 14px; transform: translateY(-50%);
+            width: 24px; height: 24px; border-radius: 50%;
+            background: var(--incorrect); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800;
+        }
+        .option:focus-visible {
+            outline: 3px solid var(--cyan-blue);
+            outline-offset: 3px;
+        }
+        .option.answered { cursor: default; }
+        .option.correct, .option.incorrect { padding-right: 50px; }
+
+        .opt-label {
+            color: var(--primary-blue);
+            font-size: 17px;
+            font-weight: 800;
+            margin-right: 8px;
+            min-width: auto;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .option.correct .opt-label { color: #065f46; }
+        .option.incorrect .opt-label { color: #9f1239; }
+
+        .solution {
+            display: none;
+            margin-top: 16px;
+            padding: 18px 20px;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 4px 12px 12px 4px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #475569;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .solution.show { display: block; }
+
+        .solution-title {
+            font-family: 'Manrope';
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ans-circle {
+            display: inline-flex;
+            width: 26px;
+            height: 26px;
+            background: var(--primary-blue);
+            color: #fff;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin-left: 6px;
+            font-size: 13px;
+        }
+
+        .sol-final {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e2e8f0;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Tiêu đề phân mức */
+        .level-header {
+            background: var(--yellow);
+            color: var(--dark-blue);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 40px auto 20px;
+            border: 3px solid var(--dark-blue);
+            box-shadow: 4px 4px 0 var(--dark-blue);
+            max-width: fit-content;
+            display: none; /* Mặc định ẩn — JS sẽ bật khi cần */
+        }
+        .level-header.visible { display: block; }
+
+        /* Modal Lý thuyết - Modern Flat Style */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(15,23,42,0.8); backdrop-filter: blur(8px);
+            display: none; align-items: center; justify-content: center; z-index: 1000;
+        }
+
+        .modal-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+
+                .modal-content {
+            background: #fff; width: 92%; max-width: 800px; max-height: 85vh;
+            border-radius: 20px; overflow-y: auto; position: relative;
+            padding: 40px 32px; border: none;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .modal-close {
+            position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 24px; 
+            color: var(--text-dim); display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover { background: var(--incorrect); color: #fff; }
+
+
+        /* Floating Buttons */
+        .fab-container {
+            position: fixed; bottom: 25px; right: 20px; z-index: 200;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .fab {
+            width: 56px; height: 56px; border-radius: 50%; background: var(--orange);
+            border: 3px solid var(--dark-blue); color: #fff; font-size: 24px;
+            cursor: pointer; box-shadow: 4px 4px 0 var(--dark-blue);
+            display: flex; align-items: center; justify-content: center; transition: all .15s;
+        }
+        .fab:hover { transform: translateY(-4px); box-shadow: 4px 8px 0 var(--dark-blue); }
+        .fab:active { transform: translateY(2px); box-shadow: 2px 2px 0 var(--dark-blue); }
+        .fab.theory { background: var(--primary-blue); }
+
+        /* Nav Bar */
+        .nav {
+            position: fixed; bottom: 0; left: 0; right: 0; height: 70px;
+            z-index: 100; background: #fff; border-top: 3px solid var(--dark-blue);
+            display: flex; align-items: center; justify-content: center; gap: 20px;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+        }
+        .nb {
+            font-family: 'Manrope'; font-weight: 800; background: var(--dark-blue); color: #fff;
+            border: none; border-radius: 12px; padding: 8px 24px;
+            font-size: 16px; cursor: pointer; transition: all .1s;
+        }
+        .nb:hover:not(:disabled) { background: var(--light-blue); }
+        .nb:disabled { opacity: .35; filter: grayscale(0.6); cursor: default; }
+        .sc { font-family: 'Manrope'; font-weight: 800; color: var(--dark-blue); font-size: 18px; min-width: 90px; text-align: center; }
+        .prog { position: fixed; top: 0; left: 0; height: 6px; background: linear-gradient(90deg, var(--cyan-blue), var(--yellow)); z-index: 200; transition: width .3s; }
+        
+        .img-wrap { margin: 16px 0; text-align: center; }
+        .img-wrap img { max-width: 100%; border-radius: 12px; border: 2px solid #3B82F6; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- Cover Slide Styles --- */
+        .cover-card {
+            background: var(--primary-blue) !important;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px) !important;
+            background-size: 24px 24px !important;
+            color: #fff !important;
+            border: none !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            padding: 60px 40px 40px !important;
+            min-height: auto;
+            overflow: hidden !important;
+            position: relative !important;
+        }
+
+        .cover-eyebrow {
+            font-family: 'Unbounded';
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #FFD84D;
+            opacity: 1;
+            margin-top: 10px;
+        }
+
+        .cover-title {
+            font-family: 'Unbounded';
+            font-weight: 800;
+            font-size: clamp(28px, 8vw, 54px);
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin: 24px 0;
+            color: #fff;
+        }
+        .cover-subject {
+            display: block;
+            color: var(--yellow);
+            font-size: 0.6em;
+            margin-top: 8px;
+        }
+
+        .cover-subtitle {
+            font-family: 'Manrope';
+            font-size: 16px;
+            line-height: 1.5;
+            opacity: 0.9;
+            max-width: 420px;
+            margin-bottom: 30px;
+        }
+
+        .cover-badges {
+            display: flex;
+            gap: 12px;
+        }
+
+        .cover-badge {
+            background: var(--yellow);
+            color: var(--dark-blue);
+            font-family: 'Unbounded';
+            font-weight: 700;
+            font-size: 10px;
+            padding: 6px 16px;
+            border-radius: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .cover-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: none;
+            padding-top: 10px;
+            position: relative;
+            z-index: 2;
+            padding-bottom: 10px;
+        }
+
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 0 !important;
+                padding-bottom: 100px !important;
+            }
+            .slide:first-child .question-card {
+                height: auto !important;
+                border-radius: 18px !important;
+            }
+            .cover-card {
+                min-height: auto !important;
+                padding: 16px 16px 5px !important;
+                justify-content: flex-start !important;
+                gap: 16px;
+                overflow-y: auto !important;
+            }
+            .cover-title {
+                font-size: 38px !important;
+                margin: 16px 0 !important;
+            }
+            .cover-eyebrow { display: none !important; }
+            .cover-mascot { display: none !important; }
+            .cover-desc { margin: 0 !important; font-size: 14px !important; }
+            .cover-badges {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .cover-badge {
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                padding: 12px;
+            }
+            .cover-footer {
+                margin-top: 10px;
+                padding-top: 4px !important;
+                padding-bottom: 0 !important;
+            }
+        }
+
+        .cover-mascot {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 60%;
+            max-width: 300px;
+            opacity: 0.2;
+            pointer-events: none;
+            transform: rotate(-10deg);
+        }
+
+        /* Level Selector Styles */
+        .level-popup {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(12px);
+        }
+        .level-popup.show { display: flex; animation: fadeIn 0.3s ease; }
+        .level-box {
+            background: #fff; padding: 40px; border-radius: 32px;
+            border: 4px solid var(--dark-blue); text-align: center; width: 90%; max-width: 400px;
+            box-shadow: none;
+            position: relative;
+        }
+        .level-title { font-family: 'Manrope'; font-weight: 800; font-size: 24px; color: var(--dark-blue); margin-bottom: 30px; }
+        .level-btn {
+            display: block; width: 100%; padding: 20px; margin: 15px 0;
+            border-radius: 20px; border: 3px solid var(--dark-blue);
+            font-family: 'Manrope'; font-weight: 700; cursor: pointer;
+            transition: all 0.2s; font-size: 16px;
+        }
+        .level-btn:hover { transform: scale(1.03); }
+        .level-btn.basic { background: var(--yellow); color: var(--dark-blue); }
+        .level-btn.advanced { background: var(--orange); color: #fff; }
+        .level-btn.all { background: var(--light-blue); color: #fff; }
+
+        /* ═══ PROGRESS PANEL ═══ */
+        .progress-panel {
+            position: fixed;
+            bottom: 90px; left: 20px;
+            z-index: 500;
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+            width: 320px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+            display: none;
+        }
+        .progress-panel.open { display: block; animation: fadeIn 0.3s ease; }
+        .pp-header {
+            font-family: 'Manrope'; font-weight: 900;
+            font-size: 14px; color: var(--dark-blue);
+            text-align: center; margin-bottom: 14px;
+        }
+        .pp-filters {
+            display: flex; gap: 6px; margin-bottom: 14px;
+        }
+        .pp-filter {
+            flex: 1; padding: 8px 0;
+            border-radius: 8px; border: 1.5px solid #e2e8f0;
+            font-family: 'Manrope'; font-weight: 700;
+            font-size: 11px; text-align: center;
+            cursor: pointer; transition: all 0.2s;
+            background: #f8fafc; color: #64748b;
+        }
+        .pp-filter:hover { background: #dbeafe; border-color: var(--primary-blue); }
+        .pp-filter.active { background: var(--primary-blue); color: #fff; border-color: var(--primary-blue); }
+        .pp-filter.active-tb { background: #dbeafe; color: #2563eb; border-color: #2563eb; }
+        .pp-filter.active-kg { background: #fef3c7; color: #d97706; border-color: #d97706; }
+        .pg-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            padding-bottom: 45px;
+        }
+        .pg-cell {
+            width: 100%; aspect-ratio: 1;
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 13px;
+            color: #94a3b8;
+            cursor: pointer; transition: all .15s;
+            position: relative;
+        }
+        .pg-cell:hover { transform: scale(1.1); }
+        .pg-cell.current { box-shadow: 0 0 0 2px var(--primary-blue); }
+        .pg-cell.pg-correct {
+            background: #dcfce7; border-color: #16a34a; color: #16a34a;
+        }
+        .pg-cell.pg-correct::after {
+            content: '✓'; position: absolute; top: -4px; right: -4px;
+            font-size: 8px; background: #16a34a; color: #fff;
+            width: 14px; height: 14px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pg-cell.pg-wrong {
+            background: #fef2f2; border-color: #ef4444; color: #ef4444;
+        }
+        .pg-cell.pg-wrong::after {
+            content: '✗'; position: absolute; top: -4px; right: -4px;
+            font-size: 8px; background: #ef4444; color: #fff;
+            width: 14px; height: 14px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pg-legend {
+            display: flex; gap: 10px; margin-top: 10px;
+            justify-content: center;
+            font-size: 10px; font-weight: 700; color: #64748b;
+        }
+        .pg-legend span { display: flex; align-items: center; gap: 4px; }
+        .pg-legend .ldot { width: 10px; height: 10px; border-radius: 3px; }
+        .pp-score {
+            margin-top: 10px; padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .pp-score-label { font-family: 'Manrope'; font-weight: 800; font-size: 11px; color: var(--dark-blue); }
+        .pp-score-num { font-family: 'Manrope'; font-size: 20px; font-weight: 900; color: var(--primary-blue); }
+        /* Fix nền mobile */
+    @media (max-width: 768px) {
+        body {
+            background-color: #E8F4FF !important;
+            background-image: radial-gradient(#3C9EEF 1.5px, transparent 1.5px) !important;
+            background-size: 40px 40px !important;
+            min-height: 100vh;
+        }
+        .slide {
+            background-color: transparent !important;
+        }
+    }
+
+    
+    .theory-header { text-align: center; margin-bottom: 30px; position: relative; }
+
+    .theory-badge {
+        display: inline-block; background: var(--primary-soft, #dbeafe); color: var(--primary-blue, #2563eb);
+        padding: 6px 16px; border-radius: 99px; font-weight: 800; font-size: 11px;
+        letter-spacing: 1px; margin-bottom: 12px;
+    }
+
+    .theory-main-title {
+        font-family: 'Unbounded'; font-weight: 900; font-size: 28px;
+        color: var(--text-main, #0F172A); margin: 0;
+    }
+
+    .theory-line {
+        width: 60px; height: 4px; background: var(--primary-blue, #2563eb);
+        margin: 15px auto 0; border-radius: 2px;
+    }
+
+    .theory-h2 {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 18px;
+        color: var(--primary-blue, #2563eb); margin: 32px 0 16px;
+        display: flex; align-items: center; gap: 12px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    .theory-h2::before {
+        content: ""; width: 8px; height: 8px;
+        background: var(--orange, #FF7800); border-radius: 2px;
+        transform: rotate(45deg);
+    }
+
+    .theory-item {
+        display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
+    }
+
+    .theory-bullet {
+        width: 6px; height: 6px; background: var(--orange, #FF7800);
+        border-radius: 50%; margin-top: 10px; flex-shrink: 0;
+    }
+
+    .theory-box {
+        padding: 20px; border-radius: 16px; margin: 24px 0;
+        background: #f8fafc; border-left: 4px solid var(--primary-blue, #2563eb);
+    }
+
+    .theory-box-title {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 12px;
+        margin-bottom: 12px; color: var(--primary-blue, #2563eb);
+    }
+
+    .theory-note {
+        padding: 20px 24px; border-radius: 16px; margin: 24px 0;
+        background: #fffbeb; border: 2px solid #fde68a;
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+    }
+    
+    .theory-note-title {
+        font-family: 'Unbounded'; font-weight: 800; font-size: 14px;
+        color: #d97706; margin-bottom: 12px;
+        display: flex; align-items: center; gap: 8px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    
+    .theory-note-title::before {
+        content: "💡"; font-size: 18px;
+    }
+    
+    .theory-note .theory-text, .theory-note .theory-item {
+        color: #92400e; margin-bottom: 10px;
+    }
+    
+    .theory-note .theory-bullet {
+        background: #d97706;
+    }
+
+    .theory-table {
+        width: 100%; border-collapse: separate; border-spacing: 0;
+        margin: 24px 0; border-radius: 12px; overflow: hidden;
+        border: 1px solid var(--border, #e2e8f0);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .theory-table th {
+        background: #f8fafc; color: var(--text-main, #1e293b); font-weight: 800;
+        padding: 16px; text-align: left; border-bottom: 2px solid var(--border, #e2e8f0);
+    }
+
+    .theory-table td {
+        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0);
+        background: #fff;
+    }
+
+    .theory-table tr:last-child td { border-bottom: none; }
+    
+    .theory-text { font-size: 16px; line-height: 1.8; color: #334155; }
+
+
+    /* Screen reader only */
+    .sr-only {
+        position: absolute !important;
+        width: 1px; height: 1px; padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0,0,0,0);
+        white-space: nowrap; border: 0;
+    }
+
+    /* Score chip — góc phải trên */
+    .score-chip {
+        position: fixed; top: 23px; right: 20px;
+        background: rgba(255,255,255,0.98); color: var(--dark-blue);
+        border: none;
+        border-radius: 12px; padding: 6px 14px;
+        font-family: 'Manrope', sans-serif; font-weight: 800;
+        text-align: center; z-index: 200;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        min-width: 70px;
+    }
+    @media (max-width: 768px) {
+        .score-chip { top: 60px; right: 12px; padding: 4px 10px; min-width: 56px; }
+        .score-chip span:last-child { font-size: 16px !important; }
+        .question-card::before {
+            right: 24px;
+            left: auto;
+            top: 10px;
+            display: block;
+            font-size: 9px;
+            padding: 2px 8px;
+        }
+    }
+
+
+
+    /* Final score modal */
+    .final-card {
+        background: #fff; border: 4px solid var(--dark-blue);
+        border-radius: 32px; padding: 40px;
+        text-align: center; max-width: 400px; width: 90%;
+        position: relative;
+    }
+    .final-card .big-score {
+        font-family: 'Manrope'; font-weight: 900; font-size: 72px;
+        color: var(--orange); line-height: 1;
+        margin: 16px 0;
+    }
+    .final-card .label {
+        font-family: 'Manrope'; font-weight: 800;
+        font-size: 14px; letter-spacing: 1px;
+        color: var(--dark-blue); text-transform: uppercase;
+    }
+    .final-card .verdict {
+        font-family: 'Manrope', sans-serif; font-weight: 700;
+        font-size: 16px; color: var(--text-main); margin: 16px 0 24px;
+    }
+
+    /* Quick Level Toggle Button (Menu) */
+    .quick-level-toggle {
+        position: fixed;
+        left: 20px;
+        bottom: 25px;
+        width: 56px;
+        height: 56px;
+        background: var(--primary-blue, #2563eb);
+        color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+        border: 2px solid white;
+        transition: all 0.2s;
+    }
+    .quick-level-toggle:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37,99,235,0.4);
+    }
+
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog" style="width:0%"></div>
+
+<!-- Live region cho screen reader -->
+<div id="ariaLive" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Nút mở Progress Panel (luôn hiển thị) -->
+<button class="quick-level-toggle" id="btnOpenLevel" aria-label="Tiến trình học" aria-expanded="false" aria-controls="progressPanel">
+    <span style="line-height:1; font-size: 18px;">📋</span>
+    <span style="font-size:8px; margin-top:2px;">MENU</span>
+</button>
+
+<!-- Bảng điểm số / score chip -->
+<div class="score-chip" id="scoreChip" aria-live="polite">
+    <span style="font-size:10px; opacity:0.8; display:block; line-height:1;">ĐIỂM</span>
+    <span id="scoreNum" style="font-family:'Manrope'; font-weight:800; font-size:20px;">0/0</span>
+</div>
+
+<div class="container">
+    <div id="content-container">
+        <div class="slide" data-i="0" id="slide-0">
+            <div class="question-card cover-card">
+                <div class="cover-top">
+                    <div style="font-family:'Unbounded'; font-weight:900; font-size:24px; letter-spacing:-1px; color:#fff;">TOÁN CÁ CHÉP</div>
+                    <div class="cover-eyebrow">Hệ thống Chuyên đề</div>
+                </div>
+
+                <div class="cover-middle">
+                    <h1 class="cover-title">
+                        Chuyên đề 4 - Hàm số bậc 2 và dấu tam thức bậc 2
+                        <span class="cover-subject">Đại số - Giải tích</span>
+                    </h1>
+                    <p class="cover-subtitle">
+                        Nắm vững lý thuyết, thành thạo bài tập phân mức Cơ bản và Nâng cao.
+                    </p>
+                    <div class="cover-badges">
+                        <span class="cover-badge" style="cursor:pointer;" onclick="document.getElementById('levelPopup').classList.add('show')">CƠ BẢN & NÂNG CAO ▼</span>
+                    </div>
+                </div>
+
+                <div class="cover-footer">
+                    <div style="font-size: 13px; opacity: 0.8; font-family:'Manrope';">Lớp Toán Cá Chép · 2026</div>
+                    <img src="https://res.cloudinary.com/dud32vrhg/image/upload/v1778198273/chuyende_assets/f6ahieihwhupukjagl8x.png" alt="Mascot Cá Chép" style="height: 80px; object-fit: contain;">
+                </div>
+                
+                <div class="cover-mascot" style="font-size: 200px; color: rgba(255,255,255,0.05); line-height: 1;">🐟</div>
+            </div>
+        </div>
+<h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="1" id="slide-1">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 1</div>
+                <div class="q-content">Hàm số $y=a x^{2}+b x+c,(a&gt;0)$ đồng biến trong khoảng nào sau đây?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \left(-\infty ;-\frac{b}{2 a}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \left(-\frac{b}{2 a} ;+\infty\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left(-\frac{\Delta}{4 a} ;+\infty\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \left(-\infty ;-\frac{\Delta}{4 a}\right)$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">$a&gt;0$.<br>Bảng biến thiên<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-04.jpg?height=279&width=575&top_left_y=1546&top_left_x=244" alt="Math Image"></div></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="2" id="slide-2">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 2</div>
+                <div class="q-content">Cho hàm số $y=a x^{2}+b x+c$ có đồ thị là parabol trong hình vẽ. Khẳng định nào sau đây là đúng?<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-04.jpg?height=372&width=439&top_left_y=2045&top_left_x=829" alt="Math Image"></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a&gt;0 ; b&gt;0 ; c&gt;0$.<br>в. $a&gt;0 ; b&lt;0 ; c&gt;0$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$a&gt;0 ; b&lt;0 ; c&lt;0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a&gt;0 ; b&gt;0 ; c&lt;0$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Vì Parabol hướng bề lõm lên trên nên $a&gt;0$.<br>Đồ thị hàm số cắt $O y$ tại điểm $(0 ; c)$ ở dưới $O x \Rightarrow c&lt;0$.<br>Hoành độ đỉnh Parabol là $\displaystyle -\frac{b}{2 a}&lt;0$, mà $a&gt;0 \Rightarrow b&gt;0$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="3" id="slide-3">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 3</div>
+                <div class="q-content">Cho hàm số $y=a x^{2}+b x+c$ có đồ thị như hình bên.<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-05.jpg?height=250&width=360&top_left_y=1106&top_left_x=244" alt="Math Image"></div><br><br>Khẳng định nào sau đây đúng?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a&gt;0, b&gt;0, c&gt;0$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a&gt;0, b&lt;0, c&lt;0$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$a&lt;0, b&lt;0, c&gt;0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a&lt;0, b&gt;0, c&gt;0$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Dựa vào đồ thị, nhận thấy:<br><br>* Đồ thị hàm số là một parabol có bề lõm quay xuống dưới nên $a&lt;0$.<br>* Đồ thị cắt trục tung tại tung độ bằng ${ }^{c}$ nên $c&gt;0$.<br>* Đồ thị cắt trục hoành tại hai điểm có hoành độ $x_{1}=-1$ và $x_{2}=3$ nên $x_{1}, x_{2}$ là hai nghiệm của phương trình $a x^{2}+b x+c=0$ mà theo Vi-et $\displaystyle x_{1}+x_{2}=-\frac{b}{a}=2 \Leftrightarrow b=-2 a \Rightarrow b&gt;0$.<br>* Vậy $a&lt;0, b&gt;0, c&gt;0$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="4" id="slide-4">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 4</div>
+                <div class="q-content">Đồ thị trong hình vẽ dưới đây là của hàm số nào trong các phương án $A ; B ; C ; D$ sau đây?<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-06.jpg?height=399&width=418&top_left_y=403&top_left_x=846" alt="Math Image"></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=x^{2}+2 x-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=x^{2}+2 x-2$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=2 x^{2}-4 x-2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=x^{2}-2 x-1$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Đồ thị cắt trục tung tại điểm có tung độ bằng -1 nên loại $\mathbf{B}$ và $\mathbf{C}$<br>Hoành độ của đỉnh là $\displaystyle x_{I}=-\frac{b}{2 a}=1$ nên ta loại A và chọn D.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
+            <div class="slide" data-i="5" id="slide-5">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 5</div>
+                <div class="q-content">Cho parabol $y=a x^{2}+b x+c$ có đồ thị như hình sau<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-06.jpg?height=454&width=362&top_left_y=1484&top_left_x=870" alt="Math Image"></div><br><br>Phương trình của parabol này là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=-x^{2}+x-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=2 x^{2}+4 x-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}-2 x-1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=2 x^{2}-4 x-1$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Đồ thị hàm số cắt trục tung tại điểm $(0 ;-1)$ nên $c=-1$.<br><br>Tọa độ đỉnh $I(1 ;-3)$, ta có phương trình: $\displaystyle \left\{\begin{array}{l}-\frac{b}{2 a}=1 \\ a \cdot 1^{2}+b \cdot 1-1=-3\end{array} \Leftrightarrow\left\{\begin{array}{l}2 a+b=0 \\ a+b=-2\end{array} \Leftrightarrow\left\{\begin{array}{l}a=2 \\ b=-4 \text {. }\end{array}\right.\right.\right.$<br>Vậy parabol cần tìm là: $y=2 x^{2}-4 x-1$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="6" id="slide-6">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 6</div>
+                <div class="q-content">Cho parabol $(P): y=a x^{2}+b x+c,(a \neq 0)$ có đồ thị như hình bên. Khi đó $2 a+b+2 c$ có giá trị là<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-07.jpg?height=519&width=469&top_left_y=777&top_left_x=814" alt="Math Image"></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-9 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">${ }^{9}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">-6 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Parabol $(P): y=a x^{2}+b x+c,(a \neq 0)$ đi qua các điểm $A(-1 ; 0), B(1 ;-4), C(3 ; 0)$ nên có hệ phương trình: $\left\{\begin{array}{l}a-b+c=0 \\ a+b+c=-4 \\ 9 a+3 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}a=1 \\ b=-2 \\ c=-3\end{array}\right.\right.$.<br><br>Khi đó: $2 a+b+2 c=2.1-2+2(-3)=-6$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="7" id="slide-7">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 7</div>
+                <div class="q-content">Bảng biến thiên ở dưới là bảng biến thiên của hàm số nào trong các hàm số được cho ở bốn phương án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ sau đây?<br><br>| $x$ | $-\infty$ | 2 | $+\infty$ |<br>| :---: | :---: | :---: | ---: |<br>| $f(x)$ | $+\infty$ |  | $\pi^{+\infty}$ |</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=-x^{2}+4 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=-x^{2}+4 x-9$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}-4 x-1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=x^{2}-4 x-5$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Parabol cần tìm phải có hệ số $a&gt;0$ và đồ thị hàm số phải đi qua điểm $(2 ;-5)$. Đáp án $\mathbf{C}$ thỏa mãn.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="8" id="slide-8">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 8</div>
+                <div class="q-content">Bảng biến thiên sau đây là bảng biến thiên của hàm số nào?<br><br>| $x$ | $-\infty$ | -2 | $+\infty$ |<br>| :---: | :---: | :---: | :---: |<br>| $y$ |  | $\gamma^{-4} \backslash$ |  |<br>|  | $-\infty$ |  | $\searrow_{-\infty}$ |</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=x^{2}+4 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=-x^{2}-4 x-8$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=-x^{2}-4 x+8$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-x^{2}-4 x$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Dựa vào BBT ta thấy:<br>Parabol có bề lõm quay lên trên nên hệ số $a&lt;0 \Rightarrow$ Loại $\mathbf{A}$.<br>Parabol có đỉnh $I(-2 ;-4)$ nên thay $x=-2 ; y=-4$ vào các đáp án B, C, D.<br>Nhận thấy chỉ có đáp án B thỏa mãn.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="9" id="slide-9">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 9</div>
+                <div class="q-content">Giá trị nhỏ nhất của hàm số $y=x^{2}+2 x+3$ đạt được tại</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$x=-2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$x=-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$x=0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$x=1$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có: $y=x^{2}+2 x+3=(x+1)^{2}+2 \geq 2, \forall x \in \mathbb{R}$<br>Dấu bằng xảy ra khi $x=-1$ nên chọn đáp án B.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="10" id="slide-10">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 10</div>
+                <div class="q-content">Giá trị nhỏ nhất của hàm số $y=2 x^{2}+x-3$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-3 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">-2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{-21}{8}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \frac{-25}{8}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">.<br><br><br>$\displaystyle y=2 x^{2}+x-3=2\left(x+\frac{1}{4}\right)-\frac{25}{8} \geq \frac{-25}{8}$<br>$\displaystyle y=\frac{-25}{8}$ khi $\displaystyle x=\frac{-1}{4}$ nên giá trị nhỏ nhất của hàm số $y=2 x^{2}+x-3$ là $\displaystyle \frac{-25}{8}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
+            <div class="slide" data-i="11" id="slide-11">
+            <div class="question-card" data-correct="B" data-level="kg">
+                <div class="q-number">Câu 11</div>
+                <div class="q-content">Giá trị lớn nhất của hàm số $y=-3 x^{2}+2 x+1$ trên đoạn $[1 ; 3]$ là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \frac{4}{5}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">0</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{1}{3}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-20</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có $\displaystyle -\frac{b}{2 a}=\frac{1}{3}$ và $a=-3&lt;0$. Suy ra hàm số đã cho nghịch biến trên khoảng $\displaystyle \left(\frac{1}{3} ;+\infty\right)$. Mà $\displaystyle [1 ; 3] \subset\left(\frac{1}{3} ;+\infty\right)$. Do đó trên đoạn $[1 ; 3]$ hàm số đạt giá trị lớn nhất tại điểm $x=1$, tức là $\max _{[1 ; 3]} f(x)=f(1)=0$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="12" id="slide-12">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 12</div>
+                <div class="q-content">Giá trị lớn nhất của hàm số $\displaystyle y=\frac{2}{x^{2}-5 x+9}$ bằng:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \frac{11}{8}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \frac{11}{4}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{4}{11}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \frac{8}{11}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Hàm số $y=x^{2}-5 x+9$ có giá trị nhỏ nhất là $\displaystyle \frac{11}{4}&gt;0$.<br><br>Suy ra hàm số $\displaystyle y=\frac{2}{x^{2}-5 x+9}$ có giá trị lớn nhất là $\displaystyle \frac{2}{\frac{11}{4}}=\frac{8}{11}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="13" id="slide-13">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 13</div>
+                <div class="q-content">Cho parabol $(P): y=3 x^{2}-2 x+1$. Điểm nào sau đây là đỉnh của $(P)$ ?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">${ }^{I(0 ; 1)}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle I\left(\frac{1}{3} ; \frac{2}{3}\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle I\left(-\frac{1}{3} ; \frac{2}{3}\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle I\left(\frac{1}{3} ;-\frac{2}{3}\right)$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Hoành độ đỉnh của $\displaystyle (P): y=3 x^{2}-2 x+1 \quad x=-\frac{b}{2 a}=\frac{1}{3} \Rightarrow y=3\left(\frac{1}{3}\right)^{2}-2 \cdot \frac{1}{3}+1=\frac{2}{3}$.<br>Vậy $\displaystyle I\left(\frac{1}{3} ; \frac{2}{3}\right)$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="14" id="slide-14">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 14</div>
+                <div class="q-content">Trục đối xứng của đồ thị hàm số $y=a x^{2}+b x+c,(a \neq 0)$ là đường thẳng nào dưới đây?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle x=-\frac{b}{2 a}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle x=-\frac{c}{2 a}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle x=-\frac{\Delta}{4 a}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Không có</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body"></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="15" id="slide-15">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 15</div>
+                <div class="q-content">Điểm $I(-2 ; 1)$ là đỉnh của Parabol nào sau đây?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=x^{2}+4 x+5$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=2 x^{2}+4 x+1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}+4 x-5$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-x^{2}-4 x+3$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Hoành độ đỉnh là $\displaystyle x_{I}=-\frac{b}{2 a}=-2$. Từ đó loại câu B.<br>Thay hoành độ $x_{I}=-2$ vào phương trình Parabol ở các câu $\mathrm{A}, \mathrm{C}, \mathrm{D}$, ta thấy chỉ có câu A thỏa điều kiện $y_{I}=1$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
+            <div class="slide" data-i="16" id="slide-16">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 16</div>
+                <div class="q-content">Xác định các hệ số $a$ và $b$ để Parabol $(P): y=a x^{2}+4 x-b$ có đỉnh $I(-1 ;-5)$.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\left\{\begin{array}{l}a=3 \\ b=-2\end{array}\right.$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\left\{\begin{array}{l}a=3 \\ b=2\end{array}\right.$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\left\{\begin{array}{l}a=2 \\ b=3\end{array}\right.$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\left\{\begin{array}{l}a=2 \\ b=-3\end{array}\right.$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có: $\displaystyle x_{I}=-1 \Rightarrow-\frac{4}{2 a}=-1 \Rightarrow a=2$.<br>Hơn nữa $I \in(P)$ nên $-5=a-4-b \Rightarrow b=3$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="17" id="slide-17">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 17</div>
+                <div class="q-content">Biết hàm số bậc hai $y=a x^{2}+b x+c$ có đồ thị là một đường Parabol đi qua điểm $A(-1 ; 0)$ và có đỉnh $I(1 ; 2)$. Tính $a+b+c$.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \frac{3}{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \frac{1}{2}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Theo giả thiết ta có hệ: $\displaystyle \left\{\begin{array}{l}a-b+c=0 \\ -\frac{b}{2 a}=1 \\ a+b+c=2\end{array}\right.$ với $a \neq 0$ ∴ $\displaystyle \left\{\begin{array}{l}a-b+c=0 \\ b=-2 a \\ a+b+c=2\end{array} \Leftrightarrow\left\{\begin{array}{l}b=1 \\ a=-\frac{1}{2} \\ c=\frac{3}{2}\end{array}\right.\right.$<br>Vậy hàm bậc hai cần tìm là $\displaystyle y=-\frac{1}{2} x^{2}+x+\frac{3}{2}$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="18" id="slide-18">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 18</div>
+                <div class="q-content">Biết đồ thị hàm số $y=a x^{2}+b x+c,(a, b, c \in \mathbb{R} ; a \neq 0)$ đi qua điểm $A(2 ; 1)$ và có đỉnh $I(1 ;-1)$. Tính giá trị biểu thức $T=a^{3}+b^{2}-2 c$.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$T=22$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$T=9$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$T=6$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$T=1$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Đồ thị hàm số $y=\mathrm{ax}^{2}+b x+c$ đi qua điểm $A(2 ; 1)$ và có đỉnh $I(1 ;-1)$ nên có hệ phương trình<br>$\displaystyle \left\{\begin{array}{l}4 a+2 b+c=1 \\ -\frac{b}{2 a}=1 \\ a+b+c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}4 a+2 b+c=1 \\ b=-2 a \\ a+b+c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}c=1 \\ b=-2 a \\ -a+c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}c=1 \\ b=-4 \\ a=2\end{array}\right.\right.\right.\right.$<br>Vậy $T=a^{3}+b^{2}-2 c=22$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="19" id="slide-19">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 19</div>
+                <div class="q-content">Cho hàm số $y=a x^{2}+b x+c(a \neq 0)$ có đồ thị ( P ). Biết đồ thị của hàm số có đỉnh $I(1 ; 1)$ và đi qua điểm $A(2 ; 3)$. Tính tổng $S=a^{2}+b^{2}+c^{2}$</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">29 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">1 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Vì đồ thị hàm số $y=a x^{2}+b x+c(a \neq 0)$ có đỉnh $I(1 ; 1)$ và đi qua điểm $A(2 ; 3)$ nên ta có hệ:<br><br>$$
+\left\{\begin{array} { c } 
+{ a + b + c = 1 } \\
+{ 4 a + 2 b + c = 3 } \\
+{ - \frac { b } { 2 a } = 1 }
+\end{array} \Leftrightarrow \left\{\begin{array} { c } 
+{ a + b + c = 1 } \\
+{ 4 a + 2 b + c = 3 } \\
+{ 2 a + b = 0 }
+\end{array} \Leftrightarrow \left\{\begin{array}{c}
+a=2 \\
+b=-4 \\
+c=3
+\end{array}\right.\right.\right.
+$$<br><br>Nên $S=a^{2}+b^{2}+c^{2}=29$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="20" id="slide-20">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 20</div>
+                <div class="q-content">Cho Parabol $(P): y=x^{2}+m x+n$ ( $m, n$ tham số). Xác định $m, n$ để $(P)$ nhận đỉnh<br><br>$$
+I(2 ;-1)
+$$</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m=4, n=-3$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m=4, n=3$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m=-4, n=-3$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m=-4, n=3$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Parabol $(P): y=x^{2}+m x+n$ nhận $I(2 ;-1)$ là đỉnh, khi đó ta có<br>$\displaystyle \left\{\begin{array}{l}4+2 m+n=-1 \\ -\frac{m}{2}=2\end{array} \Leftrightarrow\left\{\begin{array}{l}2 m+n=-5 \\ m=-4\end{array} \Leftrightarrow\left\{\begin{array}{l}n=3 \\ m=-4\end{array}\right.\right.\right.$<br>Vậy $m=-4, n=3$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="21" id="slide-21">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 21</div>
+                <div class="q-content">Cho Parabol (P): $y=a x^{2}+b x+c$ có đỉnh $I(2 ; 0)$ và $(P)$ cắt trục $O y$ tại điểm $M(0 ;-1)$. Khi đó Parabol (P) có hàm số là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle (P): y=-\frac{1}{4} x^{2}-3 x-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle (P): y=-\frac{1}{4} x^{2}-x-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle (P): y=-\frac{1}{4} x^{2}+x-1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle (P): y=-\frac{1}{4} x^{2}+2 x-1$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Parabol $(P): y=a x^{2}+b x+c \longrightarrow$ đinh $\displaystyle I\left(-\frac{b}{2 a} ; c-\frac{b^{2}}{4 a}\right)$<br><br>Theo bài ra, ta có (P) có đỉnh<br><br>$$
+I(2 ; 0) \Rightarrow\left\{\begin{array} { l } 
+{ - \frac { b } { 2 a } = 2 } \\
+{ c - \frac { b ^ { 2 } } { 4 a } = 0 }
+\end{array} \Leftrightarrow \left\{\begin{array}{l}
+b=-4 a \\
+b^{2}=4 a c
+\end{array}\right.\right.
+$$<br><br>Lại có ( P ) cắt Oy tại điểm $M(0 ;-1)$ suy ra $y(0)=-1 \Leftrightarrow c=-1$<br><br>Từ (1), (2) suy ra $\displaystyle \left\{\begin{array}{l}b=-4 a \\ b^{2}=-a \\ c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}b=-4 a \\ b^{2}=b \\ c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}a=-\frac{1}{4} \\ b=1 ; c=-1\end{array}\right.\right.\right.$ (vì $b=0 \Rightarrow a=0$ loại)</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="22" id="slide-22">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 22</div>
+                <div class="q-content">Gọi $S$ là tập các giá trị $m \neq 0$ để parabol $(P): y=m x^{2}+2 m x+m^{2}+2 m$ có đỉnh nằm trên đường thẳng $y=x+7$. Tính tổng các giá trị của tập $S$</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-1 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-2 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Khi $m \neq 0$ thì $(P): y=m x^{2}+2 m x+m^{2}+2 m$ có đỉnh là $\displaystyle I\left(-\frac{b}{2 a} ;-\frac{\Delta}{4 a}\right) \Rightarrow I\left(-1 ; m^{2}+m\right)$<br>Vì đỉnh nằm trên đường thẳng $y=x+7$ nên<br>$m^{2}+m=-1+7 \Leftrightarrow m^{2}+m-6=0 \Leftrightarrow\left[\begin{array}{l}m=2 \\ m=-3\end{array}(T M)\right.$<br>Vậy tổng các giá trị của tập $S:^{2+(-3)=-1}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="23" id="slide-23">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 23</div>
+                <div class="q-content">Xác định hàm số $y=a x^{2}+b x+c 1$ biết đồ thị của nó có đỉnh $\displaystyle I\left(\frac{3}{2} ; \frac{1}{4}\right)$ và cắt trục hoành tại điểm có hoành độ bằng 2 .</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=-x^{2}+3 x+2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=-x^{2}-3 x-2$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}-3 x+2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-x^{2}+3 x-2$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">. Do đồ thị của nó có đỉnh $\displaystyle I\left(\frac{3}{2} ; \frac{1}{4}\right)$ và cắt trụ hoành tại điểm có hoành độ bằng 2 nên ta có $\displaystyle \left\{\begin{array}{l}\frac{-b}{2 a}=\frac{3}{2} \\ \frac{9}{4} a+\frac{3}{2} b+c=\frac{1}{4} \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}3 a+b=0 \\ 9 a+6 b+4 c=1 \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}a=-1 \\ b=3 \\ c=-2\end{array}\right.\right.\right.$<br><br>Vậy $y=-x^{2}+3 x-2$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="24" id="slide-24">
+            <div class="question-card" data-correct="B" data-level="kg">
+                <div class="q-number">Câu 24</div>
+                <div class="q-content">Hàm số bậc hai nào sau đây có đồ thị là parabol có đỉnh là $\displaystyle S\left(\frac{5}{2} ; \frac{1}{2}\right)$ và đi qua $A(1 ;-4)_{\text {? }}$</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=-x^{2}+5 x-8$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=-2 x^{2}+10 x-12$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}-5 x$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle y=-2 x^{2}+5 x+\frac{1}{2}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">## Lời giải<br><br><br>Hàm số bậc hai cần tìm có phương trình: $y=a x^{2}+b x+c(a \neq 0)$<br>Hàm số bậc hai có đồ thị là parabol có đỉnh là $\displaystyle S\left(\frac{5}{2} ; \frac{1}{2}\right)$ và đi qua $A(1 ;-4)$<br>$\displaystyle \Rightarrow\left\{\begin{array}{l}\frac{-b}{2 a}=\frac{5}{2} \\ \frac{-\Delta}{4 a}=\frac{1}{2} \\ a+b+c=-4\end{array} \Leftrightarrow\left\{\begin{array}{l}b=-5 \mathrm{a} \\ \frac{-25 a^{2}+4 \mathrm{a}(4 \mathrm{a}-4)}{4 a}=\frac{1}{2} \\ c=4 \mathrm{a}-4\end{array} \Leftrightarrow\left\{\begin{array}{l}a=-2 \\ b=10 \\ c=-12\end{array}\right.\right.\right.$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="25" id="slide-25">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 25</div>
+                <div class="q-content">Cho parabol $(P)$ có phương trình $y=a x^{2}+b x+c$. Tìm $a+b+c$, biết $(P)$ đi qua điểm $A(0 ; 3)$ và có đỉnh $I(-1 ; 2)$.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a+b+c=6$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a+b+c=5$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$a+b+c=4$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a+b+c=3$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">$(P)$ đi qua điểm $A(0 ; 3) \Rightarrow c=3$.<br>$(P)$ có đỉnh<br><br>$$
+I(-1 ; 2) \Rightarrow\left\{\begin{array} { l } 
+{ \frac { - b } { 2 a } = - 1 } \\
+{ a - b + 3 = 2 }
+\end{array} \Leftrightarrow \left\{\begin{array} { l } 
+{ b = 2 a } \\
+{ a - 2 a = - 1 }
+\end{array} \Leftrightarrow \left\{\begin{array}{l}
+a=1 \\
+b=2
+\end{array} \Rightarrow a+b+c=6\right.\right.\right.
+$$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
+            <div class="slide" data-i="26" id="slide-26">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 26</div>
+                <div class="q-content">Parabol $y=a x^{2}+b x+c$ đạt cực tiểu bằng 4 tại $x=-2$ và đi qua $A(0 ; 6)$ có phương trình là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\frac{1}{2} x^{2}+2 x+6$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=x^{2}+2 x+6$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}+6 x+6$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=x^{2}+x+4$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có: $\displaystyle -\frac{b}{2 a}=-2 \Rightarrow b=4 a \quad$.(1)<br><br>Mặt khác : Vì $A, I \in(P) \Leftrightarrow\left\{\begin{array}{l}4=a \cdot(-2)^{2}+b \cdot(-2)+c \\ 6=a \cdot(0)^{2}+b \cdot(0)+c\end{array} \Rightarrow\left\{\begin{array}{l}4 \cdot a-2 b=-2 \\ c=6\end{array}\right.\right.$<br><br>Kết hợp (1),(2) ta có : $\displaystyle \left\{\begin{array}{l}a=\frac{1}{2} \\ b=2 \\ c=6 \\ \quad \text {. Vậy }\end{array}(P): y=\frac{1}{2} x^{2}+2 x+6\right.$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="27" id="slide-27">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 27</div>
+                <div class="q-content">Parabol $y=a x^{2}+b x+c$ đi qua $A(0 ;-1), B(1 ;-1), C(-1 ; 1)$ có phương trình là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=x^{2}-x+1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=x^{2}-x-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}+x-1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=x^{2}+x+1$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có: Vì $A, B, C \in(P) \quad \Leftrightarrow\left\{\begin{array}{l}-1=a \cdot 0^{2}+b \cdot 0+c \\ -1=a \cdot(1)^{2}+b \cdot(1)+c \\ 1=a \cdot(-1)^{2}+b \cdot(-1)+c\end{array} \Rightarrow\left\{\begin{array}{l}a=1 \\ b=-1 \\ c=-1\end{array}\right.\right.$.<br>Vậy $(P): y=x^{2}-x-1$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="28" id="slide-28">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 28</div>
+                <div class="q-content">Gọi $A(a ; b)$ và $B(c ; d)$ là tọa độ giao điểm của $(P): y=2 x-x^{2}$ và $\Delta: y=3 x-6$. Giá trị của $b+d$ bằng.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">7 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">-7 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">15 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-15 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phương trình hoành độ giao điểm: $2 x-x^{2}=3 x-6 \Leftrightarrow x^{2}+x-6=0 \Leftrightarrow\left[\begin{array}{l}x=2 \Rightarrow y=0 \\ x=-3 \Rightarrow y=-15\end{array}\right.$<br>$b+d=-15$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
+            <div class="slide" data-i="29" id="slide-29">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 29</div>
+                <div class="q-content">Cho hai parabol có phương trình $y=x^{2}+x+1$ và $y=2 x^{2}-x-2$. Biết hai parabol cắt nhau tại hai điểm $A$ và $B$ ( ${ }^{x_{A}&lt;x_{B}}$ ). Tính độ dài đoạn thẳng $A B$.</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$A B=4 \sqrt{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$A B=2 \sqrt{26}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$A B=4 \sqrt{10}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$A B=2 \sqrt{10}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Phương trình hoành độ giao điểm của hai parabol:<br>$2 x^{2}-x-2=x^{2}+x+1 \Leftrightarrow x^{2}-2 x-3=0 \Leftrightarrow\left[\begin{array}{l}x=-1 \\ x=3\end{array}\right.$.<br>$x=-1 \Rightarrow y=1 ; x=3 \Rightarrow y=13$, do đó hai giao điểm là $A(-1 ; 1)$ và $B(3 ; 13)$.<br>Từ đó $A B=\sqrt{(3+1)^{2}+(13-1)^{2}}=4 \sqrt{10}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="30" id="slide-30">
+            <div class="question-card" data-correct="D" data-level="kg">
+                <div class="q-number">Câu 30</div>
+                <div class="q-content">Hàm số $y=x^{2}+2 x-1$ có đồ thị như hình bên. Tìm các giá trị $m$ để phương trình $x^{2}+2 x+m=0$ vô nghiệm.<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-17.jpg?height=374&width=308&top_left_y=1246&top_left_x=898" alt="Math Image"></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m&lt;-2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m&lt;-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m&lt;1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m&gt;1$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">$x^{2}+2 x+m=0 \Leftrightarrow x^{2}+2 x-1=-m-1 \quad\left({ }^{*}\right)$<br>Số nghiệm của phương trình ${ }^{(*)}$ chính là số giao điểm của parabol $y=x^{2}+2 x+1$ và đường thẳng $y=-m-1$.<br><br>Ycbt $\Rightarrow m&gt;1$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="31" id="slide-31">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 31</div>
+                <div class="q-content">Cho hàm số $f(x)=x^{2}+2 x+m$. Với giá trị nào của tham số $m$ thì<br><br>$$
+f(x) \geq 0, \forall x \in \mathbb{R}
+$$</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m \geq 1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m&gt;1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m&gt;0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m&lt;2$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có $f(x) \geq 0, \forall x \in \mathbb{R} \Leftrightarrow\left\{\begin{array}{l}a=1&gt;0 \\ \Delta^{\prime}=1-m \leq 0\end{array} \Leftrightarrow m \geq 1\right.$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="32" id="slide-32">
+            <div class="question-card" data-correct="B" data-level="tb">
+                <div class="q-number">Câu 32</div>
+                <div class="q-content">Tìm tất cả các giá trị của tham số $m$ để bất phương trình<br><br>$$
+x^{2}-(m+2) x+8 m+1 \leq 0 \text { vô nghiệm. }
+$$</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m \in[0 ; 28]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m \in(-\infty ; 0) \cup(28 ;+\infty)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m \in(-\infty ; 0] \cup[28 ;+\infty)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m \in(0 ; 28)$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Bất phương trình vô nghiệm khi và chỉ khi $(m+2)^{2}-4(8 m+1)&lt;0 \Leftrightarrow m^{2}-28 m&lt;0 \quad 0&lt;m&lt;28$ -</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="33" id="slide-33">
+            <div class="question-card" data-correct="D" data-level="tb">
+                <div class="q-number">Câu 33</div>
+                <div class="q-content">Tam thức $f(x)=x^{2}+2(m-1) x+m^{2}-3 m+4$ không âm với mọi giá trị của $x$ khi</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m&lt;3$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m \geq 3$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m \leq-3$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m \leq 3$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Yêu cầu bài toán $\Leftrightarrow f(x) \geq 0, \forall x \in \mathbb{R} \Leftrightarrow x^{2}+2(m-1) x+m^{2}-3 m+4 \geq 0, \forall x \in \mathbb{R}$<br>$\Leftrightarrow \Delta^{\prime}=(m-1)^{2}-\left(m^{2}-3 m+4\right) \leq 0$<br>$\Leftrightarrow m-3 \leq 0$<br>$\Leftrightarrow m \leq 3$.<br><br>Vậy $m \leq 3$ thỏa mãn yêu cầu bài toán.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
+            <div class="slide" data-i="34" id="slide-34">
+            <div class="question-card" data-correct="B" data-level="kg">
+                <div class="q-number">Câu 34</div>
+                <div class="q-content">Tìm các giá trị của $m$ để biểu thức $f(x)=x^{2}+(m+1) x+2 m+7&gt;0 \quad \forall x \in \mathbb{R}$</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m \in[2 ; 6]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m \in(-3 ; 9)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m \in(-\infty ; 2) \cup(5 ;+\infty)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m \in(-9 ; 3)$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Ta có :<br><br>$$
+f(x)&gt;0, \forall x \in \mathbb{R} \Leftrightarrow\left\{\begin{array} { l } 
+{ a &gt; 0 } \\
+{ \Delta &lt; 0 }
+\end{array} \Leftrightarrow \left\{\begin{array}{l}
+1&gt;0 \\
+(m+1)^{2}-4(2 m+7)&lt;0
+\end{array}\right.\right.
+$$<br><br>$\Leftrightarrow m^{2}-6 m-27&lt;0 \Leftrightarrow-3&lt;m&lt;9$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="35" id="slide-35">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 35</div>
+                <div class="q-content">Tìm $m$ để $f(x)=m x^{2}-2(m-1) x+4 m$ luôn luôn âm</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \left(-1 ; \frac{1}{3}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle (-\infty ;-1) \cup\left(\frac{1}{3} ;+\infty\right)$<br>.c. $(-\infty ;-1)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \left(\frac{1}{3} ;+\infty\right)$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">TH1: $m=0: f(x)=2 x$ đổi dấu (loại $m=0$ )<br>TH2: $m \neq 0$; Yêu cầu bài toán $\Leftrightarrow\left\{\begin{array}{l}a&lt;0 \\ \Delta^{\prime}&lt;0\end{array} \Leftrightarrow\left\{\begin{array}{l}m&lt;0 \\ -3 m^{2}-2 m+1&lt;0\end{array}\right.\right.$<br>$\displaystyle \Leftrightarrow\left\{\begin{array}{l}m&lt;0 \\ m&lt;-1 \vee m&gt;\frac{1}{3}\end{array}\right.$<br>$\Leftrightarrow m&lt;-1$<br>Vậy $m&lt;-1$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="36" id="slide-36">
+            <div class="question-card" data-correct="A" data-level="kg">
+                <div class="q-number">Câu 36</div>
+                <div class="q-content">Tổng các nghiệm của phương trình $\sqrt{x^{3}+x^{2}+6 x+28}=x+5$ bằng:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-1 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">$\sqrt{x^{3}+x^{2}+6 x+28}=x+5 \Leftrightarrow\left\{\begin{array}{l}x+5 \geq 0 \\ x^{3}+x^{2}+6 x+28=(x+5)^{2}\end{array} \Leftrightarrow\left\{\begin{array}{l}x \geq-5 \\ x^{3}-4 x+3=0\end{array}\right.\right.$<br>$\displaystyle \Leftrightarrow\left\{\begin{array}{l}x \geq-5 \\ {\left[\begin{array}{l}x=1 \\ x=\frac{-1 \pm \sqrt{13}}{2}\end{array}\right.}\end{array} \Rightarrow\left[\begin{array}{l}x=1 \\ x=\frac{-1 \pm \sqrt{13}}{2}\end{array}\right.\right.$<br>Tổng các nghiệm là: 0 .</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh trung bình</h2>
+            <div class="slide" data-i="37" id="slide-37">
+            <div class="question-card" data-correct="C" data-level="tb">
+                <div class="q-number">Câu 37</div>
+                <div class="q-content">Tập nghiệm của phương trình $\sqrt{3-x}=\sqrt{x+2}$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$S=\varnothing$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle S=\left\{-2 ; \frac{1}{2}\right\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle S=\left\{\frac{1}{2}\right\}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle S=\left\{-\frac{1}{2}\right\}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Điều kiện: $\left\{\begin{array}{l}3-x \geq 0 \\ x+2 \geq 0\end{array} \Leftrightarrow-2 \leq x \leq 3\right.$.<br>Phương trình tương đương: $\displaystyle 3-x=x+2 \Leftrightarrow 1=2 x \Leftrightarrow x=\frac{1}{2}$ (thỏa mãn điều kiện).<br>Vậy phương trình có tập nghiệm $\displaystyle S=\left\{\frac{1}{2}\right\}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="38" id="slide-38">
+            <div class="question-card" data-correct="A" data-level="tb">
+                <div class="q-number">Câu 38</div>
+                <div class="q-content">Tập nghiệm của phương trình $\left(x^{2}-x-2\right) \cdot \sqrt{x-1}=0$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\{1 ; 2\}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\{-1 ; 1 ; 2\}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$[1 ; 2]$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\{-1 ; 2\}$</div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">Điều kiện: $x \geq 1$.<br>$\left(x^{2}-x-2\right) \cdot \sqrt{x-1}=0 \Leftrightarrow\left[\begin{array}{l}x^{2}-x-2=0 \\ \sqrt{x-1}=0\end{array} \Leftrightarrow\left[\begin{array}{l}x=-1 \\ x=2 \\ x=1\end{array}\right.\right.$<br>So sánh điều kiện kết luận phương trình có nghiệm $x=1 ; x=2$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                </div>
+            </div>
+            </div>
+            <h2 class="level-header">Dành cho học sinh khá giỏi</h2>
+            <div class="slide" data-i="39" id="slide-39">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 39</div>
+                <div class="q-content">Số nghiệm của phương trình $\sqrt{3 x+1}-\sqrt{2-x}=1$ là</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">0 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">- Điều kiện:<br><br>$$
+\left\{\begin{array} { c } 
+{ 3 x + 1 \geq 0 } \\
+{ 2 - x \geq 0 }
+\end{array} \Leftrightarrow \left\{\begin{array}{c}
+x \geq-\frac{1}{3} \\
+x \leq 2
+\end{array} \Leftrightarrow-\frac{1}{3} \leq x \leq 2\right.\right.
+$$<br><br>- PT $\Leftrightarrow \sqrt{3 x+1}=1+\sqrt{2-x} \Leftrightarrow[\sqrt{3 x+1}]^{2}=[1+\sqrt{2-x}]^{2} \Leftrightarrow 3 x+1=1+2 \sqrt{2-x}+2-x$<br>$\displaystyle \Leftrightarrow 2 \sqrt{2-x}=4 x-2 \Leftrightarrow \sqrt{2-x}=2 x-1 \Leftrightarrow\left\{\begin{array}{l}2 x-1 \geq 0 \\ 2-x=(2 x-1)^{2}\end{array} \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ 2-x=4 x^{2}-4 x+1\end{array}\right.\right.$<br>$\displaystyle \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ 4 x^{2}-3 x-1=0\end{array}\left\{\begin{array}{l}x \geq \frac{1}{2} \\ {\left[\begin{array}{l}x=1 \\ x=-\frac{1}{4}\end{array} \Leftrightarrow x=1 \text { (thỏa mãn điều kiện). }\right.}\end{array}\right.\right.$<br>Vậy phương trình đã cho có một nghiệm $x=1$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="slide" data-i="40" id="slide-40">
+            <div class="question-card" data-correct="C" data-level="kg">
+                <div class="q-number">Câu 40</div>
+                <div class="q-content">Số nghiệm nguyên của phương trình sau $\sqrt{x+3}-\sqrt{2 x-1}=1$ là:</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">3 </div></div></div>
+                <div class="solution">
+                    <div class="solution-title">Hướng dẫn giải</div>
+                    <div class="sol-body">$\sqrt{x+3}-\sqrt{2 x-1}=1$<br>Điều kiện $\displaystyle \left\{\begin{array}{l}x+3 \geq 0 \\ 2 x-1 \geq 0\end{array} \Leftrightarrow x \geq \frac{1}{2}\right.$.<br>Khi đó phương trình $\Leftrightarrow \sqrt{x+3}=1+\sqrt{2 x-1}$<br><br>$$
+\begin{aligned}
+& \Leftrightarrow x+3=1+2 \sqrt{2 x-1}+2 x-1 \Leftrightarrow 2 \sqrt{2 x-1}=-x+3
+\end{aligned} \Leftrightarrow\left\{\begin{array}{l}
+-x+3 \geq 0 \\
+4(2 x-1)=(-x+3)^{2}
+\end{array}{ }_{\Leftrightarrow\left\{\begin{array}{l}
+x \leq 3 \\
+x^{2}-14 x+13=0 \Leftrightarrow x=1
+\end{array}\right.}\right.
+$$<br><br>Vậy số nghiệm nguyên của phương trình là 1 .</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                </div>
+            </div>
+            </div>
+            
+    </div>
+</div>
+
+<!-- Nav Bar -->
+<div class="nav" id="bottomNav">
+    <button class="nb" id="bp" onclick="go(-1)">◀ TRƯỚC</button>
+    <div class="sc" id="sc">1 / X</div>
+    <button class="nb" id="bn" onclick="go(1)">SAU ▶</button>
+</div>
+
+<!-- Floating Action Buttons -->
+<div class="fab-container">
+    <button class="fab theory" id="btnOpenTheory" title="Xem lý thuyết" aria-label="Mở modal lý thuyết" aria-expanded="false" aria-controls="theoryModal">📚</button>
+</div>
+
+<!-- Progress Panel -->
+<div class="progress-panel" id="progressPanel">
+    <div class="pp-header">📋 Tiến trình học</div>
+    <div class="pp-filters">
+        <div class="pp-filter active" data-filter="all" onclick="filterFromPanel('all', this)">Tất cả</div>
+        <div class="pp-filter" data-filter="tb" onclick="filterFromPanel('tb', this)">Cơ bản</div>
+        <div class="pp-filter" data-filter="kg" onclick="filterFromPanel('kg', this)">Nâng cao</div>
+    </div>
+    <div class="pg-grid" id="pgGrid"></div>
+    <div class="pg-legend">
+        <span><span class="ldot" style="background:#f8fafc;border:1.5px solid #e2e8f0"></span> Chưa</span>
+        <span><span class="ldot" style="background:#dcfce7;border:1.5px solid #16a34a"></span> Đúng</span>
+        <span><span class="ldot" style="background:#fef2f2;border:1.5px solid #ef4444"></span> Sai</span>
+    </div>
+    <div class="pp-score">
+        <div class="pp-score-label">ĐIỂM SỐ</div>
+        <div class="pp-score-num" id="ppScore">0/0</div>
+    </div>
+</div>
+
+<!-- Level Popup (giữ ẩn, dùng cho filterLevel logic) -->
+<div class="level-popup" id="levelPopup" role="dialog" aria-modal="true" aria-labelledby="levelPopupTitle" aria-hidden="true" style="display:none">
+    <div class="level-box">
+        <button class="modal-close" id="btnCloseLevel" aria-label="Đóng" style="position:absolute; top:16px; right:16px;">&times;</button>
+        <div class="level-title" id="levelPopupTitle">CHỌN MỨC ĐỘ HỌC</div>
+    </div>
+</div>
+
+<!-- Modal Lý Thuyết -->
+<div class="modal-overlay" id="theoryModal" role="dialog" aria-modal="true" aria-labelledby="theoryTitle" aria-hidden="true">
+    <div class="modal-content">
+        <button class="modal-close" id="btnCloseTheory" aria-label="Đóng modal lý thuyết">&times;</button>
+        
+        <!-- Header Sổ tay -->
+        <div class="theory-header">
+            <div class="theory-badge">KIẾN THỨC CỐT LÕI</div>
+            <h2 class="theory-main-title" id="theoryTitle">Chuyên đề 4 - Hàm số bậc 2 và dấu tam thức bậc 2</h2>
+            <div class="theory-line"></div>
+        </div>
+
+        <div class="theory-text" id="theory-content" style="font-size:16px; line-height:1.8; color:#334155; padding: 10px 0;">
+            <div class="theory-h2">1. ĐỒ THỊ HÀM SỐ BẬC HAI</div>
+<br>
+<p class="theory-text">Đồ thị hàm số bậc hai $y=a x^{2}+b x+c \quad (a \neq 0)$ là một parabol có đỉnh là điểm $\displaystyle I\left(-\frac{b}{2 a} ;-\frac{\Delta}{4 a}\right)$, có trục đối xứng là đường thẳng $\displaystyle x=\frac{-b}{2 a}$. Parabol này quay bề lõm lên trên nếu $a&gt;0$, xuống dưới nếu $a&lt;0$.</p>
+<br>
+<p class="theory-text">Để vẽ đường parabol $y=a x^{2}+b x+c \quad (a \neq 0)$, ta thực hiện các bước:</p>
+<br>
+<p class="theory-text">1) Xác định tọa độ đỉnh $\displaystyle I\left(-\frac{b}{2 a} ;-\frac{\Delta}{4 a}\right)$.</p>
+<p class="theory-text">2) Vẽ trục đối xứng $\displaystyle x=\frac{-b}{2 a}$.</p>
+<p class="theory-text">3) Xác định tọa độ giao điểm của parabol với trục tung và trục hoành (nếu có), và một vài điểm đặc biệt trên parabol.</p>
+<p class="theory-text">4) Vẽ parabol.</p>
+<br>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-01.jpg?height=570&width=553&top_left_y=1465&top_left_x=442" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<p class="theory-text">$a&gt;0$</p>
+<br>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-01.jpg?height=570&width=678&top_left_y=1465&top_left_x=1005" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<p class="theory-text">$a&lt;0$</p>
+<br>
+<p class="theory-text">Nhận xét: Từ đồ thị hàm số $y=a x^{2}+b x+c \quad (a \neq 0)$, ta suy ra tính chất của hàm số $y=a x^{2}+b x+c \quad (a \neq 0)$</p>
+<br>
+<div style="overflow-x: auto; width: 100%;"><table class="theory-table">
+<tr><th>$a&gt;0$</th><th>$a&lt;0$</th></tr>
+<tr><td>- Hàm số nghịch biến trên khoảng $\displaystyle \left(-\infty ;-\frac{b}{2 a}\right)$ và đồng biến trên khoảng $\displaystyle \left(-\frac{b}{2 a} ;+\infty\right)$. <br> - Bảng biến thiên$x$ $-\infty$ $\displaystyle -\frac{b}{2 a}$ $+\infty$ <br> $y$ $+\infty$  $+\infty$ <br> $\displaystyle -\frac{\Delta}{4 a}$ là giá trị nhỏ nhất của hàm số</td><td>- Hàm số đồng biến trên khoảng $\displaystyle \left(-\infty ;-\frac{b}{2 a}\right)$ và nghịch biến trên khoảng $\displaystyle \left(-\frac{b}{2 a} ;+\infty\right)$. <br> - Bảng biến thiên$x$ $-\infty$ $\displaystyle -\frac{b}{2 a}$ $+\infty$  <br> $y$  $\displaystyle -\frac{\Delta}{4 a}$   <br>  $-\infty$  $-\infty$  <br> $\displaystyle -\frac{\Delta}{4 a}$ là giá trị lớn nhất của hàm số</td></tr>
+</table></div>
+<div class="theory-h2">2. XÁC ĐỊNH HÀM SỐ BẬC HAI THỎA MÃN ĐIỀU KIỆN CHO TRƯỚC</div>
+<br>
+<p class="theory-text">Để xác định hàm số bậc hai $y=f(x)=a x^{2}+b x+c$ (đồng nghĩa với xác định các tham số $a, b, c$) ta cần dựa vào giả thiết để lập nên các phương trình (hệ phương trình) ẩn là $a, b, c$. Từ đó tìm được $a, b, c$. Việc lập nên các phương trình nêu ở trên thường sử dụng đến các kết quả sau:</p>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div>Đồ thị hàm số đi qua điểm $M\left(x_{0} ; y_{0}\right) \Leftrightarrow y_{0}=f\left(x_{0}\right)$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Đồ thị hàm số có trục đối xứng $\displaystyle x=x_{0} \Leftrightarrow-\frac{b}{2 a}=x_{0}$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Đồ thị hàm số có đỉnh là $\displaystyle I\left(x_{I} ; y_{I}\right) \Leftrightarrow\left\{\begin{array}{l}-\frac{b}{2 a}=x_{I} \\ -\frac{\Delta}{4 a}=y_{I}\end{array}\right.$ hay $\displaystyle \left\{\begin{array}{c}-\frac{b}{2 a}=x_{I} \\ f\left(x_{I}\right)=y_{I}\end{array}\right.$.</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Trên $\mathbb{R}$, ta có:</div></div>
+<br>
+<p class="theory-text">1. $f(x)$ có giá trị lớn nhất $\Leftrightarrow a&lt;0$. Lúc này $\displaystyle \max_{\mathbb{R}} f(x)=-\frac{\Delta}{4 a}=f\left(-\frac{b}{2 a}\right)$.</p>
+<p class="theory-text">2. $f(x)$ có giá trị nhỏ nhất $\Leftrightarrow a&gt;0$. Lúc này $\displaystyle \min_{\mathbb{R}} f(x)=-\frac{\Delta}{4 a}=f\left(-\frac{b}{2 a}\right)$.</p>
+<br>
+<div class="theory-h2">3. DẤU CỦA TAM THỨC BẬC HAI</div>
+<br>
+<p class="theory-text">Tam thức bậc hai (đối với $x$) là biểu thức có dạng $a x^{2}+b x+c$, trong đó $a, b, c$ là những số thực cho trước $(a \neq 0)$, được gọi là các hệ số của tam thức bậc hai.</p>
+<br>
+<div class="theory-h2">Định lí về dấu tam thức bậc hai.</div>
+<br>
+<p class="theory-text">Cho tam thức bậc hai $f(x)=a x^{2}+b x+c \quad (a \neq 0)$.</p>
+<p class="theory-text">Nếu $\Delta&lt;0$ thì $f(x)$ cùng dấu với hệ số $a$ với mọi $x \in \mathbb{R}$.</p>
+<p class="theory-text">Nếu $\Delta=0$ thì $f(x)$ cùng dấu với hệ số $a$ với mọi $\displaystyle x \neq-\frac{b}{2 a}$ và $\displaystyle f\left(-\frac{b}{2 a}\right)=0$.</p>
+<p class="theory-text">Nếu $\Delta&gt;0$ thì tam thức $f(x)$ có hai nghiệm phân biệt $x_{1}$ và $x_{2} \quad (x_{1}&lt;x_{2})$. Khi đó, $f(x)$ cùng dấu với hệ số $a$ với mọi $x \in\left(-\infty ; x_{1}\right) \cup\left(x_{2} ;+\infty\right)$; $f(x)$ trái dấu với hệ số $a$ với mọi $x \in\left(x_{1} ; x_{2}\right)$.</p>
+<br>
+<p class="theory-text">Nhớ nhanh: Khi $\Delta&gt;0$, dấu của $f(x)$ và $a$ là: "Trong trái, ngoài cùng"</p>
+<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-03.jpg?height=106&width=828&top_left_y=1783&top_left_x=610" alt="Math Image" style="max-width: 100%; height: auto;"></div>
+<br>
+<p class="theory-text">Chú ý: Trong định lí về tam thức bậc hai có thể thay $\Delta$ bởi $\Delta^{\prime}$.</p>
+<br>
+<div class="theory-h2">4. PHƯƠNG TRÌNH QUY VỀ PHƯƠNG TRÌNH BẬC HAI</div>
+<br>
+<p class="theory-text">Để giải phương trình $\sqrt{a x^{2}+b x+c}=\sqrt{d x^{2}+e x+f}$, ta thực hiện như sau:</p>
+<br>
+<div class="theory-item"><span class="theory-bullet"></span><div>Bình phương hai vế và giải phương trình nhận được;</div></div>
+<div class="theory-item"><span class="theory-bullet"></span><div>Thử lại các giá trị $x$ tìm được ở trên có thỏa mãn phương trình đã cho hay không và kết luận nghiệm.</div></div>
+<br>
+<p class="theory-text">Để giải phương trình $\sqrt{a x^{2}+b x+c}=d x+e$, ta thực hiện như sau:</p>
+<p class="theory-text">-Bình phương hai vế và giải phương trình nhận được</p>
+<p class="theory-text">-Thử lại các giá trị $x$ tìm được ở trên có thỏa mãn phương trình đã cho hay không và kết luận nghiệm.</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    let currentSlides = [];
+    let cur = 0;
+    const scoreState = {};
+    let totalQuestions = 0;
+    let lastFocusBeforeModal = null;
+    let isMobile = false;
+
+    const KATEX_OPTS = {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false
+    };
+
+    function renderMathIn(el) {
+        if (!el || el.dataset.mathRendered === '1') return;
+        if (typeof renderMathInElement !== 'function') return;
+        renderMathInElement(el, KATEX_OPTS);
+        el.dataset.mathRendered = '1';
+    }
+
+    function renderMathInitial() {
+        // Render slide 0 (cover) + modal lý thuyết ngay từ đầu
+        const cover = document.getElementById('slide-0');
+        if (cover) renderMathIn(cover);
+        const theory = document.getElementById('theoryModal');
+        if (theory) renderMathIn(theory);
+    }
+
+    function ensureKatexReady(cb) {
+        if (typeof renderMathInElement === 'function') { cb(); return; }
+        let tries = 0;
+        const t = setInterval(() => {
+            tries++;
+            if (typeof renderMathInElement === 'function') {
+                clearInterval(t); cb();
+            } else if (tries > 50) {
+                clearInterval(t);
+            }
+        }, 100);
+    }
+
+    function announceLive(text) {
+        const el = document.getElementById('ariaLive');
+        if (el) el.textContent = text;
+    }
+
+    function updateScore() {
+        const correct = Object.values(scoreState).filter(v => v === 'correct').length;
+        const num = document.getElementById('scoreNum');
+        if (num) num.textContent = `${correct}/${totalQuestions}`;
+        const ppScore = document.getElementById('ppScore');
+        if (ppScore) ppScore.textContent = `${correct}/${totalQuestions}`;
+    }
+
+    function filterLevel(lvl) {
+        const allSlides = Array.from(document.querySelectorAll('.slide'));
+
+        if (lvl === 'all') {
+            currentSlides = allSlides;
+        } else {
+            currentSlides = allSlides.filter(s => {
+                const card = s.querySelector('.question-card:not(.cover-card)');
+                return s.id === 'slide-0' || (card && card.getAttribute('data-level') === lvl);
+            });
+        }
+
+        allSlides.forEach(s => {
+            s.classList.remove('active');
+            s.style.display = 'none';
+        });
+        currentSlides.forEach(s => s.style.display = 'block');
+
+        document.querySelectorAll('.level-header').forEach(h => {
+            if (lvl === 'all' && isMobile) h.classList.add('visible');
+            else h.classList.remove('visible');
+        });
+
+        cur = currentSlides.length > 1 ? 1 : 0;
+        if (isMobile) applyMobileLayout();
+        else show(cur);
+        renderProgressGrid();
+    }
+    window.filterLevel = filterLevel;
+
+    /* Progress Panel */
+    function toggleProgress() {
+        const panel = document.getElementById('progressPanel');
+        panel.classList.toggle('open');
+        renderProgressGrid();
+    }
+
+    function renderProgressGrid() {
+        const grid = document.getElementById('pgGrid');
+        if (!grid) return;
+        const allQuestionSlides = Array.from(document.querySelectorAll('.slide')).filter(s => s.id !== 'slide-0');
+        const questionSlides = currentSlides.filter(s => s.id !== 'slide-0');
+        grid.innerHTML = questionSlides.map((s, i) => {
+            const realIdx = currentSlides.indexOf(s);
+            const id = s.id;
+            let cls = '';
+            if (realIdx === cur) cls += ' current';
+            if (scoreState[id] === 'correct') cls += ' pg-correct';
+            else if (scoreState[id] === 'incorrect') cls += ' pg-wrong';
+            const displayIdx = allQuestionSlides.indexOf(s) + 1;
+            return `<div class="pg-cell${cls}" onclick="jumpTo(${realIdx})">${displayIdx}</div>`;
+        }).join('');
+    }
+
+    function jumpTo(i) {
+        document.getElementById('progressPanel')?.classList.remove('open');
+        if (isMobile) {
+            const target = currentSlides[i];
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            show(i);
+        }
+    }
+    window.jumpTo = jumpTo;
+
+    function filterFromPanel(lvl, btn) {
+        document.querySelectorAll('.pp-filter').forEach(f => {
+            f.classList.remove('active', 'active-tb', 'active-kg');
+        });
+        if (lvl === 'all') btn.classList.add('active');
+        else if (lvl === 'tb') btn.classList.add('active-tb');
+        else btn.classList.add('active-kg');
+        filterLevel(lvl);
+    }
+    window.filterFromPanel = filterFromPanel;
+
+    function show(i) {
+        if (i < 0 || i >= currentSlides.length) return;
+        if (currentSlides[cur]) currentSlides[cur].classList.remove('active');
+        cur = i;
+        if (currentSlides[cur]) {
+            currentSlides[cur].classList.add('active');
+            renderMathIn(currentSlides[cur]);
+            if (currentSlides[cur + 1]) renderMathIn(currentSlides[cur + 1]);
+            const card = currentSlides[cur].querySelector('.question-card');
+            if (card) card.scrollTop = 0;
+        }
+        updateNav();
+        renderProgressGrid();
+    }
+    window.go = function(d) { show(cur + d); };
+
+    function updateNav() {
+        const sc = document.getElementById('sc'),
+              prog = document.getElementById('prog'),
+              bp = document.getElementById('bp'),
+              bn = document.getElementById('bn');
+        if (sc) sc.textContent = `${cur + 1} / ${currentSlides.length}`;
+        if (prog) prog.style.width = `${((cur + 1) / currentSlides.length) * 100}%`;
+        if (bp) bp.disabled = (cur === 0);
+        if (bn) bn.disabled = (cur === currentSlides.length - 1);
+    }
+
+    /* Modal helpers */
+    const modalTriggerMap = {
+        'levelPopup': 'btnOpenLevel',
+        'theoryModal': 'btnOpenTheory'
+    };
+    let activeModalKeyHandler = null;
+
+    function trapFocusInModal(modal) {
+        const focusable = modal.querySelectorAll(
+            'button:not([disabled]), [tabindex]:not([tabindex="-1"]), a[href]'
+        );
+        if (!focusable.length) return null;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const handler = (e) => {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault(); last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault(); first.focus();
+            }
+        };
+        modal.addEventListener('keydown', handler);
+        return handler;
+    }
+
+    function openModal(modal, focusEl) {
+        if (!modal) return;
+        lastFocusBeforeModal = document.activeElement;
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+        const triggerId = modalTriggerMap[modal.id];
+        if (triggerId) {
+            const trigger = document.getElementById(triggerId);
+            if (trigger) trigger.setAttribute('aria-expanded', 'true');
+        }
+        if (focusEl && typeof focusEl.focus === 'function') {
+            setTimeout(() => focusEl.focus(), 50);
+        }
+        activeModalKeyHandler = trapFocusInModal(modal);
+        modal._focusHandler = activeModalKeyHandler;
+    }
+    function closeModal(modal) {
+        if (!modal) return;
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+        const triggerId = modalTriggerMap[modal.id];
+        if (triggerId) {
+            const trigger = document.getElementById(triggerId);
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
+        if (modal._focusHandler) {
+            modal.removeEventListener('keydown', modal._focusHandler);
+            modal._focusHandler = null;
+        }
+        if (lastFocusBeforeModal && typeof lastFocusBeforeModal.focus === 'function') {
+            lastFocusBeforeModal.focus();
+            lastFocusBeforeModal = null;
+        }
+    }
+    function openLevelPopup() { toggleProgress(); }
+    function closeLevelPopup() { document.getElementById('progressPanel')?.classList.remove('open'); }
+    function openTheory() {
+        const m = document.getElementById('theoryModal');
+        renderMathIn(m);
+        openModal(m, document.getElementById('btnCloseTheory'));
+    }
+    function closeTheory() { closeModal(document.getElementById('theoryModal')); }
+
+    /* Question logic */
+    function answerQuestion(card, opt) {
+        if (card.dataset.answered === '1') return;
+        const correctAns = card.getAttribute('data-correct');
+        const selected = opt.getAttribute('data-ans');
+        const options = card.querySelectorAll('.option');
+        options.forEach(o => {
+            o.classList.add('answered');
+            o.setAttribute('aria-disabled', 'true');
+            o.setAttribute('tabindex', '-1');
+        });
+
+        const isCorrect = selected === correctAns;
+        if (isCorrect) {
+            opt.classList.add('correct');
+            announceLive('Chính xác! Đáp án ' + correctAns + ' đúng.');
+        } else {
+            opt.classList.add('incorrect');
+            const correctOpt = card.querySelector(`.option[data-ans="${correctAns}"]`);
+            if (correctOpt) correctOpt.classList.add('correct');
+            announceLive('Chưa đúng. Đáp án đúng là ' + correctAns + '.');
+        }
+
+        const solution = card.querySelector('.solution');
+        if (solution) solution.classList.add('show');
+
+        card.dataset.answered = '1';
+        const qid = card.closest('.slide')?.id || '';
+        if (qid && !(qid in scoreState)) {
+            scoreState[qid] = isCorrect ? 'correct' : 'incorrect';
+            updateScore();
+        }
+
+        renderProgressGrid();
+
+        if (Object.keys(scoreState).length === totalQuestions) {
+            setTimeout(showFinalResult, 1500);
+        }
+    }
+
+
+
+    function showFinalResult() {
+        const correct = Object.values(scoreState).filter(v => v === 'correct').length;
+        const total = totalQuestions;
+        const pct = Math.round(correct / total * 100);
+        let verdict = 'Cố lên nhé! Hãy ôn lại lý thuyết.';
+        if (pct >= 90) verdict = '🏆 Xuất sắc! Cậu nắm chắc kiến thức.';
+        else if (pct >= 75) verdict = '🎉 Khá lắm! Còn vài chỗ nhỏ cần luyện.';
+        else if (pct >= 50) verdict = '👍 Tốt rồi, cần luyện thêm phần Nâng cao.';
+        const html = `
+          <div class="modal-overlay show" id="finalModal" role="dialog" aria-modal="true" aria-labelledby="finalLabel" style="z-index:3000;">
+            <div class="final-card">
+              <div class="label" id="finalLabel">Kết quả của cậu</div>
+              <div class="big-score">${correct}/${total}</div>
+              <div style="font-family:'Manrope'; font-weight:900; font-size:32px; color:var(--dark-blue);">${pct}%</div>
+              <div class="verdict">${verdict}</div>
+              <button class="btn-reset" onclick="document.getElementById('finalModal').remove();">Đóng</button>
+            </div>
+          </div>`;
+        document.body.insertAdjacentHTML('beforeend', html);
+    }
+
+    /* Mobile/desktop layout */
+    function applyMobileLayout() {
+        const allSlides = document.querySelectorAll('.slide');
+        document.body.style.overflow = 'auto';
+        currentSlides.forEach(s => {
+            s.style.position = 'relative'; s.style.opacity = '1'; s.style.visibility = 'visible';
+            s.style.pointerEvents = 'all'; s.style.height = 'auto'; s.style.minHeight = 'auto';
+            s.style.padding = '40px 0'; s.classList.add('active');
+        });
+        allSlides.forEach(s => {
+            if (!currentSlides.includes(s)) s.style.display = 'none';
+        });
+        const nav = document.getElementById('bottomNav');
+        if (nav) nav.style.display = 'none';
+    }
+    function applyDesktopLayout() {
+        const S = document.querySelectorAll('.slide');
+        document.body.style.overflow = 'hidden';
+        S.forEach(s => {
+            s.style.position = ''; s.style.opacity = ''; s.style.visibility = '';
+            s.style.pointerEvents = ''; s.style.height = ''; s.style.minHeight = '';
+            s.style.padding = '';
+        });
+        const nav = document.getElementById('bottomNav');
+        if (nav) nav.style.display = 'flex';
+        show(cur);
+    }
+    function checkMobile() {
+        isMobile = window.innerWidth <= 768;
+        if (isMobile) applyMobileLayout(); else applyDesktopLayout();
+    }
+
+    /* Bootstrap */
+    document.addEventListener("DOMContentLoaded", function() {
+        ensureKatexReady(renderMathInitial);
+
+        // Lazy render math khi slide gần vào viewport (đặc biệt hữu ích trên mobile scroll dài)
+        if ('IntersectionObserver' in window) {
+            const slideObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        renderMathIn(entry.target);
+                    }
+                });
+            }, { rootMargin: '300px' });
+            document.querySelectorAll('.slide').forEach(s => slideObserver.observe(s));
+        }
+
+        // Validation: cảnh báo console nếu có câu thiếu data
+        const cards = document.querySelectorAll('.question-card:not(.cover-card)');
+        cards.forEach((card, idx) => {
+            const correct = card.getAttribute('data-correct');
+            const circleEl = card.querySelector('.ans-circle');
+            if (!correct) {
+                console.warn(`[DATA] Câu ${idx + 1}: thiếu data-correct`);
+            }
+            if (circleEl && !circleEl.textContent.trim()) {
+                console.warn(`[DATA] Câu ${idx + 1}: thiếu nội dung trong .ans-circle`);
+            }
+        });
+
+        totalQuestions = cards.length;
+
+        cards.forEach(card => {
+            const options = card.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.addEventListener('click', () => answerQuestion(card, opt));
+                opt.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        answerQuestion(card, opt);
+                    }
+                });
+            });
+
+        });
+        updateScore();
+
+        const btnOpenTh = document.getElementById('btnOpenTheory');
+        const btnCloseTh = document.getElementById('btnCloseTheory');
+        if (btnOpenTh) btnOpenTh.onclick = openTheory;
+        if (btnCloseTh) btnCloseTh.onclick = closeTheory;
+
+        const btnOpenLv = document.getElementById('btnOpenLevel');
+        const btnCloseLv = document.getElementById('btnCloseLevel');
+        if (btnOpenLv) btnOpenLv.onclick = openLevelPopup;
+        if (btnCloseLv) btnCloseLv.onclick = closeLevelPopup;
+
+        ['theoryModal', 'levelPopup'].forEach(id => {
+            const m = document.getElementById(id);
+            if (m) m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); });
+        });
+
+        currentSlides = Array.from(document.querySelectorAll('.slide'));
+        show(0);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                ['theoryModal', 'levelPopup', 'finalModal'].forEach(id => {
+                    const m = document.getElementById(id);
+                    if (m && m.classList.contains('show')) { e.preventDefault(); closeModal(m); }
+                });
+                return;
+            }
+            const tag = (e.target && e.target.tagName) || '';
+            if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+            const anyModalOpen = ['theoryModal', 'levelPopup', 'finalModal'].some(id => {
+                const m = document.getElementById(id); return m && m.classList.contains('show');
+            });
+            if (anyModalOpen) return;
+
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); window.go(1); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); window.go(-1); }
+            else if (!isMobile) {
+                const map = { 'a':'A','b':'B','c':'C','d':'D','1':'A','2':'B','3':'C','4':'D' };
+                const ans = map[e.key.toLowerCase()];
+                if (ans && currentSlides[cur]) {
+                    const opt = currentSlides[cur].querySelector(`.option[data-ans="${ans}"]`);
+                    if (opt && !opt.classList.contains('answered')) { e.preventDefault(); opt.click(); }
+                }
+            }
+        });
+
+        window.addEventListener('resize', checkMobile);
+        checkMobile();
+    });
+</script>
+</body>
+</html>
