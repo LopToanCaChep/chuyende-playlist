@@ -83,7 +83,7 @@ Bảng biến thiên
 Câu 2. Cho hàm số $y=a x^{2}+b x+c$ có đồ thị là parabol trong hình vẽ. Khẳng định nào sau đây là đúng?
 ![](https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-04.jpg?height=372&width=439&top_left_y=2045&top_left_x=829)
 A. $a>0 ; b>0 ; c>0$.
-в. $a>0 ; b<0 ; c>0$.
+B. $a>0 ; b<0 ; c>0$.
 c. $a>0 ; b<0 ; c<0$.
 D. $a>0 ; b>0 ; c<0$.
 
@@ -164,9 +164,7 @@ Khi đó: $2 a+b+2 c=2.1-2+2(-3)=-6$.
 
 Câu 7. Bảng biến thiên ở dưới là bảng biến thiên của hàm số nào trong các hàm số được cho ở bốn phương án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ sau đây?
 
-| $x$ | $-\infty$ | 2 | $+\infty$ |
-| :---: | :---: | :---: | ---: |
-| $f(x)$ | $+\infty$ |  | $\pi^{+\infty}$ |
+![](../Pic/bbt_cau_7.png)
 
 A. $y=-x^{2}+4 x$.
 B. $y=-x^{2}+4 x-9$.
@@ -181,10 +179,7 @@ Parabol cần tìm phải có hệ số $a>0$ và đồ thị hàm số phải �
 
 Câu 8. Bảng biến thiên sau đây là bảng biến thiên của hàm số nào?
 
-| $x$ | $-\infty$ | -2 | $+\infty$ |
-| :---: | :---: | :---: | :---: |
-| $y$ |  | $\gamma^{-4} \backslash$ |  |
-|  | $-\infty$ |  | $\searrow_{-\infty}$ |
+![](../Pic/bbt_cau_8.png)
 
 A. $y=x^{2}+4 x$.
 B. $y=-x^{2}-4 x-8$.
@@ -222,11 +217,9 @@ D. $\frac{-25}{8}$.
 
 ## Lời giải
 
-.
+## Chọn D
 
-## Chọn A
-
-$y=2 x^{2}+x-3=2\left(x+\frac{1}{4}\right)-\frac{25}{8} \geq \frac{-25}{8}$
+$y=2 x^{2}+x-3=2\left(x+\frac{1}{4}\right)^{2}-\frac{25}{8} \geq \frac{-25}{8}$
 $y=\frac{-25}{8}$ khi $x=\frac{-1}{4}$ nên giá trị nhỏ nhất của hàm số $y=2 x^{2}+x-3$ là $\frac{-25}{8}$.
 
 ## Dành cho học sinh khá giỏi
@@ -362,11 +355,7 @@ c=3
 $$
 
 Nên $S=a^{2}+b^{2}+c^{2}=29$
-Câu 20. Cho Parabol $(P): y=x^{2}+m x+n$ ( $m, n$ tham số). Xác định $m, n$ để $(P)$ nhận đỉnh
-
-$$
-I(2 ;-1)
-$$
+Câu 20. Cho Parabol $(P): y=x^{2}+m x+n$ ( $m, n$ tham số). Xác định $m, n$ để $(P)$ nhận điểm $I(2 ;-1)$ làm đỉnh.
 
 A. $m=4, n=-3$.
 B. $m=4, n=3$.
@@ -421,7 +410,7 @@ Khi $m \neq 0$ thì $(P): y=m x^{2}+2 m x+m^{2}+2 m$ có đỉnh là $I\left(-\f
 Vì đỉnh nằm trên đường thẳng $y=x+7$ nên
 $m^{2}+m=-1+7 \Leftrightarrow m^{2}+m-6=0 \Leftrightarrow\left[\begin{array}{l}m=2 \\ m=-3\end{array}(T M)\right.$
 Vậy tổng các giá trị của tập $S:^{2+(-3)=-1}$.
-Câu 23. Xác định hàm số $y=a x^{2}+b x+c 1$ biết đồ thị của nó có đỉnh $I\left(\frac{3}{2} ; \frac{1}{4}\right)$ và cắt trục hoành tại điểm có hoành độ bằng 2 .
+Câu 23. Xác định hàm số $y=a x^{2}+b x+c$ biết đồ thị của nó có đỉnh $I\left(\frac{3}{2} ; \frac{1}{4}\right)$ và cắt trục hoành tại điểm có hoành độ bằng 2 .
 A. $y=-x^{2}+3 x+2$.
 B. $y=-x^{2}-3 x-2$.
 c. $y=x^{2}-3 x+2$.
