@@ -17,11 +17,10 @@ Dưới đây là chi tiết các lỗi hiển thị và nội dung toán học 
    * **Khắc phục:** Sửa chữ `в.` thành `B.` và tách dòng độc lập trong file Markdown gốc. Sau khi biên dịch lại, đáp án B đã hiển thị thành một ô lựa chọn riêng biệt đúng chuẩn.
 
 3. **Câu 7 & 8 (Cập nhật bảng biến thiên dạng hình ảnh):**
-   * **Câu 7:** Đã cập nhật bằng hình ảnh bảng biến thiên phẳng, màu sắc trực quan do Tí gửi trực tiếp trong chat (giúp học sinh dễ nhìn và chuyên nghiệp hơn).
-   * **Câu 8:** Đã trích xuất trực tiếp ảnh bảng biến thiên từ file PDF gốc [cd04.pdf](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/01_Inputs/chuyende_04/cd04.pdf).
+   * **Câu 7 & 8:** Đã cập nhật bằng hình ảnh bảng biến thiên phẳng, màu sắc trực quan do Tí gửi trực tiếp trong chat (giúp học sinh dễ nhìn và chuyên nghiệp hơn).
    * **Đường dẫn ảnh lưu trữ:**
-     * [Pic/bbt_cau_7.png](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/Pic/bbt_cau_7.png) (Ảnh Tí gửi)
-     * [Pic/bbt_cau_8.png](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/Pic/bbt_cau_8.png) (Ảnh trích từ PDF)
+     * [Pic/bbt_cau_7.png](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/Pic/bbt_cau_7.png) (Ảnh Câu 7 Tí gửi)
+     * [Pic/bbt_cau_8.png](file:///c:/Users/huyds/OneDrive/2.%20PARA/1%20-%20Projects/CaChep_Ecosystem/02_Distribution/List_Chuyende_Web/Pic/bbt_cau_8.png) (Ảnh Câu 8 Tí gửi)
    * Thay thế các khối biểu diễn bảng text lỗi bằng mã ảnh markdown `![](../Pic/bbt_cau_7.png)` và `![](../Pic/bbt_cau_8.png)`. Cả 2 hình ảnh này đã được đồng bộ hóa thành công lên GitHub Pages.
 
 4. **Câu 10 (Dư khoảng trống trong lời giải & Sai công thức):**
