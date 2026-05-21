@@ -194,9 +194,7 @@ Trong B3, phần bước luôn lấy giá trị "kết thúc" trừ giá trị "
 Bước 1. Nhập hàm số vào máy
 Ví dụ. Xác định chu kì hàm số $y=\cot 6 x+\sin 8 x$
 
-$$
-\frac{1}{\tan(6x)} + \sin(8x)
-$$
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382977/chuyende_05/pic_casio_chuky_01.png)
 
 A. $\pi$
 B. $\frac{\pi}{4}$
@@ -205,68 +203,26 @@ D. $\frac{\pi}{6}$
 
 Bước 2. Bấm CALC $\rightarrow x=1 \rightarrow=\rightarrow$ Ghi lại kết quả
 
-$$
-\begin{array}{|l|}
-\hline
-\frac{1}{\tan(6x)} + \sin(8x)  \\
-\text{Kết quả: } -2.446994758  \\
-\hline
-\end{array}
-$$
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382978/chuyende_05/pic_casio_chuky_02.png)
 
 Bước 3. Bấm CALC $\rightarrow x=1$ + đáp án $\rightarrow=$ : giống kết quả bước 2 thì chọn (thử từ đáp án nhỏ nhất)
 Ví dụ. Ta thấy $\frac{\pi}{6}<\frac{\pi}{4}<\frac{\pi}{2}<\pi$ nên thử từ $\frac{\pi}{6}$
 
-$$
-\begin{aligned}
-& \frac{1}{\tan(6x)} + \sin(8x) \\
-& x=1+\pi \div 6
-\end{aligned}
-$$
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382978/chuyende_05/pic_casio_chuky_03.png)
 
-$$
-\begin{array}{|l|}
-\hline
-\frac{1}{\tan(6x)} + \sin(8x)  \\
-\text{Kết quả: } -3.805025402  \\
-\hline
-\end{array}
-$$
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382979/chuyende_05/pic_casio_chuky_04.png)
+
+Kết quả không giống bước 2 nên thử tiếp $\frac{\pi}{4}$
+
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382980/chuyende_05/pic_casio_chuky_05.png)
+
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382980/chuyende_05/pic_casio_chuky_06.png)
 
 Kết quả không giống bước 2 nên thử tiếp $\frac{\pi}{2}$
 
-$$
-\begin{aligned}
-& \frac{1}{\tan (6 x)}+\sin (8 x) \\
-& x=1+\pi \div 4
-\end{aligned}
-$$
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382981/chuyende_05/pic_casio_chuky_07.png)
 
-$$
-\begin{array}{|l|}
-\hline
-\frac{1}{\tan(6x)} + \sin(8x) \\
-\text{Kết quả: } 1.280364438 \\
-\hline
-\end{array}
-$$
-
-Kết quả không giống bước 2 nên thử tiếp $\frac{\pi}{2}$
-$$
-\begin{aligned}
-& \frac{1}{\tan(6x)} + \sin(8x) \\
-& x=1+\pi \div 2
-\end{aligned}
-$$
-
-$$
-\begin{array}{|l|}
-\hline
-\frac{1}{\tan(6x)} + \sin(8x)  \\
-\text{Kết quả: } -2.446994758  \\
-\hline
-\end{array}
-$$
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382982/chuyende_05/pic_casio_chuky_08.png)
 
 ## Ta được kết quả như bước 2 nên chọn $C$
 
@@ -274,21 +230,9 @@ $$
 
 Nếu ta thử đáp án $A$. $\pi$ trước - vẫn sẽ nhận được kết quả giống bước 2 nhưng đây không phải là chu kì cần tìm
 
-$$
-\begin{aligned}
-& \frac{1}{\tan (6 x)}+\sin (8 x) \\
-& x=1+\pi
-\end{aligned}
-$$
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382982/chuyende_05/pic_casio_chuky_09.png)
 
-$$
-\begin{array}{|l|}
-\hline
-\frac{1}{\tan(6x)} + \sin(8x)  \\
-\text{Kết quả: } -2.446994758  \\
-\hline
-\end{array}
-$$
+![](https://res.cloudinary.com/dud32vrhg/image/upload/v1779382983/chuyende_05/pic_casio_chuky_10.png)
 
 ## Dạng 5 - Tính đơn điệu
 
