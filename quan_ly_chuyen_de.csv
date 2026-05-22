@@ -1,44 +1,44 @@
-ID_ChuyenDe,Ten_ChuyenDe,Mon_Hoc,Lop,So_Cau,Mat_Khau,Trang_Thai
-chuyende_01,Chuyên đề 1 - Đại số tổ hợp,Thống kê - Xác suất,10,0,cd01,Hien
-chuyende_02,Chuyên đề 2 - Xác suất cổ điển,Thống kê - Xác suất,10,76,cd02,Hien
-chuyende_03,Chuyên đề 3 - Bài toán tối ưu hệ phương trình 2 ẩn,Đại số - Giải tích,10,10,cd03,Hien
-chuyende_04,Chuyên đề 4 - Hàm số bậc 2 và dấu tam thức bậc 2,Đại số - Giải tích,10,40,cd04,Hien
-chuyende_05,Chuyên đề 5 - Hàm số lượng giác,Đại số - Giải tích,11,100,cd05,Hien
-chuyende_06,Chuyên đề 6 - Phương trình lượng giác,Đại số - Giải tích,11,102,cd06,Hien
-chuyende_07,"Chuyên đề 7 - Hàm số mũ, logarit và lũy thừa",Đại số - Giải tích,11,0,cd07,Hien
-chuyende_08,"Chuyên đề 8 - Phương trình, bất phương trình mũ, logarit",Đại số - Giải tích,11,0,cd08,Hien
-chuyende_09,Chuyên đề 9 - Cấp số cộng - Cấp số nhân,Đại số - Giải tích,11,0,cd09,Hien
-chuyende_10,Chuyên đề 10 - Giới hạn,Đại số - Giải tích,11,0,cd10,Hien
-chuyende_11,Chuyên đề 11 - Hàm số liên tục,Đại số - Giải tích,11,0,cd11,Hien
-chuyende_12,Chuyên đề 12 - Đạo hàm,Đại số - Giải tích,11,0,cd12,Hien
-chuyende_13,Chuyên đề 13 - Phương trình tiếp tuyến,Đại số - Giải tích,11,0,cd13,Hien
-chuyende_14,Chuyên đề 14 - Tính đơn điệu,Đại số - Giải tích,12,0,cd14,Hien
-chuyende_15,Chuyên đề 15 - Cực trị,Đại số - Giải tích,12,0,cd15,Hien
-chuyende_16,Chuyên đề 16 - Min-max,Đại số - Giải tích,12,0,cd16,Hien
-chuyende_17,Chuyên đề 17 - Tiệm cận,Đại số - Giải tích,12,0,cd17,Hien
-chuyende_18,Chuyên đề 18 - Nhận dạng đồ thị,Đại số - Giải tích,12,0,cd18,Hien
-chuyende_19,Chuyên đề 19 - Tương giao ,Đại số - Giải tích,12,0,cd19,Hien
-chuyende_20,Chuyên đề 20 - Nguyên hàm cơ bản,Đại số - Giải tích,12,0,cd20,Hien
-chuyende_21,Chuyên đề 21 - Tích phân cơ bản,Đại số - Giải tích,12,0,cd21,Hien
-chuyende_22,Chuyên đề 22 - Ứng dụng tích phân diện tích,Đại số - Giải tích,12,0,cd22,Hien
-chuyende_23,Chuyên đề 23 - Ứng dụng tích phân thể tích ,Đại số - Giải tích,12,0,cd23,Hien
-chuyende_24,Chuyên đề 24 - Ứng dụng khác của tích phân,Đại số - Giải tích,12,0,cd24,Hien
-chuyende_25,Chuyên đề 25 - Thống kê,Thống kê - Xác suất,12,0,cd25,Hien
-chuyende_26,Chuyên đề 26 - Xác suất điều kiện,Thống kê - Xác suất,12,0,cd26,Hien
-chuyende_27,Chuyên đề 27 - HHCĐ - Góc giữa 2 đường thẳng,Hình học,11,0,cd27,Hien
-chuyende_28,Chuyên đề 28 - HHCĐ - Góc giữa đường thẳng và mặt phẳng,Hình học,11,0,cd28,Hien
-chuyende_29,Chuyên đề 29 - HHCĐ - Góc nhị diện,Hình học,11,0,cd29,Hien
-chuyende_30,Chuyên đề 30 - HHCĐ - Khoảng cách từ điểm tới mặt phẳng,Hình học,11,0,cd30,Hien
-chuyende_31,Chuyên đề 31 - HHCĐ - Khoảng cách giữa 2 đường thẳng chéo nhau,Hình học,11,0,cd31,Hien
-chuyende_32,Chuyên đề 32 - HHCĐ - Thể tích,Hình học,11,0,cd32,Hien
-chuyende_33,Chuyên đề 33 - Tọa độ Oxy,Hình học,10,0,cd33,Hien
-chuyende_34,Chuyên đề 34 - Oxy - Phương trình đường thẳng à phương trình đường tròn,Hình học,10,0,cd34,Hien
-chuyende_35,Chuyên đề 35 -  Oxy - 3 đường conic,Hình học,12,0,cd35,Hien
-chuyende_36,Chuyên đề 36 - Tọa độ Oxyz,Hình học,12,0,cd36,Hien
-chuyende_37,Chuyên đề 37 - Oxyz - Phương trình mặt phẳng,Hình học,12,0,cd37,Hien
-chuyende_38,Chuyên đề 38 - Oxyz - Phương trình đường thẳng,Hình học,12,0,cd38,Hien
-chuyende_39,Chuyên đề 39 - Oxyz - Phương trình mặt cầu,Hình học,12,0,cd39,Hien
-chuyende_40,"Chuyên đề 40 - Oxyz - Khoảng cách, góc và vị trí tương đối",Hình học,12,0,cd40,Hien
-chuyende_41,"Chuyên đề 41 - Oxyz - Hình chiếu, điểm đối xứng và bài toán tìm điểm",Hình học,12,0,cd41,Hien
-chuyende_42,Chuyên đề 42 - Tọa độ hóa hình không gian Oxyz,Hình học,12,0,cd42,Hien
-chuyende_43,Chuyên đề 43 - Cực trị hình học Oxyz,Hình học,12,0,cd43,Hien
+﻿"ID_ChuyenDe","Ten_ChuyenDe","Mon_Hoc","Lop","So_Cau","Mat_Khau","Trang_Thai"
+"chuyende_01","Chuyên đề 1 - Đại số tổ hợp","Thống kê - Xác suất","10","61","cd01","Hien"
+"chuyende_02","Chuyên đề 2 - Xác suất cổ điển","Thống kê - Xác suất","10","75","cd02","Hien"
+"chuyende_03","Chuyên đề 3 - Bài toán tối ưu hệ phương trình 2 ẩn","Đại số - Giải tích","10","9","cd03","Hien"
+"chuyende_04","Chuyên đề 4 - Hàm số bậc 2 và dấu tam thức bậc 2","Đại số - Giải tích","10","39","cd04","Hien"
+"chuyende_05","Chuyên đề 5 - Hàm số lượng giác","Đại số - Giải tích","11","99","cd05","Hien"
+"chuyende_06","Chuyên đề 6 - Phương trình lượng giác","Đại số - Giải tích","11","105","cd06","Hien"
+"chuyende_07","Chuyên đề 7 - Hàm số mũ, logarit và lũy thừa","Đại số - Giải tích","11","0","cd07","Hien"
+"chuyende_08","Chuyên đề 8 - Phương trình, bất phương trình mũ, logarit","Đại số - Giải tích","11","0","cd08","Hien"
+"chuyende_09","Chuyên đề 9 - Cấp số cộng - Cấp số nhân","Đại số - Giải tích","11","0","cd09","Hien"
+"chuyende_10","Chuyên đề 10 - Giới hạn","Đại số - Giải tích","11","0","cd10","Hien"
+"chuyende_11","Chuyên đề 11 - Hàm số liên tục","Đại số - Giải tích","11","0","cd11","Hien"
+"chuyende_12","Chuyên đề 12 - Đạo hàm","Đại số - Giải tích","11","97","cd12","Hien"
+"chuyende_13","Chuyên đề 13 - Phương trình tiếp tuyến","Đại số - Giải tích","11","0","cd13","Hien"
+"chuyende_14","Chuyên đề 14 - Tính đơn điệu","Đại số - Giải tích","12","0","cd14","Hien"
+"chuyende_15","Chuyên đề 15 - Cực trị","Đại số - Giải tích","12","0","cd15","Hien"
+"chuyende_16","Chuyên đề 16 - Min-max","Đại số - Giải tích","12","0","cd16","Hien"
+"chuyende_17","Chuyên đề 17 - Tiệm cận","Đại số - Giải tích","12","0","cd17","Hien"
+"chuyende_18","Chuyên đề 18 - Nhận dạng đồ thị","Đại số - Giải tích","12","0","cd18","Hien"
+"chuyende_19","Chuyên đề 19 - Tương giao ","Đại số - Giải tích","12","0","cd19","Hien"
+"chuyende_20","Chuyên đề 20 - Nguyên hàm cơ bản","Đại số - Giải tích","12","0","cd20","Hien"
+"chuyende_21","Chuyên đề 21 - Tích phân cơ bản","Đại số - Giải tích","12","0","cd21","Hien"
+"chuyende_22","Chuyên đề 22 - Ứng dụng tích phân diện tích","Đại số - Giải tích","12","0","cd22","Hien"
+"chuyende_23","Chuyên đề 23 - Ứng dụng tích phân thể tích ","Đại số - Giải tích","12","0","cd23","Hien"
+"chuyende_24","Chuyên đề 24 - Ứng dụng khác của tích phân","Đại số - Giải tích","12","0","cd24","Hien"
+"chuyende_25","Chuyên đề 25 - Thống kê","Thống kê - Xác suất","12","0","cd25","Hien"
+"chuyende_26","Chuyên đề 26 - Xác suất điều kiện","Thống kê - Xác suất","12","0","cd26","Hien"
+"chuyende_27","Chuyên đề 27 - HHCĐ - Góc giữa 2 đường thẳng","Hình học","11","0","cd27","Hien"
+"chuyende_28","Chuyên đề 28 - HHCĐ - Góc giữa đường thẳng và mặt phẳng","Hình học","11","0","cd28","Hien"
+"chuyende_29","Chuyên đề 29 - HHCĐ - Góc nhị diện","Hình học","11","0","cd29","Hien"
+"chuyende_30","Chuyên đề 30 - HHCĐ - Khoảng cách từ điểm tới mặt phẳng","Hình học","11","0","cd30","Hien"
+"chuyende_31","Chuyên đề 31 - HHCĐ - Khoảng cách giữa 2 đường thẳng chéo nhau","Hình học","11","0","cd31","Hien"
+"chuyende_32","Chuyên đề 32 - HHCĐ - Thể tích","Hình học","11","0","cd32","Hien"
+"chuyende_33","Chuyên đề 33 - Tọa độ Oxy","Hình học","10","0","cd33","Hien"
+"chuyende_34","Chuyên đề 34 - Oxy - Phương trình đường thẳng à phương trình đường tròn","Hình học","10","0","cd34","Hien"
+"chuyende_35","Chuyên đề 35 -  Oxy - 3 đường conic","Hình học","12","0","cd35","Hien"
+"chuyende_36","Chuyên đề 36 - Tọa độ Oxyz","Hình học","12","0","cd36","Hien"
+"chuyende_37","Chuyên đề 37 - Oxyz - Phương trình mặt phẳng","Hình học","12","0","cd37","Hien"
+"chuyende_38","Chuyên đề 38 - Oxyz - Phương trình đường thẳng","Hình học","12","0","cd38","Hien"
+"chuyende_39","Chuyên đề 39 - Oxyz - Phương trình mặt cầu","Hình học","12","0","cd39","Hien"
+"chuyende_40","Chuyên đề 40 - Oxyz - Khoảng cách, góc và vị trí tương đối","Hình học","12","0","cd40","Hien"
+"chuyende_41","Chuyên đề 41 - Oxyz - Hình chiếu, điểm đối xứng và bài toán tìm điểm","Hình học","12","0","cd41","Hien"
+"chuyende_42","Chuyên đề 42 - Tọa độ hóa hình không gian Oxyz","Hình học","12","0","cd42","Hien"
+"chuyende_43","Chuyên đề 43 - Cực trị hình học Oxyz","Hình học","12","0","cd43","Hien"

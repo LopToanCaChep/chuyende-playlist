@@ -28,7 +28,29 @@ if (Test-Path $CsvPath) {
     $csvData = @()
 }
 
-# 3. Quet file trong Kho Chuyen De va them vao CSV neu chua co
+# 3. Cap nhat So_Cau cho cac chuyen de hien co neu co file HTML tuong ung
+$updatedCsv = $false
+foreach ($row in $csvData) {
+    $expectedPath = Join-Path $SourceDir "$($row.ID_ChuyenDe).html"
+    if (Test-Path $expectedPath) {
+        $htmlRaw = Get-Content $expectedPath -Raw -Encoding UTF8
+        $slideCount = ([regex]::Matches($htmlRaw, 'class="slide"')).Count
+        $soCauReal = [Math]::Max($slideCount - 2, 0)
+        if ([int]$row.So_Cau -ne $soCauReal) {
+            $row.So_Cau = $soCauReal
+            $updatedCsv = $true
+            Write-Host " CAP NHAT SO CAU: $($row.Ten_ChuyenDe) -> $soCauReal cau" -ForegroundColor Yellow
+        }
+    } else {
+        if ([int]$row.So_Cau -ne 0) {
+            $row.So_Cau = 0
+            $updatedCsv = $true
+            Write-Host " KHONG TIM THAY FILE: $($row.Ten_ChuyenDe) -> Reset So_Cau = 0" -ForegroundColor DarkYellow
+        }
+    }
+}
+
+# 4. Quet file trong Kho Chuyen De va them vao CSV neu chua co
 $htmlFiles = Get-ChildItem -Path $SourceDir -Filter "*.html" -File
 $newEntriesAdded = $false
 
@@ -71,6 +93,9 @@ foreach ($file in $htmlFiles) {
 }
 
 if ($newEntriesAdded) {
+    $csvData = Import-Csv $CsvPath -Encoding UTF8
+} elseif ($updatedCsv) {
+    $csvData | Export-Csv $CsvPath -NoTypeInformation -Encoding UTF8
     $csvData = Import-Csv $CsvPath -Encoding UTF8
 }
 
