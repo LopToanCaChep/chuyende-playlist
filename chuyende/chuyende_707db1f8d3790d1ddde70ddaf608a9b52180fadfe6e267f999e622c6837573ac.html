@@ -15,6 +15,10 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
     <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         :root {
             --primary-blue: #0040BE;
             --dark-blue: #003B99;
@@ -54,6 +58,7 @@
             align-items: flex-start; /* Fix lỗi cắt content khi dùng flex center */
             justify-content: center;
             overflow-y: auto; /* Cho cuộn ở cấp độ slide */
+            overflow-x: hidden !important;
             padding: 40px 0;
             opacity: 0;
             visibility: hidden;
@@ -147,10 +152,19 @@
             gap: 8px;
             margin-top: 10px;
             overflow-x: hidden;
+        
+            min-width: 0;
+            padding: 4px 2px;
+        
         }
 
-        @media (max-width: 600px) {
-            .options-grid { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+            .options-grid { grid-template-columns: 1fr; 
+            min-width: 0;
+            padding: 4px 2px;
+            overflow-x: hidden;
+        
+        }
             .question-card { 
                 height: auto !important; 
                 max-height: none !important; /* Xóa bỏ giới hạn để không bị tràn lời giải */
@@ -163,9 +177,32 @@
         }
 
         /* Quy tắc: Công thức toán phải đi cùng nhau, không được bẻ giữa chừng */
-        .katex {
+                .katex {
             display: inline-block;
             white-space: nowrap;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            vertical-align: middle;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        .katex::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            padding: 8px 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        .katex-display::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
 
         .option {
@@ -181,6 +218,8 @@
             cursor: pointer;
             position: relative;
             text-align: left;
+            min-width: 0;
+            width: 100%;
         }
 
         .option:hover:not(.answered) {
@@ -227,7 +266,14 @@
         .option.answered { cursor: default; }
         .option.correct, .option.incorrect { padding-right: 50px; }
 
-        .opt-label {
+                .opt-text {
+            flex: 1;
+            min-width: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+.opt-label {
             color: var(--primary-blue);
             font-size: 17px;
             font-weight: 800;
@@ -250,6 +296,8 @@
             line-height: 1.7;
             color: #475569;
             animation: fadeIn 0.3s ease;
+            min-width: 0;
+            width: 100%;
         }
 
         .solution.show { display: block; }
@@ -2564,7 +2612,8 @@ $$<br><br>Hệ số góc luôn dương $\Leftrightarrow y^{\prime}\left(x_{0}\ri
     /* Mobile/desktop layout */
     function applyMobileLayout() {
         const allSlides = document.querySelectorAll('.slide');
-        document.body.style.overflow = 'auto';
+        document.body.style.overflowX = 'hidden';
+        document.body.style.overflowY = 'auto';
         currentSlides.forEach(s => {
             s.style.position = 'relative'; s.style.opacity = '1'; s.style.visibility = 'visible';
             s.style.pointerEvents = 'all'; s.style.height = 'auto'; s.style.minHeight = 'auto';
@@ -2578,7 +2627,8 @@ $$<br><br>Hệ số góc luôn dương $\Leftrightarrow y^{\prime}\left(x_{0}\ri
     }
     function applyDesktopLayout() {
         const S = document.querySelectorAll('.slide');
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflowX = 'hidden';
+        document.body.style.overflowY = 'hidden';
         S.forEach(s => {
             s.style.position = ''; s.style.opacity = ''; s.style.visibility = '';
             s.style.pointerEvents = ''; s.style.height = ''; s.style.minHeight = '';

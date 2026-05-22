@@ -201,12 +201,29 @@ body{
 }
 
 
-.exam-row.coming-soon { opacity: 0.6; cursor: default; pointer-events: none; }
-.exam-row.coming-soon:hover { border-color: var(--cc-line); background: var(--cc-paper); transform: none; box-shadow: none; }
-.exam-row.coming-soon:hover .exam-title { color: var(--cc-ink); }
-.exam-row.coming-soon:hover .exam-meta { color: var(--cc-ink-soft); }
-.exam-row.coming-soon:hover .exam-icon { background: #f1f5f9; color: var(--cc-blue-deep); border-color: var(--cc-line); }
-.exam-row.coming-soon .exam-arrow { display: none; }
+.exam-row.coming-soon {
+  opacity: 0.55;
+  cursor: default;
+  pointer-events: none;
+  background: #fafafa;
+  border-color: #e5e7eb;
+}
+.exam-row.coming-soon .exam-title {
+  color: #94a3b8;
+}
+.exam-row.coming-soon .exam-icon {
+  background: #f3f4f6;
+  color: #94a3b8;
+  border-color: #e5e7eb;
+}
+.exam-row.coming-soon .exam-tag {
+  background: #f3f4f6 !important;
+  color: #94a3b8 !important;
+  box-shadow: none !important;
+}
+.exam-row.coming-soon .exam-arrow {
+  display: none;
+}
 
 .exam-tag.subject{background:#f8fafc;color:#475569;border:1px solid #e2e8f0}
 
@@ -379,7 +396,7 @@ const CHUYENDE = [
     title: 'Chuyên đề 6 - Phương trình lượng giác',
     subject: 'Đại số - Giải tích',
     grade: '11',
-    questions: 0,
+    questions: 102,
     icon: '06',
     iconStyle: 'blue',
     status: 'Hien'
@@ -862,9 +879,10 @@ function renderList(filter = 'all') {
 
     const tag = 'div';
     const hrefAttr = '';
+    const isComingSoon = cd.questions === 0;
 
     return `
-      <${tag} class="exam-row" data-id="${cd.id}" data-grade="${cd.grade}" ${hrefAttr} role="button" tabindex="0">
+      <${tag} class="exam-row${isComingSoon ? ' coming-soon' : ''}" data-id="${cd.id}" data-grade="${cd.grade}" ${hrefAttr} role="button" tabindex="0">
         <div class="exam-icon">${cd.icon}</div>
         <div class="exam-info">
           <div class="exam-title">${cd.title}</div>
@@ -988,6 +1006,7 @@ if ('serviceWorker' in navigator) {
 </script>
 </body>
 </html>
+
 
 
 

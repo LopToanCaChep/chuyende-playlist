@@ -659,82 +659,117 @@
         margin: 15px auto 0; border-radius: 2px;
     }
 
+    /* ── Theory Heading System (3 cấp) ── */
     .theory-h2 {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 18px;
-        color: var(--primary-blue, #2563eb); margin: 32px 0 16px;
-        display: flex; align-items: center; gap: 12px;
-        text-transform: uppercase; letter-spacing: 0.5px;
+        font-family: 'Unbounded'; font-weight: 800; font-size: 20px;
+        color: var(--dark-blue, #003b99); margin: 40px 0 8px;
+        letter-spacing: 0.3px; line-height: 1.4;
     }
 
-    .theory-h2::before {
-        content: ""; width: 8px; height: 8px;
-        background: var(--orange, #FF7800); border-radius: 2px;
-        transform: rotate(45deg);
+    .theory-h2::before { display: none; }
+
+    .theory-h3 {
+        font-family: 'Manrope'; font-weight: 700; font-size: 17px;
+        color: #334155; margin: 28px 0 12px;
+        line-height: 1.5;
     }
 
+    /* ── Theory Blocks (3 loại card pastel) ── */
+    .theory-block {
+        padding: 20px 22px; border-radius: 16px; margin: 18px 0;
+    }
+    .theory-block-title {
+        font-family: 'Manrope'; font-weight: 800; font-size: 14px;
+        margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .theory-block .theory-text, .theory-block .theory-item {
+        margin-bottom: 8px;
+    }
+
+    /* Lý thuyết tổng — Xanh lá cây pastel */
+    .theory-block.summary {
+        background: #f0fdf4; /* emerald-50 pastel */
+        border: 1px solid #dcfce7;
+    }
+    .theory-block.summary .theory-block-title { color: #16a34a; }
+    .theory-block.summary .theory-bullet { background: #22c55e; }
+    .theory-block.summary .theory-text { color: #14532d; }
+
+    /* Phương pháp giải — Xanh dương pastel */
+    .theory-block.method {
+        background: #eff6ff;
+    }
+    .theory-block.method .theory-block-title { color: #2563eb; }
+    .theory-block.method .theory-bullet { background: #3b82f6; }
+
+    /* Lưu ý — Đỏ/hồng pastel */
+    .theory-block.warning {
+        background: #fef2f2;
+    }
+    .theory-block.warning .theory-block-title { color: #dc2626; }
+    .theory-block.warning .theory-bullet { background: #ef4444; }
+    .theory-block.warning .theory-text { color: #7f1d1d; }
+
+    /* Mẹo — Vàng/amber pastel */
+    .theory-block.tip {
+        background: #fffbeb;
+    }
+    .theory-block.tip .theory-block-title { color: #d97706; }
+    .theory-block.tip .theory-bullet { background: #f59e0b; }
+    .theory-block.tip .theory-text { color: #92400e; }
+
+    /* ── Divider giữa các Dạng ── */
+    .theory-divider {
+        border: none; border-top: 1px solid #e2e8f0;
+        margin: 36px 0;
+    }
+
+    /* ── Theory Items & Bullets ── */
     .theory-item {
         display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
     }
-
     .theory-bullet {
-        width: 6px; height: 6px; background: var(--orange, #FF7800);
+        width: 6px; height: 6px; background: #94a3b8;
         border-radius: 50%; margin-top: 10px; flex-shrink: 0;
     }
 
+    /* ── Legacy classes (giữ tương thích) ── */
     .theory-box {
         padding: 20px; border-radius: 16px; margin: 24px 0;
-        background: #f8fafc; border-left: 4px solid var(--primary-blue, #2563eb);
+        background: #f8fafc;
     }
-
     .theory-box-title {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 12px;
+        font-family: 'Manrope'; font-weight: 800; font-size: 12px;
         margin-bottom: 12px; color: var(--primary-blue, #2563eb);
     }
-
     .theory-note {
         padding: 20px 24px; border-radius: 16px; margin: 24px 0;
-        background: #fffbeb; border: 2px solid #fde68a;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+        background: #fffbeb;
     }
-    
     .theory-note-title {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 14px;
+        font-family: 'Manrope'; font-weight: 800; font-size: 14px;
         color: #d97706; margin-bottom: 12px;
-        display: flex; align-items: center; gap: 8px;
         text-transform: uppercase; letter-spacing: 0.5px;
     }
-    
-    .theory-note-title::before {
-        content: "💡"; font-size: 18px;
-    }
-    
-    .theory-note .theory-text, .theory-note .theory-item {
-        color: #92400e; margin-bottom: 10px;
-    }
-    
-    .theory-note .theory-bullet {
-        background: #d97706;
-    }
+    .theory-note .theory-text, .theory-note .theory-item { color: #92400e; margin-bottom: 10px; }
+    .theory-note .theory-bullet { background: #d97706; }
 
+    /* ── Theory Table ── */
     .theory-table {
         width: 100%; border-collapse: separate; border-spacing: 0;
         margin: 24px 0; border-radius: 12px; overflow: hidden;
         border: 1px solid var(--border, #e2e8f0);
         box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-
     .theory-table th {
         background: #f8fafc; color: var(--text-main, #1e293b); font-weight: 800;
         padding: 16px; text-align: left; border-bottom: 2px solid var(--border, #e2e8f0);
     }
-
     .theory-table td {
-        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0);
-        background: #fff;
+        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0); background: #fff;
     }
-
     .theory-table tr:last-child td { border-bottom: none; }
-    
+
     .theory-text { font-size: 16px; line-height: 1.8; color: #334155; }
 
 

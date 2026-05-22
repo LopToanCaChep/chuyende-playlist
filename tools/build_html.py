@@ -334,7 +334,7 @@ def parse_markdown(md_content, title="Chuyên đề"):
             q_num = q.group(1)
             raw_q_text = q.group(2).strip()
             
-            sol_split = re.split(r'(?m)^(?:\s*##\s*)?(?:Lời giải|Giải|Đáp án:)', raw_q_text, maxsplit=1, flags=re.IGNORECASE)
+            sol_split = re.split(r'(?m)^(?:\s*##\s*)?(?:Lời giải|Giải\s*[:.]*\s*$|Đáp án:)', raw_q_text, maxsplit=1, flags=re.IGNORECASE)
             q_body = sol_split[0].strip()
             sol_body = sol_split[1].strip() if len(sol_split) > 1 else ""
             
