@@ -239,8 +239,21 @@ def extract_correct_answer(raw_q_text, sol_body):
     return ""
 
 
+def pre_process_multiline_math(text):
+    if not text: return ""
+    def replace_multiline(match):
+        inner = match.group(1)
+        # Thay thế ký tự xuống dòng bằng khoảng trắng
+        cleaned_inner = inner.replace('\n', ' ').replace('\r', ' ')
+        # Loại bỏ các khoảng trắng thừa
+        cleaned_inner = re.sub(r'\s+', ' ', cleaned_inner).strip()
+        return f"$${cleaned_inner}$$"
+    return re.sub(r'\$\$(.*?)\$\$', replace_multiline, text, flags=re.DOTALL)
+
+
 def parse_markdown(md_content, title="Chuyên đề"):
     md_content = clean_ocr(md_content)
+    md_content = pre_process_multiline_math(md_content)
     theory_pattern = re.compile(r'##\s*PH.*?N\s*A', re.IGNORECASE)
     mcq_pattern = re.compile(r'##\s*PH.*?N\s*C', re.IGNORECASE)
     

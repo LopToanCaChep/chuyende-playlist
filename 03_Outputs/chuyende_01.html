@@ -15,10 +15,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
         :root {
             --primary-blue: #0040BE;
             --dark-blue: #003B99;
@@ -58,7 +54,6 @@
             align-items: flex-start; /* Fix lỗi cắt content khi dùng flex center */
             justify-content: center;
             overflow-y: auto; /* Cho cuộn ở cấp độ slide */
-            overflow-x: hidden !important;
             padding: 40px 0;
             opacity: 0;
             visibility: hidden;
@@ -140,8 +135,8 @@
             font-size: 19px;
             font-weight: 700;
             color: #003B99;
-            line-height: 1.6;
-            margin-bottom: 10px;
+            line-height: 2.15; /* Tăng line-height */
+            margin-bottom: 12px;
             padding: 0 4px;
             text-align: justify;
         }
@@ -151,20 +146,11 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 8px;
             margin-top: 10px;
-            overflow-x: hidden;
-        
-            min-width: 0;
             padding: 4px 2px;
-        
         }
 
-        @media (max-width: 768px) {
-            .options-grid { grid-template-columns: 1fr; 
-            min-width: 0;
-            padding: 4px 2px;
-            overflow-x: hidden;
-        
-        }
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
             .question-card { 
                 height: auto !important; 
                 max-height: none !important; /* Xóa bỏ giới hạn để không bị tràn lời giải */
@@ -177,7 +163,7 @@
         }
 
         /* Quy tắc: Công thức toán phải đi cùng nhau, không được bẻ giữa chừng */
-                .katex {
+        .katex {
             display: inline-block;
             white-space: nowrap;
             max-width: 100%;
@@ -185,24 +171,19 @@
             
             vertical-align: middle;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
+            padding: 6px 0; /* Tăng padding dọc cho công thức inline để tránh đè chữ */
         }
-        .katex::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
-        
         .katex-display {
             overflow-x: auto;
             overflow-y: hidden;
             max-width: 100%;
             padding: 8px 0;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
         }
-        .katex-display::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+        .q-content, .sol-body, .opt-text {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 2.15; /* Tăng giãn dòng cho câu hỏi, lời giải và tùy chọn đáp án */
         }
 
         .option {
@@ -218,8 +199,6 @@
             cursor: pointer;
             position: relative;
             text-align: left;
-            min-width: 0;
-            width: 100%;
         }
 
         .option:hover:not(.answered) {
@@ -266,14 +245,7 @@
         .option.answered { cursor: default; }
         .option.correct, .option.incorrect { padding-right: 50px; }
 
-                .opt-text {
-            flex: 1;
-            min-width: 0;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-.opt-label {
+        .opt-label {
             color: var(--primary-blue);
             font-size: 17px;
             font-weight: 800;
@@ -287,17 +259,15 @@
 
         .solution {
             display: none;
-            margin-top: 16px;
-            padding: 18px 20px;
+            margin-top: 40px; /* Tăng khoảng cách từ 28px lên 40px để tránh bị sát đáp án */
+            padding: 20px 24px;
             background: #f8fafc;
             border-left: 4px solid var(--primary-blue);
             border-radius: 4px 12px 12px 4px;
-            font-size: 15px;
-            line-height: 1.7;
+            font-size: 15.5px;
+            line-height: 1.85;
             color: #475569;
             animation: fadeIn 0.3s ease;
-            min-width: 0;
-            width: 100%;
         }
 
         .solution.show { display: block; }
@@ -691,82 +661,117 @@
         margin: 15px auto 0; border-radius: 2px;
     }
 
+    /* ── Theory Heading System (3 cấp) ── */
     .theory-h2 {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 18px;
-        color: var(--primary-blue, #2563eb); margin: 32px 0 16px;
-        display: flex; align-items: center; gap: 12px;
-        text-transform: uppercase; letter-spacing: 0.5px;
+        font-family: 'Unbounded'; font-weight: 800; font-size: 20px;
+        color: var(--dark-blue, #003b99); margin: 40px 0 8px;
+        letter-spacing: 0.3px; line-height: 1.4;
     }
 
-    .theory-h2::before {
-        content: ""; width: 8px; height: 8px;
-        background: var(--orange, #FF7800); border-radius: 2px;
-        transform: rotate(45deg);
+    .theory-h2::before { display: none; }
+
+    .theory-h3 {
+        font-family: 'Manrope'; font-weight: 700; font-size: 17px;
+        color: #334155; margin: 28px 0 12px;
+        line-height: 1.5;
     }
 
+    /* ── Theory Blocks (3 loại card pastel) ── */
+    .theory-block {
+        padding: 20px 22px; border-radius: 16px; margin: 18px 0;
+    }
+    .theory-block-title {
+        font-family: 'Manrope'; font-weight: 800; font-size: 14px;
+        margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .theory-block .theory-text, .theory-block .theory-item {
+        margin-bottom: 8px;
+    }
+
+    /* Lý thuyết tổng — Xanh lá cây pastel */
+    .theory-block.summary {
+        background: #f0fdf4; /* emerald-50 pastel */
+        border: 1px solid #dcfce7;
+    }
+    .theory-block.summary .theory-block-title { color: #16a34a; }
+    .theory-block.summary .theory-bullet { background: #22c55e; }
+    .theory-block.summary .theory-text { color: #14532d; }
+
+    /* Phương pháp giải — Xanh dương pastel */
+    .theory-block.method {
+        background: #eff6ff;
+    }
+    .theory-block.method .theory-block-title { color: #2563eb; }
+    .theory-block.method .theory-bullet { background: #3b82f6; }
+
+    /* Lưu ý — Đỏ/hồng pastel */
+    .theory-block.warning {
+        background: #fef2f2;
+    }
+    .theory-block.warning .theory-block-title { color: #dc2626; }
+    .theory-block.warning .theory-bullet { background: #ef4444; }
+    .theory-block.warning .theory-text { color: #7f1d1d; }
+
+    /* Mẹo — Vàng/amber pastel */
+    .theory-block.tip {
+        background: #fffbeb;
+    }
+    .theory-block.tip .theory-block-title { color: #d97706; }
+    .theory-block.tip .theory-bullet { background: #f59e0b; }
+    .theory-block.tip .theory-text { color: #92400e; }
+
+    /* ── Divider giữa các Dạng ── */
+    .theory-divider {
+        border: none; border-top: 1px solid #e2e8f0;
+        margin: 36px 0;
+    }
+
+    /* ── Theory Items & Bullets ── */
     .theory-item {
         display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
     }
-
     .theory-bullet {
-        width: 6px; height: 6px; background: var(--orange, #FF7800);
+        width: 6px; height: 6px; background: #94a3b8;
         border-radius: 50%; margin-top: 10px; flex-shrink: 0;
     }
 
+    /* ── Legacy classes (giữ tương thích) ── */
     .theory-box {
         padding: 20px; border-radius: 16px; margin: 24px 0;
-        background: #f8fafc; border-left: 4px solid var(--primary-blue, #2563eb);
+        background: #f8fafc;
     }
-
     .theory-box-title {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 12px;
+        font-family: 'Manrope'; font-weight: 800; font-size: 12px;
         margin-bottom: 12px; color: var(--primary-blue, #2563eb);
     }
-
     .theory-note {
         padding: 20px 24px; border-radius: 16px; margin: 24px 0;
-        background: #fffbeb; border: 2px solid #fde68a;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+        background: #fffbeb;
     }
-    
     .theory-note-title {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 14px;
+        font-family: 'Manrope'; font-weight: 800; font-size: 14px;
         color: #d97706; margin-bottom: 12px;
-        display: flex; align-items: center; gap: 8px;
         text-transform: uppercase; letter-spacing: 0.5px;
     }
-    
-    .theory-note-title::before {
-        content: "💡"; font-size: 18px;
-    }
-    
-    .theory-note .theory-text, .theory-note .theory-item {
-        color: #92400e; margin-bottom: 10px;
-    }
-    
-    .theory-note .theory-bullet {
-        background: #d97706;
-    }
+    .theory-note .theory-text, .theory-note .theory-item { color: #92400e; margin-bottom: 10px; }
+    .theory-note .theory-bullet { background: #d97706; }
 
+    /* ── Theory Table ── */
     .theory-table {
         width: 100%; border-collapse: separate; border-spacing: 0;
         margin: 24px 0; border-radius: 12px; overflow: hidden;
         border: 1px solid var(--border, #e2e8f0);
         box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-
     .theory-table th {
         background: #f8fafc; color: var(--text-main, #1e293b); font-weight: 800;
         padding: 16px; text-align: left; border-bottom: 2px solid var(--border, #e2e8f0);
     }
-
     .theory-table td {
-        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0);
-        background: #fff;
+        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0); background: #fff;
     }
-
     .theory-table tr:last-child td { border-bottom: none; }
-    
+
     .theory-text { font-size: 16px; line-height: 1.8; color: #334155; }
 
 
@@ -907,7 +912,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 1</div>
                 <div class="q-content">Một công việc được hoàn thành bởi một trong hai hành động. Nếu hành động thứ nhất có $a$ cách thực hiện, hành động thứ hai có $b$ cách thực hiện (các cách thực hiện của cả hai hành động là khác nhau đôi một) thì số cách để hoàn thành công việc đó là:</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a b$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a+b$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a-b$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a b$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a+b$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a-b$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Công việc được hoàn thành bởi một trong hai hành động độc lập. Theo quy tắc cộng, ta có $a + b$ cách để hoàn thành.</div>
@@ -933,7 +938,7 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 3</div>
                 <div class="q-content">Bạn An đến thư viện trường để mượn một quyển sách Toán học hoặc Vật lí để đọc. Tại đó có 100 quyển sách Toán học và 120 quyển sách Vật lí. Bạn An có số cách chọn sách là:</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">100 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">120 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">12000 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">220 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">100</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">120</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">12000</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">220</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Vì bạn An chỉ mượn 1 quyển sách nên có thể mượn sách Toán hoặc Vật lí. Theo quy tắc cộng, An có $100 + 120 = 220$ cách chọn.</div>
@@ -988,7 +993,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{10}^{10}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{10}^{4}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$3^{6} C_{10}^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$3^{6} A_{10}^{4}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Mô̂i cách chọn 4 câu làm đúng trong 10 câu là một tổ hợp chập 4 của 10 phần tử nên số cách chọn là $C_{10}^{4}$.<br><br>Vì 6 câu còn lại làm sai mà có 3 đáp án sai mỗi câu nên số khả năng làm đúng 4 câu trên 10 câu của đề thi đó là $3 \cdot 3 \cdot 3 \cdot 3 \cdot 3 \cdot 3 \cdot C_{10}^{4}=3^{6} C_{10}^{4}$.</div>
+                    <div class="sol-body">Mô̂i cách chọn 4 câu làm đúng trong 10 câu là một tổ hợp chập 4 của 10 phần tử nên số cách chọn là $C_{10}^{4}$.<br>Vì 6 câu còn lại làm sai mà có 3 đáp án sai mỗi câu nên số khả năng làm đúng 4 câu trên 10 câu của đề thi đó là $3 \cdot 3 \cdot 3 \cdot 3 \cdot 3 \cdot 3 \cdot C_{10}^{4}=3^{6} C_{10}^{4}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -998,7 +1003,7 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 8</div>
                 <div class="q-content">Có 5 nhà xe vận chuyển hành khách giữa Hà Nội và Hải Phòng. Số cách để một người đi từ Hà Nội tới Hải Phòng rồi sau đó quay lại Hà Nội bằng hai nhà xe khác nhau là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">5 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">10 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">15 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">20 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">5</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">10</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">15</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">20</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Phân tích: Từ Hà Nội tới Hải Phòng, một hành khác có 5 cách chọn nhà xe. Để quay lại Hà Nội bằng một nhà xe khác thì hành khách có $5-1=4$ cách chọn. Như vậy, theo quy tắc nhân thì số cách đi là $5 \cdot 4=20$ (cách).</div>
@@ -1008,27 +1013,27 @@
             </div>
             
             <div class="slide" data-i="9" id="slide-9">
-            <div class="question-card" data-correct="C" data-level="tb">
+            <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 9</div>
                 <div class="q-content">Số các số tự nhiên chẵn có ba chữ số, các chữ số đôi một khác nhau, được tạo thành từ các chữ số 1;2;3;4;5;6;7;8;9 là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">224 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">280 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">324 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Không số nào trong các số đó</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">224</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">280</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">324</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">Không số nào trong các số đó</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Phân tích: Một số có ba chữ số như vậy có dạng $\overline{a b c}$, với $a, b, c$ khác nhau, được chọn từ các chữ số $1 ; 2 ; 3 ; 4 ; 5 ; 6 ; 7 ; 8 ; 9$ và $c$ chỉ nhận một trong các giá trị $2 ; 4 ; 6 ; 8$. Ta có thể xây dựng một<br>số như vậy bằng cách trước hết chọn $c$, sau đó chọn ra hai chữ số có sắp thứ tự $a, b$ từ các chữ số còn lại. Có 4 cách chọn $c$. Sau đó, có $A_{8}^{2}=8 \cdot 7=56$ cách chọn $a, b$. Vì thế, theo quy tắc nhân, số các số có tính chất của bài toán là: $4 \cdot 56=224$ (số)</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="10" id="slide-10">
-            <div class="question-card" data-correct="C" data-level="tb">
+            <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 10</div>
                 <div class="q-content">Số các số tự nhiên trong khoảng từ 3000 đến 4000 , chia hết cho 5 , các chữ số đôi một khác nhau, được tạo thành từ các chữ số $1 ; 2 ; 3 ; 4 ; 5 ; 6$ là</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{4}^{2}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$A_{4}^{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$A_{5}^{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{6}^{4}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Phân tích: Một số tự nhiên nằm trong khoảng từ 3000 đến 4000 và chia hết cho 5 và có các chữ số được tạo thành từ các chữ số $1 ; 2 ; 3 ; 4 ; 5 ; 6$ phải có chữ số hàng đơn vị là 5 và chữ số hàng nghìn là 3 . Như vậy các số thoả mãn yêu cầu của bài toán có dạng $\overline{3 a b 5}$, trong đó $a, b$ là 2 chữ số khác nhau chọn trong các chữ số $1 ; 2 ; 4 ; 6$. Số các bộ hai số khác nhau, có sắp thứ tự, lấy ra từ 4 số đó là $A_{4}^{2}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
             </div>
@@ -1037,10 +1042,10 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 11</div>
                 <div class="q-content">Cho số nguyên dương $n \geq 4$. Người ta đánh dấu $n$ điểm phân biệt trên một đường tròn. Biết rằng số các hình tam giác với các đỉnh là các điểm được đánh dấu thì bằng số các tứ giác với các đỉnh là các điểm được đánh dấu. Giá trị của $n$ là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">6 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">7 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">9 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">6</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">7</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">9</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Phân tích: Mỗi tam giác cần đếm có 3 đỉnh là các điểm được đánh dấu. Đảo lại, mỗi bộ ba điểm được đánh dấu xác định một tam giác. Như vậy, số các tam giác với các điểm được đánh dấu bằng $C_{n}^{3}$.<br><br>Tương tự, số các tứ giác với các điểm được đánh dấu bằng $C_{n}^{4}$. Suy ra $C_{n}^{3}=C_{n}^{4}$, nghĩa là $\displaystyle \frac{n(n-1)(n-2)}{3 \cdot 2 \cdot 1}=\frac{n(n-1)(n-2)(n-3)}{4 \cdot 3 \cdot 2 \cdot 1}$. Điều này dẫn đến $n-3=4$, hay $n=7$.</div>
+                    <div class="sol-body">Phân tích: Mỗi tam giác cần đếm có 3 đỉnh là các điểm được đánh dấu. Đảo lại, mỗi bộ ba điểm được đánh dấu xác định một tam giác. Như vậy, số các tam giác với các điểm được đánh dấu bằng $C_{n}^{3}$.<br>Tương tự, số các tứ giác với các điểm được đánh dấu bằng $C_{n}^{4}$. Suy ra $C_{n}^{3}=C_{n}^{4}$, nghĩa là $\displaystyle \frac{n(n-1)(n-2)}{3 \cdot 2 \cdot 1}=\frac{n(n-1)(n-2)(n-3)}{4 \cdot 3 \cdot 2 \cdot 1}$. Điều này dẫn đến $n-3=4$, hay $n=7$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1062,8 +1067,8 @@
             <div class="slide" data-i="13" id="slide-13">
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 13</div>
-                <div class="q-content">Các tỉnh $A, B, C, D$ được nối với nhau bởi các con đường như hình vẽ. Hỏi có bao nhiêu cách đi từ tỉnh $A$ đến $D$, mà chỉ qua $B$ và $C$ một lần?<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/616b3f3c-0299-400e-94a4-204f36f4a211-04.jpg?height=145&width=714&top_left_y=2531&top_left_x=358" alt="Math Image"></div></div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">36 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">18 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">28 </div></div></div>
+                <div class="q-content">Các tỉnh $A, B, C, D$ được nối với nhau bởi các con đường như hình vẽ. Hỏi có bao nhiêu cách đi từ tỉnh $A$ đến $D$, mà chỉ qua $B$ và $C$ một lần?<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/616b3f3c-0299-400e-94a4-204f36f4a211-04.jpg?height=145&width=714&top_left_y=2531&top_left_x=358" alt="Math Image"></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">36</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">18</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">28</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Có 3 cách đi từ $A$ đến $B$.<br>Có 2 cách đi từ $B$ đến $C$.<br>Có 3 cách đi từ $C$ đến $D$.<br>Áp dụng quy tắc nhân ta có số cách đi từ tỉnh $A$ đến $D$, mà chỉ qua $B$ và $C$ một lần là 3.2.3 $=18$ (cách).</div>
@@ -1076,7 +1081,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 14</div>
                 <div class="q-content">Có 3 kiểu đồng hồ đeo tay (vuông, tròn, elip) và 4 kiểu dây (kim loại, da, vải, nhựa). Hỏi có bao nhiêu cách chọn một chiếc đồng hồ gồm một mặt và một dây?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">12 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">16 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">12</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">16</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Áp dụng quy tắc nhân ta có số chọn một chiếc đồng hồ gồm một mặt và một dây là:<br>$3.4=12$ (cách).</div>
@@ -1089,7 +1094,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 15</div>
                 <div class="q-content">Trên bàn có 8 cây bút chì khác nhau, 6 cây bút bi khác nhau và 10 cuốn tập khác nhau. Một học sinh muốn chọn một đồ vật duy nhất hoặc một cây bút chì hoặc một cây bút bi hoặc một cuốn tập thì số cách chọn khác nhau là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">480 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">24 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">48 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">60 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">480</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">24</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">48</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">60</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Áp dụng quy tắc cộng, số cách chọn một đồ vật duy nhất hoặc một cây bút chì hoặc một cây bút bi hoặc một cuốn tập thì số cách chọn khác nhau là: $8+6+10=24$</div>
@@ -1099,14 +1104,14 @@
             </div>
             
             <div class="slide" data-i="16" id="slide-16">
-            <div class="question-card" data-correct="B" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 16</div>
                 <div class="q-content">Một người vào cửa hàng ăn, người đó chọn thực đơn gồm một món ăn trong năm món, một loại quả tráng miệng trong năm loại quả tráng miệng và một nước uống trong ba loại nước uống. Có bao nhiêu cách chọn thực đơn.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">25 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">75 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">100 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">15 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">25</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">75</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">100</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">15</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Bhọn B<br><br><br><br>Theo quy tắc nhân ta có: 5.5.3 = 75 cách chọn thực đơn.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                    <div class="sol-body">## Bhọn B<br><br><br>Theo quy tắc nhân ta có: 5.5.3 = 75 cách chọn thực đơn.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1114,8 +1119,8 @@
             <div class="slide" data-i="17" id="slide-17">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 17</div>
-                <div class="q-content">Cửa hàng tiện lợi có bán combo bánh ngọt và đồ uống. Các loại bánh ngọt và đồ uống được mô tả bằng sơ đồ hình cây sau:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/616b3f3c-0299-400e-94a4-204f36f4a211-06.jpg?height=679&width=1066&top_left_y=114&top_left_x=408" alt="Math Image"></div><br><br>Hãy cho biết có bao nhiêu cách để khách hàng có thể lựa chọn được combo gồm một bánh ngọt và một loại đồ uống?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">20 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">12 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4 </div></div></div>
+                <div class="q-content">Cửa hàng tiện lợi có bán combo bánh ngọt và đồ uống. Các loại bánh ngọt và đồ uống được mô tả bằng sơ đồ hình cây sau:<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/616b3f3c-0299-400e-94a4-204f36f4a211-06.jpg?height=679&width=1066&top_left_y=114&top_left_x=408" alt="Math Image"></div><br>Hãy cho biết có bao nhiêu cách để khách hàng có thể lựa chọn được combo gồm một bánh ngọt và một loại đồ uống?</div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">20</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">12</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách chọn 1 loại đồ ngọt và một loại đồ uống là: $C_{5}^{1} \cdot C_{4}^{1}=20$.</div>
@@ -1128,7 +1133,7 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 18</div>
                 <div class="q-content">Một Ban chấp hành Đoàn trường có 12 người. Hỏi có bao nhiêu cách chọn 3 người vào ba chức vụ bí thư, phó bí thư và ủy viên từ ban chấp hành đó?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1320 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">220 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">36 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">15 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1320</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">220</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">36</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">15</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách chọn 3 người vào ba chức vụ bí thư, phó bí thư và ủy viên từ 12 người là $A_{12}^{3}=1320$.</div>
@@ -1141,7 +1146,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 19</div>
                 <div class="q-content">Cho tập hợp $A=\{1 ; 2 ; 3 ; 4 ; 5\}$. Hỏi có bao nhiêu cách lập được số tự nhiên có năm chữ số khác nhau từ các chữ số thuộc tập hợp $A$ ?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">12 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">120 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">102 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">210 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">12</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">120</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">102</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">210</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Mỗi cách lập số tự nhiên có 5 chữ số khác nhau lấy từ $A$ là một hoán vị của 5 .<br>Vậy có $5!=120$ số tự nhiên.</div>
@@ -1164,14 +1169,14 @@
             </div>
             
             <div class="slide" data-i="21" id="slide-21">
-            <div class="question-card" data-correct="D" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 21</div>
                 <div class="q-content">Cho hai số tự nhiên $k, n$ thỏa $1 \leq k \leq n$. Mệnh đề nào sau đây đúng?</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{k!(n-k)!}{n!}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{n!}{k!(n-k)!}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{(n-k)!}{n!}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle A_{n}^{k}=\frac{n!}{(n-k)!}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Theo định nghĩa, số chỉnh hợp chập $k$ của $n$ phần tử được tính bằng công thức: $\displaystyle A_{n}^{k}=\frac{n!}{(n-k)!}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1180,7 +1185,7 @@
             <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 22</div>
                 <div class="q-content">Trường THPT Pleiku được cử một học sinh đi đại hội đoàn. Nhà trường quyết định chọn một đoàn viên 10 A 1 , hoặc lớp 11 A 1 . Hỏi nhà trường có bao nhiêu cách chọn, nếu biết rằng lớp 10 A 1 có 15 đoàn viên, $11 A 1$ có 23 đoàn viên?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">345 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">31 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">38 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">70 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">345</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">31</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">38</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">70</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta có số các chọn 1 đoàn viên đi dự đại hội Đoàn là $15+23=38$.</div>
@@ -1193,7 +1198,7 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 23</div>
                 <div class="q-content">Một bộ cờ vua có 32 quân cờ. Bạn Nam lấy tất cả các quân cờ đen và tất cả các quân tốt. Số quân cờ Nam lấy ra là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">16 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">34 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">14 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">24 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">16</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">34</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">14</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">24</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta có Nam lấy cờ đen và tất cả các quân tốt là $16+8=24$.</div>
@@ -1206,7 +1211,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 24</div>
                 <div class="q-content">Có 10 cây bút khác nhau và 8 quyển sách giáo khoa khác nhau. Một bạn học sinh cần chọn 1 cây bút và 1 quyển sách. Số cách chọn bạn học sinh đó là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">90 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">80 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">60 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">70 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">90</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">80</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">60</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">70</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Bài toán có 2 bước:<br>Bước 1: Chọn 1 cây bút: $C_{10}^{1}$ cách.<br>Bước 2: Chọn 1 quyển sách: $C_{8}^{1}$ cách.<br>Vậy $C_{10}^{1} C_{8}^{1}=80$ cách.</div>
@@ -1216,14 +1221,14 @@
             </div>
             
             <div class="slide" data-i="25" id="slide-25">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 25</div>
                 <div class="q-content">Lớp 10 A có 20 nam và 18 nữ. Giáo viên cần chọn ra 9 bạn gồm 5 bạn nam và 4 bạn nữ để lao động. Số cách chọn của giáo viên là</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{38}^{9}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$A_{20}^{5} \cdot A_{18}^{4}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$A_{38}^{9}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{20}^{5} \cdot C_{18}^{4}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Dhọn D<br><br>Bài toán có 2 bước:<br>Bước 1: Chọn bạn nam có $C_{20}^{5}$ cách.<br>Bước 2: Chọn bạn nữ có $C_{18}^{4}$ cách.<br>Từ đó suy ra có $C_{20}^{5} \cdot C_{18}^{4}$ cách.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">## Dhọn D<br>Bài toán có 2 bước:<br>Bước 1: Chọn bạn nam có $C_{20}^{5}$ cách.<br>Bước 2: Chọn bạn nữ có $C_{18}^{4}$ cách.<br>Từ đó suy ra có $C_{20}^{5} \cdot C_{18}^{4}$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1232,37 +1237,37 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 26</div>
                 <div class="q-content">Một hộp chứa 3 quả cầu trắng và 5 quả đầu đen. Có bao nhiêu cách chọn ra 2 quả cầu sao cho có đủ hai màu?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">15 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">45 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">20 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">56</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">15</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">45</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">20</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">56</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Vì chọn ra 2 quả cầu sao cho có đủ hai màu nên mỗi màu chọn 1 quả.<br><br>Số cách chọn 1 quả cầu màu trắng trong 3 quả cầu trắng là $C_{3}^{1}$.<br>Số cách chọn 1 quả cầu màu đen trong 5 quả cầu đen là $C_{5}^{1}$.<br>Vậy có $C_{3}^{1} \cdot C_{5}^{1}=15$ cách chọn.</div>
+                    <div class="sol-body">Vì chọn ra 2 quả cầu sao cho có đủ hai màu nên mỗi màu chọn 1 quả.<br>Số cách chọn 1 quả cầu màu trắng trong 3 quả cầu trắng là $C_{3}^{1}$.<br>Số cách chọn 1 quả cầu màu đen trong 5 quả cầu đen là $C_{5}^{1}$.<br>Vậy có $C_{3}^{1} \cdot C_{5}^{1}=15$ cách chọn.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="27" id="slide-27">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="C" data-level="tb">
                 <div class="q-number">Câu 27</div>
                 <div class="q-content">Từ một lớp gồm 16 học sinh nam và 18 học sinh nữ. Có bao nhiêu cách chọn ra 5 học sinh tham gia đội Thanh niên xung kích, trong đó có 2 học sinh nam và 3 học sinh nữ?</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{16}^{2} \cdot C_{18}^{3}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$A_{16}^{2} \cdot A_{18}^{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{16}^{3} \cdot C_{18}^{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$A_{16}^{3} \cdot A_{18}^{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body"></div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="28" id="slide-28">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 28</div>
                 <div class="q-content">Số cách chia 10 học sinh thành ba nhóm lần lượt có $2,3,5$ học sinh là:</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{10}^{2} \cdot C_{8}^{3} \cdot C_{5}^{5}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{10}^{2}+C_{10}^{3}+C_{10}^{5}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{10}^{5}+C_{5}^{3}+C_{2}^{2}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{10}^{2}+C_{8}^{3}+C_{5}^{5}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Số cách chọn 2 học sinh từ nhóm có 10 học sinh là $C_{10}^{2}$; số cách chọn 3 bạn từ nhóm gồm 8 bạn còn lại là $C_{8}^{3}$ và có $C_{5}^{5}$ cách chọn 5 bạn từ 5 bạn còn lại.<br><br>Số cách chia 10 học sinh thành ba nhóm lần lượt có $2,3,5$ học sinh là: $C_{10}^{2} \cdot C_{8}^{3} \cdot C_{5}^{5}$</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">Số cách chọn 2 học sinh từ nhóm có 10 học sinh là $C_{10}^{2}$; số cách chọn 3 bạn từ nhóm gồm 8 bạn còn lại là $C_{8}^{3}$ và có $C_{5}^{5}$ cách chọn 5 bạn từ 5 bạn còn lại.<br>Số cách chia 10 học sinh thành ba nhóm lần lượt có $2,3,5$ học sinh là: $C_{10}^{2} \cdot C_{8}^{3} \cdot C_{5}^{5}$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1271,24 +1276,24 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 29</div>
                 <div class="q-content">Từ bảy chữ số $1,2,3,4,5,6,7$ có thể lập được bao nhiêu số tự nhiên có bốn chữ số khác nhau:</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$7!.6!.5!.4!$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7 ! </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$7^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">7.6.5.4</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$7!.6!.5!.4!$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7 !</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$7^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">7.6.5.4</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Mô̂i số tự nhiên có bốn chữ số khác nhau lấy từ bảy chữ số trên là một chỉnh hợp chập 4 của bảy phần tử đó.<br><br>Số các số tự nhiên có bốn chữ số khác nhau là $A_{7}^{4}=7.6 .5$.4.</div>
+                    <div class="sol-body">Mô̂i số tự nhiên có bốn chữ số khác nhau lấy từ bảy chữ số trên là một chỉnh hợp chập 4 của bảy phần tử đó.<br>Số các số tự nhiên có bốn chữ số khác nhau là $A_{7}^{4}=7.6 .5$.4.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="30" id="slide-30">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 30</div>
                 <div class="q-content">Một tổ có 6 học sinh nam và 9 học sinh nữ. Số cách chọn 6 học sinh đi lao động, trong đó có đúng 2 học sinh nam là:</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$C_{6}^{2} \cdot C_{9}^{4}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{6}^{2}+C_{9}^{4}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$A_{6}^{2} \cdot A_{9}^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{9}^{2} \cdot C_{6}^{4}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Số cách chọn 2 học sinh nam từ 6 học sinh nam là $C_{6}^{2}$.<br>Ta cần chọn thêm 4 học sinh nữa và 4 học sinh này đều phải là các học sinh nữ nên số cách chọn là $C_{9}^{4}$.<br><br>Vậy số cách chọn 6 học sinh đi lao động, trong đó có đúng 2 học sinh nam là $C_{6}^{2} \cdot C_{9}^{4}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">Số cách chọn 2 học sinh nam từ 6 học sinh nam là $C_{6}^{2}$.<br>Ta cần chọn thêm 4 học sinh nữa và 4 học sinh này đều phải là các học sinh nữ nên số cách chọn là $C_{9}^{4}$.<br>Vậy số cách chọn 6 học sinh đi lao động, trong đó có đúng 2 học sinh nam là $C_{6}^{2} \cdot C_{9}^{4}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1297,7 +1302,7 @@
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 31</div>
                 <div class="q-content">Số cách sắp xếp 9 học sinh ngồi vào một dãy gồm 9 ghế là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">9 !</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">9 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$9^{9}$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">9 !</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">9</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$9^{9}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Số cách sắp xếp 9 học sinh ngồi vào một dãy gồm 9 ghế là 9 !.</div>
@@ -1320,27 +1325,27 @@
             </div>
             
             <div class="slide" data-i="33" id="slide-33">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 33</div>
                 <div class="q-content">Từ một lớp gồm 16 học sinh nam và 18 học sinh nữ. Có bao nhiêu cách chọn ra 5 học sinh tham gia đội Thanh niên xung kích, trong đó có 2 học sinh nam và 3 học sinh nữ</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$A_{16}^{2} \cdot A_{18}^{3}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{16}^{2} \cdot C_{18}^{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{16}^{2}+C_{18}^{3}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$A_{16}^{2}+A_{18}^{3}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Bhọn B<br><br>Công đoạn 1: Chọn 2 học sinh nam có $C_{16}^{2}$ cách.<br>Công đoạn 2: Chọn 3 học sinh nữ có $C_{18}^{3}$ cách.<br>Theo quy tắc nhân có $C_{16}^{2} \cdot C_{18}^{3}$ cách.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">## Bhọn B<br>Công đoạn 1: Chọn 2 học sinh nam có $C_{16}^{2}$ cách.<br>Công đoạn 2: Chọn 3 học sinh nữ có $C_{18}^{3}$ cách.<br>Theo quy tắc nhân có $C_{16}^{2} \cdot C_{18}^{3}$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="34" id="slide-34">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 34</div>
                 <div class="q-content">Một lớp có 30 học sinh gồm 20 nam và 10 nữ. Hỏi có bao nhiêu cách chọn ra một nhóm 3 học sinh sao cho nhóm đó có ít nhất một học sinh nữ?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1140 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2920 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1900 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">900 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1140</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2920</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1900</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">900</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Bhọn B<br><br>Số cách chọn 3 học sinh tùy ý là: $C_{30}^{3}$<br>Số cách chọn 3 học sinh không có nữ là: $C_{20}^{3}$<br>Suy ra số cách chọn 3 học sinh có ít nhất 1 nữ là: $C_{30}^{3}-C_{20}^{3}=2920$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">## Bhọn B<br>Số cách chọn 3 học sinh tùy ý là: $C_{30}^{3}$<br>Số cách chọn 3 học sinh không có nữ là: $C_{20}^{3}$<br>Suy ra số cách chọn 3 học sinh có ít nhất 1 nữ là: $C_{30}^{3}-C_{20}^{3}=2920$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1359,14 +1364,14 @@
             </div>
             
             <div class="slide" data-i="36" id="slide-36">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 36</div>
                 <div class="q-content">Một đội văn nghệ có 15 người gồm 7 nam, 8 nữ. Cần chọn ra 3 bạn nam và 3 bạn nữ để tập một tiết mục văn nghệ. Hỏi có bao nhiêu cách chọn?</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$A_{7}^{3} \cdot A_{8}^{3}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{7}^{3} \cdot C_{8}^{3}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{7}^{3}+C_{8}^{3}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$C_{15}^{6}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Bhọn B<br><br>Cần chọn ra 3 bạn nam trong 7 bạn nam và 3 bạn nữ trong 8 bạn nữ,<br>Vậy số cách chọn $C_{7}^{3} \cdot C_{8}^{3}$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">## Bhọn B<br>Cần chọn ra 3 bạn nam trong 7 bạn nam và 3 bạn nữ trong 8 bạn nữ,<br>Vậy số cách chọn $C_{7}^{3} \cdot C_{8}^{3}$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1375,7 +1380,7 @@
             <div class="question-card" data-correct="B" data-level="tb">
                 <div class="q-number">Câu 37</div>
                 <div class="q-content">Từ các chữ số $1,2,3$ có thể lập được bao nhiêu số tự nhiên có các chữ số khác nhau?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">12 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">15 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">27 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">12</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">15</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">27</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Trường hợp 1: số tự nhiên có 1 chữ số khác nhau có 3 cách chọn<br>Trưởng hợp 2: số tự nhiên có 2 chữ số khac nhau có $A_{3}^{2}=6$ cách chọn<br>Trưởng hợp 3: số tự nhiên có 3 chữ số khac nhau có $P=3!=6$ cách chọn<br>Vậy có tất cả: $3+6+6=15$ cách chọn.</div>
@@ -1385,27 +1390,27 @@
             </div>
             
             <div class="slide" data-i="38" id="slide-38">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 38</div>
                 <div class="q-content">Một lớp học 20 học sinh. Có bao nhiêu cách chọn ra một ban cán sự gồm 1 lớp trưởng, 1 lớp phó và 4 tổ trưởng biết rằng tất cả các học sinh đều có khả năng như nhau và mỗi bạn học sinh chỉ làm một nhiệm vụ.</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$6 C_{20}^{6}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$C_{20}^{6}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$380 C_{20}^{4}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$A_{20}^{6}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Dhọn D<br><br>Số cách chọn ra một ban cán sự gồm 1 lớp trưởng, 1 lớp phó và 4 tổ trưởng biết rằng tất cả các học sinh đều có khả năng như nhau và mỗi bạn học sinh chỉ làm một nhiệm vụ là $A_{20}^{6}$ cách.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">## Dhọn D<br>Số cách chọn ra một ban cán sự gồm 1 lớp trưởng, 1 lớp phó và 4 tổ trưởng biết rằng tất cả các học sinh đều có khả năng như nhau và mỗi bạn học sinh chỉ làm một nhiệm vụ là $A_{20}^{6}$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="39" id="slide-39">
-            <div class="question-card" data-correct="A" data-level="tb">
+            <div class="question-card" data-correct="" data-level="tb">
                 <div class="q-number">Câu 39</div>
                 <div class="q-content">Một nhóm có 10 học sinh gồm 4 nam và 6 nữ. Hỏi có bao nhiêu cách chọn ra 3 học sinh trong đó có cả nam và nữ.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">10 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">56 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">336 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">96</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">10</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">56</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">336</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">96</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Dhọn D<br><br>TH1: 2 nam, 1 nữ có $C_{4}^{2} \cdot C_{6}^{1}=36$ ( cách)<br>TH2: 1 nam, 2 nữ có $C_{4}^{1} \cdot C_{6}^{2}=60$ ( cách)<br>Vậy có: $30+60=96$ (cách).</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">## Dhọn D<br>TH1: 2 nam, 1 nữ có $C_{4}^{2} \cdot C_{6}^{1}=36$ ( cách)<br>TH2: 1 nam, 2 nữ có $C_{4}^{1} \cdot C_{6}^{2}=60$ ( cách)<br>Vậy có: $30+60=96$ (cách).</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1414,24 +1419,24 @@
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 40</div>
                 <div class="q-content">Tại một cuộc họp của học sinh các lớp $10 A, 10 B, 10 C, 10 D$ và $10 E$, ban tổ chức đề nghị đại diện của mỗi lớp trình bày một báo cáo. Bạn đại diện của lớp 10 A đề nghị được trình bày báo cáo ngay trước đại diện của lớp $10 B$ và được ban tổ chức đồng ý. Số cách xếp chương trình là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">36 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">48 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">30 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">36</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">48</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">30</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Phân tích: Kí hiệu thứ tự các bài báo cáo là $1,2,3,4,5$. Có 4 phương án xếp báo cáo của đại diện của lớp $10 ~ B$ ngay sau báo cáo đại diện của $10 ~ A$ là:<br><br>- Phương án $1: 10 \mathrm{~A}$ báo cáo $1,10 B$ báo cáo 2 ;<br>- Phương án 2: 10A báo cáo $2,10 B$ báo cáo 3 ;<br>- Phương án 3: 10A báo cáo $3,10 B$ báo cáo 4 ;<br>- Phương án 4: $10 ~ A$ báo cáo $4,10 ~ B$ báo cáo 5 .<br><br>Đối với mỗi phương án, ban tổ chức có thể xếp đại diện của các lớp $10 \mathrm{C}, 10 D$ và $10 E$ theo thứ tự bất kì vào vị trí các báo cáo còn lại. Do đó, với mỗi phương án thì số cách xếp là: $P_{3}=3!=3 \cdot 2 \cdot 1=6($ cách $)$<br><br>Như vậy, theo quy tắc cộng thì số cách xếp chương trình là: $6+6+6+6=24$ (cách)</div>
+                    <div class="sol-body">Phân tích: Kí hiệu thứ tự các bài báo cáo là $1,2,3,4,5$. Có 4 phương án xếp báo cáo của đại diện của lớp $10 ~ B$ ngay sau báo cáo đại diện của $10 ~ A$ là:<br>- Phương án $1: 10 \mathrm{~A}$ báo cáo $1,10 B$ báo cáo 2 ;<br>- Phương án 2: 10A báo cáo $2,10 B$ báo cáo 3 ;<br>- Phương án 3: 10A báo cáo $3,10 B$ báo cáo 4 ;<br>- Phương án 4: $10 ~ A$ báo cáo $4,10 ~ B$ báo cáo 5 .<br>Đối với mỗi phương án, ban tổ chức có thể xếp đại diện của các lớp $10 \mathrm{C}, 10 D$ và $10 E$ theo thứ tự bất kì vào vị trí các báo cáo còn lại. Do đó, với mỗi phương án thì số cách xếp là: $P_{3}=3!=3 \cdot 2 \cdot 1=6($ cách $)$<br>Như vậy, theo quy tắc cộng thì số cách xếp chương trình là: $6+6+6+6=24$ (cách)</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="41" id="slide-41">
-            <div class="question-card" data-correct="A" data-level="kg">
+            <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 41</div>
                 <div class="q-content">Người ta muốn thành lập một uỷ ban gồm 6 thành viên, trong đó có ít nhất 3 thành viên nữ từ một nhóm đại biểu gồm 6 nam và 4 nữ. Số các cách thành lập uỷ ban như vậy là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">100 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">210 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">60 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">95 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">100</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">210</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">60</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">95</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Phân tích: Do chỉ có 4 đại biểu nữ nên có 2 phương án:<br><br>- Phương án 1: uỷ ban gồm 3 nữ và 3 nam;<br>- Phương án 2: uỷ ban gồm 4 nữ và 2 nam.<br><br>Đối với phướng án 1: số cách chọn ra 3 người từ 4 đại biểu nữ là: $\displaystyle C_{4}^{3}=\frac{4 \cdot 3 \cdot 2}{3 \cdot 2 \cdot 1}=4$ (cách)<br>Số cách chọn ra 3 người từ 6 đại biểu nam là: $\displaystyle C_{6}^{3}=\frac{6 \cdot 5 \cdot 4}{3 \cdot 2 \cdot 1}=20$ (cách)<br>Như vậy, theo quy tắc nhân thì số cách chọn theo phương án 1 là: $4 \cdot 20=80$ (cách)<br>Đối với phương án 2: chỉ có duy nhất 1 cách chọn ra 4 người từ 4 đại biểu nữ (nghĩa là cả 4 đại biểu nữ sẽ nằm trong uỷ ban cần lập). Ngoài ra, số cách chọn ra 2 người từ 6 đại biểu nam là:<br>$\displaystyle C_{6}^{2}=\frac{6 \cdot 5}{2 \cdot 1}=15($ cách $)$<br>Do đó, có đúng 15 cách chọn theo phương án 2 .<br>Từ đó, theo quy tắc cộng thì số các cách thành lập uỷ ban là: $80+15=95$ (cách)</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">Phân tích: Do chỉ có 4 đại biểu nữ nên có 2 phương án:<br>- Phương án 1: uỷ ban gồm 3 nữ và 3 nam;<br>- Phương án 2: uỷ ban gồm 4 nữ và 2 nam.<br>Đối với phướng án 1: số cách chọn ra 3 người từ 4 đại biểu nữ là: $\displaystyle C_{4}^{3}=\frac{4 \cdot 3 \cdot 2}{3 \cdot 2 \cdot 1}=4$ (cách)<br>Số cách chọn ra 3 người từ 6 đại biểu nam là: $\displaystyle C_{6}^{3}=\frac{6 \cdot 5 \cdot 4}{3 \cdot 2 \cdot 1}=20$ (cách)<br>Như vậy, theo quy tắc nhân thì số cách chọn theo phương án 1 là: $4 \cdot 20=80$ (cách)<br>Đối với phương án 2: chỉ có duy nhất 1 cách chọn ra 4 người từ 4 đại biểu nữ (nghĩa là cả 4 đại biểu nữ sẽ nằm trong uỷ ban cần lập). Ngoài ra, số cách chọn ra 2 người từ 6 đại biểu nam là:<br>$\displaystyle C_{6}^{2}=\frac{6 \cdot 5}{2 \cdot 1}=15($ cách $)$<br>Do đó, có đúng 15 cách chọn theo phương án 2 .<br>Từ đó, theo quy tắc cộng thì số các cách thành lập uỷ ban là: $80+15=95$ (cách)</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
             </div>
@@ -1440,7 +1445,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 42</div>
                 <div class="q-content">Có 3 cặp vợ chồng mua 6 vé xem phim với các chỗ ngồi liên tiếp nhau trên cùng một hàng ghế. Số cách xếp chỗ ngồi sao cho mỗi cặp vợ chồng đều ngồi cạnh nhau là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">36 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">48 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">120 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">36</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">48</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">120</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Phân tích: Trước hết, xét mỗi cặp vợ chồng như là một khối. Số cách xếp 3 khối vào 3 vị trí là $P_{3}=3!=3 \cdot 2 \cdot 1=6$. Bây giờ', với mỗi cách xếp như vậy, mỗi cặp vợ chồng (của một khối) có thể đổi chỗ cho nhau để có một cách xếp mới. Như vậy, tổng số cách xếp chỗ cho 6 người với yêu cầu của bài toán là: $6 \cdot 2 \cdot 2 \cdot 2=48$ (cách)</div>
@@ -1453,7 +1458,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 43</div>
                 <div class="q-content">Từ các chữ số $0,1,2,3,4,5,6$ lập các số tự nhiên chia hết cho 5 trong đó mỗi số có 4 chữ số đôi một khác nhau.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">120 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">100 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">220</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">200 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">120</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">100</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">220</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">200</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi số tự nhiên có 4 chữ số là $\overline{a b c d},(a \neq 0)$.<br>Tổng quát:<br>+) $d$ có 2 cách chọn.<br>+) a có 6 cách chọn.<br>+) $b$ có 5 cách chọn.<br>+) $c$ có 4 cách chọn.<br>Quy tắc nhân: 2.6.5.4 = 240 số.<br>Vi phạm:<br>+) $a=0$ có 1 cách chọn.<br>+) $d=5$ có 1 cách chọn.<br>+) $b$ có 5 cách chọn.<br>+) $c$ có 4 cách chọn.<br>Quy tắc nhân: 1.1.5.4 = 20 số.<br>Số các số cần tìm: $240-20=220$ số.</div>
@@ -1463,14 +1468,14 @@
             </div>
             
             <div class="slide" data-i="44" id="slide-44">
-            <div class="question-card" data-correct="A" data-level="kg">
+            <div class="question-card" data-correct="" data-level="kg">
                 <div class="q-number">Câu 44</div>
                 <div class="q-content">Một lớp học có 30 học sinh gồm 20 nam và 10 nữ. Hỏi có bao nhiêu cách chọn ra một nhóm 3 học sinh sao cho trong nhóm đó có ít nhất một học sinh nam?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4060 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">23640 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">22920 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">3940</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4060</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">23640</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">22920</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">3940</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Dhọn D<br><br><br>Vậy để chọn ra một nhóm 3 học sinh sao cho trong nhóm đó có ít nhất một học sinh nam có $C_{30}^{3}-C_{10}^{3}=3940$ cách.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">## Dhọn D<br><br>Vậy để chọn ra một nhóm 3 học sinh sao cho trong nhóm đó có ít nhất một học sinh nam có $C_{30}^{3}-C_{10}^{3}=3940$ cách.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1479,7 +1484,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 45</div>
                 <div class="q-content">Lớp 10 C có 40 học sinh trong đó có 18 nam và 22 nữ. Giáo viên chủ nhiệm cần chọn 3 học sinh để trực an toàn giao thông gồm 2 nam và 1 nữ. Hỏi giáo viên chủ nhiệm có bao nhiêu cách chọn?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">175 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">9880 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3366 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4158 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">175</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">9880</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">3366</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4158</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Công đoạn 1: Chọn 2 học sinh nam từ 18 học sinh nam: có $C_{18}^{2}$ cách.<br>Công đoạn 2: Chọn 1 học sinh nam từ 22 học sinh nam: có $C_{22}^{1}$ cách.<br>Theo quy tắc nhân ta có: $C_{18}^{2} \cdot C_{22}^{1}=3366$ cách.</div>
@@ -1492,10 +1497,10 @@
             <div class="question-card" data-correct="B" data-level="kg">
                 <div class="q-number">Câu 46</div>
                 <div class="q-content">Cho tập hợp $A=\{1 ; 2 ; 3 ; 4 ; 5 ; 6 ; 7\}$. Hỏi từ tập $A$ có thể lập được bao nhiêu số tự nhiên có 6 chữ số khác nhau và phải có mặt các chữ số $1,2,3$ sao cho chúng không đứng cạnh nhau?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">567 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">576 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5040 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">840 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">567</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">576</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5040</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">840</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Lấy ra 3 chữ số khác $1,2,3$ từ tập A có $C_{4}^{3}$ cách.<br>Xếp 3 chữ số này có 3 ! cách, coi 3 số trên là 3 vách ngăn sẽ tạo ra 4 vị trí xếp 3 chữ số 1, 2, 3 vào 3 trong 4 vị trí đó có $A_{4}^{3}$ cách.<br><br>Vậy số các số lập được là: $C_{4}^{3} \cdot 3!\cdot A_{4}^{3}=576$.</div>
+                    <div class="sol-body">Lấy ra 3 chữ số khác $1,2,3$ từ tập A có $C_{4}^{3}$ cách.<br>Xếp 3 chữ số này có 3 ! cách, coi 3 số trên là 3 vách ngăn sẽ tạo ra 4 vị trí xếp 3 chữ số 1, 2, 3 vào 3 trong 4 vị trí đó có $A_{4}^{3}$ cách.<br>Vậy số các số lập được là: $C_{4}^{3} \cdot 3!\cdot A_{4}^{3}=576$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1505,10 +1510,10 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 47</div>
                 <div class="q-content">Một nhóm học sinh gồm 12 nam và 6 nữ. Người ta muốn chọn từ nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và có ít nhất 1 nữ. Hỏi có bao nhiêu cách lập đội cờ đỏ.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">572 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1028160 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">8568 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">58080 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">572</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1028160</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">8568</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">58080</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Số cách chọn nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và 3 người bất kỳ trong 16 người còn lại là $A_{12}^{2} \cdot C_{16}^{3}$ (cách)<br><br>Số cách chọn nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và 3 người còn lai không có nữ là $A_{12}^{2} \cdot C_{10}^{3}$ (cách)<br><br>Số cách chọn thỏa mãn yêu cầu đầu bài là $A_{12}^{2} \cdot C_{16}^{3}-A_{12}^{2} \cdot C_{10}^{3}=58080$ (cách)</div>
+                    <div class="sol-body">Số cách chọn nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và 3 người bất kỳ trong 16 người còn lại là $A_{12}^{2} \cdot C_{16}^{3}$ (cách)<br>Số cách chọn nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và 3 người còn lai không có nữ là $A_{12}^{2} \cdot C_{10}^{3}$ (cách)<br>Số cách chọn thỏa mãn yêu cầu đầu bài là $A_{12}^{2} \cdot C_{16}^{3}-A_{12}^{2} \cdot C_{10}^{3}=58080$ (cách)</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1518,7 +1523,7 @@
             <div class="question-card" data-correct="B" data-level="kg">
                 <div class="q-number">Câu 48</div>
                 <div class="q-content">Có 3 cặp vợ chồng mua 6 vé xem phim với các chỗ ngồi liên tiếp nhau trên cùng một hàng ghế. Số cách xếp chỗ ngồi sao cho mỗi cặp vợ chồng đều ngồi cạnh nhau là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">48 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">36 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">120 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">24</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">48</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">36</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">120</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Ta coi mỗi cặp vợ chồng là 1 người. Khi đó số cách xếp 3 cặp vợ chồng là 3 ! cách.<br>Số hoán vị vị trí của mỗi cặp vợ chồng là 2 ! cách.<br>Số cách xếp thỏa mãn là: $3!\cdot(2!)^{3}=48$ (cách).</div>
@@ -1528,14 +1533,14 @@
             </div>
             
             <div class="slide" data-i="49" id="slide-49">
-            <div class="question-card" data-correct="B" data-level="kg">
+            <div class="question-card" data-correct="" data-level="kg">
                 <div class="q-number">Câu 49</div>
                 <div class="q-content">Trong một giỏ hoa có 6 bông hồng vàng, 5 bông hồng trắng (các bông hoa coi như đôi một khác nhau). Người ta muốn làm một bó hoa gồm 5 bông được lấy từ giỏ hoa đó. Hỏi có bao nhiêu cách chọn hoa biết bó hoa có đủ 2 loại hoa hồng vàng và hoa hồng trắng?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">455 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">456 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">462 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">455</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">456</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">462</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Ahọn A<br><br><br><br><br><br>Vây có $30+150+200+75=455$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
+                    <div class="sol-body">## Ahọn A<br><br><br><br><br>Vây có $30+150+200+75=455$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1547,47 +1552,47 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$4!+4!$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$8!$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$4!.4!$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$2.4!.4!$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Trường hợp 1: Xếp 4 nam sinh ngồi vào các ghế mang số lẻ và xếp 4 nữ sinh ngồi vào các ghế mang số chẵn có $4!\cdot 4$ ! cách.<br>Trường hợp 2: Xếp 4 nam sinh ngồi vào các ghế mang số chẵn và xếp 4 nữ sinh ngồi vào các ghế mang số lẻ có 4!.4! cách.<br><br>Vậy có tất cả $4!.4!+4!.4!=2.4!\cdot 4$ ! cách</div>
+                    <div class="sol-body">Trường hợp 1: Xếp 4 nam sinh ngồi vào các ghế mang số lẻ và xếp 4 nữ sinh ngồi vào các ghế mang số chẵn có $4!\cdot 4$ ! cách.<br>Trường hợp 2: Xếp 4 nam sinh ngồi vào các ghế mang số chẵn và xếp 4 nữ sinh ngồi vào các ghế mang số lẻ có 4!.4! cách.<br>Vậy có tất cả $4!.4!+4!.4!=2.4!\cdot 4$ ! cách</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="51" id="slide-51">
-            <div class="question-card" data-correct="D" data-level="kg">
+            <div class="question-card" data-correct="" data-level="kg">
                 <div class="q-number">Câu 51</div>
                 <div class="q-content">Từ 20 bông hoa gồm có 8 bông màu đỏ, 7 bông màu vàng, 5 bông màu trắng; chọn ngẫu nhiên 4 bông để tạo thành một bó. Có bao nhiêu cách chọn để bó hoa có đủ cả ba màu?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">14280 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4760 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2381 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2380 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">14280</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4760</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2381</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2380</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">## Dhọn <br> D.<br><br>Để lấy được 4 bông hoa có đủ ba màu,<br>Xét các trường hợp:<br>Trường hợp 1: 2 bông màu đỏ, 1 bông màu vàng, 1 bông màu trắng ⇒ Có $C_{8}^{2} \cdot 7 \cdot 5$ cách.<br>Trường hợp 2: 1 bông màu đỏ, 2 bông màu vàng, 1 bông màu trắng $\Rightarrow$ Có $8 . C_{7}^{2} .5$ cách.<br>Trường hợp 3: 1 bông màu đỏ, 1 bông màu vàng, 2 bông màu trắng $\Rightarrow$ Có 8.7. $C_{5}^{2}$ cách.<br>Vậy số cách chọn được 1 bó hoa có đủ 3 màu là: $C_{8}^{2} \cdot 7 \cdot 5+8 \cdot C_{7}^{2} \cdot 5+8 \cdot 7 \cdot C_{5}^{2}=2380$</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                    <div class="sol-body">## Dhọn<br>D.<br>Để lấy được 4 bông hoa có đủ ba màu,<br>Xét các trường hợp:<br>Trường hợp 1: 2 bông màu đỏ, 1 bông màu vàng, 1 bông màu trắng ⇒ Có $C_{8}^{2} \cdot 7 \cdot 5$ cách.<br>Trường hợp 2: 1 bông màu đỏ, 2 bông màu vàng, 1 bông màu trắng $\Rightarrow$ Có $8 . C_{7}^{2} .5$ cách.<br>Trường hợp 3: 1 bông màu đỏ, 1 bông màu vàng, 2 bông màu trắng $\Rightarrow$ Có 8.7. $C_{5}^{2}$ cách.<br>Vậy số cách chọn được 1 bó hoa có đủ 3 màu là: $C_{8}^{2} \cdot 7 \cdot 5+8 \cdot C_{7}^{2} \cdot 5+8 \cdot 7 \cdot C_{5}^{2}=2380$</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="52" id="slide-52">
-            <div class="question-card" data-correct="D" data-level="kg">
+            <div class="question-card" data-correct="" data-level="kg">
                 <div class="q-number">Câu 52</div>
                 <div class="q-content">Nếu một đa giác lồi có 44 đường chéo thì đa giác đó có bao nhiêu cạnh?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">8 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">10 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">9 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">11 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">8</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">10</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">9</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">11</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Mỗi đoạn thẳng nối hai đỉnh của 1 đa giác lồi $n$ cạnh hoặc là một cạnh hoặc là 1 đường chéo của đa giác đó.<br>Số đoạn thẳng được tạo thành là $C_{n}^{2}$.<br>Số cạnh của đa giác là $n$.<br>Số đường chéo của đa giác đó là $C_{n}^{2}-n$.<br>Theo bài ra, số đường chéo là 44 nên ta có phương trình $C_{n}^{2}-n=44$.<br>Giải phương trình $C_{n}^{2}-n=44$<br>Điều kiện $n \geq 2 ; n \in \mathbb{N}$.<br>Khi đó $\displaystyle C_{n}^{2}-n=44 \Leftrightarrow \frac{n(n-1)}{2}-n=44 \Leftrightarrow n^{2}-3 n-88=0 \Leftrightarrow\left[\begin{array}{l}n=11 \\ n=-8\end{array}\right.$.<br><br>Vậy số cạnh của đa giác bằng 11 .</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
+                    <div class="sol-body">Mỗi đoạn thẳng nối hai đỉnh của 1 đa giác lồi $n$ cạnh hoặc là một cạnh hoặc là 1 đường chéo của đa giác đó.<br>Số đoạn thẳng được tạo thành là $C_{n}^{2}$.<br>Số cạnh của đa giác là $n$.<br>Số đường chéo của đa giác đó là $C_{n}^{2}-n$.<br>Theo bài ra, số đường chéo là 44 nên ta có phương trình $C_{n}^{2}-n=44$.<br>Giải phương trình $C_{n}^{2}-n=44$<br>Điều kiện $n \geq 2 ; n \in \mathbb{N}$.<br>Khi đó $\displaystyle C_{n}^{2}-n=44 \Leftrightarrow \frac{n(n-1)}{2}-n=44 \Leftrightarrow n^{2}-3 n-88=0 \Leftrightarrow\left[\begin{array}{l}n=11 \\ n=-8\end{array}\right.$.<br>Vậy số cạnh của đa giác bằng 11 .</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="53" id="slide-53">
-            <div class="question-card" data-correct="C" data-level="kg">
+            <div class="question-card" data-correct="" data-level="kg">
                 <div class="q-number">Câu 53</div>
                 <div class="q-content">Để ước tính số tôm chưa biết trong một hồ nuôi tôm, người ta đánh bắt 2500 con, đánh dấu chúng rồi thả lại xuống hồ. Đánh bắt lần thứ hai được 3100 con, thấy trong đó có 450 con có đánh dấu. Khi đó ước tính số tôm trong hồ gần nhất với đáp án nào sau đây.</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">25370 con</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">19450 con</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">17223 con</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">14780 con</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Gọi $n$ là số lượng tôm ước tính có trong hồ.<br>Khi đó ta có $\displaystyle \frac{2500}{n}=\frac{450}{3100} \Leftrightarrow n=\frac{2500.3100}{450} \approx 17223$</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1599,7 +1604,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">5!</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$5^{5}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$C_{5}^{5}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$A_{6}^{5}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Số cách lập ra số tự nhiên có 5 chữ số đôi một khác nhau mà các chữ số đó thuộc tập hợp \{1;2;3;4;5\} là số hoán vị của 5 phần tử<br><br>Vậy có $P 5=5$ ! số tự nhiên có 5 chữ số đôi một khác nhau mà các chữ số đó thuộc tập hợp $$\{1 ; 2 ; 3 ; 4 ; 5\}$$.</div>
+                    <div class="sol-body">Số cách lập ra số tự nhiên có 5 chữ số đôi một khác nhau mà các chữ số đó thuộc tập hợp \{1;2;3;4;5\} là số hoán vị của 5 phần tử<br>Vậy có $P 5=5$ ! số tự nhiên có 5 chữ số đôi một khác nhau mà các chữ số đó thuộc tập hợp $$\{1 ; 2 ; 3 ; 4 ; 5\}$$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1609,10 +1614,10 @@
             <div class="question-card" data-correct="B" data-level="kg">
                 <div class="q-number">Câu 55</div>
                 <div class="q-content">Từ các chữ số $0,1,2,3,4,5$ có thể lập được bao nhiêu số tự nhiên chẵn và có 4 chữ số khác nhau?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">752 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">156 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">240 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">160 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">752</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">156</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">240</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">160</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">TH1: Số cần tìm có dạng $\overline{a b c 0}$ với $a, b, c, 0$ đôi một phân biệt được chọn từ $0,1,2,3,4,5$<br>Lúc này số cách chọn $\overline{a b c}$ bằng $A_{5}^{3}=60$.<br>TH2: Số cần tìm có dạng $\overline{a b c d}$ với $a, b, c, d$ đôi một phân biệt được chọn từ $0,1,2,3,4,5$ và $d=2$ hoặc $d=4$ đồng thời $a \neq 0$.<br><br>Số cách chọn $d$ là 2<br>Số cách chọn $a$ là 4<br>Lúc này số cách chọn $b c$ bằng $A_{4}^{2}=12$<br>Trường hợp này có $2 \cdot 4 \cdot 12=96$.<br>Vậy có tất cả là $60+96=156$ (số).</div>
+                    <div class="sol-body">TH1: Số cần tìm có dạng $\overline{a b c 0}$ với $a, b, c, 0$ đôi một phân biệt được chọn từ $0,1,2,3,4,5$<br>Lúc này số cách chọn $\overline{a b c}$ bằng $A_{5}^{3}=60$.<br>TH2: Số cần tìm có dạng $\overline{a b c d}$ với $a, b, c, d$ đôi một phân biệt được chọn từ $0,1,2,3,4,5$ và $d=2$ hoặc $d=4$ đồng thời $a \neq 0$.<br>Số cách chọn $d$ là 2<br>Số cách chọn $a$ là 4<br>Lúc này số cách chọn $b c$ bằng $A_{4}^{2}=12$<br>Trường hợp này có $2 \cdot 4 \cdot 12=96$.<br>Vậy có tất cả là $60+96=156$ (số).</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1622,24 +1627,24 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 56</div>
                 <div class="q-content">Cho hai đường thẳng song song $d_{1}$ và $d_{2}$. Trên $d_{1}$ lấy 17 điểm phân biệt, trên $d_{2}$ lấy 20 điểm phân biệt. Tính số tam giác mà có các đỉnh được chọn từ 37 điểm này.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">11900. </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7770.</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5950.</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">5590 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">11900.</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">7770.</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5950.</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">5590</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Với 1 điểm thuộc $d_{1}$ kết hợp với 2 điểm thuộc $d_{2}$ hoặc 1 điểm thuộc $d_{2}$ với 2 điểm thuộc $d_{1}$ thì ta có được 1 tam giác.<br><br>Vậy số tam giác được lập từ các điểm đã cho là: $C_{17}^{1} \cdot C_{20}^{2}+C_{17}^{2} \cdot C_{20}^{1}=5950$.</div>
+                    <div class="sol-body">Với 1 điểm thuộc $d_{1}$ kết hợp với 2 điểm thuộc $d_{2}$ hoặc 1 điểm thuộc $d_{2}$ với 2 điểm thuộc $d_{1}$ thì ta có được 1 tam giác.<br>Vậy số tam giác được lập từ các điểm đã cho là: $C_{17}^{1} \cdot C_{20}^{2}+C_{17}^{2} \cdot C_{20}^{1}=5950$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
             </div>
             
             <div class="slide" data-i="57" id="slide-57">
-            <div class="question-card" data-correct="A" data-level="kg">
+            <div class="question-card" data-correct="" data-level="kg">
                 <div class="q-number">Câu 57</div>
                 <div class="q-content">Số các số tự nhiên có bẩy chữ số trong đó có hai chữ số 0 , sao cho hai chữ số 0 không đứng cạnh nhau và các chữ số khác chỉ xuất hiện nhiều nhất một lần là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">151200</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">786240 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">846000 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">907200 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">151200</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">786240</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">846000</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">907200</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Để lập các số tự nhiên có bẩy chữ số trong đó có hai chữ số 0 , sao cho hai chữ số 0 không đứng cạnh nhau và các chữ số khác chỉ xuất hiện nhiều nhất một lần ta làm như sau:<br><br>+ Chọn 5 số trong 9 số và sắp xếp có $A_{9}^{5}$ cách.<br>+ 5 số vừa chọn sẽ tạo ra 6 khoảng trống, để xếp hai chữ số 0 sao cho chúng không đứng cạnh nhau ta có 6 vị trí để chọn. Tuy nhiên do chữ số 0 không được đứng đầu nên còn 5 vị trí. Vậy chọn 2 trong 5 vị trí đó để xếp số 0 nên có $C_{5}^{2}$ cách.<br><br>Vậy có tất cả: $A_{9}^{5} \cdot C_{5}^{2}=151200$.</div>
-                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
+                    <div class="sol-body">Để lập các số tự nhiên có bẩy chữ số trong đó có hai chữ số 0 , sao cho hai chữ số 0 không đứng cạnh nhau và các chữ số khác chỉ xuất hiện nhiều nhất một lần ta làm như sau:<br>+ Chọn 5 số trong 9 số và sắp xếp có $A_{9}^{5}$ cách.<br>+ 5 số vừa chọn sẽ tạo ra 6 khoảng trống, để xếp hai chữ số 0 sao cho chúng không đứng cạnh nhau ta có 6 vị trí để chọn. Tuy nhiên do chữ số 0 không được đứng đầu nên còn 5 vị trí. Vậy chọn 2 trong 5 vị trí đó để xếp số 0 nên có $C_{5}^{2}$ cách.<br>Vậy có tất cả: $A_{9}^{5} \cdot C_{5}^{2}=151200$.</div>
+                    <div class="sol-final">→ Chọn đáp án <span class="ans-circle"></span></div>
                 </div>
             </div>
             </div>
@@ -1648,10 +1653,10 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 58</div>
                 <div class="q-content">Trong buổi dã ngoại, tổ có 12 học sinh tham gia gồm 4 bạn nữ trong đó có An và có 8 bạn nam trong đó có Bình. Thầy giáo chia tổ thành 3 nhóm sao cho các nhóm đều có nữ và hai bạn An , Bình cùng một nhóm. Số cách chia nhóm của thầy giáo là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">630 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">840 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1050 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2100 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">630</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">840</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1050</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2100</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Thầy giáo chia tổ thành 3 nhóm sao cho các nhóm đều có nữ và hai bạn An, Bình cùng một nhóm thì thầy có các cách chia như sau:<br><br>- TH1: An và Bình cùng với một bạn nam và một bạn nữ thành một nhóm nên có $C_{7}^{1} \cdot C_{3}^{1}$ cách. Nhóm thứ hai có ba nam và 1 nữ có $C_{6}^{3} \cdot C_{2}^{1}$. Cuối cùng còn ba bạn nam và một bạn nữ có duy nhất một cách cho nhóm thứ ba. Do đó trường hợp này có: $C_{7}^{1} \cdot C_{3}^{1} \cdot C_{6}^{3} \cdot C_{2}^{1}$ cách.<br>- TH2: An và Bình cùng với hai bạn nam vào một nhóm có $C_{7}^{2}$ cách. Nhóm thứ hai có hai bạn nam và 2 bạn nữ có $C_{5}^{2} \cdot C_{3}^{2}$. Cuối cùng còn ba bạn nam và một bạn nữ nên có duy nhất một cách cho nhóm ba. Do đó trường hợp này có: $C_{7}^{2} \cdot C_{5}^{2} \cdot C_{3}^{2}$ cách.<br><br>Vậy có tất cả: $C_{7}^{1} \cdot C_{3}^{1} \cdot C_{6}^{3} \cdot C_{2}^{1}+C_{7}^{2} \cdot C_{5}^{2} \cdot C_{3}^{2}=1470$ cách.</div>
+                    <div class="sol-body">Thầy giáo chia tổ thành 3 nhóm sao cho các nhóm đều có nữ và hai bạn An, Bình cùng một nhóm thì thầy có các cách chia như sau:<br>- TH1: An và Bình cùng với một bạn nam và một bạn nữ thành một nhóm nên có $C_{7}^{1} \cdot C_{3}^{1}$ cách. Nhóm thứ hai có ba nam và 1 nữ có $C_{6}^{3} \cdot C_{2}^{1}$. Cuối cùng còn ba bạn nam và một bạn nữ có duy nhất một cách cho nhóm thứ ba. Do đó trường hợp này có: $C_{7}^{1} \cdot C_{3}^{1} \cdot C_{6}^{3} \cdot C_{2}^{1}$ cách.<br>- TH2: An và Bình cùng với hai bạn nam vào một nhóm có $C_{7}^{2}$ cách. Nhóm thứ hai có hai bạn nam và 2 bạn nữ có $C_{5}^{2} \cdot C_{3}^{2}$. Cuối cùng còn ba bạn nam và một bạn nữ nên có duy nhất một cách cho nhóm ba. Do đó trường hợp này có: $C_{7}^{2} \cdot C_{5}^{2} \cdot C_{3}^{2}$ cách.<br>Vậy có tất cả: $C_{7}^{1} \cdot C_{3}^{1} \cdot C_{6}^{3} \cdot C_{2}^{1}+C_{7}^{2} \cdot C_{5}^{2} \cdot C_{3}^{2}=1470$ cách.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1661,10 +1666,10 @@
             <div class="question-card" data-correct="B" data-level="kg">
                 <div class="q-number">Câu 59</div>
                 <div class="q-content">Từ các số $A=\{1 ; 2 ; 3 ; 4 ; 5 ; 6 ; 7 ; 8 ; 9\}$, người ta lập các số tự nhiên có sáu chữ số khác nhau đôi một sao cho tổng các chữ số ở hàng chục, hàng trăm và hàng ngàn bằng 8 . Số các số thỏa mãn là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1300 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1440 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1500 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4320 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1300</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1440</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1500</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">4320</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Gọi số cần lập có sáu chữ số có dạng $\overline{a_{1} a_{2} a_{3} a_{4} a_{5} a_{6}}$ với $a_{5}+a_{4}+a_{3}=8$.<br>Ta có $1+2+5=1+3+4=8$. Do đó có 2 cách chọn nhóm 3 số để làm các chữ số hàng chục, hàng trăm, hàng ngàn.<br><br>Bài toán chọn số thỏa mãn yêu cầu bài toán được tiến hành theo các bước sau:<br><br>Bước 1: Chọn ra bộ 3 số trong 8 số để có $a_{5}+a_{4}+a_{3}=8$ : có 2 cách chọn bộ $\left(a_{5} ; a_{4} ; a_{3}\right)$.<br>Bước 2: Với mỗi bộ 3 số đã chọn ở bước 1 có $3!=6$ cách lập ra các số $a_{3} a_{4} a_{5}$.<br>Bước 3: Chọn 3 số từ tập 6 số trong tập $A \backslash\left\{a_{3} ; a_{4} ; a_{5}\right\}$ để xếp vào các vị trí của $a_{1} ; a_{2} ; a_{6}$ : có $A_{6}^{3}=120$ cách.<br><br>Theo quy tắc nhân ta có số các số thỏa mãn yêu cầu bài toán là: 2.6.120=1440 số.</div>
+                    <div class="sol-body">Gọi số cần lập có sáu chữ số có dạng $\overline{a_{1} a_{2} a_{3} a_{4} a_{5} a_{6}}$ với $a_{5}+a_{4}+a_{3}=8$.<br>Ta có $1+2+5=1+3+4=8$. Do đó có 2 cách chọn nhóm 3 số để làm các chữ số hàng chục, hàng trăm, hàng ngàn.<br>Bài toán chọn số thỏa mãn yêu cầu bài toán được tiến hành theo các bước sau:<br>Bước 1: Chọn ra bộ 3 số trong 8 số để có $a_{5}+a_{4}+a_{3}=8$ : có 2 cách chọn bộ $\left(a_{5} ; a_{4} ; a_{3}\right)$.<br>Bước 2: Với mỗi bộ 3 số đã chọn ở bước 1 có $3!=6$ cách lập ra các số $a_{3} a_{4} a_{5}$.<br>Bước 3: Chọn 3 số từ tập 6 số trong tập $A \backslash\left\{a_{3} ; a_{4} ; a_{5}\right\}$ để xếp vào các vị trí của $a_{1} ; a_{2} ; a_{6}$ : có $A_{6}^{3}=120$ cách.<br>Theo quy tắc nhân ta có số các số thỏa mãn yêu cầu bài toán là: 2.6.120=1440 số.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1674,7 +1679,7 @@
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 60</div>
                 <div class="q-content">Một nhóm học sinh gồm 12 nam và 6 nữ. Người ta muốn chọn từ nhóm ra 5 người để lập thành một đội cờ đỏ sao cho phải có 1 đội trưởng nam, 1 đội phó nam và có ít nhất 1 nữ. Hỏi có bao nhiêu cách lập đội cờ đỏ.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1028160 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">572 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">8568 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">58080 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1028160</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">572</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">8568</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">58080</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">TH1: 1 đội trưởng nam, 1 đội phó nam, 2 nam, 1 nữ có $A_{12}^{2} \cdot C_{10}^{2} \cdot C_{6}^{1}=35640$ ( cách)<br>TH2: 1 đội trưởng nam, 1 đội phó nam, 1 nam, 2 nữ có $A_{12}^{2} \cdot C_{10}^{1} \cdot C_{6}^{2}=19800$ ( cách)<br>TH3: 1 đội trưởng nam, 1 đội phó nam, 3 nữ có $A_{12}^{2} \cdot C_{6}^{3}=2640$ ( cách)<br>Vậy có: $35640+19800+35640=58080$ (cách).</div>
@@ -1687,7 +1692,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 61</div>
                 <div class="q-content">Một tổ có 5 học sinh nữ và 6 học sinh nam. Số cách chọn ngẫu nhiên 5 học sinh của tổ trong đó có cả học sinh nam và học sinh nữ là?</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">545 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">462 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">455 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">456 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">545</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">462</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">455</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">456</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">TH1: 1 nam, 4 nữ có $C_{6}^{1} \cdot C_{5}^{4}=30$ ( cách)<br>TH2: 2 nam, 3 nữ có $C_{6}^{2} \cdot C_{5}^{3}=150$ ( cách)<br>TH3: 3 nam, 2nữ có $C_{6}^{3} \cdot C_{5}^{2}=200$ ( cách)<br>TH4: 4 nam, 1 nữ có $C_{6}^{4} \cdot C_{5}^{1}=75$ ( cách)<br>Vậy có: $30+150+200+75=455$ (cách).</div>
@@ -1703,19 +1708,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$n=8$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$n=5$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$n=6$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$n=7$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">$$
-\begin{aligned}
-& C_{n}^{2}+5=A_{n-1}^{2} \\
-& \Leftrightarrow \frac{n!}{2!\cdot(n-2)!}+5=(n-1)(n-2) \\
-& \Leftrightarrow \frac{n(n-1)}{2}+5=(n-1)(n-2) \\
-& \Leftrightarrow n(n-1)+10=2(n-1)(n-2) \\
-& \Leftrightarrow n^{2}-5 n-6=0 \\
-& \Leftrightarrow\left[\begin{array}{l}
-n=-1(\text { Loai }) \\
-n=6
-\end{array}\right.
-\end{aligned}
-$$</div>
+                    <div class="sol-body">$$\begin{aligned} & C_{n}^{2}+5=A_{n-1}^{2} \\ & \Leftrightarrow \frac{n!}{2!\cdot(n-2)!}+5=(n-1)(n-2) \\ & \Leftrightarrow \frac{n(n-1)}{2}+5=(n-1)(n-2) \\ & \Leftrightarrow n(n-1)+10=2(n-1)(n-2) \\ & \Leftrightarrow n^{2}-5 n-6=0 \\ & \Leftrightarrow\left[\begin{array}{l} n=-1(\text { Loai }) \\ n=6 \end{array}\right. \end{aligned}$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -2128,8 +2121,7 @@ $$</div>
     /* Mobile/desktop layout */
     function applyMobileLayout() {
         const allSlides = document.querySelectorAll('.slide');
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'auto';
+        document.body.style.overflow = 'auto';
         currentSlides.forEach(s => {
             s.style.position = 'relative'; s.style.opacity = '1'; s.style.visibility = 'visible';
             s.style.pointerEvents = 'all'; s.style.height = 'auto'; s.style.minHeight = 'auto';
@@ -2143,8 +2135,7 @@ $$</div>
     }
     function applyDesktopLayout() {
         const S = document.querySelectorAll('.slide');
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'hidden';
+        document.body.style.overflow = 'hidden';
         S.forEach(s => {
             s.style.position = ''; s.style.opacity = ''; s.style.visibility = '';
             s.style.pointerEvents = ''; s.style.height = ''; s.style.minHeight = '';

@@ -15,10 +15,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
         :root {
             --primary-blue: #0040BE;
             --dark-blue: #003B99;
@@ -58,7 +54,6 @@
             align-items: flex-start; /* Fix lỗi cắt content khi dùng flex center */
             justify-content: center;
             overflow-y: auto; /* Cho cuộn ở cấp độ slide */
-            overflow-x: hidden !important;
             padding: 40px 0;
             opacity: 0;
             visibility: hidden;
@@ -140,8 +135,8 @@
             font-size: 19px;
             font-weight: 700;
             color: #003B99;
-            line-height: 1.6;
-            margin-bottom: 10px;
+            line-height: 2.15; /* Tăng line-height */
+            margin-bottom: 12px;
             padding: 0 4px;
             text-align: justify;
         }
@@ -152,19 +147,10 @@
             gap: 8px;
             margin-top: 10px;
             padding: 4px 2px;
-        
-            min-width: 0;
-            overflow-x: hidden;
-        
         }
 
-        @media (max-width: 768px) {
-            .options-grid { grid-template-columns: 1fr; 
-            min-width: 0;
-            padding: 4px 2px;
-            overflow-x: hidden;
-        
-        }
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
             .question-card { 
                 height: auto !important; 
                 max-height: none !important; /* Xóa bỏ giới hạn để không bị tràn lời giải */
@@ -177,7 +163,7 @@
         }
 
         /* Quy tắc: Công thức toán phải đi cùng nhau, không được bẻ giữa chừng */
-                .katex {
+        .katex {
             display: inline-block;
             white-space: nowrap;
             max-width: 100%;
@@ -185,24 +171,19 @@
             
             vertical-align: middle;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
+            padding: 6px 0; /* Tăng padding dọc cho công thức inline để tránh đè chữ */
         }
-        .katex::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
-        
         .katex-display {
             overflow-x: auto;
             overflow-y: hidden;
             max-width: 100%;
             padding: 8px 0;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
         }
-        .katex-display::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+        .q-content, .sol-body, .opt-text {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 2.15; /* Tăng giãn dòng cho câu hỏi, lời giải và tùy chọn đáp án */
         }
 
         .option {
@@ -218,8 +199,6 @@
             cursor: pointer;
             position: relative;
             text-align: left;
-            min-width: 0;
-            width: 100%;
         }
 
         .option:hover:not(.answered) {
@@ -266,14 +245,7 @@
         .option.answered { cursor: default; }
         .option.correct, .option.incorrect { padding-right: 50px; }
 
-                .opt-text {
-            flex: 1;
-            min-width: 0;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-.opt-label {
+        .opt-label {
             color: var(--primary-blue);
             font-size: 17px;
             font-weight: 800;
@@ -287,17 +259,15 @@
 
         .solution {
             display: none;
-            margin-top: 16px;
-            padding: 18px 20px;
+            margin-top: 40px; /* Tăng khoảng cách từ 28px lên 40px để tránh bị sát đáp án */
+            padding: 20px 24px;
             background: #f8fafc;
             border-left: 4px solid var(--primary-blue);
             border-radius: 4px 12px 12px 4px;
-            font-size: 15px;
-            line-height: 1.7;
+            font-size: 15.5px;
+            line-height: 1.85;
             color: #475569;
             animation: fadeIn 0.3s ease;
-            min-width: 0;
-            width: 100%;
         }
 
         .solution.show { display: block; }
@@ -691,82 +661,117 @@
         margin: 15px auto 0; border-radius: 2px;
     }
 
+    /* ── Theory Heading System (3 cấp) ── */
     .theory-h2 {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 18px;
-        color: var(--primary-blue, #2563eb); margin: 32px 0 16px;
-        display: flex; align-items: center; gap: 12px;
-        text-transform: uppercase; letter-spacing: 0.5px;
+        font-family: 'Unbounded'; font-weight: 800; font-size: 20px;
+        color: var(--dark-blue, #003b99); margin: 40px 0 8px;
+        letter-spacing: 0.3px; line-height: 1.4;
     }
 
-    .theory-h2::before {
-        content: ""; width: 8px; height: 8px;
-        background: var(--orange, #FF7800); border-radius: 2px;
-        transform: rotate(45deg);
+    .theory-h2::before { display: none; }
+
+    .theory-h3 {
+        font-family: 'Manrope'; font-weight: 700; font-size: 17px;
+        color: #334155; margin: 28px 0 12px;
+        line-height: 1.5;
     }
 
+    /* ── Theory Blocks (3 loại card pastel) ── */
+    .theory-block {
+        padding: 20px 22px; border-radius: 16px; margin: 18px 0;
+    }
+    .theory-block-title {
+        font-family: 'Manrope'; font-weight: 800; font-size: 14px;
+        margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .theory-block .theory-text, .theory-block .theory-item {
+        margin-bottom: 8px;
+    }
+
+    /* Lý thuyết tổng — Xanh lá cây pastel */
+    .theory-block.summary {
+        background: #f0fdf4; /* emerald-50 pastel */
+        border: 1px solid #dcfce7;
+    }
+    .theory-block.summary .theory-block-title { color: #16a34a; }
+    .theory-block.summary .theory-bullet { background: #22c55e; }
+    .theory-block.summary .theory-text { color: #14532d; }
+
+    /* Phương pháp giải — Xanh dương pastel */
+    .theory-block.method {
+        background: #eff6ff;
+    }
+    .theory-block.method .theory-block-title { color: #2563eb; }
+    .theory-block.method .theory-bullet { background: #3b82f6; }
+
+    /* Lưu ý — Đỏ/hồng pastel */
+    .theory-block.warning {
+        background: #fef2f2;
+    }
+    .theory-block.warning .theory-block-title { color: #dc2626; }
+    .theory-block.warning .theory-bullet { background: #ef4444; }
+    .theory-block.warning .theory-text { color: #7f1d1d; }
+
+    /* Mẹo — Vàng/amber pastel */
+    .theory-block.tip {
+        background: #fffbeb;
+    }
+    .theory-block.tip .theory-block-title { color: #d97706; }
+    .theory-block.tip .theory-bullet { background: #f59e0b; }
+    .theory-block.tip .theory-text { color: #92400e; }
+
+    /* ── Divider giữa các Dạng ── */
+    .theory-divider {
+        border: none; border-top: 1px solid #e2e8f0;
+        margin: 36px 0;
+    }
+
+    /* ── Theory Items & Bullets ── */
     .theory-item {
         display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
     }
-
     .theory-bullet {
-        width: 6px; height: 6px; background: var(--orange, #FF7800);
+        width: 6px; height: 6px; background: #94a3b8;
         border-radius: 50%; margin-top: 10px; flex-shrink: 0;
     }
 
+    /* ── Legacy classes (giữ tương thích) ── */
     .theory-box {
         padding: 20px; border-radius: 16px; margin: 24px 0;
-        background: #f8fafc; border-left: 4px solid var(--primary-blue, #2563eb);
+        background: #f8fafc;
     }
-
     .theory-box-title {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 12px;
+        font-family: 'Manrope'; font-weight: 800; font-size: 12px;
         margin-bottom: 12px; color: var(--primary-blue, #2563eb);
     }
-
     .theory-note {
         padding: 20px 24px; border-radius: 16px; margin: 24px 0;
-        background: #fffbeb; border: 2px solid #fde68a;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+        background: #fffbeb;
     }
-    
     .theory-note-title {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 14px;
+        font-family: 'Manrope'; font-weight: 800; font-size: 14px;
         color: #d97706; margin-bottom: 12px;
-        display: flex; align-items: center; gap: 8px;
         text-transform: uppercase; letter-spacing: 0.5px;
     }
-    
-    .theory-note-title::before {
-        content: "💡"; font-size: 18px;
-    }
-    
-    .theory-note .theory-text, .theory-note .theory-item {
-        color: #92400e; margin-bottom: 10px;
-    }
-    
-    .theory-note .theory-bullet {
-        background: #d97706;
-    }
+    .theory-note .theory-text, .theory-note .theory-item { color: #92400e; margin-bottom: 10px; }
+    .theory-note .theory-bullet { background: #d97706; }
 
+    /* ── Theory Table ── */
     .theory-table {
         width: 100%; border-collapse: separate; border-spacing: 0;
         margin: 24px 0; border-radius: 12px; overflow: hidden;
         border: 1px solid var(--border, #e2e8f0);
         box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-
     .theory-table th {
         background: #f8fafc; color: var(--text-main, #1e293b); font-weight: 800;
         padding: 16px; text-align: left; border-bottom: 2px solid var(--border, #e2e8f0);
     }
-
     .theory-table td {
-        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0);
-        background: #fff;
+        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0); background: #fff;
     }
-
     .theory-table tr:last-child td { border-bottom: none; }
-    
+
     .theory-text { font-size: 16px; line-height: 1.8; color: #334155; }
 
 
@@ -910,7 +915,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \left(-\infty ;-\frac{b}{2 a}\right)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \left(-\frac{b}{2 a} ;+\infty\right)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \left(-\frac{\Delta}{4 a} ;+\infty\right)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \left(-\infty ;-\frac{\Delta}{4 a}\right)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">$a&gt;0$.<br>Bảng biến thiên<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-04.jpg?height=279&width=575&top_left_y=1546&top_left_x=244" alt="Math Image"></div></div>
+                    <div class="sol-body">$a&gt;0$.<br>Bảng biến thiên<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-04.jpg?height=279&width=575&top_left_y=1546&top_left_x=244" alt="Math Image"></div></div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -919,7 +924,7 @@
             <div class="slide" data-i="2" id="slide-2">
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 2</div>
-                <div class="q-content">Cho hàm số $y=a x^{2}+b x+c$ có đồ thị là parabol trong hình vẽ. Khẳng định nào sau đây là đúng?<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-04.jpg?height=372&width=439&top_left_y=2045&top_left_x=829" alt="Math Image"></div></div>
+                <div class="q-content">Cho hàm số $y=a x^{2}+b x+c$ có đồ thị là parabol trong hình vẽ. Khẳng định nào sau đây là đúng?<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-04.jpg?height=372&width=439&top_left_y=2045&top_left_x=829" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a&gt;0 ; b&gt;0 ; c&gt;0$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a&gt;0 ; b&lt;0 ; c&gt;0$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$a&gt;0 ; b&lt;0 ; c&lt;0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a&gt;0 ; b&gt;0 ; c&lt;0$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
@@ -932,11 +937,11 @@
             <div class="slide" data-i="3" id="slide-3">
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 3</div>
-                <div class="q-content">Cho hàm số $y=a x^{2}+b x+c$ có đồ thị như hình bên.<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-05.jpg?height=250&width=360&top_left_y=1106&top_left_x=244" alt="Math Image"></div><br><br>Khẳng định nào sau đây đúng?</div>
+                <div class="q-content">Cho hàm số $y=a x^{2}+b x+c$ có đồ thị như hình bên.<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-05.jpg?height=250&width=360&top_left_y=1106&top_left_x=244" alt="Math Image"></div><br>Khẳng định nào sau đây đúng?</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a&gt;0, b&gt;0, c&gt;0$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a&gt;0, b&lt;0, c&lt;0$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$a&lt;0, b&lt;0, c&gt;0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a&lt;0, b&gt;0, c&gt;0$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Dựa vào đồ thị, nhận thấy:<br><br>* Đồ thị hàm số là một parabol có bề lõm quay xuống dưới nên $a&lt;0$.<br>* Đồ thị cắt trục tung tại tung độ bằng $c$ nên $c&gt;0$.<br>* Đồ thị cắt trục hoành tại hai điểm có hoành độ $x_{1}=-1$ và $x_{2}=3$ nên $x_{1}, x_{2}$ là hai nghiệm của phương trình $a x^{2}+b x+c=0$ mà theo Vi-et $\displaystyle x_{1}+x_{2}=-\frac{b}{a}=2 \Leftrightarrow b=-2 a \Rightarrow b&gt;0$.<br>* Vậy $a&lt;0, b&gt;0, c&gt;0$.</div>
+                    <div class="sol-body">Dựa vào đồ thị, nhận thấy:<br>* Đồ thị hàm số là một parabol có bề lõm quay xuống dưới nên $a&lt;0$.<br>* Đồ thị cắt trục tung tại tung độ bằng $c$ nên $c&gt;0$.<br>* Đồ thị cắt trục hoành tại hai điểm có hoành độ $x_{1}=-1$ và $x_{2}=3$ nên $x_{1}, x_{2}$ là hai nghiệm của phương trình $a x^{2}+b x+c=0$ mà theo Vi-et $\displaystyle x_{1}+x_{2}=-\frac{b}{a}=2 \Leftrightarrow b=-2 a \Rightarrow b&gt;0$.<br>* Vậy $a&lt;0, b&gt;0, c&gt;0$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -945,7 +950,7 @@
             <div class="slide" data-i="4" id="slide-4">
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 4</div>
-                <div class="q-content">Đồ thị trong hình vẽ dưới đây là của hàm số nào trong các phương án $A ; B ; C ; D$ sau đây?<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-06.jpg?height=399&width=418&top_left_y=403&top_left_x=846" alt="Math Image"></div></div>
+                <div class="q-content">Đồ thị trong hình vẽ dưới đây là của hàm số nào trong các phương án $A ; B ; C ; D$ sau đây?<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-06.jpg?height=399&width=418&top_left_y=403&top_left_x=846" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=x^{2}+2 x-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=x^{2}+2 x-2$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=2 x^{2}-4 x-2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=x^{2}-2 x-1$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
@@ -958,11 +963,11 @@
             <div class="slide" data-i="5" id="slide-5">
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 5</div>
-                <div class="q-content">Cho parabol $y=a x^{2}+b x+c$ có đồ thị như hình sau<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-06.jpg?height=454&width=362&top_left_y=1484&top_left_x=870" alt="Math Image"></div><br><br>Phương trình của parabol này là</div>
+                <div class="q-content">Cho parabol $y=a x^{2}+b x+c$ có đồ thị như hình sau<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-06.jpg?height=454&width=362&top_left_y=1484&top_left_x=870" alt="Math Image"></div><br>Phương trình của parabol này là</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=-x^{2}+x-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=2 x^{2}+4 x-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}-2 x-1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=2 x^{2}-4 x-1$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Đồ thị hàm số cắt trục tung tại điểm $(0 ;-1)$ nên $c=-1$.<br><br>Tọa độ đỉnh $I(1 ;-3)$, ta có phương trình: $\displaystyle \left\{\begin{array}{l}-\frac{b}{2 a}=1 \\ a \cdot 1^{2}+b \cdot 1-1=-3\end{array} \Leftrightarrow\left\{\begin{array}{l}2 a+b=0 \\ a+b=-2\end{array} \Leftrightarrow\left\{\begin{array}{l}a=2 \\ b=-4 \text {. }\end{array}\right.\right.\right.$<br>Vậy parabol cần tìm là: $y=2 x^{2}-4 x-1$.</div>
+                    <div class="sol-body">Đồ thị hàm số cắt trục tung tại điểm $(0 ;-1)$ nên $c=-1$.<br>Tọa độ đỉnh $I(1 ;-3)$, ta có phương trình: $\displaystyle \left\{\begin{array}{l}-\frac{b}{2 a}=1 \\ a \cdot 1^{2}+b \cdot 1-1=-3\end{array} \Leftrightarrow\left\{\begin{array}{l}2 a+b=0 \\ a+b=-2\end{array} \Leftrightarrow\left\{\begin{array}{l}a=2 \\ b=-4 \text {. }\end{array}\right.\right.\right.$<br>Vậy parabol cần tìm là: $y=2 x^{2}-4 x-1$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -971,11 +976,11 @@
             <div class="slide" data-i="6" id="slide-6">
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 6</div>
-                <div class="q-content">Cho parabol $(P): y=a x^{2}+b x+c,(a \neq 0)$ có đồ thị như hình bên. Khi đó $2 a+b+2 c$ có giá trị là<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-07.jpg?height=519&width=469&top_left_y=777&top_left_x=814" alt="Math Image"></div></div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-9 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">9</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">-6 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6 </div></div></div>
+                <div class="q-content">Cho parabol $(P): y=a x^{2}+b x+c,(a \neq 0)$ có đồ thị như hình bên. Khi đó $2 a+b+2 c$ có giá trị là<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-07.jpg?height=519&width=469&top_left_y=777&top_left_x=814" alt="Math Image"></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-9</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">9</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">-6</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Parabol $(P): y=a x^{2}+b x+c,(a \neq 0)$ đi qua các điểm $A(-1 ; 0), B(1 ;-4), C(3 ; 0)$ nên có hệ phương trình: $\left\{\begin{array}{l}a-b+c=0 \\ a+b+c=-4 \\ 9 a+3 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}a=1 \\ b=-2 \\ c=-3\end{array}\right.\right.$.<br><br>Khi đó: $2 a+b+2 c=2.1-2+2(-3)=-6$.</div>
+                    <div class="sol-body">Parabol $(P): y=a x^{2}+b x+c,(a \neq 0)$ đi qua các điểm $A(-1 ; 0), B(1 ;-4), C(3 ; 0)$ nên có hệ phương trình: $\left\{\begin{array}{l}a-b+c=0 \\ a+b+c=-4 \\ 9 a+3 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}a=1 \\ b=-2 \\ c=-3\end{array}\right.\right.$.<br>Khi đó: $2 a+b+2 c=2.1-2+2(-3)=-6$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -984,7 +989,7 @@
             <div class="slide" data-i="7" id="slide-7">
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 7</div>
-                <div class="q-content">Bảng biến thiên ở dưới là bảng biến thiên của hàm số nào trong các hàm số được cho ở bốn phương án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ sau đây?<br><br><div class="img-wrap"><img src="../Pic/bbt_cau_7.png" alt="Math Image"></div></div>
+                <div class="q-content">Bảng biến thiên ở dưới là bảng biến thiên của hàm số nào trong các hàm số được cho ở bốn phương án $\mathrm{A}, \mathrm{B}, \mathrm{C}, \mathrm{D}$ sau đây?<br><div class="img-wrap"><img src="../Pic/bbt_cau_7.png" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=-x^{2}+4 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=-x^{2}+4 x-9$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}-4 x-1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=x^{2}-4 x-5$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
@@ -997,7 +1002,7 @@
             <div class="slide" data-i="8" id="slide-8">
             <div class="question-card" data-correct="B" data-level="kg">
                 <div class="q-number">Câu 8</div>
-                <div class="q-content">Bảng biến thiên sau đây là bảng biến thiên của hàm số nào?<br><br><div class="img-wrap"><img src="../Pic/bbt_cau_8.png" alt="Math Image"></div></div>
+                <div class="q-content">Bảng biến thiên sau đây là bảng biến thiên của hàm số nào?<br><div class="img-wrap"><img src="../Pic/bbt_cau_8.png" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=x^{2}+4 x$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=-x^{2}-4 x-8$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=-x^{2}-4 x+8$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-x^{2}-4 x$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
@@ -1024,7 +1029,7 @@
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 10</div>
                 <div class="q-content">Giá trị nhỏ nhất của hàm số $y=2 x^{2}+x-3$ là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-3 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">-2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{-21}{8}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \frac{-25}{8}$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-3</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">-2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{-21}{8}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \frac{-25}{8}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">$\displaystyle y=2 x^{2}+x-3=2\left(x+\frac{1}{4}\right)^{2}-\frac{25}{8} \geq \frac{-25}{8}$<br>$\displaystyle y=\frac{-25}{8}$ khi $\displaystyle x=\frac{-1}{4}$ nên giá trị nhỏ nhất của hàm số $y=2 x^{2}+x-3$ là $\displaystyle \frac{-25}{8}$.</div>
@@ -1053,7 +1058,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle \frac{11}{8}$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \frac{11}{4}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle \frac{4}{11}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \frac{8}{11}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Hàm số $y=x^{2}-5 x+9$ có giá trị nhỏ nhất là $\displaystyle \frac{11}{4}&gt;0$.<br><br>Suy ra hàm số $\displaystyle y=\frac{2}{x^{2}-5 x+9}$ có giá trị lớn nhất là $\displaystyle \frac{2}{\frac{11}{4}}=\frac{8}{11}$.</div>
+                    <div class="sol-body">Hàm số $y=x^{2}-5 x+9$ có giá trị nhỏ nhất là $\displaystyle \frac{11}{4}&gt;0$.<br>Suy ra hàm số $\displaystyle y=\frac{2}{x^{2}-5 x+9}$ có giá trị lớn nhất là $\displaystyle \frac{2}{\frac{11}{4}}=\frac{8}{11}$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1115,7 +1120,7 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 17</div>
                 <div class="q-content">Biết hàm số bậc hai $y=a x^{2}+b x+c$ có đồ thị là một đường Parabol đi qua điểm $A(-1 ; 0)$ và có đỉnh $I(1 ; 2)$. Tính $a+b+c$.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \frac{3}{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \frac{1}{2}$</div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle \frac{3}{2}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle \frac{1}{2}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Theo giả thiết ta có hệ: $\displaystyle \left\{\begin{array}{l}a-b+c=0 \\ -\frac{b}{2 a}=1 \\ a+b+c=2\end{array}\right.$ với $\displaystyle a \neq 0 \Rightarrow \left\{\begin{array}{l}a-b+c=0 \\ b=-2 a \\ a+b+c=2\end{array} \Leftrightarrow\left\{\begin{array}{l}b=1 \\ a=-\frac{1}{2} \\ c=\frac{3}{2}\end{array}\right.\right.$<br>Vậy hàm bậc hai cần tìm là $\displaystyle y=-\frac{1}{2} x^{2}+x+\frac{3}{2}$</div>
@@ -1141,24 +1146,10 @@
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 19</div>
                 <div class="q-content">Cho hàm số $y=a x^{2}+b x+c(a \neq 0)$ có đồ thị ( P ). Biết đồ thị của hàm số có đỉnh $I(1 ; 1)$ và đi qua điểm $A(2 ; 3)$. Tính tổng $S=a^{2}+b^{2}+c^{2}$</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">29 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">1 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">4</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">29</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">1</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Vì đồ thị hàm số $y=a x^{2}+b x+c(a \neq 0)$ có đỉnh $I(1 ; 1)$ và đi qua điểm $A(2 ; 3)$ nên ta có hệ:<br><br>$$
-\left\{\begin{array} { c } 
-{ a + b + c = 1 } \\
-{ 4 a + 2 b + c = 3 } \\
-{ - \frac { b } { 2 a } = 1 }
-\end{array} \Leftrightarrow \left\{\begin{array} { c } 
-{ a + b + c = 1 } \\
-{ 4 a + 2 b + c = 3 } \\
-{ 2 a + b = 0 }
-\end{array} \Leftrightarrow \left\{\begin{array}{c}
-a=2 \\
-b=-4 \\
-c=3
-\end{array}\right.\right.\right.
-$$<br><br>Nên $S=a^{2}+b^{2}+c^{2}=29$</div>
+                    <div class="sol-body">Vì đồ thị hàm số $y=a x^{2}+b x+c(a \neq 0)$ có đỉnh $I(1 ; 1)$ và đi qua điểm $A(2 ; 3)$ nên ta có hệ:<br>$$\left\{\begin{array} { c } { a + b + c = 1 } \\ { 4 a + 2 b + c = 3 } \\ { - \frac { b } { 2 a } = 1 } \end{array} \Leftrightarrow \left\{\begin{array} { c } { a + b + c = 1 } \\ { 4 a + 2 b + c = 3 } \\ { 2 a + b = 0 } \end{array} \Leftrightarrow \left\{\begin{array}{c} a=2 \\ b=-4 \\ c=3 \end{array}\right.\right.\right.$$<br>Nên $S=a^{2}+b^{2}+c^{2}=29$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1184,15 +1175,7 @@ $$<br><br>Nên $S=a^{2}+b^{2}+c^{2}=29$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle (P): y=-\frac{1}{4} x^{2}-3 x-1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\displaystyle (P): y=-\frac{1}{4} x^{2}-x-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\displaystyle (P): y=-\frac{1}{4} x^{2}+x-1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\displaystyle (P): y=-\frac{1}{4} x^{2}+2 x-1$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Parabol $(P): y=a x^{2}+b x+c \longrightarrow$ đỉnh $\displaystyle I\left(-\frac{b}{2 a} ; c-\frac{b^{2}}{4 a}\right)$<br><br>Theo bài ra, ta có (P) đỉnh<br><br>$$
-I(2 ; 0) \Rightarrow\left\{\begin{array} { l } 
-{ - \frac { b } { 2 a } = 2 } \\
-{ c - \frac { b ^ { 2 } } { 4 a } = 0 }
-\end{array} \Leftrightarrow \left\{\begin{array}{l}
-b=-4 a \\
-b^{2}=4 a c
-\end{array}\right.\right.
-$$<br><br>Lại có ( P ) cắt Oy tại điểm $M(0 ;-1)$ suy ra $y(0)=-1 \Leftrightarrow c=-1$<br><br>Từ (1), (2) suy ra $\displaystyle \left\{\begin{array}{l}b=-4 a \\ b^{2}=-a \\ c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}b=-4 a \\ b^{2}=b \\ c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}a=-\frac{1}{4} \\ b=1 ; c=-1\end{array}\right.\right.\right.$ (vì $b=0 \Rightarrow a=0$ loại)</div>
+                    <div class="sol-body">Parabol $(P): y=a x^{2}+b x+c \longrightarrow$ đỉnh $\displaystyle I\left(-\frac{b}{2 a} ; c-\frac{b^{2}}{4 a}\right)$<br>Theo bài ra, ta có (P) đỉnh<br>$$I(2 ; 0) \Rightarrow\left\{\begin{array} { l } { - \frac { b } { 2 a } = 2 } \\ { c - \frac { b ^ { 2 } } { 4 a } = 0 } \end{array} \Leftrightarrow \left\{\begin{array}{l} b=-4 a \\ b^{2}=4 a c \end{array}\right.\right.$$<br>Lại có ( P ) cắt Oy tại điểm $M(0 ;-1)$ suy ra $y(0)=-1 \Leftrightarrow c=-1$<br>Từ (1), (2) suy ra $\displaystyle \left\{\begin{array}{l}b=-4 a \\ b^{2}=-a \\ c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}b=-4 a \\ b^{2}=b \\ c=-1\end{array} \Leftrightarrow\left\{\begin{array}{l}a=-\frac{1}{4} \\ b=1 ; c=-1\end{array}\right.\right.\right.$ (vì $b=0 \Rightarrow a=0$ loại)</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1202,7 +1185,7 @@ $$<br><br>Lại có ( P ) cắt Oy tại điểm $M(0 ;-1)$ suy ra $y(0)=-1 \Lef
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 22</div>
                 <div class="q-content">Gọi $S$ là tập các giá trị $m \neq 0$ để parabol $(P): y=m x^{2}+2 m x+m^{2}+2 m$ có đỉnh nằm trên đường thẳng $y=x+7$. Tính tổng các giá trị của tập $S$</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-1 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-2 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-2</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Khi $m \neq 0$ thì $(P): y=m x^{2}+2 m x+m^{2}+2 m$ có đỉnh là $\displaystyle I\left(-\frac{b}{2 a} ;-\frac{\Delta}{4 a}\right) \Rightarrow I\left(-1 ; m^{2}+m\right)$<br>Vì đỉnh nằm trên đường thẳng $y=x+7$ nên<br>$m^{2}+m=-1+7 \Leftrightarrow m^{2}+m-6=0 \Leftrightarrow\left[\begin{array}{l}m=2 \\ m=-3\end{array}(T M)\right.$<br>Vậy tổng các giá trị của tập $S: 2+(-3)=-1$.</div>
@@ -1218,7 +1201,7 @@ $$<br><br>Lại có ( P ) cắt Oy tại điểm $M(0 ;-1)$ suy ra $y(0)=-1 \Lef
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$y=-x^{2}+3 x+2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=-x^{2}-3 x-2$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}-3 x+2$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=-x^{2}+3 x-2$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Do đồ thị của nó có đỉnh $\displaystyle I\left(\frac{3}{2} ; \frac{1}{4}\right)$ và cắt trục hoành tại điểm có hoành độ bằng 2 nên ta có $\displaystyle \left\{\begin{array}{l}\frac{-b}{2 a}=\frac{3}{2} \\ \frac{9}{4} a+\frac{3}{2} b+c=\frac{1}{4} \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}3 a+b=0 \\ 9 a+6 b+4 c=1 \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}a=-1 \\ b=3 \\ c=-2\end{array}\right.\right.\right.$<br><br>Vậy $y=-x^{2}+3 x-2$</div>
+                    <div class="sol-body">Do đồ thị của nó có đỉnh $\displaystyle I\left(\frac{3}{2} ; \frac{1}{4}\right)$ và cắt trục hoành tại điểm có hoành độ bằng 2 nên ta có $\displaystyle \left\{\begin{array}{l}\frac{-b}{2 a}=\frac{3}{2} \\ \frac{9}{4} a+\frac{3}{2} b+c=\frac{1}{4} \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}3 a+b=0 \\ 9 a+6 b+4 c=1 \\ 4 a+2 b+c=0\end{array} \Leftrightarrow\left\{\begin{array}{l}a=-1 \\ b=3 \\ c=-2\end{array}\right.\right.\right.$<br>Vậy $y=-x^{2}+3 x-2$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1244,18 +1227,7 @@ $$<br><br>Lại có ( P ) cắt Oy tại điểm $M(0 ;-1)$ suy ra $y(0)=-1 \Lef
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$a+b+c=6$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a+b+c=5$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$a+b+c=4$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a+b+c=3$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">$(P)$ đi qua điểm $A(0 ; 3) \Rightarrow c=3$.<br>$(P)$ có đỉnh<br><br>$$
-I(-1 ; 2) \Rightarrow\left\{\begin{array} { l } 
-{ \frac { - b } { 2 a } = - 1 } \\
-{ a - b + 3 = 2 }
-\end{array} \Leftrightarrow \left\{\begin{array} { l } 
-{ b = 2 a } \\
-{ a - 2 a = - 1 }
-\end{array} \Leftrightarrow \left\{\begin{array}{l}
-a=1 \\
-b=2
-\end{array} \Rightarrow a+b+c=6\right.\right.\right.
-$$</div>
+                    <div class="sol-body">$(P)$ đi qua điểm $A(0 ; 3) \Rightarrow c=3$.<br>$(P)$ có đỉnh<br>$$I(-1 ; 2) \Rightarrow\left\{\begin{array} { l } { \frac { - b } { 2 a } = - 1 } \\ { a - b + 3 = 2 } \end{array} \Leftrightarrow \left\{\begin{array} { l } { b = 2 a } \\ { a - 2 a = - 1 } \end{array} \Leftrightarrow \left\{\begin{array}{l} a=1 \\ b=2 \end{array} \Rightarrow a+b+c=6\right.\right.\right.$$</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1268,7 +1240,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle y=\frac{1}{2} x^{2}+2 x+6$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$y=x^{2}+2 x+6$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$y=x^{2}+6 x+6$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$y=x^{2}+x+4$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Ta có: $\displaystyle -\frac{b}{2 a}=-2 \Rightarrow b=4 a \quad$.(1)<br><br>Mặt khác : Vì $A, I \in(P) \Leftrightarrow\left\{\begin{array}{l}4=a \cdot(-2)^{2}+b \cdot(-2)+c \\ 6=a \cdot(0)^{2}+b \cdot(0)+c\end{array} \Rightarrow\left\{\begin{array}{l}4 \cdot a-2 b=-2 \\ c=6\end{array}\right.\right.$<br><br>Kết hợp (1),(2) ta có : $\displaystyle \left\{\begin{array}{l}a=\frac{1}{2} \\ b=2 \\ c=6 \\ \quad \text {. Vậy }\end{array}(P): y=\frac{1}{2} x^{2}+2 x+6\right.$.</div>
+                    <div class="sol-body">Ta có: $\displaystyle -\frac{b}{2 a}=-2 \Rightarrow b=4 a \quad$.(1)<br>Mặt khác : Vì $A, I \in(P) \Leftrightarrow\left\{\begin{array}{l}4=a \cdot(-2)^{2}+b \cdot(-2)+c \\ 6=a \cdot(0)^{2}+b \cdot(0)+c\end{array} \Rightarrow\left\{\begin{array}{l}4 \cdot a-2 b=-2 \\ c=6\end{array}\right.\right.$<br>Kết hợp (1),(2) ta có : $\displaystyle \left\{\begin{array}{l}a=\frac{1}{2} \\ b=2 \\ c=6 \\ \quad \text {. Vậy }\end{array}(P): y=\frac{1}{2} x^{2}+2 x+6\right.$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1291,7 +1263,7 @@ $$</div>
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 28</div>
                 <div class="q-content">Gọi $A(a ; b)$ và $B(c ; d)$ là tọa độ giao điểm của $(P): y=2 x-x^{2}$ và $\Delta: y=3 x-6$. Giá trị của $b+d$ bằng.</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">7 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">-7 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">15 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-15 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">7</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">-7</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">15</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-15</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">Phương trình hoành độ giao điểm: $2 x-x^{2}=3 x-6 \Leftrightarrow x^{2}+x-6=0 \Leftrightarrow\left[\begin{array}{l}x=2 \Rightarrow y=0 \\ x=-3 \Rightarrow y=-15\end{array}\right.$<br>$b+d=-15$</div>
@@ -1316,11 +1288,11 @@ $$</div>
             <div class="slide" data-i="30" id="slide-30">
             <div class="question-card" data-correct="D" data-level="kg">
                 <div class="q-number">Câu 30</div>
-                <div class="q-content">Hàm số $y=x^{2}+2 x-1$ có đồ thị như hình bên. Tìm các giá trị $m$ để phương trình $x^{2}+2 x+m=0$ vô nghiệm.<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-17.jpg?height=374&width=308&top_left_y=1246&top_left_x=898" alt="Math Image"></div></div>
+                <div class="q-content">Hàm số $y=x^{2}+2 x-1$ có đồ thị như hình bên. Tìm các giá trị $m$ để phương trình $x^{2}+2 x+m=0$ vô nghiệm.<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/52bcc7ed-d759-40c4-8a1b-eed60fd3b3c8-17.jpg?height=374&width=308&top_left_y=1246&top_left_x=898" alt="Math Image"></div></div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m&lt;-2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m&lt;-1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m&lt;1$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m&gt;1$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">$x^{2}+2 x+m=0 \Leftrightarrow x^{2}+2 x-1=-m-1 \quad\left({ }^{*}\right)$<br>Số nghiệm của phương trình ${ }^{(*)}$ chính là số giao điểm của parabol $y=x^{2}+2 x-1$ và đường thẳng $y=-m-1$.<br><br>Ycbt $\Rightarrow m&gt;1$.</div>
+                    <div class="sol-body">$x^{2}+2 x+m=0 \Leftrightarrow x^{2}+2 x-1=-m-1 \quad\left({ }^{*}\right)$<br>Số nghiệm của phương trình ${ }^{(*)}$ chính là số giao điểm của parabol $y=x^{2}+2 x-1$ và đường thẳng $y=-m-1$.<br>Ycbt $\Rightarrow m&gt;1$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1329,9 +1301,7 @@ $$</div>
             <div class="slide" data-i="31" id="slide-31">
             <div class="question-card" data-correct="A" data-level="tb">
                 <div class="q-number">Câu 31</div>
-                <div class="q-content">Cho hàm số $f(x)=x^{2}+2 x+m$. Với giá trị nào của tham số $m$ thì<br><br>$$
-f(x) \geq 0, \forall x \in \mathbb{R}
-$$</div>
+                <div class="q-content">Cho hàm số $f(x)=x^{2}+2 x+m$. Với giá trị nào của tham số $m$ thì<br>$$f(x) \geq 0, \forall x \in \mathbb{R}$$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m \geq 1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m&gt;1$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m&gt;0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m&lt;2$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
@@ -1344,9 +1314,7 @@ $$</div>
             <div class="slide" data-i="32" id="slide-32">
             <div class="question-card" data-correct="D" data-level="tb">
                 <div class="q-number">Câu 32</div>
-                <div class="q-content">Tìm tất cả các giá trị của tham số $m$ để bất phương trình<br><br>$$
-x^{2}-(m+2) x+8 m+1 \leq 0 \text { vô nghiệm. }
-$$</div>
+                <div class="q-content">Tìm tất cả các giá trị của tham số $m$ để bất phương trình<br>$$x^{2}-(m+2) x+8 m+1 \leq 0 \text { vô nghiệm. }$$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m \in[0 ; 28]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m \in(-\infty ; 0) \cup(28 ;+\infty)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m \in(-\infty ; 0] \cup[28 ;+\infty)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m \in(0 ; 28)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
@@ -1363,7 +1331,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m&lt;3$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m \geq 3$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m \leq-3$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m \leq 3$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Yêu cầu bài toán $\Leftrightarrow f(x) \geq 0, \forall x \in \mathbb{R} \Leftrightarrow x^{2}+2(m-1) x+m^{2}-3 m+4 \geq 0, \forall x \in \mathbb{R}$<br>$\Leftrightarrow \Delta^{\prime}=(m-1)^{2}-\left(m^{2}-3 m+4\right) \leq 0$<br>$\Leftrightarrow m-3 \leq 0$<br>$\Leftrightarrow m \leq 3$.<br><br>Vậy $m \leq 3$ thỏa mãn yêu cầu bài toán.</div>
+                    <div class="sol-body">Yêu cầu bài toán $\Leftrightarrow f(x) \geq 0, \forall x \in \mathbb{R} \Leftrightarrow x^{2}+2(m-1) x+m^{2}-3 m+4 \geq 0, \forall x \in \mathbb{R}$<br>$\Leftrightarrow \Delta^{\prime}=(m-1)^{2}-\left(m^{2}-3 m+4\right) \leq 0$<br>$\Leftrightarrow m-3 \leq 0$<br>$\Leftrightarrow m \leq 3$.<br>Vậy $m \leq 3$ thỏa mãn yêu cầu bài toán.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">D</span></div>
                 </div>
             </div>
@@ -1376,15 +1344,7 @@ $$</div>
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$m \in[2 ; 6]$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$m \in(-3 ; 9)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$m \in(-\infty ; 2) \cup(5 ;+\infty)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$m \in(-9 ; 3)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Ta có :<br><br>$$
-f(x)&gt;0, \forall x \in \mathbb{R} \Leftrightarrow\left\{\begin{array} { l } 
-{ a &gt; 0 } \\
-{ \Delta &lt; 0 }
-\end{array} \Leftrightarrow \left\{\begin{array}{l}
-1&gt;0 \\
-(m+1)^{2}-4(2 m+7)&lt;0
-\end{array}\right.\right.
-$$<br><br>$\Leftrightarrow m^{2}-6 m-27&lt;0 \Leftrightarrow-3&lt;m&lt;9$.</div>
+                    <div class="sol-body">Ta có :<br>$$f(x)&gt;0, \forall x \in \mathbb{R} \Leftrightarrow\left\{\begin{array} { l } { a &gt; 0 } \\ { \Delta &lt; 0 } \end{array} \Leftrightarrow \left\{\begin{array}{l} 1&gt;0 \\ (m+1)^{2}-4(2 m+7)&lt;0 \end{array}\right.\right.$$<br>$\Leftrightarrow m^{2}-6 m-27&lt;0 \Leftrightarrow-3&lt;m&lt;9$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -1407,7 +1367,7 @@ $$<br><br>$\Leftrightarrow m^{2}-6 m-27&lt;0 \Leftrightarrow-3&lt;m&lt;9$.</div>
             <div class="question-card" data-correct="A" data-level="kg">
                 <div class="q-number">Câu 36</div>
                 <div class="q-content">Tổng các nghiệm của phương trình $\sqrt{x^{3}+x^{2}+6 x+28}=x+5$ bằng:</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-1 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">1</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">2</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-1</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
                     <div class="sol-body">$\sqrt{x^{3}+x^{2}+6 x+28}=x+5 \Leftrightarrow\left\{\begin{array}{l}x+5 \geq 0 \\ x^{3}+x^{2}+6 x+28=(x+5)^{2}\end{array} \Leftrightarrow\left\{\begin{array}{l}x \geq-5 \\ x^{3}-4 x+3=0\end{array}\right.\right.$<br>$\displaystyle \Leftrightarrow\left\{\begin{array}{l}x \geq-5 \\ {\left[\begin{array}{l}x=1 \\ x=\frac{-1 \pm \sqrt{13}}{2}\end{array}\right.}\end{array} \Rightarrow\left[\begin{array}{l}x=1 \\ x=\frac{-1 \pm \sqrt{13}}{2}\end{array}\right.\right.$<br>Tổng các nghiệm là: 0 .</div>
@@ -1446,18 +1406,10 @@ $$<br><br>$\Leftrightarrow m^{2}-6 m-27&lt;0 \Leftrightarrow-3&lt;m&lt;9$.</div>
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 39</div>
                 <div class="q-content">Số nghiệm của phương trình $\sqrt{3 x+1}-\sqrt{2-x}=1$ là</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">0 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">3</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">0</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">2</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">- Điều kiện:<br><br>$$
-\left\{\begin{array} { c } 
-{ 3 x + 1 \geq 0 } \\
-{ 2 - x \geq 0 }
-\end{array} \Leftrightarrow \left\{\begin{array}{c}
-x \geq-\frac{1}{3} \\
-x \leq 2
-\end{array} \Leftrightarrow-\frac{1}{3} \leq x \leq 2\right.\right.
-$$<br><br>- PT $\Leftrightarrow \sqrt{3 x+1}=1+\sqrt{2-x} \Leftrightarrow[\sqrt{3 x+1}]^{2}=[1+\sqrt{2-x}]^{2} \Leftrightarrow 3 x+1=1+2 \sqrt{2-x}+2-x$<br>$\displaystyle \Leftrightarrow 2 \sqrt{2-x}=4 x-2 \Leftrightarrow \sqrt{2-x}=2 x-1 \Leftrightarrow\left\{\begin{array}{l}2 x-1 \geq 0 \\ 2-x=(2 x-1)^{2}\end{array} \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ 2-x=4 x^{2}-4 x+1\end{array}\right.\right.$<br>$\displaystyle \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ 4 x^{2}-3 x-1=0\end{array}\right. \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ {\left[\begin{array}{l}x=1 \\ x=-\frac{1}{4}\end{array} \Leftrightarrow x=1 \text { (thỏa mãn điều kiện). }\right.}\end{array}\right.$<br>Vậy phương trình đã cho có một nghiệm $x=1$.</div>
+                    <div class="sol-body">- Điều kiện:<br>$$\left\{\begin{array} { c } { 3 x + 1 \geq 0 } \\ { 2 - x \geq 0 } \end{array} \Leftrightarrow \left\{\begin{array}{c} x \geq-\frac{1}{3} \\ x \leq 2 \end{array} \Leftrightarrow-\frac{1}{3} \leq x \leq 2\right.\right.$$<br>- PT $\Leftrightarrow \sqrt{3 x+1}=1+\sqrt{2-x} \Leftrightarrow[\sqrt{3 x+1}]^{2}=[1+\sqrt{2-x}]^{2} \Leftrightarrow 3 x+1=1+2 \sqrt{2-x}+2-x$<br>$\displaystyle \Leftrightarrow 2 \sqrt{2-x}=4 x-2 \Leftrightarrow \sqrt{2-x}=2 x-1 \Leftrightarrow\left\{\begin{array}{l}2 x-1 \geq 0 \\ 2-x=(2 x-1)^{2}\end{array} \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ 2-x=4 x^{2}-4 x+1\end{array}\right.\right.$<br>$\displaystyle \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ 4 x^{2}-3 x-1=0\end{array}\right. \Leftrightarrow\left\{\begin{array}{l}x \geq \frac{1}{2} \\ {\left[\begin{array}{l}x=1 \\ x=-\frac{1}{4}\end{array} \Leftrightarrow x=1 \text { (thỏa mãn điều kiện). }\right.}\end{array}\right.$<br>Vậy phương trình đã cho có một nghiệm $x=1$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1467,20 +1419,10 @@ $$<br><br>- PT $\Leftrightarrow \sqrt{3 x+1}=1+\sqrt{2-x} \Leftrightarrow[\sqrt{
             <div class="question-card" data-correct="C" data-level="kg">
                 <div class="q-number">Câu 40</div>
                 <div class="q-content">Số nghiệm nguyên của phương trình sau $\sqrt{x+3}-\sqrt{2 x-1}=1$ là:</div>
-            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0 </div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2 </div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1 </div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">3 </div></div></div>
+            <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">0</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">2</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">1</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">3</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">$\sqrt{x+3}-\sqrt{2 x-1}=1$<br>Điều kiện $\displaystyle \left\{\begin{array}{l}x+3 \geq 0 \\ 2 x-1 \geq 0\end{array} \Leftrightarrow x \geq \frac{1}{2}\right.$.<br>Khi đó phương trình $\Leftrightarrow \sqrt{x+3}=1+\sqrt{2 x-1}$<br><br>$$
-\begin{aligned}
-& \Leftrightarrow x+3=1+2 \sqrt{2 x-1}+2 x-1 \Leftrightarrow 2 \sqrt{2 x-1}=-x+3
-\end{aligned} \Leftrightarrow\left\{\begin{array}{l}
--x+3 \geq 0 \\
-4(2 x-1)=(-x+3)^{2}
-\end{array}\right. \Leftrightarrow\left\{\begin{array}{l}
-x \leq 3 \\
-x^{2}-14 x+13=0 \Leftrightarrow x=1
-\end{array}\right.
-$$<br><br>Vậy số nghiệm nguyên của phương trình là 1 .</div>
+                    <div class="sol-body">$\sqrt{x+3}-\sqrt{2 x-1}=1$<br>Điều kiện $\displaystyle \left\{\begin{array}{l}x+3 \geq 0 \\ 2 x-1 \geq 0\end{array} \Leftrightarrow x \geq \frac{1}{2}\right.$.<br>Khi đó phương trình $\Leftrightarrow \sqrt{x+3}=1+\sqrt{2 x-1}$<br>$$\begin{aligned} & \Leftrightarrow x+3=1+2 \sqrt{2 x-1}+2 x-1 \Leftrightarrow 2 \sqrt{2 x-1}=-x+3 \end{aligned} \Leftrightarrow\left\{\begin{array}{l} -x+3 \geq 0 \\ 4(2 x-1)=(-x+3)^{2} \end{array}\right. \Leftrightarrow\left\{\begin{array}{l} x \leq 3 \\ x^{2}-14 x+13=0 \Leftrightarrow x=1 \end{array}\right.$$<br>Vậy số nghiệm nguyên của phương trình là 1 .</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1903,8 +1845,7 @@ $$<br><br>Vậy số nghiệm nguyên của phương trình là 1 .</div>
     /* Mobile/desktop layout */
     function applyMobileLayout() {
         const allSlides = document.querySelectorAll('.slide');
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'auto';
+        document.body.style.overflow = 'auto';
         currentSlides.forEach(s => {
             s.style.position = 'relative'; s.style.opacity = '1'; s.style.visibility = 'visible';
             s.style.pointerEvents = 'all'; s.style.height = 'auto'; s.style.minHeight = 'auto';
@@ -1918,8 +1859,7 @@ $$<br><br>Vậy số nghiệm nguyên của phương trình là 1 .</div>
     }
     function applyDesktopLayout() {
         const S = document.querySelectorAll('.slide');
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'hidden';
+        document.body.style.overflow = 'hidden';
         S.forEach(s => {
             s.style.position = ''; s.style.opacity = ''; s.style.visibility = '';
             s.style.pointerEvents = ''; s.style.height = ''; s.style.minHeight = '';

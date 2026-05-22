@@ -135,8 +135,8 @@
             font-size: 19px;
             font-weight: 700;
             color: #003B99;
-            line-height: 1.6;
-            margin-bottom: 10px;
+            line-height: 2.15; /* Tăng line-height */
+            margin-bottom: 12px;
             padding: 0 4px;
             text-align: justify;
         }
@@ -171,6 +171,7 @@
             
             vertical-align: middle;
             -webkit-overflow-scrolling: touch;
+            padding: 6px 0; /* Tăng padding dọc cho công thức inline để tránh đè chữ */
         }
         .katex-display {
             overflow-x: auto;
@@ -182,6 +183,7 @@
         .q-content, .sol-body, .opt-text {
             word-wrap: break-word;
             overflow-wrap: break-word;
+            line-height: 2.15; /* Tăng giãn dòng cho câu hỏi, lời giải và tùy chọn đáp án */
         }
 
         .option {
@@ -257,13 +259,13 @@
 
         .solution {
             display: none;
-            margin-top: 16px;
-            padding: 18px 20px;
+            margin-top: 40px; /* Tăng khoảng cách từ 28px lên 40px để tránh bị sát đáp án */
+            padding: 20px 24px;
             background: #f8fafc;
             border-left: 4px solid var(--primary-blue);
             border-radius: 4px 12px 12px 4px;
-            font-size: 15px;
-            line-height: 1.7;
+            font-size: 15.5px;
+            line-height: 1.85;
             color: #475569;
             animation: fadeIn 0.3s ease;
         }

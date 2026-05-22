@@ -15,10 +15,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
         :root {
             --primary-blue: #0040BE;
             --dark-blue: #003B99;
@@ -58,7 +54,6 @@
             align-items: flex-start; /* Fix lỗi cắt content khi dùng flex center */
             justify-content: center;
             overflow-y: auto; /* Cho cuộn ở cấp độ slide */
-            overflow-x: hidden !important;
             padding: 40px 0;
             opacity: 0;
             visibility: hidden;
@@ -140,8 +135,8 @@
             font-size: 19px;
             font-weight: 700;
             color: #003B99;
-            line-height: 1.6;
-            margin-bottom: 10px;
+            line-height: 2.15; /* Tăng line-height */
+            margin-bottom: 12px;
             padding: 0 4px;
             text-align: justify;
         }
@@ -151,20 +146,11 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 8px;
             margin-top: 10px;
-            overflow-x: hidden;
-        
-            min-width: 0;
             padding: 4px 2px;
-        
         }
 
-        @media (max-width: 768px) {
-            .options-grid { grid-template-columns: 1fr; 
-            min-width: 0;
-            padding: 4px 2px;
-            overflow-x: hidden;
-        
-        }
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
             .question-card { 
                 height: auto !important; 
                 max-height: none !important; /* Xóa bỏ giới hạn để không bị tràn lời giải */
@@ -177,7 +163,7 @@
         }
 
         /* Quy tắc: Công thức toán phải đi cùng nhau, không được bẻ giữa chừng */
-                .katex {
+        .katex {
             display: inline-block;
             white-space: nowrap;
             max-width: 100%;
@@ -185,24 +171,19 @@
             
             vertical-align: middle;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
+            padding: 6px 0; /* Tăng padding dọc cho công thức inline để tránh đè chữ */
         }
-        .katex::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
-        
         .katex-display {
             overflow-x: auto;
             overflow-y: hidden;
             max-width: 100%;
             padding: 8px 0;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
         }
-        .katex-display::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+        .q-content, .sol-body, .opt-text {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 2.15; /* Tăng giãn dòng cho câu hỏi, lời giải và tùy chọn đáp án */
         }
 
         .option {
@@ -218,8 +199,6 @@
             cursor: pointer;
             position: relative;
             text-align: left;
-            min-width: 0;
-            width: 100%;
         }
 
         .option:hover:not(.answered) {
@@ -266,14 +245,7 @@
         .option.answered { cursor: default; }
         .option.correct, .option.incorrect { padding-right: 50px; }
 
-                .opt-text {
-            flex: 1;
-            min-width: 0;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-.opt-label {
+        .opt-label {
             color: var(--primary-blue);
             font-size: 17px;
             font-weight: 800;
@@ -287,17 +259,15 @@
 
         .solution {
             display: none;
-            margin-top: 16px;
-            padding: 18px 20px;
+            margin-top: 40px; /* Tăng khoảng cách từ 28px lên 40px để tránh bị sát đáp án */
+            padding: 20px 24px;
             background: #f8fafc;
             border-left: 4px solid var(--primary-blue);
             border-radius: 4px 12px 12px 4px;
-            font-size: 15px;
-            line-height: 1.7;
+            font-size: 15.5px;
+            line-height: 1.85;
             color: #475569;
             animation: fadeIn 0.3s ease;
-            min-width: 0;
-            width: 100%;
         }
 
         .solution.show { display: block; }
@@ -691,82 +661,117 @@
         margin: 15px auto 0; border-radius: 2px;
     }
 
+    /* ── Theory Heading System (3 cấp) ── */
     .theory-h2 {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 18px;
-        color: var(--primary-blue, #2563eb); margin: 32px 0 16px;
-        display: flex; align-items: center; gap: 12px;
-        text-transform: uppercase; letter-spacing: 0.5px;
+        font-family: 'Unbounded'; font-weight: 800; font-size: 20px;
+        color: var(--dark-blue, #003b99); margin: 40px 0 8px;
+        letter-spacing: 0.3px; line-height: 1.4;
     }
 
-    .theory-h2::before {
-        content: ""; width: 8px; height: 8px;
-        background: var(--orange, #FF7800); border-radius: 2px;
-        transform: rotate(45deg);
+    .theory-h2::before { display: none; }
+
+    .theory-h3 {
+        font-family: 'Manrope'; font-weight: 700; font-size: 17px;
+        color: #334155; margin: 28px 0 12px;
+        line-height: 1.5;
     }
 
+    /* ── Theory Blocks (3 loại card pastel) ── */
+    .theory-block {
+        padding: 20px 22px; border-radius: 16px; margin: 18px 0;
+    }
+    .theory-block-title {
+        font-family: 'Manrope'; font-weight: 800; font-size: 14px;
+        margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .theory-block .theory-text, .theory-block .theory-item {
+        margin-bottom: 8px;
+    }
+
+    /* Lý thuyết tổng — Xanh lá cây pastel */
+    .theory-block.summary {
+        background: #f0fdf4; /* emerald-50 pastel */
+        border: 1px solid #dcfce7;
+    }
+    .theory-block.summary .theory-block-title { color: #16a34a; }
+    .theory-block.summary .theory-bullet { background: #22c55e; }
+    .theory-block.summary .theory-text { color: #14532d; }
+
+    /* Phương pháp giải — Xanh dương pastel */
+    .theory-block.method {
+        background: #eff6ff;
+    }
+    .theory-block.method .theory-block-title { color: #2563eb; }
+    .theory-block.method .theory-bullet { background: #3b82f6; }
+
+    /* Lưu ý — Đỏ/hồng pastel */
+    .theory-block.warning {
+        background: #fef2f2;
+    }
+    .theory-block.warning .theory-block-title { color: #dc2626; }
+    .theory-block.warning .theory-bullet { background: #ef4444; }
+    .theory-block.warning .theory-text { color: #7f1d1d; }
+
+    /* Mẹo — Vàng/amber pastel */
+    .theory-block.tip {
+        background: #fffbeb;
+    }
+    .theory-block.tip .theory-block-title { color: #d97706; }
+    .theory-block.tip .theory-bullet { background: #f59e0b; }
+    .theory-block.tip .theory-text { color: #92400e; }
+
+    /* ── Divider giữa các Dạng ── */
+    .theory-divider {
+        border: none; border-top: 1px solid #e2e8f0;
+        margin: 36px 0;
+    }
+
+    /* ── Theory Items & Bullets ── */
     .theory-item {
         display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
     }
-
     .theory-bullet {
-        width: 6px; height: 6px; background: var(--orange, #FF7800);
+        width: 6px; height: 6px; background: #94a3b8;
         border-radius: 50%; margin-top: 10px; flex-shrink: 0;
     }
 
+    /* ── Legacy classes (giữ tương thích) ── */
     .theory-box {
         padding: 20px; border-radius: 16px; margin: 24px 0;
-        background: #f8fafc; border-left: 4px solid var(--primary-blue, #2563eb);
+        background: #f8fafc;
     }
-
     .theory-box-title {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 12px;
+        font-family: 'Manrope'; font-weight: 800; font-size: 12px;
         margin-bottom: 12px; color: var(--primary-blue, #2563eb);
     }
-
     .theory-note {
         padding: 20px 24px; border-radius: 16px; margin: 24px 0;
-        background: #fffbeb; border: 2px solid #fde68a;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+        background: #fffbeb;
     }
-    
     .theory-note-title {
-        font-family: 'Unbounded'; font-weight: 800; font-size: 14px;
+        font-family: 'Manrope'; font-weight: 800; font-size: 14px;
         color: #d97706; margin-bottom: 12px;
-        display: flex; align-items: center; gap: 8px;
         text-transform: uppercase; letter-spacing: 0.5px;
     }
-    
-    .theory-note-title::before {
-        content: "💡"; font-size: 18px;
-    }
-    
-    .theory-note .theory-text, .theory-note .theory-item {
-        color: #92400e; margin-bottom: 10px;
-    }
-    
-    .theory-note .theory-bullet {
-        background: #d97706;
-    }
+    .theory-note .theory-text, .theory-note .theory-item { color: #92400e; margin-bottom: 10px; }
+    .theory-note .theory-bullet { background: #d97706; }
 
+    /* ── Theory Table ── */
     .theory-table {
         width: 100%; border-collapse: separate; border-spacing: 0;
         margin: 24px 0; border-radius: 12px; overflow: hidden;
         border: 1px solid var(--border, #e2e8f0);
         box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-
     .theory-table th {
         background: #f8fafc; color: var(--text-main, #1e293b); font-weight: 800;
         padding: 16px; text-align: left; border-bottom: 2px solid var(--border, #e2e8f0);
     }
-
     .theory-table td {
-        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0);
-        background: #fff;
+        padding: 16px; border-bottom: 1px solid var(--border, #e2e8f0); background: #fff;
     }
-
     .theory-table tr:last-child td { border-bottom: none; }
-    
+
     .theory-text { font-size: 16px; line-height: 1.8; color: #334155; }
 
 
@@ -910,7 +915,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\min F=-3$ khi $x=1, y=-2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$\min F=0$ khi $x=0, y=0$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$\min F=-2$ khi $\displaystyle x=\frac{4}{3}, y=-\frac{2}{3}$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$\min F=8$ khi $x=-2, y=6$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Biểu diễn miền nghiệm của hệ bất phương trình trên hệ trục tọa độ như dưới đây:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-05.jpg?height=538&width=661&top_left_y=1537&top_left_x=836" alt="Math Image"></div><br><br>Giá trị nhỏ nhất của biểu thức $F=y-x$ đạt được tại một trong các đỉnh của tam giác $ABC$ là $A(-2 ; 6)$, $\displaystyle B\left(-\frac{1}{3} ; -\frac{7}{3}\right)$, $\displaystyle C\left(\frac{4}{3} ; -\frac{2}{3}\right)$.<br>Ta có: <br>* $F(A) = 6 - (-2) = 8$<br>* $\displaystyle F(B) = -\frac{7}{3} - \left(-\frac{1}{3}\right) = -2$<br>* $\displaystyle F(C) = -\frac{2}{3} - \frac{4}{3} = -2$<br><br>Vậy $\min F = -2$ khi $\displaystyle x=\frac{4}{3}, y=-\frac{2}{3}$ hoặc $\displaystyle x=-\frac{1}{3}, y=-\frac{7}{3}$. Đối chiếu các phương án ta chọn C.</div>
+                    <div class="sol-body">Biểu diễn miền nghiệm của hệ bất phương trình trên hệ trục tọa độ như dưới đây:<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-05.jpg?height=538&width=661&top_left_y=1537&top_left_x=836" alt="Math Image"></div><br>Giá trị nhỏ nhất của biểu thức $F=y-x$ đạt được tại một trong các đỉnh của tam giác $ABC$ là $A(-2 ; 6)$, $\displaystyle B\left(-\frac{1}{3} ; -\frac{7}{3}\right)$, $\displaystyle C\left(\frac{4}{3} ; -\frac{2}{3}\right)$.<br>Ta có:<br>* $F(A) = 6 - (-2) = 8$<br>* $\displaystyle F(B) = -\frac{7}{3} - \left(-\frac{1}{3}\right) = -2$<br>* $\displaystyle F(C) = -\frac{2}{3} - \frac{4}{3} = -2$<br>Vậy $\min F = -2$ khi $\displaystyle x=\frac{4}{3}, y=-\frac{2}{3}$ hoặc $\displaystyle x=-\frac{1}{3}, y=-\frac{7}{3}$. Đối chiếu các phương án ta chọn C.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -923,7 +928,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">-10</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">12</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">-8</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-6</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Biểu diễn miền nghiệm của hệ bất phương trình trên hệ trục tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-06.jpg?height=634&width=721&top_left_y=511&top_left_x=808" alt="Math Image"></div><br><br>Nhận thấy biểu thức $F(x; y) = x - 2y$ đạt giá trị nhỏ nhất tại một trong các đỉnh $A(7; 5)$, $B(0; 5)$, $C(0; 2)$, $D(2; 0)$.<br>Ta tính giá trị tại các đỉnh:<br>* $F(A) = 7 - 2 \cdot 5 = -3$<br>* $F(B) = 0 - 2 \cdot 5 = -10$<br>* $F(C) = 0 - 2 \cdot 2 = -4$<br>* $F(D) = 2 - 2 \cdot 0 = 2$<br><br>Vậy $\min F = -10$ khi $x=0, y=5$.</div>
+                    <div class="sol-body">Biểu diễn miền nghiệm của hệ bất phương trình trên hệ trục tọa độ:<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-06.jpg?height=634&width=721&top_left_y=511&top_left_x=808" alt="Math Image"></div><br>Nhận thấy biểu thức $F(x; y) = x - 2y$ đạt giá trị nhỏ nhất tại một trong các đỉnh $A(7; 5)$, $B(0; 5)$, $C(0; 2)$, $D(2; 0)$.<br>Ta tính giá trị tại các đỉnh:<br>* $F(A) = 7 - 2 \cdot 5 = -3$<br>* $F(B) = 0 - 2 \cdot 5 = -10$<br>* $F(C) = 0 - 2 \cdot 2 = -4$<br>* $F(D) = 2 - 2 \cdot 0 = 2$<br>Vậy $\min F = -10$ khi $x=0, y=5$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -936,7 +941,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$(4 ; 1)$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$(3 ; 1)$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$(2 ; 1)$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$(1 ; 1)$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Biểu diễn miền nghiệm của hệ bất phương trình trên hệ trục tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-06.jpg?height=556&width=620&top_left_y=2177&top_left_x=858" alt="Math Image"></div><br><br>Nhận thấy biểu thức $F=y-x$ đạt giá trị nhỏ nhất tại một trong các đỉnh $A(1; 0)$, $B(2; 0)$, $C(4; 1)$ hoặc đỉnh giao điểm khác.<br>Ta xét điểm $C(4 ; 1)$ thuộc miền nghiệm.<br>Tại $C(4; 1)$, ta có $F(C) = 1 - 4 = -3$.<br>Đây là điểm đạt giá trị nhỏ nhất của biểu thức $F$. Vậy toạ độ điểm $S$ là $(4; 1)$.</div>
+                    <div class="sol-body">Biểu diễn miền nghiệm của hệ bất phương trình trên hệ trục tọa độ:<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-06.jpg?height=556&width=620&top_left_y=2177&top_left_x=858" alt="Math Image"></div><br>Nhận thấy biểu thức $F=y-x$ đạt giá trị nhỏ nhất tại một trong các đỉnh $A(1; 0)$, $B(2; 0)$, $C(4; 1)$ hoặc đỉnh giao điểm khác.<br>Ta xét điểm $C(4 ; 1)$ thuộc miền nghiệm.<br>Tại $C(4; 1)$, ta có $F(C) = 1 - 4 = -3$.<br>Đây là điểm đạt giá trị nhỏ nhất của biểu thức $F$. Vậy toạ độ điểm $S$ là $(4; 1)$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -949,7 +954,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$\displaystyle a=\frac{25}{8}$ và $b=-2$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$a=2$ và $\displaystyle b=-\frac{11}{12}$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$a=3$ và $b=0$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$a=3$ và $\displaystyle b=\frac{-9}{8}$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Trước hết, ta vẽ ba đường thẳng giới hạn miền nghiệm:<br>* $d_1: 2x+3y-6=0$<br>* $d_2: x=0$<br>* $d_3: 2x-3y-1=0$<br><br>Miền nghiệm là hình tam giác $ABC$ (kể cả biên), với các đỉnh:<br>* $A(0 ; 2)$<br>* $\displaystyle B\left(\frac{7}{4} ; \frac{5}{6}\right)$<br>* $\displaystyle C\left(0 ; -\frac{1}{3}\right)$<br><br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-07.jpg?height=231&width=273&top_left_y=1247&top_left_x=776" alt="Math Image"></div><br><br>Tính giá trị của $L = y-x$ tại các đỉnh:<br>* $L(A) = 2 - 0 = 2$<br>* $\displaystyle L(B) = \frac{5}{6} - \frac{7}{4} = -\frac{11}{12}$<br>* $\displaystyle L(C) = -\frac{1}{3} - 0 = -\frac{1}{3}$<br><br>So sánh các giá trị trên, ta được giá trị lớn nhất $a = 2$ (tại $A$) và giá trị nhỏ nhất $\displaystyle b = -\frac{11}{12}$ (tại $B$).</div>
+                    <div class="sol-body">Trước hết, ta vẽ ba đường thẳng giới hạn miền nghiệm:<br>* $d_1: 2x+3y-6=0$<br>* $d_2: x=0$<br>* $d_3: 2x-3y-1=0$<br>Miền nghiệm là hình tam giác $ABC$ (kể cả biên), với các đỉnh:<br>* $A(0 ; 2)$<br>* $\displaystyle B\left(\frac{7}{4} ; \frac{5}{6}\right)$<br>* $\displaystyle C\left(0 ; -\frac{1}{3}\right)$<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-07.jpg?height=231&width=273&top_left_y=1247&top_left_x=776" alt="Math Image"></div><br>Tính giá trị của $L = y-x$ tại các đỉnh:<br>* $L(A) = 2 - 0 = 2$<br>* $\displaystyle L(B) = \frac{5}{6} - \frac{7}{4} = -\frac{11}{12}$<br>* $\displaystyle L(C) = -\frac{1}{3} - 0 = -\frac{1}{3}$<br>So sánh các giá trị trên, ta được giá trị lớn nhất $a = 2$ (tại $A$) và giá trị nhỏ nhất $\displaystyle b = -\frac{11}{12}$ (tại $B$).</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">B</span></div>
                 </div>
             </div>
@@ -962,7 +967,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">1</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">3</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">-1</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">-6</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Gọi $x, y$ lần lượt là số lít nước cam và nước táo mà đội A cần pha chế ($x \geq 0 ; y \geq 0$).<br>* Lượng đường sử dụng: $30x + 10y \leq 210$ (g).<br>* Lượng nước sử dụng: $x + y \leq 9$ (lít).<br>* Lượng hương liệu sử dụng: $x + 4y \leq 24$ (g).<br><br>Ta có hệ bất phương trình:<br>$$\left\{\begin{array}{l}30 x+10 y \leq 210 \\ x+y \leq 9 \\ x+4 y \leq 24 \\ x \geq 0 ; y \geq 0\end{array}\right.$$<br><br>Số điểm thưởng đạt được là $M(x, y) = 60x + 80y$. Ta cần tìm giá trị lớn nhất của $M(x, y)$ trên miền nghiệm của hệ bất phương trình.<br><br>Biểu diễn miền nghiệm của hệ trên mặt phẳng tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-08.jpg?height=655&width=990&top_left_y=1025&top_left_x=670" alt="Math Image"></div><br><br>Miền nghiệm thu được là ngũ giác $OEDAB$ với các đỉnh:<br>* $O(0; 0)$<br>* $E(0; 6)$<br>* $A(4; 5)$<br>* $B(6; 3)$<br>* $C(7; 0)$ (tương ứng điểm trên trục hoành)<br><br>Tính giá trị $M(x, y)$ tại các đỉnh:<br>* $M(O) = 0$<br>* $M(E) = 60 \cdot 0 + 80 \cdot 6 = 480$<br>* $M(A) = 60 \cdot 4 + 80 \cdot 5 = 640$<br>* $M(B) = 60 \cdot 6 + 80 \cdot 3 = 600$<br>* $M(C) = 60 \cdot 7 + 80 \cdot 0 = 420$<br><br>Như vậy, điểm thưởng cao nhất đạt được là 640 điểm khi $x = 4$ và $y = 5$. Do đó $a = 4, b = 5 \Rightarrow a - b = -1$.</div>
+                    <div class="sol-body">Gọi $x, y$ lần lượt là số lít nước cam và nước táo mà đội A cần pha chế ($x \geq 0 ; y \geq 0$).<br>* Lượng đường sử dụng: $30x + 10y \leq 210$ (g).<br>* Lượng nước sử dụng: $x + y \leq 9$ (lít).<br>* Lượng hương liệu sử dụng: $x + 4y \leq 24$ (g).<br>Ta có hệ bất phương trình:<br>$$\left\{\begin{array}{l}30 x+10 y \leq 210 \\ x+y \leq 9 \\ x+4 y \leq 24 \\ x \geq 0 ; y \geq 0\end{array}\right.$$<br>Số điểm thưởng đạt được là $M(x, y) = 60x + 80y$. Ta cần tìm giá trị lớn nhất của $M(x, y)$ trên miền nghiệm của hệ bất phương trình.<br>Biểu diễn miền nghiệm của hệ trên mặt phẳng tọa độ:<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-08.jpg?height=655&width=990&top_left_y=1025&top_left_x=670" alt="Math Image"></div><br>Miền nghiệm thu được là ngũ giác $OEDAB$ với các đỉnh:<br>* $O(0; 0)$<br>* $E(0; 6)$<br>* $A(4; 5)$<br>* $B(6; 3)$<br>* $C(7; 0)$ (tương ứng điểm trên trục hoành)<br>Tính giá trị $M(x, y)$ tại các đỉnh:<br>* $M(O) = 0$<br>* $M(E) = 60 \cdot 0 + 80 \cdot 6 = 480$<br>* $M(A) = 60 \cdot 4 + 80 \cdot 5 = 640$<br>* $M(B) = 60 \cdot 6 + 80 \cdot 3 = 600$<br>* $M(C) = 60 \cdot 7 + 80 \cdot 0 = 420$<br>Như vậy, điểm thưởng cao nhất đạt được là 640 điểm khi $x = 4$ và $y = 5$. Do đó $a = 4, b = 5 \Rightarrow a - b = -1$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -975,7 +980,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">4 xe A và 5 xe B</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">5 xe A và 6 xe B</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">5 xe A và 4 xe B</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">6 xe A và 4 xe B</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Gọi $x$ là số xe loại A ($0 \leq x \leq 10 ; x \in \mathbb{N}$), $y$ là số xe loại B ($0 \leq y \leq 9 ; y \in \mathbb{N}$).<br>* Chi phí thuê xe cần tối thiểu hóa là: $T = 4x + 3y$ (triệu đồng).<br>* Điều kiện về số người chở được: $20x + 10y \geq 140$.<br>* Điều kiện về khối lượng hàng chở được: $0,6x + 1,5y \geq 9$.<br><br>Ta có hệ bất phương trình:<br>$$\left\{\begin{array}{l}0 \leq x \leq 10 \\ 0 \leq y \leq 9 \\ 20 x+10 y \geq 140 \\ 0,6 x+1,5 y \geq 9\end{array}\right.$$<br><br>Biểu diễn miền nghiệm của hệ trên mặt phẳng tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-09.jpg?height=736&width=1023&top_left_y=900&top_left_x=657" alt="Math Image"></div><br><br>Miền nghiệm là miền tứ giác $ABCD$ kể cả biên với các đỉnh:<br>* $A(10 ; 2)$<br>* $B(10 ; 9)$<br>* $C(2,5 ; 9)$<br>* $D(5 ; 4)$<br><br>Tính chi phí $T$ tại các đỉnh:<br>* $T(A) = 4 \cdot 10 + 3 \cdot 2 = 46$<br>* $T(B) = 4 \cdot 10 + 3 \cdot 9 = 67$<br>* $T(C) = 4 \cdot 2,5 + 3 \cdot 9 = 37$<br>* $T(D) = 4 \cdot 5 + 3 \cdot 4 = 32$<br><br>Chi phí thấp nhất đạt được là $T_{\min} = 32$ triệu đồng khi thuê 5 xe loại A và 4 xe loại B.</div>
+                    <div class="sol-body">Gọi $x$ là số xe loại A ($0 \leq x \leq 10 ; x \in \mathbb{N}$), $y$ là số xe loại B ($0 \leq y \leq 9 ; y \in \mathbb{N}$).<br>* Chi phí thuê xe cần tối thiểu hóa là: $T = 4x + 3y$ (triệu đồng).<br>* Điều kiện về số người chở được: $20x + 10y \geq 140$.<br>* Điều kiện về khối lượng hàng chở được: $0,6x + 1,5y \geq 9$.<br>Ta có hệ bất phương trình:<br>$$\left\{\begin{array}{l}0 \leq x \leq 10 \\ 0 \leq y \leq 9 \\ 20 x+10 y \geq 140 \\ 0,6 x+1,5 y \geq 9\end{array}\right.$$<br>Biểu diễn miền nghiệm của hệ trên mặt phẳng tọa độ:<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-09.jpg?height=736&width=1023&top_left_y=900&top_left_x=657" alt="Math Image"></div><br>Miền nghiệm là miền tứ giác $ABCD$ kể cả biên với các đỉnh:<br>* $A(10 ; 2)$<br>* $B(10 ; 9)$<br>* $C(2,5 ; 9)$<br>* $D(5 ; 4)$<br>Tính chi phí $T$ tại các đỉnh:<br>* $T(A) = 4 \cdot 10 + 3 \cdot 2 = 46$<br>* $T(B) = 4 \cdot 10 + 3 \cdot 9 = 67$<br>* $T(C) = 4 \cdot 2,5 + 3 \cdot 9 = 37$<br>* $T(D) = 4 \cdot 5 + 3 \cdot 4 = 32$<br>Chi phí thấp nhất đạt được là $T_{\min} = 32$ triệu đồng khi thuê 5 xe loại A và 4 xe loại B.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -988,7 +993,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$x^2+y^2=1,3$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$x^2+y^2=2,6$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$x^2+y^2=1,09$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$x^2+y^2=0,58$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Ta có các điều kiện ràng buộc đối với lượng thịt bò $x$ (kg) và thịt lợn $y$ (kg):<br>* $0 \leq x \leq 1,6$<br>* $0 \leq y \leq 1,1$<br>* Lượng protein: $800x + 600y \geq 900 \Leftrightarrow 8x + 6y \geq 9$<br>* Lượng lipit: $200x + 400y \geq 400 \Leftrightarrow x + 2y \geq 2$<br><br>Ta được hệ bất phương trình:<br>$$\left\{\begin{array}{l}0 \leq x \leq 1,6 \\ 0 \leq y \leq 1,1 \\ 8 x+6 y \geq 9 \\ x+2 y \geq 2\end{array}\right.$$<br><br>Tổng số tiền chi tiêu là $T = 160x + 110y$ (nghìn đồng).<br><br>Biểu diễn miền nghiệm của hệ bất phương trình trên mặt phẳng tọa độ:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-10.jpg?height=510&width=563&top_left_y=1948&top_left_x=886" alt="Math Image"></div><br><br>Miền nghiệm là tứ giác $ABCD$ với tọa độ các đỉnh:<br>* $A(0,3 ; 1,1)$<br>* $B(1,6 ; 1,1)$<br>* $C(1,6 ; 0,2)$<br>* $D(0,6 ; 0,7)$ - giao điểm của $8x+6y=9$ và $x+2y=2$<br><br>Tính chi phí $T$ tại các đỉnh:<br>* $T(A) = 160 \cdot 0,3 + 110 \cdot 1,1 = 169$ (nghìn đồng)<br>* $T(B) = 160 \cdot 1,6 + 110 \cdot 1,1 = 377$ (nghìn đồng)<br>* $T(C) = 160 \cdot 1,6 + 110 \cdot 0,2 = 278$ (nghìn đồng)<br>* $T(D) = 160 \cdot 0,6 + 110 \cdot 0,7 = 173$ (nghìn đồng)<br><br>Chi phí nhỏ nhất đạt được khi $x = 0,3$ và $y = 1,1$.<br>Khi đó: $x^2 + y^2 = 0,3^2 + 1,1^2 = 0,09 + 1,21 = 1,3$.</div>
+                    <div class="sol-body">Ta có các điều kiện ràng buộc đối với lượng thịt bò $x$ (kg) và thịt lợn $y$ (kg):<br>* $0 \leq x \leq 1,6$<br>* $0 \leq y \leq 1,1$<br>* Lượng protein: $800x + 600y \geq 900 \Leftrightarrow 8x + 6y \geq 9$<br>* Lượng lipit: $200x + 400y \geq 400 \Leftrightarrow x + 2y \geq 2$<br>Ta được hệ bất phương trình:<br>$$\left\{\begin{array}{l}0 \leq x \leq 1,6 \\ 0 \leq y \leq 1,1 \\ 8 x+6 y \geq 9 \\ x+2 y \geq 2\end{array}\right.$$<br>Tổng số tiền chi tiêu là $T = 160x + 110y$ (nghìn đồng).<br>Biểu diễn miền nghiệm của hệ bất phương trình trên mặt phẳng tọa độ:<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-10.jpg?height=510&width=563&top_left_y=1948&top_left_x=886" alt="Math Image"></div><br>Miền nghiệm là tứ giác $ABCD$ với tọa độ các đỉnh:<br>* $A(0,3 ; 1,1)$<br>* $B(1,6 ; 1,1)$<br>* $C(1,6 ; 0,2)$<br>* $D(0,6 ; 0,7)$ - giao điểm của $8x+6y=9$ và $x+2y=2$<br>Tính chi phí $T$ tại các đỉnh:<br>* $T(A) = 160 \cdot 0,3 + 110 \cdot 1,1 = 169$ (nghìn đồng)<br>* $T(B) = 160 \cdot 1,6 + 110 \cdot 1,1 = 377$ (nghìn đồng)<br>* $T(C) = 160 \cdot 1,6 + 110 \cdot 0,2 = 278$ (nghìn đồng)<br>* $T(D) = 160 \cdot 0,6 + 110 \cdot 0,7 = 173$ (nghìn đồng)<br>Chi phí nhỏ nhất đạt được khi $x = 0,3$ và $y = 1,1$.<br>Khi đó: $x^2 + y^2 = 0,3^2 + 1,1^2 = 0,09 + 1,21 = 1,3$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1001,7 +1006,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">6</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">14</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">11</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">10</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Gọi $a$ là số trứng lành trong giỏ A, $N_A$ là tổng số trứng trong giỏ A.<br>Gọi $b$ là số trứng lành trong giỏ B, $N_B$ là tổng số trứng trong giỏ B.<br>* Ta có tổng số trứng là $N_A + N_B = 20$. Do $N_A &gt; N_B$ nên $N_A \geq 11$.<br>* Xác suất lấy ra từ mỗi giỏ 1 quả trứng lành là:<br>  $$P = \frac{a}{N_A} \cdot \frac{b}{N_B} = \frac{55}{84}$$<br>* Vì $\displaystyle \frac{a \cdot b}{N_A \cdot N_B} = \frac{55}{84}$, ta suy ra tích $N_A \cdot N_B$ phải là bội của 84.<br>* Đồng thời ta có: $\displaystyle N_A \cdot N_B \leq \left(\frac{N_A + N_B}{2}\right)^2 = 10^2 = 100$.<br>* Bội số duy nhất của 84 nhỏ hơn hoặc bằng 100 là chính nó: $N_A \cdot N_B = 84$.<br>* Từ hệ $\left\{\begin{array}{l}N_A + N_B = 20 \\ N_A \cdot N_B = 84\end{array}\right.$ với $N_A &gt; N_B$, ta tìm được $N_A = 14$ và $N_B = 6$.<br>* Khi đó: $\displaystyle \frac{a \cdot b}{14 \cdot 6} = \frac{55}{84} \Rightarrow a \cdot b = 55$.<br>* Vì $a \leq N_A = 14$ và $b \leq N_B = 6$, ước số của 55 thỏa mãn điều kiện chỉ có $a = 11, b = 5$.<br><br>Vậy số trứng lành trong giỏ A là 11 quả.</div>
+                    <div class="sol-body">Gọi $a$ là số trứng lành trong giỏ A, $N_A$ là tổng số trứng trong giỏ A.<br>Gọi $b$ là số trứng lành trong giỏ B, $N_B$ là tổng số trứng trong giỏ B.<br>* Ta có tổng số trứng là $N_A + N_B = 20$. Do $N_A &gt; N_B$ nên $N_A \geq 11$.<br>* Xác suất lấy ra từ mỗi giỏ 1 quả trứng lành là:<br>$$P = \frac{a}{N_A} \cdot \frac{b}{N_B} = \frac{55}{84}$$<br>* Vì $\displaystyle \frac{a \cdot b}{N_A \cdot N_B} = \frac{55}{84}$, ta suy ra tích $N_A \cdot N_B$ phải là bội của 84.<br>* Đồng thời ta có: $\displaystyle N_A \cdot N_B \leq \left(\frac{N_A + N_B}{2}\right)^2 = 10^2 = 100$.<br>* Bội số duy nhất của 84 nhỏ hơn hoặc bằng 100 là chính nó: $N_A \cdot N_B = 84$.<br>* Từ hệ $\left\{\begin{array}{l}N_A + N_B = 20 \\ N_A \cdot N_B = 84\end{array}\right.$ với $N_A &gt; N_B$, ta tìm được $N_A = 14$ và $N_B = 6$.<br>* Khi đó: $\displaystyle \frac{a \cdot b}{14 \cdot 6} = \frac{55}{84} \Rightarrow a \cdot b = 55$.<br>* Vì $a \leq N_A = 14$ và $b \leq N_B = 6$, ước số của 55 thỏa mãn điều kiện chỉ có $a = 11, b = 5$.<br>Vậy số trứng lành trong giỏ A là 11 quả.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">C</span></div>
                 </div>
             </div>
@@ -1014,7 +1019,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">32 triệu đồng</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">35 triệu đồng</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">14 triệu đồng</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">30 triệu đồng</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Gọi $x, y$ lần lượt là số sản phẩm loại $I$ và loại $II$ được sản xuất ra ($x, y \geq 0$).<br>* Tổng thời gian Chiến làm việc: $3x + 2y \leq 180$ (giờ).<br>* Tổng thời gian Bình làm việc: $x + 6y \leq 220$ (giờ).<br><br>Ta có hệ bất phương trình:<br>$$\left\{\begin{array}{l}3 x+2 y \leq 180 \\ x+6 y \leq 220 \\ x \geq 0 \\ y \geq 0\end{array}\right. (*)$$<br><br>Miền nghiệm của hệ bất phương trình (*) được biểu diễn trên hình vẽ dưới đây:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-12.jpg?height=414&width=748&top_left_y=50&top_left_x=794" alt="Math Image"></div><br><br>Tiền lãi thu được trong một tháng của xưởng là $T = 0,5x + 0,4y$ (triệu đồng).<br>Biểu thức $T$ sẽ đạt cực đại tại một trong các đỉnh của tứ giác:<br>* $O(0; 0)$<br>* $A(60 ; 0)$<br>* $B(40 ; 30)$ - giao điểm của $3x+2y=180$ và $x+6y=220$<br>* $\displaystyle C\left(0 ; \frac{110}{3}\right)$<br><br>Tính giá trị $T$ tại các đỉnh:<br>* $T(O) = 0$<br>* $T(A) = 0,5 \cdot 60 = 30$ (triệu đồng)<br>* $T(B) = 0,5 \cdot 40 + 0,4 \cdot 30 = 32$ (triệu đồng)<br>* $\displaystyle T(C) = 0,4 \cdot \frac{110}{3} \approx 14,67$ (triệu đồng)<br><br>Vậy tiền lãi lớn nhất trong một tháng của xưởng là 32 triệu đồng khi sản xuất 40 sản phẩm loại $I$ và 30 sản phẩm loại $II$.</div>
+                    <div class="sol-body">Gọi $x, y$ lần lượt là số sản phẩm loại $I$ và loại $II$ được sản xuất ra ($x, y \geq 0$).<br>* Tổng thời gian Chiến làm việc: $3x + 2y \leq 180$ (giờ).<br>* Tổng thời gian Bình làm việc: $x + 6y \leq 220$ (giờ).<br>Ta có hệ bất phương trình:<br>$$\left\{\begin{array}{l}3 x+2 y \leq 180 \\ x+6 y \leq 220 \\ x \geq 0 \\ y \geq 0\end{array}\right. (*)$$<br>Miền nghiệm của hệ bất phương trình (*) được biểu diễn trên hình vẽ dưới đây:<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-12.jpg?height=414&width=748&top_left_y=50&top_left_x=794" alt="Math Image"></div><br>Tiền lãi thu được trong một tháng của xưởng là $T = 0,5x + 0,4y$ (triệu đồng).<br>Biểu thức $T$ sẽ đạt cực đại tại một trong các đỉnh của tứ giác:<br>* $O(0; 0)$<br>* $A(60 ; 0)$<br>* $B(40 ; 30)$ - giao điểm của $3x+2y=180$ và $x+6y=220$<br>* $\displaystyle C\left(0 ; \frac{110}{3}\right)$<br>Tính giá trị $T$ tại các đỉnh:<br>* $T(O) = 0$<br>* $T(A) = 0,5 \cdot 60 = 30$ (triệu đồng)<br>* $T(B) = 0,5 \cdot 40 + 0,4 \cdot 30 = 32$ (triệu đồng)<br>* $\displaystyle T(C) = 0,4 \cdot \frac{110}{3} \approx 14,67$ (triệu đồng)<br>Vậy tiền lãi lớn nhất trong một tháng của xưởng là 32 triệu đồng khi sản xuất 40 sản phẩm loại $I$ và 30 sản phẩm loại $II$.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1027,7 +1032,7 @@
             <div class="options-grid"><div class="option" data-ans="A"><div class="opt-label">A.</div><div class="opt-text">$x=0,3$ và $y=1,1$</div></div><div class="option" data-ans="B"><div class="opt-label">B.</div><div class="opt-text">$x=0,3$ và $y=0,7$</div></div><div class="option" data-ans="C"><div class="opt-label">C.</div><div class="opt-text">$x=0,6$ và $y=0,7$</div></div><div class="option" data-ans="D"><div class="opt-label">D.</div><div class="opt-text">$x=1,6$ và $y=0,2$</div></div></div>
                 <div class="solution">
                     <div class="solution-title">Hướng dẫn giải</div>
-                    <div class="sol-body">Tương tự Câu 7, bài toán yêu cầu tìm cặp số $(x; y)$ để tổng số tiền họ phải trả là ít nhất mà vẫn đảm bảo lượng dinh dưỡng.<br>Hệ bất phương trình ràng buộc:<br>$$\left\{\begin{array}{l}0 \leq x \leq 1,6 \\ 0 \leq y \leq 1,1 \\ 8 x+6 y \geq 9 \\ x+2 y \geq 2\end{array}\right.$$<br><br>Hàm mục tiêu chi phí: $T = 160x + 110y$ (nghìn đồng).<br><br>Miền nghiệm của hệ bất phương trình được biểu diễn trên hình vẽ dưới đây:<br><div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-13.jpg?height=496&width=709&top_left_y=57&top_left_x=813" alt="Math Image"></div><br><br>Tọa độ các đỉnh của đa giác nghiệm:<br>* $A(1,6 ; 1,1)$<br>* $B(1,6 ; 0,2)$<br>* $C(0,6 ; 0,7)$<br>* $D(0,3 ; 1,1)$<br><br>So sánh giá trị chi phí $T$ tại các đỉnh:<br>* $T(A) = 377$ nghìn đồng<br>* $T(B) = 278$ nghìn đồng<br>* $T(C) = 173$ nghìn đồng<br>* $T(D) = 169$ nghìn đồng<br><br>Như vậy, giá trị nhỏ nhất của chi phí là 169 nghìn đồng khi mua $x = 0,3$ kg thịt bò và $y = 1,1$ kg thịt lợn.</div>
+                    <div class="sol-body">Tương tự Câu 7, bài toán yêu cầu tìm cặp số $(x; y)$ để tổng số tiền họ phải trả là ít nhất mà vẫn đảm bảo lượng dinh dưỡng.<br>Hệ bất phương trình ràng buộc:<br>$$\left\{\begin{array}{l}0 \leq x \leq 1,6 \\ 0 \leq y \leq 1,1 \\ 8 x+6 y \geq 9 \\ x+2 y \geq 2\end{array}\right.$$<br>Hàm mục tiêu chi phí: $T = 160x + 110y$ (nghìn đồng).<br>Miền nghiệm của hệ bất phương trình được biểu diễn trên hình vẽ dưới đây:<div class="img-wrap"><img src="https://cdn.mathpix.com/cropped/9cb78aa4-36e6-4b78-a5b1-f4de1c0013b3-13.jpg?height=496&width=709&top_left_y=57&top_left_x=813" alt="Math Image"></div><br>Tọa độ các đỉnh của đa giác nghiệm:<br>* $A(1,6 ; 1,1)$<br>* $B(1,6 ; 0,2)$<br>* $C(0,6 ; 0,7)$<br>* $D(0,3 ; 1,1)$<br>So sánh giá trị chi phí $T$ tại các đỉnh:<br>* $T(A) = 377$ nghìn đồng<br>* $T(B) = 278$ nghìn đồng<br>* $T(C) = 173$ nghìn đồng<br>* $T(D) = 169$ nghìn đồng<br>Như vậy, giá trị nhỏ nhất của chi phí là 169 nghìn đồng khi mua $x = 0,3$ kg thịt bò và $y = 1,1$ kg thịt lợn.</div>
                     <div class="sol-final">→ Chọn đáp án <span class="ans-circle">A</span></div>
                 </div>
             </div>
@@ -1475,8 +1480,7 @@
     /* Mobile/desktop layout */
     function applyMobileLayout() {
         const allSlides = document.querySelectorAll('.slide');
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'auto';
+        document.body.style.overflow = 'auto';
         currentSlides.forEach(s => {
             s.style.position = 'relative'; s.style.opacity = '1'; s.style.visibility = 'visible';
             s.style.pointerEvents = 'all'; s.style.height = 'auto'; s.style.minHeight = 'auto';
@@ -1490,8 +1494,7 @@
     }
     function applyDesktopLayout() {
         const S = document.querySelectorAll('.slide');
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'hidden';
+        document.body.style.overflow = 'hidden';
         S.forEach(s => {
             s.style.position = ''; s.style.opacity = ''; s.style.visibility = '';
             s.style.pointerEvents = ''; s.style.height = ''; s.style.minHeight = '';
